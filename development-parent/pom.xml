@@ -136,4 +136,11 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<modules>
+		<module>../development-framework</module>
+		<module>../development-orm</module>
+		<module>../development-search</module>
+	
+	</modules>
 </project>
