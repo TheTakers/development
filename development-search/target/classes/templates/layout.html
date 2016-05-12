@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout">
+<head lang="en">
+    <title th:text="development">development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/Semantic-UI/2.1.4/semantic.min.css}"/>
+    <style>
+    </style>
+</head>
+<body>
+<th:block layout:fragment="content"/>
+
+<script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+<script th:src="@{/webjars/Semantic-UI/2.1.4/semantic.min.js}"></script>
+<th:block layout:fragment="body-bottom"></th:block>
+</body>
+</html>

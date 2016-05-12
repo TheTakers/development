@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      layout:decorator="layout" ng-app="app">
+<body>
+
+<div layout:fragment="content" class="ui page grid">
+
+    <div class="sixteen wide column" ng-controller="NavCtrl">
+        <div class="ui secondary pointing menu">
+            <a class="item" href="#/">
+                <i class="home icon"></i> <span th:text="首页"></span>
+            </a>
+
+            <div class="ui dropdown item">
+                <i class="database icon"></i>
+                <span th:text="控制台"></span>
+                <i class="dropdown icon"></i>
+
+                <div class="menu">
+                    <a class="item" href="#/console/context">
+                        <i class="file text outline icon"></i>
+                        <span th:text="系统上下文"></span>
+                    </a>
+                    <a class="item" href="#/console/memory">
+                        <i class="file text outline icon"></i>
+                        <span th:text="内存监控"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="right menu">
+                <div class="ui dropdown item">
+                    <i class="user icon"></i>
+                    <span sec:authentication="name">user</span>
+                    <i class="dropdown icon"></i>
+
+                    <div class="menu">
+                        <a class="item" href="#/system/user"><i class="user icon"></i>
+                            <span th:text="个人资料"></span>
+                        </a>
+                        <a class="item logout"><i class="power icon"></i>
+                            <span th:text="退出"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="one column row">
+        <div class="column" ng-view=""></div>
+    </div>
+
+    <form id="logout" th:action="@{/logout}" method="post">
+    </form>
+
+</div>
+
+<th:block layout:fragment="body-bottom">
+    <script type="text/javascript">
+        $('.item.logout').on('click', function () {
+            $('#logout').submit();
+        });
+        $('.ui.dropdown').dropdown({action: 'hide'})
+    </script>
+    <script th:src="@{/webjars/angularjs/1.4.4/angular.min.js}"/>
+    <script th:src="@{/webjars/angularjs/1.4.4/angular-route.min.js}"/>
+    <script th:src="@{/webjars/angularjs/1.4.4/angular-resource.min.js}"/>
+    <script th:src="@{/static/js/app.js}"/>
+    <script th:src="@{/static/js/controller.js}"/>
+</th:block>
+</body>
+</html>

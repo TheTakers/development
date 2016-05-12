@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>error</title>
+</head>
+<body>
+<strong>error: <span th:text="${error.getMessage()}"></span><a class="popup" href="#" th:text="详情"></a></strong>
+
+<div id="dialog" title="error" style="display: none;">
+    <ul class="list-group">
+        <li class="list-group-item"><strong th:text="${error.getClass().getSimpleName()}"></strong>: <span th:text="${error.getLocalizedMessage()}"></span></li>
+        <li class="list-group-item" th:each="item : ${error.getStackTrace()}"><span th:text="${item}"></span></li>
+    </ul>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+        $(".popup").on("click", function (event) {
+            event.preventDefault();
+            $("#dialog").show();
+        });
+    });
+</script>
+</body>
+</html>
