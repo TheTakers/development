@@ -7,13 +7,13 @@
 <th:block layout:fragment="header">
  
 </th:block>
-<div layout:fragment="content" class="ui page grid">
+<div layout:fragment="content" class="ui page grid" ng-controller = "indexCtrl">
 
-    <div class="sixteen wide column" ng-controller="NavCtrl">
+    <div class="sixteen wide column">
     
         <div class="ui secondary pointing menu">
             
-            <a class="item" ng-repeat="item in nav" href="{{item.url}}">
+            <a class="item" ng-repeat="item in nav" href="{{item.url}}" ng-click="setNavId(item.id)">
                 <i class="{{item.icon}}"></i><span>{{item.name}}</span>
             </a>
 		
@@ -38,8 +38,8 @@
         </div>
     </div>
 	 
-    <div class="two column row" ng-controller="MenuCtrl">
-	    <div class="ui vertical menu" ng-if="flag">
+    <div class="two column row">
+	    <div class="ui vertical menu" ng-if="menu.length">
 	    	<div class="item" ng-if="menu.length" ng-repeat="item in menu">
 			 
 				<div class="header" ng-if="item.child.length">{{item.name}}</div>
