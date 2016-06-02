@@ -5,7 +5,9 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
         .when('/', {templateUrl: '/home'})
         .when('/system/user', {templateUrl: '/system/user'})
         .when('/console/context', {templateUrl: '/console/context', controller: 'ConsoleContextCtrl'})
-        .when('/console/memory', {templateUrl: '/console/memory', controller: 'MemoryContextCtrl'});
+        .when('/console/memory', {templateUrl: '/console/memory', controller: 'MemoryContextCtrl'})
+        .when('/search/sqlDefine', {templateUrl: '/search/sqlDefine', controller: 'sqlDefineContextCtrl'})
+        ;
 }]);
 
 //menu data repository
@@ -40,7 +42,7 @@ app.factory('menuRepository',function(){
 		                                                                {id:'',name:'菜单配置',icon:'block layout icon',url:'',pid:''}
 		                                                                ]},
 		                {id:'',name:'查询配置',icon:'',url:'',pid:'',child:[
-		                                                                {id:'',name:'SQL',icon:'unhide icon',url:'',pid:''},
+		                                                                {id:'',name:'SQL',icon:'unhide icon',url:'#/search/sqlDefine',pid:''},
 		                                                                {id:'',name:'SQL组',icon:'unordered list icon',url:'',pid:''},
 		                                                                {id:'',name:'数据源',icon:'database icon',url:'',pid:''}
 		                                                                ]},

@@ -18,7 +18,7 @@
 		<fastjson.ver>1.2.10</fastjson.ver>
 		<jackson.ver>2.6.5</jackson.ver>
 
-		<Semantic.UI.version>2.1.4</Semantic.UI.version>
+		<bootstrap.version>3.3.6</bootstrap.version>
 		<jquery.version>2.1.4</jquery.version>
 		<angularjs.version>1.4.4</angularjs.version>
 
@@ -42,16 +42,19 @@
 		<dependencies>
 
 			<!-- webjars -->
-			<dependency>
-				<groupId>org.webjars</groupId>
-				<artifactId>Semantic-UI</artifactId>
-				<version>${Semantic.UI.version}</version>
-			</dependency>
+			 
 			<dependency>
 				<groupId>org.webjars</groupId>
 				<artifactId>jquery</artifactId>
 				<version>${jquery.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.webjars</groupId>
+				<artifactId>bootstrap</artifactId>
+				<version>${bootstrap.version}</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>org.webjars</groupId>
 				<artifactId>angularjs</artifactId>

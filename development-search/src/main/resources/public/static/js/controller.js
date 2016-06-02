@@ -13,3 +13,6 @@ app.controller('MemoryContextCtrl', ['$scope', '$location', function ($scope, $l
         $scope.visible = true;
     }
 }]);
+app.controller('sqlDefineContextCtrl', ['$scope', function () {
+    $('.menu.item').tab();
+}]);
