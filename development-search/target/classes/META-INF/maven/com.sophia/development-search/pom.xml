@@ -5,7 +5,7 @@
 		<groupId>com.sophia</groupId>
 		<artifactId>development-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../development-parent</relativePath>  
+		<relativePath>../development-parent</relativePath>
 	</parent>
 	<artifactId>development-search</artifactId>
 
@@ -32,23 +32,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		
+
 		<dependency>
-				<groupId>org.webjars</groupId>
-				<artifactId>Semantic-UI</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.webjars</groupId>
-				<artifactId>jquery</artifactId>
-			</dependency>
-			<dependency>
-				<groupId>org.webjars</groupId>
-				<artifactId>angularjs</artifactId>
-			</dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angularjs</artifactId>
+		</dependency>
 	</dependencies>
 </project>

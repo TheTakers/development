@@ -2,11 +2,11 @@ com\sophia\scheduled\ScheduledTasks.class
 com\sophia\service\impl\UserServiceImpl.class
 com\sophia\web\console\MemoryController.class
 com\sophia\web\console\ContextController$BeanDefination.class
-com\sophia\vo\UserParam.class
 com\sophia\web\IndexController.class
-com\sophia\api\common\BaseController.class
-com\sophia\repository\UserRepository.class
+com\sophia\vo\UserParam.class
 com\sophia\web\home\HomeController.class
+com\sophia\repository\UserRepository.class
+com\sophia\api\common\BaseController.class
 com\sophia\service\UserService.class
 com\sophia\domain\Api.class
 com\sophia\api\UserRestController.class
