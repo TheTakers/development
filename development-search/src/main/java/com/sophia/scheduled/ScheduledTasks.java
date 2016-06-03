@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 /**
  * 定时任务
  * @author zkning
- * @email  ningzuokun@ppmoney.com
  */
 @Component
 public class ScheduledTasks {

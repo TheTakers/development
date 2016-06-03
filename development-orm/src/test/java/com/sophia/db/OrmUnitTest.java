@@ -17,7 +17,6 @@
 ///**
 // *
 // * @author zkning
-// * @email ningzuokun@ppmoney.com
 // */
 //@RunWith(SpringJUnit4ClassRunner.class)  
 //@SpringApplicationConfiguration(classes = Application.class)

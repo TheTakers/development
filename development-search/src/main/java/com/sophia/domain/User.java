@@ -13,7 +13,6 @@ import javax.persistence.Transient;
  * user
  *
  * @author zkning
- * @email ningzuokun@ppmoney.com
  */
 @Entity
 @Table(name="TB_AT_USER")

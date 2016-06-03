@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * 查询
  * @author zkning
- * @email  ningzuokun@ppmoney.com
  */
 @Controller
 @RequestMapping("/search")
