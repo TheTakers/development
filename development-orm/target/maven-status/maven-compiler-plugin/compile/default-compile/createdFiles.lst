@@ -1,4 +1,0 @@
-com\sophia\domain\Auditable.class
-com\sophia\config\JpaRepositoriesConfiguration.class
-com\sophia\repository\impl\JpaRepositoryImpl.class
-com\sophia\repository\JpaRepository.class

@@ -1,2 +1,0 @@
-14:22:35.048 [http-nio-8088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
-14:22:35.069 [http-nio-8088-exec-1] INFO  o.s.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 21 ms
