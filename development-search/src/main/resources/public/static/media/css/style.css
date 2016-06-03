@@ -3459,6 +3459,7 @@ Styler Panel
   padding:10px 0;
   position:absolute;
   background:#3d3d3d;
+  width:256px;
 }
 
 .color-mode p,
