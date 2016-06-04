@@ -186,11 +186,17 @@ function($) {
 }(window.jQuery),
 
 //initializing main application module
+jQuery(document).ready(function() {  
+	"use strict";
+    $.App.init();
+});
+
+/*
 function($) {
+	alert(2)
     "use strict";
     $.App.init();
-}(window.jQuery);
-
+}(window.jQuery);*/
 
 
 /* ------------ some utility functions ----------------------- */

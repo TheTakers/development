@@ -16,7 +16,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="text-center">
-                        <a href="index.html" class="logo"><i class="icon-magnet icon-c-logo"></i><span>Ub<i class="md md-album"></i>ld</span></a>
+                        <a href="index.html" class="logo"><i class="icon-magnet icon-c-logo"></i><span>S<i class="md md-album"></i>phia</span></a>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@
                                     <a href="#" class="right-bar-toggle waves-effect waves-light"><i class="icon-settings"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"></img> </a>
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img th:src="@{/static/assets/images/avatar-1.jpg}" alt="user-img" class="img-circle"></img> </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Profile</a></li>
                                         <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
@@ -187,16 +187,16 @@
 				
 				<!-- level 1 -->
 						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
-                                 <a href="{{item.url}}" class="waves-effect"><i class="{{item.icon}}"></i><span>{{item.name}}</span></a>
+                                 <a href="#" class="waves-effect"><i class="{{item.icon}}"></i><span>{{item.name}}</span></a>
                                
                 	<!-- level 2 -->
-                                <ul ng-if="item.child.length">
+                                <ul class="list-unstyled" ng-if="item.child.length">
                                 	 
                                 	<li class="has_sub" ng-repeat="second in item.child">
                                       	<a href="{{item.url}}" class="waves-effect" ><span>{{second.name}}</span></a>
                                       	
                			 <!-- level 3 -->
-                                		<ul  ng-if="second.child.length">
+                                		<ul class="list-unstyled"  ng-if="second.child.length">
                                             <li>
                                             <a href="{{item.url}}" ng-repeat="third in second.child"><span>{{third.name}}</span></a>
                                             </li>
@@ -205,9 +205,20 @@
                                 	</li>
                                  
                                 </ul>
+                                
                             </li>	
                          	<!-- menu end -->
                             
+                            <li class="has_sub">
+                                <a href="#" class="waves-effect"><i class="ti-shopping-cart"></i><span> eCommerce </span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="ecommerce-dashboard.html"> Dashboard</a></li>
+                                    <li><a href="ecommerce-products.html"> Products</a></li>
+                                    <li><a href="ecommerce-product-detail.html"> Product Detail</a></li>
+                                    <li><a href="ecommerce-orders.html"> Orders</a></li>
+                                    <li><a href="ecommerce-sellers.html"> Sellers</a></li>
+                                </ul>
+                            </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -240,12 +251,9 @@
 </div>
 
 <th:block layout:fragment="body-bottom">
-	 <script>
-         var resizefunc = [];
-     </script>
-    
      <script th:src="@{/static/assets/js/jquery.core.js}"></script> 
   	 <script th:src="@{/static/assets/js/jquery.app.js}"></script> 
+
 </th:block>
 </body>
 </html>

@@ -12,7 +12,7 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
 
 //menu data repository
 app.factory('menuRepository',function(){
-	
+
 	return {
 		
 		//导航标识
