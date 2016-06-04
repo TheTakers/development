@@ -40,6 +40,7 @@ ul.page-sidebar-menu > li:last-child > a {
 }
 ul.page-sidebar-menu > li a i {
   color: #969696;
+  margin-right: 5px;
 }
 ul.page-sidebar-menu > li.open > a,
 ul.page-sidebar-menu > li > a:hover,

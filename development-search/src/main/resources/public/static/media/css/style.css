@@ -331,6 +331,14 @@ Header and header elements.
   border: 1px solid red;
 }
 
+.navbar .btn-navbar {
+  /**display: none;**/
+  float: right;
+  padding: 7px 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
 .header {
   padding: 0 !important;
   margin: 0 !important;
@@ -941,7 +949,7 @@ Page breadcrumb
   box-shadow: none;
   padding-right: 0px;
   padding-left: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   border:0px !important;  
   background-color: #eee;
 }
@@ -1001,6 +1009,7 @@ Footer
   padding: 8px 20px 5px 20px; 
   font-size: 12px;
   text-align: center;
+  margin-bottom: 0px;
 }
 
 .footer:after,
