@@ -1,5 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ngResource']);
 
+
+/**
 app.config(['$routeProvider', '$httpProvider', function ($route) {
     $route
         .when('/', {templateUrl: '/home'})
@@ -8,11 +10,10 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
         .when('/console/memory', {templateUrl: '/console/memory', controller: 'MemoryContextCtrl'})
         .when('/search/sqlDefine', {templateUrl: '/search/sqlDefine', controller: 'sqlDefineContextCtrl'})
         ;
-}]);
+}]);**/
 
 //menu data repository
 app.factory('menuRepository',function(){
-
 	return {
 		
 		//导航标识
@@ -73,8 +74,6 @@ app.controller('indexCtrl', function($scope,$http,menuRepository) {
 
 app.controller('menuCtrl', function($scope,$http,menuRepository) {
 	$scope.menu = menuRepository.getMenuData();
-	$scope.selected = function(el){
-		
-	};
+	 
 });
 

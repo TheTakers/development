@@ -4,8 +4,11 @@
 * Module/App: Main Js
 */
 
+var resizefunc = [];
 
-!function($) {
+
+// last load 
+$(function() {
     "use strict";
 
     var Sidemenu = function() {
@@ -75,11 +78,12 @@
 
     //init Sidemenu
     $.Sidemenu = new Sidemenu, $.Sidemenu.Constructor = Sidemenu
-    
-}(window.jQuery),
+     
+    $.App.init();
+});
 
 
-function($) {
+!function($) {
     "use strict";
 
     var FullScreen = function() {
@@ -167,7 +171,6 @@ function($) {
           e.preventDefault();
           $('#wrapper').toggleClass('right-bar-enabled');
       }); 
-
       
     },
     //initilizing 
@@ -182,14 +185,10 @@ function($) {
     },
 
     $.App = new App, $.App.Constructor = App
+ 
+}(window.jQuery);
 
-}(window.jQuery),
-
-//initializing main application module
-jQuery(document).ready(function() {  
-	"use strict";
-    $.App.init();
-});
+ 
 
 /*
 function($) {
