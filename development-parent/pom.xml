@@ -18,7 +18,7 @@
 		<fastjson.ver>1.2.10</fastjson.ver>
 		<jackson.ver>2.6.5</jackson.ver>
 
-		<bootstrap.version>3.3.6</bootstrap.version>
+		<bootstrap.version>3.3.5</bootstrap.version>
 		<jquery.version>2.1.4</jquery.version>
 		<angularjs.version>1.4.4</angularjs.version>
 

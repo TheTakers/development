@@ -3,526 +3,249 @@
       xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       layout:decorator="layout" ng-app="app">
-<body class="page-header-fixed">
+<body class="fixed-left">
 <th:block layout:fragment="header"></th:block>
 <div layout:fragment="content"  ng-controller = "indexCtrl">
 
-   <!-- BEGIN HEADER -->
+     <!-- Begin page -->
+        <div id="wrapper">
 
-	<div class="header navbar navbar-inverse navbar-fixed-top">
+            <!-- Top Bar Start -->
+            <div class="topbar">
 
-		<!-- BEGIN TOP NAVIGATION BAR -->
+                <!-- LOGO -->
+                <div class="topbar-left">
+                    <div class="text-center">
+                        <a href="index.html" class="logo"><i class="icon-magnet icon-c-logo"></i><span>Ub<i class="md md-album"></i>ld</span></a>
+                    </div>
+                </div>
 
-		<div class="navbar-inner">
+                <!-- Button mobile view to collapse sidebar menu -->
+                <div class="navbar navbar-default" role="navigation">
+                    <div class="container">
+                        <div class="">
+                            <div class="pull-left">
+                                <button class="button-menu-mobile open-left">
+                                    <i class="ion-navicon"></i>
+                                </button>
+                                <span class="clearfix"></span>
+                            </div>
 
-			<div class="container-fluid">
+                            <form role="search" class="navbar-left app-search pull-left hidden-xs">
+			                     <input type="text" placeholder="Search..." class="form-control"></input>
+			                     <a href=""><i class="fa fa-search"></i></a>
+			                </form>
 
-				<!-- BEGIN LOGO -->
 
-				<a class="brand" href="index.html">
-			 
-				  <img th:src="@{/static/media/image/logo.png}" alt="logo" />  
-				</a>
+                            <ul class="nav navbar-nav navbar-right pull-right">
+                                <li class="dropdown hidden-xs">
+                                    <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="icon-bell"></i> <span class="badge badge-xs badge-danger">3</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-lg">
+                                        <li class="notifi-title"><span class="label label-default pull-right">New 3</span>Notification</li>
+                                        <li class="list-group nicescroll notification-list">
+                                           <!-- list item-->
+                                           <a href="javascript:void(0);" class="list-group-item">
+                                              <div class="media">
+                                                 <div class="pull-left p-r-10">
+                                                    <em class="fa fa-diamond fa-2x text-primary"></em>
+                                                 </div>
+                                                 <div class="media-body">
+                                                    <h5 class="media-heading">A new order has been placed A new order has been placed</h5>
+                                                    <p class="m-0">
+                                                        <small>There are new settings available</small>
+                                                    </p>
+                                                 </div>
+                                              </div>
+                                           </a>
 
-				<!-- END LOGO -->
+                                           <!-- list item-->
+                                           <a href="javascript:void(0);" class="list-group-item">
+                                              <div class="media">
+                                                 <div class="pull-left p-r-10">
+                                                    <em class="fa fa-cog fa-2x text-custom"></em>
+                                                 </div>
+                                                 <div class="media-body">
+                                                    <h5 class="media-heading">New settings</h5>
+                                                    <p class="m-0">
+                                                        <small>There are new settings available</small>
+                                                    </p>
+                                                 </div>
+                                              </div>
+                                           </a>
 
-				<!-- BEGIN RESPONSIVE MENU TOGGLER -->  
-				
-				<!---->  
-				
-				<a href="javascript:;" class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                           <!-- list item-->
+                                           <a href="javascript:void(0);" class="list-group-item">
+                                              <div class="media">
+                                                 <div class="pull-left p-r-10">
+                                                    <em class="fa fa-bell-o fa-2x text-danger"></em>
+                                                 </div>
+                                                 <div class="media-body">
+                                                    <h5 class="media-heading">Updates</h5>
+                                                    <p class="m-0">
+                                                        <small>There are <span class="text-primary font-600">2</span> new updates available</small>
+                                                    </p>
+                                                 </div>
+                                              </div>
+                                           </a>
 
-				<img th:src="@{/static/media/image/menu-toggler.png}" alt="" />
+                                           <!-- list item-->
+                                           <a href="javascript:void(0);" class="list-group-item">
+                                              <div class="media">
+                                                 <div class="pull-left p-r-10">
+                                                    <em class="fa fa-user-plus fa-2x text-info"></em>
+                                                 </div>
+                                                 <div class="media-body">
+                                                    <h5 class="media-heading">New user registered</h5>
+                                                    <p class="m-0">
+                                                        <small>You have 10 unread messages</small>
+                                                    </p>
+                                                 </div>
+                                              </div>
+                                           </a>
 
-				</a> 
+                                           <!-- list item-->
+                                           <a href="javascript:void(0);" class="list-group-item">
+                                              <div class="media">
+                                                 <div class="pull-left p-r-10">
+                                                    <em class="fa fa-diamond fa-2x text-primary"></em>
+                                                 </div>
+                                                 <div class="media-body">
+                                                    <h5 class="media-heading">A new order has been placed A new order has been placed</h5>
+                                                    <p class="m-0">
+                                                        <small>There are new settings available</small>
+                                                    </p>
+                                                 </div>
+                                              </div>
+                                           </a>
 
-				<!-- END RESPONSIVE MENU TOGGLER -->            
+                                           <!-- list item-->
+                                            <a href="javascript:void(0);" class="list-group-item">
+                                                <div class="media">
+                                                    <div class="pull-left p-r-10">
+                                                     <em class="fa fa-cog fa-2x text-custom"></em>
+                                                    </div>
+                                                    <div class="media-body">
+                                                      <h5 class="media-heading">New settings</h5>
+                                                      <p class="m-0">
+                                                        <small>There are new settings available</small>
+                                                    </p>
+                                                    </div>
+                                              </div>
+                                           </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="list-group-item text-right">
+                                                <small class="font-600">See all notifications</small>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="hidden-xs">
+                                    <a href="#" id="btn-fullscreen" class="waves-effect waves-light"><i class="icon-size-fullscreen"></i></a>
+                                </li>
+                                <li class="hidden-xs">
+                                    <a href="#" class="right-bar-toggle waves-effect waves-light"><i class="icon-settings"></i></a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="" class="dropdown-toggle profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"></img> </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Profile</a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-settings m-r-5"></i> Settings</a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-power-off m-r-5"></i> Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--/.nav-collapse -->
+                    </div>
+                </div>
+            </div>
+            <!-- Top Bar End -->
 
-				<!-- BEGIN TOP NAVIGATION MENU -->              
 
-				<ul class="nav pull-right">
+            <!-- ========== Left Sidebar Start ========== -->
 
-					<!-- BEGIN NOTIFICATION DROPDOWN -->   
-
-					<li class="dropdown" id="header_notification_bar">
-
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-						<i class="glyphicon glyphicon-warning-sign"></i>
-
-						<span class="badge">6</span>
-
-						</a>
-
-						<ul class="dropdown-menu extended notification">
-
-							<li>
-
-								<p>You have 14 new notifications</p>
-
+            <div class="left side-menu" ng-controller="menuCtrl">
+                <div class="sidebar-inner slimscrollleft">
+                    <!--- Divider -->
+                    <div id="sidebar-menu">
+                        <ul>
+                        	<li class="text-muted menu-title">
+									<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+								 
+									 <form  class="sidebar-search">
+					                     <input type="text" placeholder="Search..." class="search"></input>
+					                       <span class="ti-search"></span>
+					                </form>
+									<!-- END RESPONSIVE QUICK SEARCH FORM -->
 							</li>
-
-							<li>
-
-								<a href="#">
-
-								<span class="label label-success"><i class="icon-plus"></i></span>
-
-								New user registered. 
-
-								<span class="time">Just now</span>
-
-								</a>
-
-							</li>
-
-							<li class="external">
-
-								<a href="#">See all notifications <i class="glyphicon glyphicon-share"></i></a>
-
-							</li>
-
-						</ul>
-
-					</li>
-
-					<!-- END NOTIFICATION DROPDOWN -->
-
-					<!-- BEGIN INBOX DROPDOWN -->
-
-					<li class="dropdown" id="header_inbox_bar">
-
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-						<i class="glyphicon glyphicon-envelope"></i>
-
-						<span class="badge">5</span>
-
-						</a>
-
-						<ul class="dropdown-menu extended inbox">
-
-							<li>
-
-								<p>You have 12 new messages</p>
-
-							</li>
-
-							<li>
-
-								<a href="inbox.html?a=view">
-
-								<span class="photo"><img th:src="@{/static/media/image/avatar2.jpg}" alt="" /></span>
-
-								<span class="subject">
-
-								<span class="from">Lisa Wong</span>
-
-								<span class="time">Just Now</span>
-
-								</span>
-
-								<span class="message">
-
-								Vivamus sed auctor nibh congue nibh. auctor nibh
-
-								auctor nibh...
-
-								</span>  
-
-								</a>
-
-							</li>
-
-							<li class="external">
-
-								<a href="inbox.html">See all messages <i class="glyphicon glyphicon-share"></i></a>
-
-							</li>
-
-						</ul>
-
-					</li>
-
-					<!-- END INBOX DROPDOWN -->
-
-					<!-- BEGIN TODO DROPDOWN -->
-
-					<li class="dropdown" id="header_task_bar">
-
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-						<i class="glyphicon glyphicon-tasks"></i>
-
-						<span class="badge">5</span>
-
-						</a>
-
-						<ul class="dropdown-menu extended tasks">
-
-							<li>
-
-								<p>You have 12 pending tasks</p>
-
-							</li>
-
-							<li>
-
-								<a href="#">
-
-								<span class="task">
-
-								<span class="desc">New release v1.2</span>
-
-								<span class="percent">30%</span>
-
-								</span>
-
-								<span class="progress progress-success ">
-
-								<span style="width: 30%;" class="bar"></span>
-
-								</span>
-
-								</a>
-
-							</li>
-
-							<li class="external">
-
-								<a href="#">See all tasks <i class="glyphicon glyphicon-share"></i></a>
-
-							</li>
-
-						</ul>
-
-					</li>
-
-					<!-- END TODO DROPDOWN -->
-
-					<!-- BEGIN USER LOGIN DROPDOWN -->
-
-					<li class="dropdown user">
-
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-						<img alt="" th:src="@{/static/media/image/avatar1_small.jpg}" />
-
-						<span class="username">Bob Nilson</span>
-
-						<i class="icon-angle-down"></i>
-
-						</a>
-
-						<ul class="dropdown-menu">
-
-							<li><a href="extra_profile.html"><i class="icon-user"></i> My Profile</a></li>
-
-							<li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a></li>
-
-							<li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox(3)</a></li>
-
-							<li><a href="#"><i class="icon-tasks"></i> My Tasks</a></li>
-
-							<li class="divider"></li>
-
-							<li><a href="extra_lock.html"><i class="icon-lock"></i> Lock Screen</a></li>
-
-							<li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
-
-						</ul>
-
-					</li>
-
-					<!-- END USER LOGIN DROPDOWN -->
-
-				</ul>
-
-				<!-- END TOP NAVIGATION MENU --> 
-
-			</div>
-
-		</div>
-
-		<!-- END TOP NAVIGATION BAR -->
-
-	</div>
-
-	<!-- END HEADER -->
-	 
-   <!-- BEGIN CONTAINER -->
-
-	<div class="page-container row-fluid">
-
-		<!-- BEGIN SIDEBAR -->
-
-		<div class="page-sidebar nav-collapse">
-
-			<!-- BEGIN SIDEBAR MENU -->        
-
-			<ul class="page-sidebar-menu" ng-controller="menuCtrl">
-
-				<li>
-
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-
-					<div class="sidebar-toggler hidden-phone"></div>
-
-					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-
-				</li>
-
-				<li>
-
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-
-					<form class="sidebar-search">
-
-						<div class="input-box">
-
-							<a href="javascript:;" class="remove"></a>
-
-							<input type="text" placeholder="Search..."></input>
-
-							<input type="button" class="submit" value=" "></input>
-
-						</div>
-
-					</form>
-
-					<!-- END RESPONSIVE QUICK SEARCH FORM -->
-
-				</li>
-				
-				<!-- dynamic menu first -->
-				
-				<!--  
-					selected
-					<li class="start active" ng-if="menu.length" ng-repeat="item in menu">
-					<span class="selected"></span> 
-				-->
-				<li class="" ng-if="menu.length" ng-repeat="item in menu">
-					<a href="{{item.url}}">
-					
-						<i class="{{item.icon}}"></i><span class="title">{{item.name}}</span>
-						
-						<span class="arrow"></span> 
-						
-					</a>
-					
-						<!-- second -->
-					<ul class="sub-menu" ng-if="item.child.length">
-						<li ng-repeat="second in item.child">
-							<a href="{{second.url}}">
-								<i class="{{second.icon}}"></i><span class="title">{{second.name}}</span>
-							    <span class="arrow "></span>  
-							</a>
 							
-							<!-- third -->
-							<ul class="sub-menu" ng-if="second.child.length">
-								<li ng-repeat="third in second.child">
-									<a href="{{third.url}}">
-										<i class="{{third.icon}}"></i><span class="title">{{third.name}}</span>
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-					
-				</li>
-				<!-- dynamic menu end -->
-
-			</ul>
-
-			<!-- END SIDEBAR MENU -->
-
-		</div>
-
-		<!-- END SIDEBAR -->
-
-		<!-- BEGIN PAGE -->
-
-		<div class="page-content">
-
-			<!-- BEGIN PAGE CONTAINER-->
-
-			<div class="container-fluid">
-
-				<!-- BEGIN PAGE HEADER-->
-
-				<div class="row-fluid">
-
-					<div class="span12">
-
-						<!-- BEGIN STYLE CUSTOMIZER -->
-
-						<div class="color-panel hidden-phone">
-
-							<div class="color-mode-icons icon-color"></div>
-
-							<div class="color-mode-icons icon-color-close"></div>
-
-							<div class="color-mode">
-
-								<p>THEME COLOR</p>
-
-								<ul class="inline">
-
-									<li class="color-black current color-default" data-style="default"></li>
-
-									<li class="color-blue" data-style="blue"></li>
-
-									<li class="color-brown" data-style="brown"></li>
-
-									<li class="color-purple" data-style="purple"></li>
-
-									<li class="color-grey" data-style="grey"></li>
-
-									<li class="color-white color-light" data-style="light"></li>
-
-								</ul>
-								
-								
-								<label>
-
-									<span>Layout</span>
-
-									<select class="layout-option m-wrap small">
-
-										<option value="fluid" selected="selected">Fluid</option>
-
-										<option value="boxed">Boxed</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Header</span>
-
-									<select class="header-option m-wrap small">
-
-										<option value="fixed" selected="selected">Fixed</option>
-
-										<option value="default">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Sidebar</span>
-
-									<select class="sidebar-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected="selected">Default</option>
-
-									</select>
-
-								</label>
-
-								<label>
-
-									<span>Footer</span>
-
-									<select class="footer-option m-wrap small">
-
-										<option value="fixed">Fixed</option>
-
-										<option value="default" selected="selected">Default</option>
-
-									</select>
-
-								</label>
-								
-							</div>
-
-						</div>
-
-						<!-- END BEGIN STYLE CUSTOMIZER -->    
-
-						<!-- BEGIN PAGE TITLE  BREADCRUMB-->
-
-						<h3 class="page-title"></h3>
-
-						<ul class="breadcrumb">
-
-							<li>
-
-								<i class="icon-home"></i>
-
-								<a href="index.html">Home</a> 
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							<li>
-
-								<a href="#">Extra</a>
-
-								<i class="icon-angle-right"></i>
-
-							</li>
-
-							<li><a href="#">Inbox</a></li>
-
-						</ul>
-
-						<!-- END PAGE TITLE  BREADCRUMB-->
-			
-					</div>
-						
-				</div>
+				<!-- menu begin -->
 				
-				<div style="margin-bottom: 0px;background-color: red;">
-					<iframe ></iframe>
-				
-				</div>
-			</div>
+				<!-- level 1 -->
+						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
+                                 <a href="{{item.url}}" class="waves-effect"><i class="{{item.icon}}"></i><span>{{item.name}}</span></a>
+                               
+                	<!-- level 2 -->
+                                <ul ng-if="item.child.length">
+                                	 
+                                	<li class="has_sub" ng-repeat="second in item.child">
+                                      	<a href="{{item.url}}" class="waves-effect" ><span>{{second.name}}</span></a>
+                                      	
+               			 <!-- level 3 -->
+                                		<ul  ng-if="second.child.length">
+                                            <li>
+                                            <a href="{{item.url}}" ng-repeat="third in second.child"><span>{{third.name}}</span></a>
+                                            </li>
+                                        </ul>
+                                        
+                                	</li>
+                                 
+                                </ul>
+                            </li>	
+                         	<!-- menu end -->
+                            
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Left Sidebar End -->
 
-		</div>
 
-		<!-- END PAGE -->
 
-	</div>
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="content-page">
+            <!-- Start content -->
+                
 
-	<!-- END CONTAINER -->
+               
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Right content here -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
 
 </div>
 
 <th:block layout:fragment="body-bottom">
-  	
-  	<!-- BEGIN FOOTER -->
-
-	<div class="footer">
-
-		<div class="footer-inner">
-
-			20160603 @sophia.
-
-		</div>
-		<!-- 
-			<div class="footer-tools">
-	
-				<span class="go-top">
-	
-				<i class="icon-angle-up"></i>
-	
-				</span>
-	
-			</div>
-		 -->
-	</div>
-
-	<!-- END FOOTER -->
-  	
-    <script th:src="@{/static/js/app.js}"/>
-    <script th:src="@{/static/js/controller.js}"/>
+	 <script>
+         var resizefunc = [];
+     </script>
+    
+     <script th:src="@{/static/assets/js/jquery.core.js}"></script> 
+  	 <script th:src="@{/static/assets/js/jquery.app.js}"></script> 
 </th:block>
 </body>
 </html>
