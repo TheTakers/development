@@ -46,16 +46,7 @@
                          <button class="btn btn-pink btn-block text-uppercase waves-effect waves-light" type="submit"
                          ng-disabled="loginForm.$invalid" ng-click="submit()">Log In</button>
                          
-                         <div  th:if="${param.error}">
-                         	<script type="text/javascript">
-                         		 $.error('账号或密码无效');
-                         	</script>
-                         </div>
-                          <div th:if="${param.logout}">
-                         	 <script type="text/javascript">
-                         	 	 $.info('您已退出系统');
-                         	 </script>
-                         </div>
+                        
                     </div>
                 </div>
 
@@ -77,7 +68,16 @@
             
         </div>
 </body>
-<script type="text/javascript">
+
+<script th:inline="javascript">  
+ 
+if(/*[[${param.error}]]*/){
+	 $.error('账号或密码无效');
+}
+if(/*[[${param.logout}]]*/){
+	 $.info('您已退出系统');
+}  
+
 
 //define angular module/app
 var app = angular.module('app', []);
