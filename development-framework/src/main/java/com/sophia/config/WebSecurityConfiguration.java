@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter.XFrameOptionsMode;
 
 /**
  * Created by Kim on 2015/9/14.
@@ -28,6 +29,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureUrl("/login?error");
 //        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessHandler(new LogoutHandler());
         http.csrf().disable();
+        
+        //允许同域iframe
+        http.headers().frameOptions().sameOrigin();
     }
 
     @Override

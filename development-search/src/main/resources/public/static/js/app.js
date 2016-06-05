@@ -29,8 +29,8 @@ app.factory('menuRepository',function(){
 				return [
 				          {id:'1',name:'首页',icon:'ti-home',url:'#/',pid:''},
 			              {id:'2',name:'控制台',icon:'ti-spray',url:'',pid:'',child:[
-			   		                                                               {id:'',name:'系统上下文',icon:'glyphicon glyphicon-bookmark',url:'#/console/context',pid:''},
-					                                                                {id:'',name:'内存监控',icon:'glyphicon glyphicon-print',url:'#/console/memory',pid:''}
+			   		                                                               {id:'',name:'系统上下文',icon:'glyphicon glyphicon-bookmark',url:'/console/context',pid:''},
+					                                                                {id:'',name:'内存监控',icon:'glyphicon glyphicon-print',url:'/console/memory',pid:''}
 					                                                               ]},
 			              {id:'3',name:'系统设置',icon:'ti-light-bulb',url:'',pid:'',child:[
 				        
@@ -73,6 +73,12 @@ app.controller('indexCtrl', function($scope,$http,menuRepository) {
 	  /**logout**/
 	  $scope.logout = function(){
 		  $('#logout').submit();
+	  }
+	  
+	  $scope.loading ="@{/logout}";
+	  $scope.forward = function(url){
+		  alert(url)
+		  $scope.loading = url;
 	  }
 });
 
