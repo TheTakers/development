@@ -75,9 +75,8 @@ app.controller('indexCtrl', function($scope,$http,menuRepository) {
 		  $('#logout').submit();
 	  }
 	  
-	  $scope.loading ="@{/logout}";
+	  $scope.loading ="/home";
 	  $scope.forward = function(url){
-		  alert(url)
 		  $scope.loading = url;
 	  }
 });

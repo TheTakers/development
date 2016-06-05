@@ -2,6 +2,11 @@
  * Created by zkning on 2016/6/5.
  */
 
+/**session 过期**/
+if (window != top){
+	top.location.href = location.href; 
+}
+
 $.warning = function warning(info){
 	$.Notification.notify('warning','bottom right','警告', info);
 }
