@@ -18,8 +18,18 @@ public class SearchController {
 
 	@RequestMapping("/sqlDefine")
     @Secured("ROLE_ADMIN")
-    public ModelAndView context(HttpServletRequest request, ModelMap result) {
+    public ModelAndView sqlDefine(HttpServletRequest request, ModelMap result) {
+		
+		
         return new ModelAndView("search/sqlDefine", result);
+    }
+	
+	@RequestMapping("/sqlGroup")
+    @Secured("ROLE_ADMIN")
+    public ModelAndView sqlGroup(HttpServletRequest request, ModelMap result) {
+		
+		
+        return new ModelAndView("search/sqlGroup", result);
     }
 
 }

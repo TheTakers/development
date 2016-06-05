@@ -3,9 +3,12 @@
  */
 
 /**session 过期**/
-if (window != top){
-	top.location.href = location.href; 
+function forward(){
+	if (window != top){
+		top.location.href = location.href; 
+	}
 }
+
 
 $.warning = function warning(info){
 	$.Notification.notify('warning','bottom right','警告', info);

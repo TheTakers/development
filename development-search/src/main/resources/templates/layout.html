@@ -1,51 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout">
 <head lang="en">
-	<title th:text="development">development</title>
-	<!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
-	<meta charset="UTF-8" />
-
-	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
-	<meta content="" name="description" />
-
-	<meta content="" name="author" />
-
-
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}" />
-
-	<!-- BEGIN GLOBAL MANDATORY STYLES -->
-	
-	<link rel="stylesheet" th:href="@{/static/assets/css/core.css}" /> 
-	 
-	<link rel="stylesheet" th:href="@{/static/assets/css/components.css}" /> 
-	
-	<link rel="stylesheet" th:href="@{/static/assets/css/icons.css}" /> 
- 
-	<link rel="stylesheet" th:href="@{/static/assets/css/pages.css}" /> 
-	 
-	<link rel="stylesheet" th:href="@{/static/assets/css/responsive.css}" /> 
-	 
-	<script th:src="@{/webjars/angularjs/1.4.4/angular.min.js}" ></script>
-	<script th:src="@{/webjars/angularjs/1.4.4/angular-route.min.js}" ></script>
-	<script th:src="@{/webjars/angularjs/1.4.4/angular-resource.min.js}" ></script>
-		
-	<script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
-	<script th:src="@{/static/assets/js/detect.js}"></script> 
-	<script th:src="@{/static/assets/js/fastclick.js}"></script> 
-	<script th:src="@{/static/assets/js/jquery.slimscroll.js}"></script> 
-	<script th:src="@{/static/assets/js/waves.js}"></script> 
-	<script th:src="@{/static/assets/js/wow.min.js}"></script> 
-	<script th:src="@{/static/assets/js/jquery.nicescroll.js}"></script> 
-	<script th:src="@{/static/assets/js/jquery.scrollTo.min.js}"></script> 
-	
-	<script th:src="@{/static/assets/plugins/notifications/notify.min.js}"></script> 
-	<script th:src="@{/static/assets/plugins/notifications/notify-metro.js}"></script> 
-
-    <script th:src="@{/static/js/app.js}"></script> 
-    <script th:src="@{/static/js/controller.js}"></script>
-	
+	<div th:include="ins :: head"></div> 
 </head>
 <body>
 <th:block layout:fragment="header"/>

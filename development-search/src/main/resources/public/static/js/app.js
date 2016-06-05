@@ -39,8 +39,8 @@ app.factory('menuRepository',function(){
 		                                                                {id:'',name:'菜单配置',icon:'glyphicon glyphicon-tint',url:'',pid:''}
 		                                                                ]},
 		                {id:'',name:'查询配置',icon:'ti-pencil-alt',url:'',pid:'',child:[
-		                                                                {id:'',name:'SQL',icon:'glyphicon glyphicon-chevron-left',url:'#/search/sqlDefine',pid:''},
-		                                                                {id:'',name:'SQL组',icon:'glyphicon glyphicon-text-width',url:'',pid:''},
+		                                                                {id:'',name:'SQL组',icon:'glyphicon glyphicon-text-width',url:'/search/sqlGroup',pid:''},
+		                                                                {id:'',name:'SQL',icon:'glyphicon glyphicon-chevron-left',url:'/search/sqlDefine',pid:''},
 		                                                                {id:'',name:'数据源',icon:'glyphicon glyphicon-tag',url:'',pid:''}
 		                                                                ]},
 		                {id:'',name:'用户管理',icon:'ti-menu-alt',url:'',pid:'',child:[]},
