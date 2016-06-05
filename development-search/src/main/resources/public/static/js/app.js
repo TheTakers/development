@@ -69,7 +69,11 @@ app.controller('NavCtrl', ['$scope', function ($scope) {
 }]);**/
 
 app.controller('indexCtrl', function($scope,$http,menuRepository) {
-	
+	  
+	  /**logout**/
+	  $scope.logout = function(){
+		  $('#logout').submit();
+	  }
 });
 
 app.controller('menuCtrl', function($scope,$http,menuRepository) {

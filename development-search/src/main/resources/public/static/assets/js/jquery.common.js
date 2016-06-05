@@ -13,4 +13,3 @@ $.error = function error(info){
 $.info =  function(info){
 	$.Notification.notify('info','bottom right','提示', info);
 }
-
