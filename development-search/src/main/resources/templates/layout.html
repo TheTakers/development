@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout">
-<head lang="en">
-	<div th:include="ins :: head"></div> 
-</head>
+<head lang="en" th:include="ins :: head"/>
 <body>
 <th:block layout:fragment="header"/>
 <th:block layout:fragment="content"/>
-<th:block layout:fragment="body-bottom"></th:block>
+<th:block layout:fragment="body-bottom"/>
 </body>
 </html>
