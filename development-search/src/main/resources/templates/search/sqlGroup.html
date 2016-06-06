@@ -25,12 +25,12 @@
 							
 							<!-- toolbar start -->
                          	<div class="panel-heading"> 
-                                   <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="" aria-expanded="true">
+                                   <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="" aria-expanded="true"></a> 
 	                                   	<div class="button-list">
                                           	 <button type="button" class="btn btn-default waves-effect waves-light"  data-toggle="modal" data-target="#editForm">新增</button>
                                          	 <button type="button" class="btn btn-default waves-effect waves-light" >查看</button>
                                         </div>
-                                  	</a> 
+                                  	
                             </div> 
                             <!-- toolbar end -->
                             
@@ -125,15 +125,24 @@
 												<td colspan="6">
 													<div class="text-right">
 															<div class="fixed-table-pagination">
-																<div class="pull-left pagination-detail"></div>
+																<div class="pull-left pagination">
+																共 120 条记录,每页
+																	<div class="pagination">
+																		 <select id="demo-foo-filter-status" class="form-control input-sm">
+																			<option value="">20</option>
+																			<option value="active">40</option>
+																			<option value="disabled">60</option>
+																			<option value="suspended">80</option>
+																			<option value="suspended">100</option>
+																		</select>
+																	</div>
+																	条
+																</div>
 																<div class="pull-right pagination">
 																	<ul class="pagination">
-																		<li class="page-first disabled"><a
-																			href="javascript:void(0)">«</a></li>
-																		<li class="page-pre disabled"><a
-																			href="javascript:void(0)">‹</a></li>
-																		<li class="page-number active"><a
-																			href="javascript:void(0)">1</a></li>
+																		<li class="page-first disabled"><a href="javascript:void(0)">«</a></li>
+																		<li class="page-pre disabled"><a href="javascript:void(0)">‹</a></li>
+																		<li class="page-number active"><a href="javascript:void(0)">1</a></li>
 																		<li class="page-number"><a href="javascript:void(0)">2</a></li>
 																		<li class="page-number"><a href="javascript:void(0)">3</a></li>
 																		<li class="page-number"><a href="javascript:void(0)">4</a></li>
