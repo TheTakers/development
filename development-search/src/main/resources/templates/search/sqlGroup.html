@@ -9,9 +9,9 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<ol class="breadcrumb">
-					<li><a href="#">系统设置</a></li>
-					<li><a href="#">查询配置</a></li>
-					<li class="active">SQL组</li>
+					<li>系统设置</li>
+					<li>查询配置</li>
+					<li>SQL组</li>
 				</ol>
 			</div>
 		</div>
@@ -20,19 +20,40 @@
 		<form >
 		<div class="row">
 			<div class="col-md-12">
-				<div class="card-box">
-						...
-				</div>
+				<div class="panel-group panel-group-joined" id="accordion-test"> 
+					<div class="panel panel-default"> 
+							
+							<!-- toolbar start -->
+                         	<div class="panel-heading"> 
+                                   <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="" aria-expanded="true">
+	                                   	<div class="button-list">
+                                          	 <button type="button" class="btn btn-default waves-effect waves-light"  data-toggle="modal" data-target="#editForm">新增</button>
+                                         	 <button type="button" class="btn btn-default waves-effect waves-light" >查看</button>
+                                        </div>
+                                  	</a> 
+                            </div> 
+                            <!-- toolbar end -->
+                            
+                            <!-- search start -->
+                        	<div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true"> 
+                                 <div class="panel-body">
+                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                 </div> 
+                            </div> 
+                             <!-- search end -->
+                   </div>
+               </div>
 			</div>
 		</div>
 		</form>
 		<!-- End of search Row -->
 
+
 		<!-- start of datagrid -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card-box">
-					<table id="demo-foo-addrow" class="table table-striped m-b-0 table-hover toggle-circle" data-page-size="7">
+					<table id="demo-foo-addrow" class="table table table-hover m-0" data-page-size="7">
 										<thead>
 											<tr>
 												<th data-sort-ignore="true" class="min-width"></th>
@@ -43,6 +64,8 @@
 												<th data-hide="phone, tablet">Status</th>
 											</tr>
 										</thead>
+										
+										<!--
 										<div class="pad-btm form-inline">
 											<div class="row">
 												<div class="col-sm-6 text-xs-center">
@@ -53,6 +76,8 @@
 												</div>
 											</div>
 										</div>
+										  -->
+										
 										<tbody>
 											<tr>
 												<td>1</td>
