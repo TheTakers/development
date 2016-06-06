@@ -2,8 +2,8 @@
  * Created by zkning on 2016/6/5.
  */
 
-/**session 过期**/
-function forward(){
+/**session失效**/
+function sessionInvalid(){
 	if (window != top){
 		top.location.href = location.href; 
 	}
