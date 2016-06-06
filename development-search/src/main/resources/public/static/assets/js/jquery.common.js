@@ -7,7 +7,7 @@ function sessionInvalid(){
 	if (window != top){
 		top.location.href = location.href; 
 	}
-}
+} 
 
 
 $.warning = function warning(info){
