@@ -26,38 +26,40 @@ appModule.directive('hello', function() {
 
 
 /**
- * <pagination data='{{Json Array}}' pageSize="20" page></pagination>
  * 
+ * <pagination pageCount="{{pageCount}}" pageSize="{{pageSize}}" pageNo="{{pageNo}}" ></pagination>
+ * click event trigger query
  **/
-appModule.directive('pagination', function($scope) {
+app.directive('pagination', function($scope) {
 	 return {
          restrict:'E',
          scope:true,
          template:function(element,atts){
         	 
-        	 //url 获取data 
-        	 $.scope.refresh = function(pageSize){
-        		 return {};//返回刷新数据
-        	 };
+        	 var pagination = _.extend({pageCount:0,pageSize:20,pageNo:1},atts);
         	 
-        	 var data = {};//加载的数据
         	 
-        	 <div class='fixed-table-pagination' ng-if='data.length'>
-	 			<div class='pull-left pagination-detail'></div>
-	 				<div class='pull-right pagination'>
-		 				<ul class='pagination'>
-		 					<li ng-class="pagination.pageSize > 1 ? 'page-first disabled' : 'page-first'"><a href='javascript:void(0)'>«</a></li>
-		 					<li ng-class="pagination.pageSize > 1 ? 'page-pre disabled' : 'page-pre'><a href='javascript:void(0)'>‹</a></li>
-		 					<li class='page-number active'><a href='javascript:void(0)'>1</a></li>
-		 					<li class='page-number'><a href='javascript:void(0)'>2</a></li>
-		 					<li class='page-number'><a href='javascript:void(0)'>3</a></li>
-		 					<li class='page-number'><a href='javascript:void(0)'>4</a></li>
-		 					<li class='page-number'><a href='javascript:void(0)'>5</a></li>
-		 					<li class='page-next'><a href='javascript:void(0)'>›</a></li>
-		 					<li class='page-last'><a href='javascript:void(0)'>»</a></li>
-		 				</ul>
-		 			</div>
-	 		</div>
+        	 //计算总页数
+        	 int totalPageNum = (pagination.pageCount  +  pagination.pageSize  - 1) / pagination.pageSize;  
+        	 
+        	 //遍历数
+        	 var round = totalPageNum >= 10 ? 10 : totalPageNum;
+        	 
+        	 
+        	return  "<div class='fixed-table-pagination' ng-if='data.length'>"+
+	 			"<div class='pull-left pagination-detail'></div>"+
+	 				"<div class='pull-right pagination'>"+
+		 				"<ul class='pagination'>"+
+		 					"<li ng-class='pagination.pageNo > 1 ? 'page-first disabled' : 'page-first''><a href='javascript:void(0)'>«</a></li>"+
+		 					"<li ng-class='pagination.pageNo > 1 ? 'page-pre disabled' : 'page-pre'><a href='javascript:void(0)'>‹</a></li>"+
+		 					
+		 					"<li class='page-number active' ng-repeat='item in round'><a href='javascript:void(0)'>$index</a></li>"+
+		 				 
+		 					"<li ng-class='pagination.pageNo < pagination.totalPageNum ? 'page-next' : 'page-next disabled''><a href='javascript:void(0)'>›</a></li>"+
+		 					"<li ng-class='pagination.pageNo < pagination.totalPageNum ? 'page-last' : 'page-last disabled''><a href='javascript:void(0)'>»</a></li>"+
+		 				"</ul>"+
+		 			"</div>"+
+	 		"</div>";
 	 		
          },
          
