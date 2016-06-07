@@ -27,36 +27,35 @@ appModule.directive('hello', function() {
 
 /**
  * 
- * <pagination pageCount="{{pageCount}}" pageSize="{{pageSize}}" pageNo="{{pageNo}}" ></pagination>
+ * <pagination data="{{pagination}}"></pagination>
  * click event trigger query
  **/
-app.directive('pagination', function($scope) {
+app.directive('pagination', function() {
 	 return {
          restrict:'E',
          scope:true,
          template:function(element,atts){
         	 
-        	 var pagination = _.extend({pageCount:0,pageSize:20,pageNo:1},atts);
-        	 
+        	 var pagination = _.extend({pageCount:1000,pageSize:20,pageNo:1},atts);
         	 
         	 //计算总页数
-        	 int totalPageNum = (pagination.pageCount  +  pagination.pageSize  - 1) / pagination.pageSize;  
+        	 var totalPageNum = (pagination.pageCount  +  pagination.pageSize  - 1) / pagination.pageSize;  
         	 
         	 //遍历数
         	 var round = totalPageNum >= 10 ? 10 : totalPageNum;
         	 
-        	 
-        	return  "<div class='fixed-table-pagination' ng-if='data.length'>"+
+        	return  "<div class='fixed-table-pagination'>"+
 	 			"<div class='pull-left pagination-detail'></div>"+
 	 				"<div class='pull-right pagination'>"+
 		 				"<ul class='pagination'>"+
-		 					"<li ng-class='pagination.pageNo > 1 ? 'page-first disabled' : 'page-first''><a href='javascript:void(0)'>«</a></li>"+
-		 					"<li ng-class='pagination.pageNo > 1 ? 'page-pre disabled' : 'page-pre'><a href='javascript:void(0)'>‹</a></li>"+
+		 				
+		 					"<li ng-class=\"{true:'page-first',false:'page-first disabled'}[pagination.pageNo > 1]\"><a href='javascript:void(0)'>«</a></li>"+
+		 					"<li ng-class=\"{true:'page-pre',false:'page-pre disabled'}[pagination.pageNo > 1]\"><a href='javascript:void(0)'>‹</a></li>"+
 		 					
-		 					"<li class='page-number active' ng-repeat='item in round'><a href='javascript:void(0)'>$index</a></li>"+
+		 					"<li class='page-number active' ng-repeat='item in round track by $index'><a href='javascript:void(0)'>$index</a></li>"+
 		 				 
-		 					"<li ng-class='pagination.pageNo < pagination.totalPageNum ? 'page-next' : 'page-next disabled''><a href='javascript:void(0)'>›</a></li>"+
-		 					"<li ng-class='pagination.pageNo < pagination.totalPageNum ? 'page-last' : 'page-last disabled''><a href='javascript:void(0)'>»</a></li>"+
+		 					"<li ng-class=\"{false:'page-next' ,true : 'page-next disabled'}[pagination.pageNo < totalPageNum]\"><a href='javascript:void(0)'>›</a></li>"+
+		 					"<li ng-class=\"{false:'page-last' ,true : 'page-last disabled'}[pagination.pageNo < totalPageNum]\"><a href='javascript:void(0)'>»</a></li>"+
 		 				"</ul>"+
 		 			"</div>"+
 	 		"</div>";
@@ -64,5 +63,6 @@ app.directive('pagination', function($scope) {
          },
          
          transclude : false
+
      };
 });

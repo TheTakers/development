@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org" ng-app="app">
 <head>
 <div th:include="ins :: head"></div>
 </head>
-<body>
+<body ng-controller="sqlGroupCtrl">
 	<div class="container">
 
 		<div class="row">
@@ -124,34 +124,7 @@
 											<tr>
 												<td colspan="6">
 													<div class="text-right">
-															<div class="fixed-table-pagination">
-																<div class="pull-left pagination">
-																共 120 条记录,每页
-																	<div class="pagination">
-																		 <select id="demo-foo-filter-status" class="form-control input-sm">
-																			<option value="">20</option>
-																			<option value="active">40</option>
-																			<option value="disabled">60</option>
-																			<option value="suspended">80</option>
-																			<option value="suspended">100</option>
-																		</select>
-																	</div>
-																	条
-																</div>
-																<div class="pull-right pagination">
-																	<ul class="pagination">
-																		<li class="page-first disabled"><a href="javascript:void(0)">«</a></li>
-																		<li class="page-pre disabled"><a href="javascript:void(0)">‹</a></li>
-																		<li class="page-number active"><a href="javascript:void(0)">1</a></li>
-																		<li class="page-number"><a href="javascript:void(0)">2</a></li>
-																		<li class="page-number"><a href="javascript:void(0)">3</a></li>
-																		<li class="page-number"><a href="javascript:void(0)">4</a></li>
-																		<li class="page-number"><a href="javascript:void(0)">5</a></li>
-																		<li class="page-next"><a href="javascript:void(0)">›</a></li>
-																		<li class="page-last"><a href="javascript:void(0)">»</a></li>
-																	</ul>
-																</div>
-															</div>
+															 <pagination data="{{pagination}}"></pagination>
 														</div>
 												</td>
 											</tr>
@@ -184,7 +157,9 @@
 
 //define angular module/app
  
-
+app.controller('sqlGroupCtrl', function($scope,$http) {
+	$scope.pagination = {pageCount:1000,pageSize:20,pageNo:1};
+});
  
  
 </script>
