@@ -40,13 +40,7 @@ app.directive('pagination', function($parse) {
 	        	"<div class='pull-left pagination'>"+
 				"共{{pagination.pageCount}}条/{{pagination.totalPageNum}}页  "+
 				"	<div class='pagination'>"+
-				"		 <select id='foo-filter-status' class='form-control input-sm' >"+
-				"			<option value='20'>20</option>"+
-				"			<option value='40'>40</option>"+
-				"			<option value='60'>60</option>"+
-				"			<option value='80'>80</option>"+
-				"			<option value='100'>100</option>"+
-				"		</select>"+
+				"		 <select ng-change='setPageSize(selected)' ng-model='selected' ng-options='x.id as x.value for x in options' class='form-control input-sm' ></select>"+
 				"	</div>"+
 				"</div>"+
 	 			"<div class='pull-left pagination-detail'></div>"+
@@ -64,7 +58,7 @@ app.directive('pagination', function($parse) {
          },
          transclude : false,
          link : function(scope,element,attr){
-        	 
+        	  
         	 //生成分页条
         	 function createPagination(pagination){
         		 
@@ -73,13 +67,16 @@ app.directive('pagination', function($parse) {
             	 pagination.totalPageNum = totalPageNum;
             	 
             	 
-            	 var num  = 5;
+            	//计算总页数
+            	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
+            	 pagination.totalPageNum = totalPageNum;
+            	 
             	 
             	 //开始页码计算 
-            	 var startPage = Math.floor(pagination.pageNo / num) * num;
+            	 var startPage = Math.floor(pagination.pageNo * 5) / 5;
             	 
             	 //结束页码
-            	 var endPage = startPage + 10 - 1 ;
+            	 var endPage = startPage + 10 - 1;
             	 
             	 if(endPage >= totalPageNum){
             		 startPage = totalPageNum -10;
@@ -123,10 +120,31 @@ app.directive('pagination', function($parse) {
         	 };*/
         	 
         	 scope.search = function(v){
+        		 
+        		 if(v < 1 || v > scope.pagination.totalPageNum){
+        			 return;
+        		 }
+        		 
         		 scope.$parent.pagination.pageNo = v;
         		 scope.pagination = scope.$parent.pagination;
         		 createPagination(scope.pagination);
         	 }
+        	 
+        	 //每页显示数
+        	 scope.options = [
+        	                  {id:20,value:20},
+        	                  {id:40,value:40},
+        	                  {id:60,value:60},
+        	                  {id:80,value:80},
+        	                  {id:100,value:100}
+        	                  ]
+        	 scope.selected = 20;//默认20页
+        	 scope.setPageSize = function(option){
+        		 scope.$parent.pagination.pageSize = option;
+        		 scope.pagination = scope.$parent.pagination;
+        		 createPagination(scope.pagination);
+        	 }
+        	 
         	 
          }
 
