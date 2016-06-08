@@ -30,39 +30,105 @@ appModule.directive('hello', function() {
  * <pagination data="{{pagination}}"></pagination>
  * click event trigger query
  **/
-app.directive('pagination', function() {
+app.directive('pagination', function($parse) {
 	 return {
          restrict:'E',
-         scope:true,
          template:function(element,atts){
         	 
-        	 var pagination = _.extend({pageCount:1000,pageSize:20,pageNo:1},atts);
-        	 
-        	 //计算总页数
-        	 var totalPageNum = (pagination.pageCount  +  pagination.pageSize  - 1) / pagination.pageSize;  
-        	 
-        	 //遍历数
-        	 var round = totalPageNum >= 10 ? 10 : totalPageNum;
-        	 
         	return  "<div class='fixed-table-pagination'>"+
+        		
+	        	"<div class='pull-left pagination'>"+
+				"共{{pagination.pageCount}}条/{{pagination.totalPageNum}}页  "+
+				"	<div class='pagination'>"+
+				"		 <select id='foo-filter-status' class='form-control input-sm' >"+
+				"			<option value='20'>20</option>"+
+				"			<option value='40'>40</option>"+
+				"			<option value='60'>60</option>"+
+				"			<option value='80'>80</option>"+
+				"			<option value='100'>100</option>"+
+				"		</select>"+
+				"	</div>"+
+				"</div>"+
 	 			"<div class='pull-left pagination-detail'></div>"+
 	 				"<div class='pull-right pagination'>"+
 		 				"<ul class='pagination'>"+
-		 				
-		 					"<li ng-class=\"{true:'page-first',false:'page-first disabled'}[pagination.pageNo > 1]\"><a href='javascript:void(0)'>«</a></li>"+
-		 					"<li ng-class=\"{true:'page-pre',false:'page-pre disabled'}[pagination.pageNo > 1]\"><a href='javascript:void(0)'>‹</a></li>"+
-		 					
-		 					"<li class='page-number active' ng-repeat='item in round track by $index'><a href='javascript:void(0)'>$index</a></li>"+
-		 				 
-		 					"<li ng-class=\"{false:'page-next' ,true : 'page-next disabled'}[pagination.pageNo < totalPageNum]\"><a href='javascript:void(0)'>›</a></li>"+
-		 					"<li ng-class=\"{false:'page-last' ,true : 'page-last disabled'}[pagination.pageNo < totalPageNum]\"><a href='javascript:void(0)'>»</a></li>"+
+		 					"<li class='{{item.classs}}' ng-repeat='item in pagination.code' ng-click='search(item.value)'><a href='javascript:void(0)'>{{item.label}}</a></li>"+
 		 				"</ul>"+
 		 			"</div>"+
-	 		"</div>";
+		 		"</div>";
 	 		
          },
-         
-         transclude : false
+         scope:{
+        	 data:"@"
+//             search:"&"
+         },
+         transclude : false,
+         link : function(scope,element,attr){
+        	 
+        	 //生成分页条
+        	 function createPagination(pagination){
+        		 
+        		 //计算总页数
+            	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
+            	 pagination.totalPageNum = totalPageNum;
+            	 
+            	 
+            	 var num  = 5;
+            	 
+            	 //开始页码计算 
+            	 var startPage = Math.floor(pagination.pageNo / num) * num;
+            	 
+            	 //结束页码
+            	 var endPage = startPage + 10 - 1 ;
+            	 
+            	 if(endPage >= totalPageNum){
+            		 startPage = totalPageNum -10;
+            		 endPage = totalPageNum;
+            	 }
+            	 
+        		 
+        		 //页码
+        		 var code = [];
+        		 
+        		 //page first
+        		 code.push({classs:'page-first' + (pagination.pageNo == 1 ? ' disabled' :''),value:1,label:'«'});
+        		 //page pre
+        		 code.push({classs:'page-pre' + (pagination.pageNo == 1 ? ' disabled' :'') ,value:pagination.pageNo-1,label:'‹'});
+        		 
+        		 // class pageno 
+        		 for(var idx = startPage ; idx <= endPage ; idx++){
+        			 
+        			 if(idx == pagination.pageNo)
+        				 code.push({classs:'page-number active',value:idx,label:idx});
+        			 else
+        				 code.push({classs:'page-number',value:idx,label:idx}); 
+        		 }
+        		 
+        		 //page next
+        		 code.push({classs:'page-next' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:pagination.pageNo+1,label:'›'});
+        		 //page last
+        		 code.push({classs:'page-last' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:totalPageNum,label:'»'});
+        		 pagination.code = code;
+        	 }
+        	 
+        	 //
+        	 scope.pagination = $.parseJSON(attr.data);
+        	 createPagination(scope.pagination);
+        	
+        	 /*
+        	 var query = $parse(attr.search);
+        	 scope.search = function (locals) {
+        		 scope.pagination = query(scope.$parent, locals);
+        		 scope.pagination.code = createCode(scope.pagination);
+        	 };*/
+        	 
+        	 scope.search = function(v){
+        		 scope.$parent.pagination.pageNo = v;
+        		 scope.pagination = scope.$parent.pagination;
+        		 createPagination(scope.pagination);
+        	 }
+        	 
+         }
 
      };
 });

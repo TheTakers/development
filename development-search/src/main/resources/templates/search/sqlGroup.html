@@ -124,7 +124,7 @@
 											<tr>
 												<td colspan="6">
 													<div class="text-right">
-															 <pagination data="{{pagination}}"></pagination>
+															 <pagination data="{{pagination}}"  search="query()"></pagination>
 														</div>
 												</td>
 											</tr>
@@ -158,7 +158,10 @@
 //define angular module/app
  
 app.controller('sqlGroupCtrl', function($scope,$http) {
-	$scope.pagination = {pageCount:1000,pageSize:20,pageNo:1};
+	$scope.pagination = {pageCount:1021,pageSize:20,pageNo:1};
+	$scope.query = function(){
+		return $scope.pagination;
+	};
 });
  
  
