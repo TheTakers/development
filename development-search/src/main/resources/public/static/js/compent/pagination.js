@@ -46,19 +46,19 @@ app.directive('pagination', function($parse) {
 	 			"<div class='pull-left pagination-detail'></div>"+
 	 				"<div class='pull-right pagination'>"+
 		 				"<ul class='pagination'>"+
-		 					"<li class='{{item.classs}}' ng-repeat='item in pagination.code' ng-click='search(item.value)'><a href='javascript:void(0)'>{{item.label}}</a></li>"+
+		 					"<li class='{{item.classs}}' ng-repeat='item in pagination.code' ng-click='go(item.value)'><a href='javascript:void(0)'>{{item.label}}</a></li>"+
 		 				"</ul>"+
 		 			"</div>"+
 		 		"</div>";
 	 		
          },
          scope:{
-        	 data:"@"
-//             search:"&"
+        	 data:"@",
+        	 search:"&"
          },
          transclude : false,
          link : function(scope,element,attr){
-        	  
+        	 
         	 //生成分页条
         	 function createPagination(pagination){
         		 
@@ -108,27 +108,24 @@ app.directive('pagination', function($parse) {
         		 pagination.code = code;
         	 }
         	 
-        	 //
+        	 
         	 scope.pagination = $.parseJSON(attr.data);
         	 createPagination(scope.pagination);
         	
-        	 /*
-        	 var query = $parse(attr.search);
-        	 scope.search = function (locals) {
-        		 scope.pagination = query(scope.$parent, locals);
-        		 scope.pagination.code = createCode(scope.pagination);
-        	 };*/
-        	 
-        	 scope.search = function(v){
+        	 scope.go = function(v){
         		 
+        		 //check data
         		 if(v < 1 || v > scope.pagination.totalPageNum){
         			 return;
         		 }
         		 
-        		 scope.$parent.pagination.pageNo = v;
-        		 scope.pagination = scope.$parent.pagination;
+        		 //update local pagination
+        		 scope.pagination = scope.search({pagination:{pageNo:v,pageSize:scope.pagination.pageSize}});
+        		 
+        		 //refresh parent data
         		 createPagination(scope.pagination);
         	 }
+        	
         	 
         	 //每页显示数
         	 scope.options = [
@@ -140,11 +137,13 @@ app.directive('pagination', function($parse) {
         	                  ]
         	 scope.selected = 20;//默认20页
         	 scope.setPageSize = function(option){
-        		 scope.$parent.pagination.pageSize = option;
-        		 scope.pagination = scope.$parent.pagination;
+        		 
+        		 //update local pagination
+        		 scope.pagination = scope.search({pagination:{pageNo:1,pageSize:option}});
+        		 
+        		//refresh parent data
         		 createPagination(scope.pagination);
         	 }
-        	 
         	 
          }
 

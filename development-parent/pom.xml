@@ -20,7 +20,7 @@
 
 		<bootstrap.version>3.3.5</bootstrap.version>
 		<jquery.version>2.1.4</jquery.version>
-		<angularjs.version>1.4.4</angularjs.version>
+		<angularjs.version>1.5.3</angularjs.version>
 		<underscorejs.version>1.8.3</underscorejs.version>
 
 		<guava.version>18.0</guava.version>

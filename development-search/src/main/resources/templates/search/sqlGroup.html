@@ -124,7 +124,7 @@
 											<tr>
 												<td colspan="6">
 													<div class="text-right">
-															 <pagination data="{{pagination}}"  search="query()"></pagination>
+															 <pagination data="{{pagination}}"  search="query(pagination)"></pagination>
 														</div>
 												</td>
 											</tr>
@@ -159,7 +159,14 @@
  
 app.controller('sqlGroupCtrl', function($scope,$http) {
 	$scope.pagination = {pageCount:1021,pageSize:20,pageNo:1};
-	$scope.query = function(){
+	
+	$scope.query = function(pagination){
+		
+		//bind data
+		$scope.pagination.pageSize = pagination.pageSize;
+		$scope.pagination.pageNo = pagination.pageNo;
+		
+		//pagination  pageSize pageNo pageCount 
 		return $scope.pagination;
 	};
 });
