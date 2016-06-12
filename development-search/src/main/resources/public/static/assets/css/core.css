@@ -725,8 +725,10 @@ textarea.form-control {
     margin: 40px 0;
     border-radius: 4px;
 }
-
-.pagination-stats span{
+.pagination-stats .pagecount{
+	float: left;
+}
+.pagination-stats .pagecount span{
 	display: inline-block;
 	height: 33px;
 	border: 1px solid #ddd;
@@ -737,13 +739,13 @@ textarea.form-control {
 	line-height: 30px
 }
 
-.pagination-stats .context{
+.pagination-stats .pagesize{
 	display:inline-block;
 	padding-left:0px;
 	margin:0px 5px;
 	border-radius:4px;
 }
-.pagination-stats .context select{
+.pagination-stats .pagesize select{
 	 height: 33px;
 	 padding: 5px 0px;
 }
