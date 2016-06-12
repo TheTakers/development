@@ -1,4 +1,4 @@
-package com.sophia.api.common;
+package com.sophia.api;
 
 import java.util.Map;
 
@@ -12,41 +12,52 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.common.collect.Maps;
-import com.sophia.domain.User;
 import com.sophia.web.constant.Constant;
 
+/**
+ * @author zkning
+ */
 public class BaseController {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected void responseOk(Map<String, Object> resultMap, Object obj) {
+    protected Map<String, Object> responseOk(Object obj) {
+    	Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_SUCCESS);
         resultMap.put(Constant.KEY_OF_MESSAGE, Constant.RESPONSE_OK);
         resultMap.put(Constant.KEY_OF_RESULT, obj);
+        return resultMap;
     }
 
-    protected void responseOk(Map<String, Object> resultMap, String msg, Object obj) {
+    protected Map<String, Object> responseOk(String msg, Object obj) {
+    	Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_SUCCESS);
         resultMap.put(Constant.KEY_OF_MESSAGE, msg);
         resultMap.put(Constant.KEY_OF_RESULT, obj);
+        return resultMap;
     }
 
-    protected void responseError(Map<String, Object> resultMap, String msg) {
+    protected Map<String, Object> responseError(String msg) {
+    	Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_FAILURE);
         resultMap.put(Constant.KEY_OF_MESSAGE, msg);
         resultMap.put(Constant.KEY_OF_RESULT, null);
+        return resultMap;
     }
-    protected void responseError(Map<String, Object> resultMap, Object obj) {
-        responseError(resultMap, obj, null);
+    
+    protected Map<String, Object> responseError(Object obj) {
+       return responseError(obj, null);
     }
 
-    protected void responseError(Map<String, Object> resultMap, Object obj, Exception e) {
+    protected Map<String, Object> responseError(Object obj, Exception e) {
+    	Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_FAILURE);
         resultMap.put(Constant.KEY_OF_MESSAGE, obj);
         resultMap.put(Constant.KEY_OF_RESULT, null);
         if (e != null) {
             logger.error(e.getMessage(), e);
         }
+        return resultMap;
     }
 
     protected HttpSession getSession() {
@@ -63,42 +74,16 @@ public class BaseController {
         return attrs.getRequest();
     }
 
-    /***
-     * 从Session中取得用户信息
-     * @return
-     */
-    protected User getSessionUser() {
-    	if(getSession()!=null)
-    		return (User) getSession().getAttribute("User");
-    	return null;
-    }
-
-    /**
-     * 设置用户信息到session
-     * @param User
-     */
-    protected void setSessionUser(User User){
-    	if(getSession()!=null){
-    		getSession().setAttribute("User",User);
-    		User.setSessionId(getSession().getId());
-    	}
-    		
-    }
-
     @ExceptionHandler(RuntimeException.class)
     public Map<String, Object> catchRuntimeExp(RuntimeException ex,HttpServletRequest request){
         logger.error(request.getRequestURL()+"拦截运行时异常",ex);
-        Map<String, Object> resultMap = Maps.newHashMap();
-        responseError(resultMap,Constant.RUNTIME_ERROR_MESSAGE);
-        return resultMap;
+        return responseError(Constant.RUNTIME_ERROR_MESSAGE);
     }
 
     @ExceptionHandler(Exception.class)
     public Map<String, Object> catchExp(Exception ex,HttpServletRequest request) {
         logger.error(request.getRequestURL()+"拦截异常",ex);
-        Map<String, Object> resultMap = Maps.newHashMap();
-        responseError(resultMap,Constant.SYSTEM_ERROR_MESSAGE);
-        return resultMap;
+        return responseError(Constant.SYSTEM_ERROR_MESSAGE);
     }
 
 }

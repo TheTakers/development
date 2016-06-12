@@ -48,8 +48,7 @@
 				                           <label>Last Name</label>
 				                           <input class="form-control"  type="text" placeholder="192.168.1.161"/>
 				                       </div>
-				                       
-				                       <button class="btn btn-info" type="button" ng-click="pageParams.tmUserLoginLog=search"><i class="glyphicon glyphicon-search"></i> 查询 </button>
+				                        <button type="button" class="btn btn-info waves-effect waves-light" ><i class="glyphicon glyphicon-search"></i>查看</button>
 				                    </div>
 				                       
                                  </div> 
@@ -67,7 +66,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card-box">
-					<table id="demo-foo-addrow" class="table table table-hover m-0" data-page-size="7">
+					<table class="table table table-hover m-0" data-page-size="7"  data-ng-init="loadData()">
 										<thead>
 											<tr>
 												<th data-sort-ignore="true" class="min-width"></th>
@@ -172,8 +171,16 @@
 //define angular module/app
  
 app.controller('sqlGroupCtrl', function($scope,$http) {
-	$scope.pagination = {pageCount:1021,pageSize:20,pageNo:1};
+	//$scope.pagination = {pageCount:1021,pageSize:20,pageNo:1};
 	
+	//loading data
+	$scope.loadData = function(){
+		$http.post("/search/grid",{username: "GZ_test", account: "gz_test"}).success(function(data){
+			$scope.pagination = data.result;
+	    });
+	}
+	
+	//供分页条查询数据
 	$scope.query = function(pagination){
 		
 		//bind data

@@ -11,4 +11,3 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
         .when('/search/sqlDefine', {templateUrl: '/search/sqlDefine', controller: 'sqlDefineContextCtrl'})
         ;
 }]);**/
-

@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Maps;
-import com.sophia.api.common.BaseController;
 import com.sophia.vo.UserParam;
 import com.sophia.web.constant.Constant;
 
@@ -29,14 +27,13 @@ public class UserRestController extends BaseController {
      */
     @RequestMapping(value = "/permit/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> permituser(@RequestBody @Valid UserParam userParam) {
-        Map<String, Object> resultMap = Maps.newHashMap();
+  
         try {
             
-            responseOk(resultMap, "");
+            return responseOk("");
         } catch (Exception e) {
-            responseError(resultMap, Constant.FAILURE_MESSAGE, e);
+            return responseError(Constant.FAILURE_MESSAGE, e);
         }
-        return resultMap;
     }
 
     /**
@@ -46,13 +43,12 @@ public class UserRestController extends BaseController {
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> user(@RequestBody @Valid UserParam userLuckParam) {
-        Map<String, Object> resultMap = Maps.newHashMap();
+     
         try {
-            responseOk(resultMap,Constant.SUCCESS_MESSAGE);
+            return responseOk(Constant.SUCCESS_MESSAGE);
         } catch (Exception e) {
-            responseError(resultMap, Constant.FAILURE_MESSAGE, e);
+            return responseError(Constant.FAILURE_MESSAGE, e);
         }
-        return resultMap;
     }
     
     /**
@@ -62,13 +58,12 @@ public class UserRestController extends BaseController {
      */
     @RequestMapping(value = "/permit/verify", method = RequestMethod.POST ,consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object>verify(@RequestBody @Valid String order) {
-		Map<String,Object> resultMap = Maps.newHashMap();
+	 
 		try{
 			logger.info("请求参数:{}",order);
-			responseOk(resultMap, Constant.SUCCESS_MESSAGE,JSON.parseObject(order));
+			return responseOk(Constant.SUCCESS_MESSAGE,JSON.parseObject(order));
 		}catch(Exception e){
-			  responseError(resultMap, Constant.FAILURE_MESSAGE, e);
+			 return  responseError(Constant.FAILURE_MESSAGE, e);
 		}
-		return resultMap;
 	}
 }

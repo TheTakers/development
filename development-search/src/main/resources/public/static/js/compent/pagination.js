@@ -26,8 +26,7 @@ appModule.directive('hello', function() {
 
 
 /**
- * 
- * <pagination data="{{pagination}}"></pagination>
+ * <pagination data="{{pagination}}" ></pagination>
  * click event trigger query
  **/
 app.directive('pagination', function($parse) {

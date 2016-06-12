@@ -1,50 +1,47 @@
 package com.sophia.vo;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * Created by Kim on 2015/10/12.
  */
 public class UserParam {
 
-    @NotNull
-    private Long productId;
-    @NotNull
-    private Long dateId;
-    @NotNull
-    private Integer index;
-    @NotNull
-    private Integer size;
+    private String username;
+    
+    private String account;
 
-    public Long getProductId() {
-        return productId;
-    }
+    private Integer pageSize = 20;
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+    private Integer pageNo = 1;
 
-    public Long getDateId() {
-        return dateId;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setDateId(Long dateId) {
-        this.dateId = dateId;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public Integer getIndex() {
-        return index;
-    }
+	public String getAccount() {
+		return account;
+	}
 
-    public void setIndex(Integer index) {
-        this.index = index;
-    }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-    public Integer getSize() {
-        return size;
-    }
+	public Integer getPageSize() {
+		return pageSize;
+	}
 
-    public void setSize(Integer size) {
-        this.size = size;
-    }
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(Integer pageNo) {
+		this.pageNo = pageNo;
+	}
 }
