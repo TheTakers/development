@@ -62,6 +62,19 @@ app.directive('pagination', function($parse) {
         	 //生成分页条
         	 function createPagination(pagination){
         		 
+        		 if(_.isUndefined(pagination.pageCount)){
+        			 console.log('pageCount not define.');
+        		 }
+        		 
+        		 if(_.isUndefined(pagination.pageSize)){
+        			 console.log('pageSize not define.');
+        		 }
+        		 
+        		 if(_.isUndefined(pagination.pageNo)){
+        			 console.log('pageNo not define.');
+        		 }
+        		 
+        		 
         		 //计算总页数
             	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
             	 pagination.totalPageNum = totalPageNum;

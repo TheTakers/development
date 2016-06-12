@@ -17,7 +17,7 @@
 		</div>
 
 		<!-- start of search row -->
-		<form >
+		<form class="form-inline">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel-group panel-group-joined" id="accordion-test"> 
@@ -27,8 +27,8 @@
                          	<div class="panel-heading"> 
                                    <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="" aria-expanded="true"></a> 
 	                                   	<div class="button-list">
-                                          	 <button type="button" class="btn btn-primary waves-effect waves-light"  data-toggle="modal" data-target="#editForm">新增</button>
-                                         	 <button type="button" class="btn btn-primary waves-effect waves-light" >查看</button>
+                                          	 <button type="button" class="btn btn-info waves-effect waves-light"  data-toggle="modal" data-target="#editForm">新增</button>
+                                         	 <button type="button" class="btn btn-info waves-effect waves-light" >查看</button>
                                         </div>
                                   	
                             </div> 
@@ -37,7 +37,21 @@
                             <!-- search start -->
                         	<div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true"> 
                                  <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                 	
+                                 	<div class="row">
+                                 	   <div class="form-group">
+				                          <label>First Name</label>
+				                           <input class="form-control"  type="text" placeholder="192.168.1.161"/>
+				                       </div>
+				                       
+				                        <div class="form-group">
+				                           <label>Last Name</label>
+				                           <input class="form-control"  type="text" placeholder="192.168.1.161"/>
+				                       </div>
+				                       
+				                       <button class="btn btn-info" type="button" ng-click="pageParams.tmUserLoginLog=search"><i class="glyphicon glyphicon-search"></i> 查询 </button>
+				                    </div>
+				                       
                                  </div> 
                             </div> 
                              <!-- search end -->
@@ -165,6 +179,7 @@ app.controller('sqlGroupCtrl', function($scope,$http) {
 		//bind data
 		$scope.pagination.pageSize = pagination.pageSize;
 		$scope.pagination.pageNo = pagination.pageNo;
+		$scope.pagination.pageCount = 1555;
 		
 		//pagination  pageSize pageNo pageCount 
 		return $scope.pagination;
