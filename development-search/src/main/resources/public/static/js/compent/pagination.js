@@ -36,10 +36,9 @@ app.directive('pagination', function($parse) {
          template:function(element,atts){
         	 
         	return  "<div class='fixed-table-pagination'>"+
-        		
-	        	"<div class='pull-left pagination'>"+
-				"共{{pagination.pageCount}}条/{{pagination.totalPageNum}}页  "+
-				"	<div class='pagination'>"+
+	        	"<div class='pull-left pagination-stats'>"+
+				"	<div style='float:left'><span>共{{pagination.pageCount}}条 / {{pagination.totalPageNum}}页</span></div>"+
+				"	<div class='context'>"+
 				"		 <select ng-change='setPageSize(selected)' ng-model='selected' ng-options='x.id as x.value for x in options' class='form-control input-sm' ></select>"+
 				"	</div>"+
 				"</div>"+
