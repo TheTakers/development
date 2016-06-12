@@ -736,7 +736,9 @@ textarea.form-control {
 	color: #333;
 	text-align: center;
 	font-size: 12px;
-	line-height: 30px
+	line-height: 30px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .pagination-stats .pagesize{
