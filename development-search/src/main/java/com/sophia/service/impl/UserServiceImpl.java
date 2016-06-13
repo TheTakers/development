@@ -38,7 +38,7 @@ public class UserServiceImpl extends JpaRepositoryImpl<UserRepository> implement
 	
 	public Page<User> grid(UserParam userParam){
 		PageRequest pageRequest = new PageRequest(userParam.getPageNo(), userParam.getPageSize());
-		return getRepository().getByUsernameOrAccount(userParam.getUsername(), userParam.getAccount(), pageRequest);
+		return getRepository().findAll(pageRequest);
 	}
 
 }

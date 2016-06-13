@@ -29,12 +29,12 @@ appModule.directive('hello', function() {
  * <pagination data="{{pagination}}" ></pagination>
  * click event trigger query
  **/
-app.directive('pagination', function($parse) {
+app.directive('pagination', function($parse,$http) {
 	 return {
          restrict:'E',
          template:function(element,atts){
         	 
-        	return  "<div class='fixed-table-pagination'>"+
+        	return  "<div class='fixed-table-pagination' ng-if='pagination.code.length'>"+
 	        	"<div class='pull-left pagination-stats'>"+
 				"	<div class='pagecount'><span>共{{pagination.pageCount}}条 / {{pagination.totalPageNum}}页</span></div>"+
 				"	<div class='pagesize'>"+
@@ -51,13 +51,14 @@ app.directive('pagination', function($parse) {
 	 		
          },
          scope:{
-        	 data:"@",
+        	 data:"=",
+        	 count:"=",
         	 search:"&"
          },
          transclude : false,
          link : function(scope,element,attr){
         	 
-        	 //生成分页条
+        	 //create Pagination
         	 function createPagination(pagination){
         		 
         		 if(_.isUndefined(pagination.pageCount)){
@@ -72,30 +73,17 @@ app.directive('pagination', function($parse) {
         			 console.log('pageNo not define.');
         		 }
         		 
-        		 
         		 //计算总页数
             	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
             	 pagination.totalPageNum = totalPageNum;
             	 
-            	 
-            	//计算总页数
-            	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
-            	 pagination.totalPageNum = totalPageNum;
-            	 
-            	 
             	 //开始页码计算 
-            	 var startPage = Math.floor(pagination.pageNo * 5) / 5;
+            	 var startPage = pagination.pageNo - 5 < 1 ? 1 : pagination.pageNo - 5;
             	 
             	 //结束页码
-            	 var endPage = startPage + 10 - 1;
+            	 var endPage = (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4) > totalPageNum ? totalPageNum : (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4);
             	 
-            	 if(endPage >= totalPageNum){
-            		 startPage = totalPageNum -10;
-            		 endPage = totalPageNum;
-            	 }
-            	 
-        		 
-        		 //页码
+        		 //number
         		 var code = [];
         		 
         		 //page first
@@ -116,13 +104,29 @@ app.directive('pagination', function($parse) {
         		 code.push({classs:'page-next' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:pagination.pageNo+1,label:'›'});
         		 //page last
         		 code.push({classs:'page-last' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:totalPageNum,label:'»'});
-        		 pagination.code = code;
+        		 scope.pagination.code = code;
         	 }
         	 
         	 
-        	 scope.pagination = $.parseJSON(attr.data);
-        	 createPagination(scope.pagination);
-        	
+        	//default
+        	 scope.selected = 20;
+
+        	 //define pagination
+        	 scope.pagination = {pageSize:scope.selected,pageNo:1};
+        	 
+        	 //when data change
+        	 scope.$watch("data", function(newValue, oldValue) {
+        		 
+        		 scope.search({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo});
+        		 
+        		 if(_.isUndefined(scope.count)) 
+        			 return;
+        		  
+        		 scope.pagination.pageCount = scope.data.totalElements;
+        		 createPagination(scope.pagination);
+
+        	 },true)
+        	 
         	 scope.go = function(v){
         		 
         		 //check data
@@ -130,15 +134,13 @@ app.directive('pagination', function($parse) {
         			 return;
         		 }
         		 
-        		 //update local pagination
-        		 scope.pagination = scope.search({pagination:{pageNo:v,pageSize:scope.pagination.pageSize}});
-        		 
-        		 //refresh parent data
-        		 createPagination(scope.pagination);
+        		 scope.pagination.pageNo = v;
+        		 //refresh local pagination
+        		 scope.search({pageSize:scope.pagination.pageSize,pageNo:v});
         	 }
         	
         	 
-        	 //每页显示数
+        	 //num of page
         	 scope.options = [
         	                  {id:20,value:20},
         	                  {id:40,value:40},
@@ -146,14 +148,12 @@ app.directive('pagination', function($parse) {
         	                  {id:80,value:80},
         	                  {id:100,value:100}
         	                  ]
-        	 scope.selected = 20;//默认20页
+        	 
         	 scope.setPageSize = function(option){
         		 
-        		 //update local pagination
-        		 scope.pagination = scope.search({pagination:{pageNo:1,pageSize:option}});
-        		 
-        		//refresh parent data
-        		 createPagination(scope.pagination);
+        		scope.pagination.pageSize = option;
+        		//refresh local pagination
+        		scope.search({pageNo:1,pageSize:option});
         	 }
         	 
          }
