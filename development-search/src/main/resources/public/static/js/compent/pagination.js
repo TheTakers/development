@@ -81,7 +81,11 @@ app.directive('pagination', function($parse,$http) {
             	 var startPage = pagination.pageNo - 5 < 1 ? 1 : pagination.pageNo - 5;
             	 
             	 //结束页码
-            	 var endPage = (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4) > totalPageNum ? totalPageNum : (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4);
+            	 var endPage = startPage + 10 -1;
+            	 
+            	 if(endPage>totalPageNum){
+            		 startPage =  totalPageNum -10;
+            	 }
             	 
         		 //number
         		 var code = [];
