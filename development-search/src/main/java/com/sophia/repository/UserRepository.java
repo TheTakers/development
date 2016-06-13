@@ -11,6 +11,6 @@ import com.sophia.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	@Query(value="from User where ((username is not null) AND (username = ?1)) or  (account is not null AND account = ?2)",countQuery="select count(1) from User where (username is not null AND username = ?1) or  (account is not null AND account = ?2)")
+	@Query(value="from User where (username is not null) AND username = ?1 or  (account is not null AND account = ?2)",countQuery="select count(1) from User where (username is not null AND username = ?1) or  (account is not null AND account = ?2)")
 	public Page<User> getByUsernameOrAccount(String username,String account,Pageable pageable);
 }
