@@ -63,14 +63,21 @@ app.directive('pagination', function($parse,$http) {
         		 
         		 if(_.isUndefined(pagination.pageCount)){
         			 console.log('pageCount not define.');
+        			 return;
         		 }
         		 
         		 if(_.isUndefined(pagination.pageSize)){
         			 console.log('pageSize not define.');
+        			 return;
         		 }
         		 
         		 if(_.isUndefined(pagination.pageNo)){
         			 console.log('pageNo not define.');
+        			 return;
+        		 }
+        		 
+        		 if(pagination.pageCount < 1){
+        			 return;
         		 }
         		 
         		 //计算总页数
@@ -81,11 +88,7 @@ app.directive('pagination', function($parse,$http) {
             	 var startPage = pagination.pageNo - 5 < 1 ? 1 : pagination.pageNo - 5;
             	 
             	 //结束页码
-            	 var endPage = startPage + 10 -1;
-            	 
-            	 if(endPage>totalPageNum){
-            		 startPage =  totalPageNum -10;
-            	 }
+            	 var endPage = (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4) > totalPageNum ? totalPageNum : (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4);
             	 
         		 //number
         		 var code = [];
