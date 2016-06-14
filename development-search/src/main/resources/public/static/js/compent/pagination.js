@@ -52,8 +52,8 @@ app.directive('pagination', function($parse,$http) {
          },
          scope:{
         	 data:"=",
-        	 count:"=",
-        	 search:"&"
+        	 url:"@",
+        	 params:"="
          },
          transclude : false,
          link : function(scope,element,attr){
@@ -121,18 +121,30 @@ app.directive('pagination', function($parse,$http) {
         	 //define pagination
         	 scope.pagination = {pageSize:scope.selected,pageNo:1};
         	 
-        	 //when data change
-        	 scope.$watch("data", function(newValue, oldValue) {
+        	 //get data
+        	 function post(){
         		 
-        		 scope.search({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo});
-        		 
-        		 if(_.isUndefined(scope.count)) 
-        			 return;
-        		  
-        		 scope.pagination.pageCount = scope.data.totalElements;
-        		 createPagination(scope.pagination);
+        		 $http.post(scope.url,_.extend({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo},scope.params)).success(function(data){
+        			
+        			if(data.code == '0'){
+        				
+        				scope.pagination.pageCount = data.result.totalElements;
+        				scope.data = data.result;
+        				createPagination(scope.pagination);
+        			}else{
+        				console.log('查询失败');
+        			}
+      			});
+        	 }
+        	 
+        	 //initialize
+        	 post();
+        	 
+        	 //catch parent broadcast goto
+        	 scope.$on("goto", function(d,data) {  
+        		 post();
+        	 });  
 
-        	 },true)
         	 
         	 scope.go = function(v){
         		 
@@ -142,9 +154,8 @@ app.directive('pagination', function($parse,$http) {
         		 }
         		 
         		 scope.pagination.pageNo = v;
-        		 //refresh local pagination
-        		 scope.search({pageSize:scope.pagination.pageSize,pageNo:v});
-        	 }
+        		 post();
+        	 };
         	
         	 
         	 //num of page
@@ -154,14 +165,14 @@ app.directive('pagination', function($parse,$http) {
         	                  {id:60,value:60},
         	                  {id:80,value:80},
         	                  {id:100,value:100}
-        	                  ]
+        	                  ];
         	 
         	 scope.setPageSize = function(option){
         		 
         		scope.pagination.pageSize = option;
-        		//refresh local pagination
-        		scope.search({pageNo:1,pageSize:option});
-        	 }
+        		scope.pagination.pageNo = 1;
+        		post();
+        	 };
         	 
          }
 

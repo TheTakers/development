@@ -48,7 +48,7 @@
 				                           <label>Last Name</label>
 				                           <input class="form-control input-sm"  type="text" placeholder="192.168.1.161"/>
 				                       </div>
-				                        <button type="button" class="btn btn-info waves-effect waves-light input-sm" >查询</button>
+				                        <button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="search()">查询</button>
 				                    </div>
 				                       
                                  </div> 
@@ -92,52 +92,20 @@
 										  -->
 										
 										<tbody>
-											<tr>
-												<td>1</td>
-												<td>Isidra</td>
-												<td>Boudreaux</td>
-												<td>Traffic Court Referee</td>
-												<td>22 Jun 1972</td>
+											<tr ng-repeat="item in pagination.content">
+												<td>{{item.userId}}</td>
+												<td>{{item.account}}</td>
+												<td>{{item.username}}</td>
+												<td>{{item.pwd}}</td>
+												<td>{{item.empId}}</td>
 												<td><span class="label label-table label-success">Active</span></td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Shona</td>
-												<td>Woldt</td>
-												<td>Airline Transport Pilot</td>
-												<td>3 Oct 1981</td>
-												<td><span class="label label-table label-inverse">Disabled</span></td>
-											</tr>
-											<tr>
-												<td>3</td>
-												<td>Granville</td>
-												<td>Leonardo</td>
-												<td>Business Services Sales Representative</td>
-												<td>19 Apr 1969</td>
-												<td><span class="label label-table label-danger">Suspended</span></td>
-											</tr>
-											<tr>
-												<td>4</td>
-												<td>Easer</td>
-												<td>Dragoo</td>
-												<td>Drywall Stripper</td>
-												<td>13 Dec 1977</td>
-												<td><span class="label label-table label-success">Active</span></td>
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>Maple</td>
-												<td>Halladay</td>
-												<td>Aviation Tactical Readiness Officer</td>
-												<td>30 Dec 1991</td>
-												<td><span class="label label-table label-danger">Suspended</span></td>
 											</tr>
 										</tbody>
 										<tfoot>
 											<tr>
 												<td colspan="6">
 													<div class="text-right">
-															 <pagination  data="pagination" count="pagination.totalElements" search="query(pageSize,pageNo)"></pagination>
+															 <pagination  url="/search/grid"  data="pagination"  params="queryparams"></pagination>
 														</div>
 												</td>
 											</tr>
@@ -173,13 +141,10 @@
 app.controller('sqlGroupCtrl', function($scope,$http) {
 	
 	$scope.pagination = {};
-	
-	//供分页条查询数据
-	$scope.query = function(pageSize,pageNo){
-		$http.post("/search/grid",{username: "GZ_test", account: "gz_test",pageSize:pageSize,pageNo:pageNo}).success(function(data){
-			$scope.pagination = data.result;
-		});
-	};
+	$scope.queryparams = {};
+	$scope.search = function(){
+		  $scope.$broadcast("goto");  
+	}
 });
  
  
