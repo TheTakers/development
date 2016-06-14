@@ -127,7 +127,10 @@ app.directive('pagination', function($parse,$http) {
         		 $http.post(scope.url,_.extend({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo},scope.params)).success(function(data){
         			
         			if(data.code == '0'){
-        				
+        				if(_.isUndefined(data.result)){
+        					console.log("返回参数不正确 ,{result:{pageCount:11}}");
+        					return;
+        				}
         				scope.pagination.pageCount = data.result.totalElements;
         				scope.data = data.result;
         				createPagination(scope.pagination);
