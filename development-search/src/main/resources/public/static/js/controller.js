@@ -87,7 +87,7 @@ app.controller('indexCtrl', function($scope,$http,menuRepository) {
 	  }
 	  
 	  //auto iframe height
-	  $scope.iframh = $(".sidebar-inner").height() - 30;
+	 // $scope.iframh = $(".sidebar-inner").height() - 30;
 });
 
 app.controller('menuCtrl', function($scope,$http,menuRepository) {
