@@ -116,7 +116,7 @@ app.directive('pagination', function($parse,$http) {
         	 
         	 
         	//default
-        	 scope.selected = 20;
+        	 scope.selected = 10;
 
         	 //define pagination
         	 scope.pagination = {pageSize:scope.selected,pageNo:1};
@@ -163,11 +163,11 @@ app.directive('pagination', function($parse,$http) {
         	 
         	 //num of page
         	 scope.options = [
+        	                  {id:10,value:10},
         	                  {id:20,value:20},
+        	                  {id:30,value:30},
         	                  {id:40,value:40},
-        	                  {id:60,value:60},
-        	                  {id:80,value:80},
-        	                  {id:100,value:100}
+        	                  {id:50,value:50}
         	                  ];
         	 
         	 scope.setPageSize = function(option){
