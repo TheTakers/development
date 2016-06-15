@@ -85,7 +85,6 @@ app.controller('indexCtrl', function($scope,$http,menuRepository) {
 	  $scope.forward = function(url){
 		  $scope.loading = url;
 	  }
-	  
 	  //auto iframe height
 	 // $scope.iframh = $(".sidebar-inner").height() - 30;
 });
@@ -94,3 +93,13 @@ app.controller('menuCtrl', function($scope,$http,menuRepository) {
 	$scope.menu = menuRepository.getMenuData();
 	 
 });
+
+app.controller('sqlGroupCtrl', function($scope,$http) {
+	
+	$scope.pagination = {};
+	$scope.queryparams = {};
+	$scope.search = function(){
+		  $scope.$broadcast("goto");  
+	}
+});
+

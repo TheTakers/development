@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" ng-app="app">
-<head>
-<div th:include="ins :: head"></div>
-</head>
-<body ng-controller="sqlGroupCtrl">
-	<div class="container">
+<html xmlns:th="http://www.thymeleaf.org">
+	<div class="container" ng-controller="sqlGroupCtrl">
 
 		<div class="row">
 			<div class="col-sm-12">
@@ -119,21 +115,4 @@
 	
 	<!-- MODEL -->
 	<dialog id="editForm" data-remote="/search/sqlGroupEdit"></dialog>
-	
-<script th:inline="javascript">  
-
-//define angular module/app
- 
-app.controller('sqlGroupCtrl', function($scope,$http) {
-	
-	$scope.pagination = {};
-	$scope.queryparams = {};
-	$scope.search = function(){
-		  $scope.$broadcast("goto");  
-	}
-});
- 
- 
-</script>
-</body>
 </html>
