@@ -4,7 +4,7 @@
 
 /**session失效**/
 function sessionInvalid(){
-	if (window != top){
+	if ($("#wrapper").length > 1){
 		top.location.href = location.href; 
 	}
 } 
