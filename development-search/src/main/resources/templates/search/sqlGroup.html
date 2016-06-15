@@ -27,7 +27,7 @@
                          	<div class="panel-heading"> 
                                    <a data-toggle="collapse" data-parent="#accordion-test" href="#collapseOne" class="" aria-expanded="true"></a> 
 	                                   	<div class="button-list">
-                                          	 <button type="button" class="btn btn-info waves-effect waves-light"  data-toggle="modal" data-target="#editForm">新增</button>
+                                          	 <button type="button" class="btn btn-info waves-effect waves-light"  data-toggle="modal"  data-target="#editForm">新增</button>
                                          	 <button type="button" class="btn btn-info waves-effect waves-light" >查看</button>
                                         </div>
                                   	
@@ -117,23 +117,9 @@
 		<!-- end of datagrid -->
 	</div>
 	
-	
 	<!-- MODEL -->
-	   <div id="editForm" class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true" style="display: none;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h5 class="modal-title">新增</h5>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-info waves-effect waves-light">保存</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<dialog id="editForm" data-remote="/search/sqlGroupEdit"></dialog>
+	
 <script th:inline="javascript">  
 
 //define angular module/app

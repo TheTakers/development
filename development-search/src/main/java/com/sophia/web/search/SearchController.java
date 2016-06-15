@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.collect.Maps;
 import com.sophia.api.BaseController;
 import com.sophia.domain.User;
 import com.sophia.service.UserService;
@@ -45,6 +44,12 @@ public class SearchController extends BaseController{
     @Secured("ROLE_ADMIN")
     public ModelAndView sqlGroup(HttpServletRequest request, ModelMap result) {
         return new ModelAndView("search/sqlGroup", result);
+    }
+	
+	@RequestMapping("/sqlGroupEdit")
+    @Secured("ROLE_ADMIN")
+    public ModelAndView sqlGroupEdit(HttpServletRequest request, ModelMap result) {
+        return new ModelAndView("search/sqlGroupEdit", result);
     }
 	
 	@ResponseBody

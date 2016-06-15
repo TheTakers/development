@@ -29,7 +29,7 @@ appModule.directive('hello', function() {
  * <pagination data="{{pagination}}" ></pagination>
  * click event trigger query
  **/
-app.directive('pagination', function($parse,$http) {
+app.directive('pagination', function($http) {
 	 return {
          restrict:'E',
          template:function(element,atts){
@@ -180,4 +180,21 @@ app.directive('pagination', function($parse,$http) {
          }
 
      };
-});
+}); 
+
+app.directive('dialog', function($http) {
+	 return {
+        restrict:'E',
+        template:function(element,atts){
+       	 
+       	return  '<div  class="modal fade"  role="dialog"  aria-hidden="true">'+
+					   '<div class="modal-dialog">'+
+				       '<div class="modal-content"></div>'+
+					'</div>'+
+				'</div>';
+        },
+        replace : true,			
+        transclude : false,
+        link : function(scope,element,attr){}
+    };
+}); 
