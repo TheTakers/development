@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 	<div class="container" ng-controller="sqlGroupCtrl">
 
 		<div class="row">
@@ -115,4 +113,17 @@
 	
 	<!-- MODEL -->
 	<dialog id="editForm" data-remote="/search/sqlGroupEdit"></dialog>
-</html>
+	
+	
+	<script type="text/javascript">
+		app.controller('sqlGroupCtrl', function($scope,$http) {
+			
+			$scope.pagination = {};
+			$scope.queryparams = {};
+			$scope.search = function(){
+				  $scope.$broadcast("goto");  
+			}
+		});
+	</script>
+ 
+
