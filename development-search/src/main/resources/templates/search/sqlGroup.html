@@ -113,17 +113,3 @@
 	
 	<!-- MODEL -->
 	<dialog id="editForm" data-remote="/search/sqlGroupEdit"></dialog>
-	
-	
-	<script type="text/javascript">
-		app.controller('sqlGroupCtrl', function($scope,$http) {
-			
-			$scope.pagination = {};
-			$scope.queryparams = {};
-			$scope.search = function(){
-				  $scope.$broadcast("goto");  
-			}
-		});
-	</script>
- 
-
