@@ -29,7 +29,7 @@ appModule.directive('hello', function() {
  * <pagination data="{{pagination}}" ></pagination>
  * click event trigger query
  **/
-app.directive('pagination', function($http) {
+app.directive('pagination', function($http,$log) {
 	 return {
          restrict:'E',
          template:function(element,atts){
@@ -62,17 +62,17 @@ app.directive('pagination', function($http) {
         	 function createPagination(pagination){
         		 
         		 if(_.isUndefined(pagination.pageCount)){
-        			 console.log('pageCount not define.');
+        			 $log.error('pageCount not define.');
         			 return;
         		 }
         		 
         		 if(_.isUndefined(pagination.pageSize)){
-        			 console.log('pageSize not define.');
+        			 $log.error('pageSize not define.');
         			 return;
         		 }
         		 
         		 if(_.isUndefined(pagination.pageNo)){
-        			 console.log('pageNo not define.');
+        			 $log.error('pageNo not define.');
         			 return;
         		 }
         		 
@@ -126,17 +126,14 @@ app.directive('pagination', function($http) {
         		 
         		 $http.post(scope.url,_.extend({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo},scope.params)).success(function(data){
         			
-        			if(data.code == '0'){
-        				if(_.isUndefined(data.result)){
-        					console.log("返回参数不正确 ,{result:{pageCount:11}}");
-        					return;
-        				}
-        				scope.pagination.pageCount = data.result.totalElements;
-        				scope.data = data.result;
-        				createPagination(scope.pagination);
-        			}else{
-        				console.log('查询失败');
-        			}
+        			 if(_.isUndefined(data.result)){
+        				 $log.error("结果集未包含result");
+        				 return;
+        			 }
+        			 scope.pagination.pageCount = data.result.totalElements;
+        			 scope.data = data.result;
+        			 createPagination(scope.pagination);
+        			 
       			});
         	 }
         	 
