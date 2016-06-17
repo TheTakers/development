@@ -3,8 +3,8 @@
       xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       layout:decorator="layout" ng-app="app">
-<body class="fixed-left">
-<div id="wrapper" layout:fragment="content"  ng-controller = "indexCtrl">
+<body class="fixed-left" ng-controller = "indexCtrl">
+<div id="wrapper" layout:fragment="content">
 
      <!-- Begin page -->
             <!-- Top Bar Start -->
@@ -221,7 +221,7 @@
             <!-- ============================================================== -->
             <div class="content-page" >
           		    <!-- Start content -->
-                    <div class="content" ng-include="loading" ></div>
+                    <div class="content" ng-include="loading"></div>
                    	<footer class="footer"> 2016/06/06 © zk. </footer>
             </div>
 
@@ -231,7 +231,7 @@
         
 		
 		<form id="logout" th:action="@{/logout}" method="post"></form>
-
+		
 </div>
         <!-- END wrapper -->
 
@@ -239,7 +239,6 @@
 	
     <script th:src="@{/static/js/controller.js}"></script>
   	<script th:src="@{/static/assets/js/jquery.app.js}"></script> 
-
 </th:block>
 </body>
 </html>
