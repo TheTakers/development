@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngResource']);
+var app = angular.module('app', ['ngRoute', 'ngResource','ui.router','oc.lazyLoad']);
 
 
 /**
@@ -11,6 +11,26 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
         .when('/search/sqlDefine', {templateUrl: '/search/sqlDefine', controller: 'sqlDefineContextCtrl'})
         ;
 }]);**/
+
+
+app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
+	
+	$stateProvider
+	.state('index',{url:"/",templateUrl:"/home"})
+    .state('authorize', {
+        // 这里设置了url参数
+        url: "/:controller/:mapping",
+        templateUrl: function(param){
+        	 return "/"+param.controller+"/"+param.mapping;
+        },
+        resolve:{
+        	deps:function($ocLazyLoad,$stateParams){
+        		
+        		return $ocLazyLoad.load("static/js/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
+        	}
+        }
+    })
+}]);
 
 
 //定义一个 Service ，稍等将会把它作为 Interceptors 的处理函数

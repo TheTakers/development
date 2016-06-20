@@ -184,18 +184,18 @@
 				
 				<!-- level 1 -->
 						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
-                                 <a href="#" class="waves-effect" ng-click="forward(item.url)"><i class="{{item.icon}}"></i><span>{{item.name}}</span></a>
+                                 <a href="#{{item.url}}" class="waves-effect" ><i class="{{item.icon}}"></i><span>{{item.name}}</span></a>
                                
                 	<!-- level 2 -->
                                 <ul class="list-unstyled" ng-if="item.child.length">
                                 	 
                                 	<li class="has_sub" ng-repeat="second in item.child">
-                                      	<a href="#" class="waves-effect" ng-click="forward(second.url)"><span>{{second.name}}</span></a>
+                                      	<a href="#{{second.url}}" class="waves-effect" ><span>{{second.name}}</span></a>
                                       	
                			 <!-- level 3 -->
                                 		<ul class="list-unstyled"  ng-if="second.child.length">
                                             <li>
-                                            <a href="#" ng-repeat="third in second.child" ng-click="forward(third.url)"><span>{{third.name}}</span></a>
+                                            <a href="#{{third.url}}" ng-repeat="third in second.child" ><span>{{third.name}}</span></a>
                                             </li>
                                         </ul>
                                         
@@ -221,7 +221,9 @@
             <!-- ============================================================== -->
             <div class="content-page" >
           		    <!-- Start content -->
-                    <div class="content" ng-include="loading"></div>
+                
+ 					<div class="content" ui-view=""></div> 
+                    
                    	<footer class="footer"> 2016/06/06 © zk. </footer>
             </div>
 

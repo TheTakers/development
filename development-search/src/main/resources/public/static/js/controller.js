@@ -33,7 +33,7 @@ app.factory('menuRepository',function(){
 		getMenuData:function(){
 			if(this.navId != 1){
 				return [
-				          {id:'1',name:'首页',icon:'ti-home',url:'/home',pid:''},
+				          {id:'1',name:'首页',icon:'ti-home',url:'/',pid:''},
 			              {id:'2',name:'控制台',icon:'ti-spray',url:'',pid:'',child:[
 			   		                                                               {id:'',name:'系统上下文',icon:'glyphicon glyphicon-bookmark',url:'/console/context',pid:''},
 					                                                                {id:'',name:'内存监控',icon:'glyphicon glyphicon-print',url:'/console/memory',pid:''}
@@ -74,30 +74,15 @@ app.controller('NavCtrl', ['$scope', function ($scope) {
     };
 }]);**/
 
-app.controller('indexCtrl', function($scope,$http,menuRepository) {
-	  
-	  /**logout**/
-	  $scope.logout = function(){
-		  $('#logout').submit();
-	  }
-	  
-	  $scope.loading ="/home";
-	  $scope.forward = function(url){
-		  $scope.loading = url;
-	  }
-	  //auto iframe height
-	 // $scope.iframh = $(".sidebar-inner").height() - 30;
+app.controller('indexCtrl', function($scope,$compile,$http,menuRepository,$ocLazyLoad) {
+    
+    /**logout**/
+    $scope.logout = function(){
+      $('#logout').submit();
+    }
 });
 
 app.controller('menuCtrl', function($scope,$http,menuRepository) {
 	$scope.menu = menuRepository.getMenuData();
 	 
-});
-
-app.controller('sqlGroupCtrl', function($scope,$http) {
-	$scope.pagination = {};
-	$scope.queryparams = {};
-	$scope.search = function(){
-		  $scope.$broadcast("goto");  
-	}
 });
