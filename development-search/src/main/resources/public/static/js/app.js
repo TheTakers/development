@@ -16,6 +16,7 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
 app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
 	
 	$stateProvider
+	.state('blank',{url:"",templateUrl:"/home"})
 	.state('index',{url:"/",templateUrl:"/home"})
     .state('authorize', {
         // 这里设置了url参数
