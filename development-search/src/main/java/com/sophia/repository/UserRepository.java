@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sophia.domain.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, String>{
 	
 	public Page<User> findAll(Pageable pageable);
 }
