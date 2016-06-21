@@ -25,9 +25,23 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
         	 return "/"+param.controller+"/"+param.mapping;
         },
         resolve:{
-        	deps:function($ocLazyLoad,$stateParams){
+        	deps:function($ocLazyLoad,$stateParams,$log){
         		
-        		return $ocLazyLoad.load("static/js/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
+        		var promise =  $ocLazyLoad.load("static/js/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
+        		
+        		promise.then(function(v){//success 
+        			
+        		},function(v){//error
+        			
+        			$.error(v)
+        		},function(v){//notify
+        			 
+        		}).catch(function(e){
+        			
+                }.finally(function(value){
+                	
+                })
+        		return promise;
         	}
         }
     })
