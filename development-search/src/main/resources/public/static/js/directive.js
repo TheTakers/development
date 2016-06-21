@@ -203,7 +203,8 @@ app.directive('dtree', function($http,$log) {
        scope:{
     	   id:'@',
     	   setting:'=',
-    	   znodes:'='
+    	   znodes:'=',
+    	   callback:'&'
        },
        template:function(element,atts){
       	return  '<ul class="ztree"></ul>';
@@ -211,7 +212,10 @@ app.directive('dtree', function($http,$log) {
        replace : true,			
        transclude : false,
        link:function(scope,element,attr){
-    	   $.fn.zTree.init($(element), scope.setting, scope.znodes);
+    	   var ztree = $.fn.zTree.init($(element), scope.setting, scope.znodes);
+    	   if(scope.callback){
+    		   scope.callback({ztree:ztree});
+    	   }
        }
    };
 }); 

@@ -7,6 +7,11 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 		$scope.$broadcast("goto");  
 	}
 	
+	$scope.groupTreeCallback = function(ztree){
+		
+		ztree.expandAll(true);
+	};
+	
 	$scope.sett = {};
 	$scope.znodes = [
 	     			{ name:"父节点1 - 展开", open:true,
