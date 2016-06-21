@@ -11,13 +11,13 @@ function sessionInvalid(){
 
 
 $.warning = function warning(info){
-	$.Notification.notify('warning','bottom right','警告', info);
+	$.Notification.notify('warning','bottom right','', info);
 }
 
 $.error = function error(info){
-	$.Notification.notify('error','bottom right','系统异常', info);
+	$.Notification.notify('error','bottom right','', info);
 }
 
 $.info =  function(info){
-	$.Notification.notify('info','bottom right','提示', info);
+	$.Notification.notify('info','bottom right','', info);
 }
