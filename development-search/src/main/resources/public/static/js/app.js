@@ -29,16 +29,16 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
         		
         		var promise =  $ocLazyLoad.load("static/js/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
         		
-        		promise.then(function(v){//success 
+        		promise.then(function(res){//success 
         			
-        		},function(v){//error
+        		},function(error){//error
         			
-        			$.error(v)
-        		},function(v){//notify
+        			$.error(error)
+        		},function(info){//notify
         			 
-        		}).catch(function(e){
+        		}).catch(function(ex){
         			
-                }).finally(function(value){
+                }).finally(function(res){
                 	
                 })
         		return promise;
