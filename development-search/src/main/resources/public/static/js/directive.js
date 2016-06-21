@@ -195,3 +195,24 @@ app.directive('dialog', function($http) {
         link : function(scope,element,attr){}
     };
 }); 
+
+//ztree
+app.directive('dtree', function($http,$log) {
+	 return {
+       restrict:'E',
+       scope:{
+    	   id:'@',
+    	   setting:'=',
+    	   znodes:'='
+       },
+       template:function(element,atts){
+      	return  '<ul class="ztree"></ul>';
+       },
+       replace : true,			
+       transclude : false,
+       link:function(scope,element,attr){
+    	   $.fn.zTree.init($(element), scope.setting, scope.znodes);
+       }
+   };
+}); 
+

@@ -9,8 +9,22 @@
 				</ol>
 			</div>
 		</div>
-
+		
+		
+	   <div class="row">
+	   
+	    <!-- tree start-->
+		<div class="col-md-2"> 
+			<div class="card-box">
+				<dtree id="groupTree" setting="sett" znodes="znodes"></dtree>
+			</div>
+		</div>
+		<!-- tree end -->
+		
+		<div class="col-md-10"> 
+		
 		<!-- start of search row -->
+		
 		<form class="form-inline">
 		<div class="row">
 			<div class="col-md-12">
@@ -54,9 +68,10 @@
 		</div>
 		</form>
 		<!-- End of search Row -->
-
+	
 
 		<!-- start of datagrid -->
+		
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card-box">
@@ -71,19 +86,6 @@
 												<th data-hide="phone, tablet">Status</th>
 											</tr>
 										</thead>
-										
-										<!--
-										<div class="pad-btm form-inline">
-											<div class="row">
-												<div class="col-sm-6 text-xs-center">
-													<div class="form-group">
-														<button class="btn btn-default waves-effect waves-light m-b-20" data-toggle="modal" data-target="#editForm">新增</button>
-														<button class="btn btn-danger waves-effect waves-light m-b-20" data-toggle="modal" data-target="#con-close-modal">审核</button>
-													</div>
-												</div>
-											</div>
-										</div>
-										  -->
 										
 										<tbody>
 											<tr ng-repeat="item in pagination.content">
@@ -108,8 +110,10 @@
 				</div>
 			</div>
 		</div>
+	  	</div>
 		<!-- end of datagrid -->
 	</div>
 	
 	<!-- MODEL -->
 	<dialog id="editForm" data-remote="/search/sqlGroupEdit"></dialog>
+</div>
