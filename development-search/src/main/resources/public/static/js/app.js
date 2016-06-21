@@ -38,7 +38,7 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
         			 
         		}).catch(function(e){
         			
-                }.finally(function(value){
+                }).finally(function(value){
                 	
                 })
         		return promise;
