@@ -60,8 +60,10 @@ function httpInterceptor($q,$log) {
       return $q.reject(err);
     },
     response: function(res){
-    	
-  	  if(res.status == 200){
+      
+      $log.info(res)
+  	  
+      if(res.status == 200){
   		  
   		  if(!_.isUndefined(res.data.code)){
   			  
@@ -72,7 +74,8 @@ function httpInterceptor($q,$log) {
       return res;
     },
     responseError: function(err){
-    	$.error(err);
+      
+      $.error(err);
       return $q.reject(err);
     }
   };
