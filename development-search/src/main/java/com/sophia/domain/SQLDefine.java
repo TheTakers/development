@@ -15,10 +15,8 @@ public class SQLDefine extends Auditable{
 	private String sqlId;
 	private String sqlName;
 	private String defSelectSql;
-	private String defSelectParams;
-	private String selectSql;
 	private String datasource;
-	
+	private Integer type;
 	/**
 	 * 是否缓存
 	 */
@@ -39,6 +37,12 @@ public class SQLDefine extends Auditable{
 	 */
 	private String groupId;
 	
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	public String getRemark() {
 		return remark;
 	}
@@ -68,18 +72,6 @@ public class SQLDefine extends Auditable{
 	}
 	public void setDefSelectSql(String defSelectSql) {
 		this.defSelectSql = defSelectSql;
-	}
-	public String getDefSelectParams() {
-		return defSelectParams;
-	}
-	public void setDefSelectParams(String defSelectParams) {
-		this.defSelectParams = defSelectParams;
-	}
-	public String getSelectSql() {
-		return selectSql;
-	}
-	public void setSelectSql(String selectSql) {
-		this.selectSql = selectSql;
 	}
 	public String getDatasource() {
 		return datasource;
