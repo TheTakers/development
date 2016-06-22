@@ -14,7 +14,7 @@ public class SQLDefine extends Auditable{
 	
 	private String sqlId;
 	private String sqlName;
-	private String defSelectSql;
+	private String selectSql;
 	private String datasource;
 	private Integer type;
 	/**
@@ -67,11 +67,12 @@ public class SQLDefine extends Auditable{
 	public void setSqlName(String sqlName) {
 		this.sqlName = sqlName;
 	}
-	public String getDefSelectSql() {
-		return defSelectSql;
+	 
+	public String getSelectSql() {
+		return selectSql;
 	}
-	public void setDefSelectSql(String defSelectSql) {
-		this.defSelectSql = defSelectSql;
+	public void setSelectSql(String selectSql) {
+		this.selectSql = selectSql;
 	}
 	public String getDatasource() {
 		return datasource;

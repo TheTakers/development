@@ -21,7 +21,7 @@ public class PaginationSqlFactory extends JdbcTemplate{
 	private static String mySql(String sql,Integer pageSize,Integer pageNo){
 		StringBuilder sqlbuilder = new StringBuilder(sql);
 		sqlbuilder.append(" LIMIT ")
-				  .append( (pageNo -1) * pageSize)
+				  .append((pageNo -1) * pageSize)
 				  .append(",")
 				  .append(pageSize);
 		return sqlbuilder.toString();
