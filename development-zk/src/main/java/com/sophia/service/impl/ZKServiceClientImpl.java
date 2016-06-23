@@ -21,4 +21,20 @@ public class ZKServiceClientImpl implements ZKClientService {
 		this.zkClient = new ZkClient(zkServers, connectionTimeout);
 		
 	}
+	
+	public void register(){
+		
+	}
+	
+	public void monitor(){
+		
+	}
+	
+	public void modifyById(){
+		
+	}
+	
+	public void findAll(){
+		
+	}
 }
