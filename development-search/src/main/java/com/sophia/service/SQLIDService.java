@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.CallableStatementCallback;
 
+import com.sophia.vo.Grid;
+import com.sophia.vo.Pagination;
+
 
 public interface SQLIDService {
 	
@@ -15,4 +18,6 @@ public interface SQLIDService {
 	public Map<String, Object> queryForMap(String sql, Object... args);
 	
 	public <T> T execute(String SQLID, CallableStatementCallback<T> action);
+	
+	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Pagination pagination);
 }

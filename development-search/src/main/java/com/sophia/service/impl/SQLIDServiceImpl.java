@@ -1,5 +1,6 @@
 package com.sophia.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,9 @@ import com.sophia.exception.ServiceException;
 import com.sophia.service.MultipleDataSouceService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
+import com.sophia.utils.PaginationSqlFactory;
+import com.sophia.vo.Grid;
+import com.sophia.vo.Pagination;
 
 /**
  *  
@@ -56,10 +60,32 @@ public class SQLIDServiceImpl extends JdbcTemplate implements SQLIDService {
 		return jdbcTemplate.queryForObject(selDefine.getSelectSql(),requiredType,args);
 	}
 	
+	public Integer count(String SQLID,Object... args){
+		SQLDefine selDefine = get(SQLID);
+		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
+		return jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args);
+	}
+	
 	public <T> T execute(String SQLID, CallableStatementCallback<T> action){
 		SQLDefine selDefine = get(SQLID);
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
 		return jdbcTemplate.execute(selDefine.getSelectSql(),action);
+	}
+	
+	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Pagination pagination){
+		SQLDefine selDefine = get(SQLID);
+		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
+		Grid<T> grid = new Grid<T>();
+		  try {
+			  grid.setData(jdbcTemplate.queryForList(PaginationSqlFactory.buildPaginationSQL(selDefine.getSelectSql(),pagination, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
+			  grid.setCount(jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
+			  grid.setPageNo(pagination.getPageNo());
+			  grid.setPageSize(pagination.getPageSize());
+		  } catch (SQLException e) {
+			logger.error("分页查询异常:{}",e);
+			throw new ServiceException("分页查询异常");
+		} 
+		return grid;
 	}
 	
 	private SQLDefine get(String SQLId){

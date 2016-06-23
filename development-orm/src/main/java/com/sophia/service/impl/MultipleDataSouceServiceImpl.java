@@ -19,11 +19,11 @@ public class MultipleDataSouceServiceImpl extends ApplicationObjectSupport imple
 	public JdbcTemplate getDataSourceByBean(DataSourceEnum me) {
 		
 		if(null==me)
-			throw new ServiceException("未知的数据源");
+			throw new ServiceException("数据源不能为空");
 		
 		Object bean  = getApplicationContext().getBean(me.getJdbcTemplate());
 		if(bean == null)
-			throw new ServiceException("数据源未定义");
+			throw new ServiceException("未定义的数据源");
 		
 		return (JdbcTemplate)bean;
 	}
