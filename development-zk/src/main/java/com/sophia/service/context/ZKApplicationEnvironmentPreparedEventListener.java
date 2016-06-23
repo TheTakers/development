@@ -9,8 +9,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class ZKApplicationEnvironmentPreparedEventListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
