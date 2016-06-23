@@ -32,10 +32,10 @@ public class Grid<T> implements Serializable{
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public List getData() {
+	public List<T> getData() {
 		return data;
 	}
-	public void setData(List data) {
+	public void setData(List<T> data) {
 		this.data = data;
 	}
 }
