@@ -28,7 +28,7 @@ import com.sophia.vo.Pagination;
  * @author zkning
  */
 @Service
-public class SQLIDServiceImpl extends JdbcTemplate implements SQLIDService {
+public class SQLIDServiceImpl implements SQLIDService {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -47,7 +47,6 @@ public class SQLIDServiceImpl extends JdbcTemplate implements SQLIDService {
 		return jdbcTemplate.queryForMap(selDefine.getSelectSql(),args);
 	}
 	
-	@Override
 	public List<Map<String, Object>> queryForList(String SQLID, Object... args){
 		SQLDefine selDefine = get(SQLID);
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
