@@ -34,5 +34,11 @@
 			<groupId>com.google.collections</groupId>
 			<artifactId>google-collections</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.9</version>
+		</dependency>
 	</dependencies>
 </project>
