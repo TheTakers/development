@@ -19,7 +19,6 @@ public class ZKServiceClientImpl implements ZKClientService {
 	public void config(String zkServers,Integer connectionTimeout){
 		
 		this.zkClient = new ZkClient(zkServers, connectionTimeout);
-		
 	}
 	
 	public void register(){
