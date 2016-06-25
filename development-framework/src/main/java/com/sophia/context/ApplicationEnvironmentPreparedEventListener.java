@@ -29,6 +29,7 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 	Logger logger = LoggerFactory.getLogger(getClass());
 
 	private static final String appliction = "applicationConfigurationProperties";
+	private static final String applictionConfig = "applicationConfig:";
 	private static final String cloudAppliction = "cloudConfigurationProperties";
 
 	private static final String zk_switch = "apache.zk.switch";
@@ -89,11 +90,17 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 				
 				List<EnumerableCompositePropertySource> sources = (List<EnumerableCompositePropertySource>)propertySource.getSource();
 				JSONObject configJson= new JSONObject();
-			 
-				for(String key : sources.get(0).getPropertyNames()){
-					configJson.put(key, sources.get(0).getProperty(key));
+				
+				for(EnumerableCompositePropertySource source : sources){
+					
+					if(source.getName().contains(applictionConfig)){
+						
+						for(String key : source.getPropertyNames()){
+							configJson.put(key, source.getProperty(key));
+						}
+						break;
+					}
 				}
-				 
 				String configNode = zkClient.create(sophiaConfg, configJson.toJSONString(), CreateMode.PERSISTENT);
 				
 				zkClient.subscribeDataChanges(sophiaConfg, new IZkDataListener() {
