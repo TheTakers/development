@@ -120,7 +120,6 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 			}
 		}catch(Exception e){
 			logger.error("获取Zookeeper配置异常,仍应用本地配置",e);
-			return zkConfig;
 		}
 		return zkConfig;
 	}
