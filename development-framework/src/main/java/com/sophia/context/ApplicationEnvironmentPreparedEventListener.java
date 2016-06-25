@@ -94,7 +94,7 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 				logger.info("创建节点{}成功",configNode);
 			}
 		}catch(Exception e){
-			logger.error("获取zookeeper配置异常,应用本地配置",e);
+			logger.error("获取zookeeper配置异常,仍应用本地配置",e);
 			return zkConfig;
 		}
 		return zkConfig;
