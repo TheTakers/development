@@ -18,6 +18,7 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sophia.web.util.ZKClient;
 
 /**
  * Zookeeper config
@@ -76,9 +77,9 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 
 		Map<String,Object> zkConfig = new HashMap<String, Object>();
 		try{
-			ZkClient zkClient = new ZkClient(propertySource.getProperty(zk_server).toString(), 
-						Integer.valueOf(propertySource.getProperty(zk_timeout).toString()));
-
+			ZkClient zkClient = ZKClient.getInstance(propertySource.getProperty(zk_server).toString(), 
+									Integer.valueOf(propertySource.getProperty(zk_timeout).toString()));
+			
 			if(zkClient.exists(sophiaConfg)){
 
 				JSONObject configJson=JSONObject.parseObject(zkClient.readData(sophiaConfg).toString());
