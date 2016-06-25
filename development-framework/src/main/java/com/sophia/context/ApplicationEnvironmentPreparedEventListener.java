@@ -92,7 +92,6 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 				}
 				String configNode = zkClient.create(sophiaConfg, configJson.toJSONString(), CreateMode.PERSISTENT);
 				logger.info("创建节点{}成功",configNode);
-				
 			}
 		}catch(Exception e){
 			logger.error("获取zookeeper配置异常,应用本地配置",e);
