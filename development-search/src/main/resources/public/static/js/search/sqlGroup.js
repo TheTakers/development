@@ -12,7 +12,11 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 		ztree.expandAll(true);
 	};
 	
-	$scope.sett = {};
+	$scope.sett = {callback: {
+		onClick: function(event,treeId,node,idx){
+			$scope.$broadcast("goto");  
+		}
+	}};
 	$scope.znodes = [
 	     			{ name:"父节点1 - 展开", open:true,
 	    				children: [
@@ -30,7 +34,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 	    							{ name:"叶子节点123"},
 	    							{ name:"叶子节点124"}
 	    						]},
-	    					{ name:"父节点13 - 没有子节点", isParent:true}
+	    					{ name:"父节点13", isParent:true}
 	    				]},
 	    			{ name:"父节点2 - 折叠",
 	    				children: [
@@ -56,7 +60,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 	    							{ name:"叶子节点234"}
 	    						]}
 	    				]},
-	    			{ name:"父节点3 - 没有子节点", isParent:true}
+	    			{ name:"父节点3", isParent:true}
 
 	    		];
 	

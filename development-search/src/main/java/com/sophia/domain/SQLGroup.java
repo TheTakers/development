@@ -19,7 +19,7 @@ public class SQLGroup extends Auditable{
 	
 	private String groupCode;
 	private String groupName;
-	private String parentId;
+	private String groupId;
 	private String groupPath;
 	private String groupDesc;
 	
@@ -35,11 +35,12 @@ public class SQLGroup extends Auditable{
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-	public String getParentId() {
-		return parentId;
+	 
+	public String getGroupId() {
+		return groupId;
 	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 	public String getGroupPath() {
 		return groupPath;
