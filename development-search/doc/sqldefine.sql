@@ -47,14 +47,16 @@ create table TB_SM_DATATYPES
 );
 create table TB_SM_SQLGROUP
 (
-  oid         VARCHAR(50) not null,
-  pid         VARCHAR(50),
-  mid         VARCHAR(50),
-  obj_version int(10),
-  groupcode   VARCHAR(1000),
-  groupname   VARCHAR(1000),
-  groupdesc   text,
-  grouppath   VARCHAR(4000)
+  id         VARCHAR(50) not null,
+  groupCode   VARCHAR(1000),
+  groupName   VARCHAR(1000),
+  groupDesc   text,
+  groupPath   VARCHAR(2000),
+  version NUMERIC,
+  createUser VARCHAR(50),
+  createTime datetime,
+  lastUpdateUser VARCHAR(50),
+  lastUpdateTime datetime
 );
 create table TB_SM_USER
 (
