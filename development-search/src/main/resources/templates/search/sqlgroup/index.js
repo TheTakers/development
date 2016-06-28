@@ -45,13 +45,6 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 	    							{ name:"叶子节点213"},
 	    							{ name:"叶子节点214"}
 	    						]},
-	    					{ name:"父节点22 - 折叠",
-	    						children: [
-	    							{ name:"叶子节点221"},
-	    							{ name:"叶子节点222"},
-	    							{ name:"叶子节点223"},
-	    							{ name:"叶子节点224"}
-	    						]},
 	    					{ name:"父节点23 - 折叠",
 	    						children: [
 	    							{ name:"叶子节点231"},

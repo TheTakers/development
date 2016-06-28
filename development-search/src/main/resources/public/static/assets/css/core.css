@@ -1640,6 +1640,17 @@ body.fixed-left .side-menu.left {
 .contacts-list i.away {
   color: #ffbd4a;
 }
+
+.app-search-sm {
+  position: relative;
+}
+.app-search-sm a {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  color: #c4c4cd;
+}
+
 .app-search {
   position: relative;
   margin: 15px 0px 15px 10px;

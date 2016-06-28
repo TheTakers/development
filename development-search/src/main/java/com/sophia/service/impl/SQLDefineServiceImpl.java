@@ -21,4 +21,5 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	
 }

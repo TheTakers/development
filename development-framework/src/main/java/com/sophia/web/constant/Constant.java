@@ -5,8 +5,8 @@ package com.sophia.web.constant;
  */
 public class Constant {
 
-    public static final String SUCCESS_MESSAGE = "成功";
-    public static final String FAILURE_MESSAGE = "失败";
+    public static final String SUCCESS_MESSAGE = "处理成功";
+    public static final String FAILURE_MESSAGE = "处理失败";
 
     public static final String LOGIN_SUCCESS = "登陆成功";
     public static final String LOGIN_FAILD = "登陆失败";
