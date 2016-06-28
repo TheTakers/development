@@ -2,6 +2,7 @@ package com.sophia.web.adapter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.sophia.web.interceptor.DiagnosticInterceptor;
@@ -12,9 +13,15 @@ import com.sophia.web.interceptor.RestSecurityInterceptor;
  */
 @Configuration
 public class WebAppConfigurerAdapter extends WebMvcConfigurerAdapter {
+	
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RestSecurityInterceptor()).addPathPatterns("/api/**");
         registry.addInterceptor(new DiagnosticInterceptor()).addPathPatterns("/**");
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    	registry.addResourceHandler("/templates/**") .addResourceLocations("classpath:/templates/");
     }
 }

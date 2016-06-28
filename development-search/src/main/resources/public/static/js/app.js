@@ -27,7 +27,7 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
         resolve:{
         	deps:function($ocLazyLoad,$stateParams,$log){
         		
-        		var promise =  $ocLazyLoad.load("static/js/"+$stateParams.module+"/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
+        		var promise =  $ocLazyLoad.load("templates/"+$stateParams.module+"/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
         		
         		promise.then(function(res){//success 
         			
