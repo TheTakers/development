@@ -20,14 +20,14 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
 	.state('index',{url:"/",templateUrl:"/home"})
     .state('authorize', {
         // 这里设置了url参数
-        url: "/:controller/:mapping",
+        url: "/:module/:controller/:mapping",
         templateUrl: function(param){
-        	 return "/"+param.controller+"/"+param.mapping;
+        	 return "/"+param.module+"/"+param.controller+"/"+param.mapping;
         },
         resolve:{
         	deps:function($ocLazyLoad,$stateParams,$log){
         		
-        		var promise =  $ocLazyLoad.load("static/js/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
+        		var promise =  $ocLazyLoad.load("static/js/"+$stateParams.module+"/"+$stateParams.controller+"/"+$stateParams.mapping+".js");
         		
         		promise.then(function(res){//success 
         			
