@@ -4,7 +4,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 	$scope.search = function(){
 		
 		//广播分页条查询
-		$scope.$broadcast("goto");  
+		$scope.$broadcast("sqlgroupgrid");  
 	}
 	
 	$scope.groupTreeCallback = function(ztree){
@@ -14,7 +14,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 	
 	$scope.sett = {callback: {
 		onClick: function(event,treeId,node,idx){
-			$scope.$broadcast("goto");  
+			$scope.$broadcast("sqlgroupgrid");  
 		}
 	}};
 	$scope.znodes = [

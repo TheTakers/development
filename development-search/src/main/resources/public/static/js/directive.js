@@ -51,6 +51,7 @@ app.directive('pagination', function($http,$log) {
 	 		
          },
          scope:{
+        	 id:"@",
         	 data:"=",
         	 url:"@",
         	 params:"="
@@ -141,7 +142,7 @@ app.directive('pagination', function($http,$log) {
         	 post();
         	 
         	 //catch parent broadcast goto
-        	 scope.$on("goto", function(d,data) {  
+        	 scope.$on(scope.id, function(d,data) {  
         		 post();
         	 });  
 
