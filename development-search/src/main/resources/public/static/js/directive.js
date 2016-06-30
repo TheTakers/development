@@ -184,7 +184,6 @@ app.directive('dialog', function($http) {
 	 return {
         restrict:'E',
         template:function(element,atts){
-       	 
         	return  '<div  class="modal fade"  role="dialog"  aria-hidden="true">'+
 					   '<div class="modal-dialog">'+
 				       '<div class="modal-content"></div>'+
@@ -197,7 +196,8 @@ app.directive('dialog', function($http) {
         replace : true,			
         transclude : false,
         link : function(scope,element,attr){
-        	
+   
+        	 scope.tag= "ffffffffffffff";
         	//移除数据，让对话框能够在每次打开时重新加载页面
         	$("#"+scope.id).on("hidden.bs.modal", function() {
         	    $(this).removeData("bs.modal");
@@ -230,3 +230,62 @@ app.directive('dtree', function($http,$log) {
    };
 }); 
 
+/*时间
+app.directive('datetime', function($http,$log) {
+	 return {
+      restrict:'E',
+      scope:{
+   	   text:'=',
+   	   value:'=',
+   	   url:'@' 
+      },
+      template:function(element,atts){
+     	return  '<div class="input-group">'
+     	  + '<input type="text" class="form-control input-sm"></input>'
+     	  + '<a data-toggle="modal" data-target="#{{scope.dialogId}}"><i class="fa fa-search"></i></a>'
+     	  + '<dialog id="#{{scope.dialogId}}" data-remote="{{scope.url}}"></dialog></div>';
+      },
+      replace : true,			
+      transclude : false,
+      link:function(scope,element,attr){
+    	  
+    	  //随机数生成8位ID
+    	  function nextId(n){
+    	        return Math.floor(Math.random()*n+1)
+    	  }
+   	     scope.dialogId = nextId(8);
+      }
+  };
+}); */
+
+//选择器
+app.directive('selector', function($http,$log) {
+	 return {
+      restrict:'E',
+      scope:{
+	   	   text:'=',
+	   	   value:'=',
+	   	   url:'@' 
+      },
+      template:function(element,atts){
+     	return  	'<div class="app-search-sm">'
+	    +'<input type="text"  class="form-control input-sm" value="{{text}}"></input><input type="hidden" class="form-control input-sm" value="{{value}}"></input>'
+	 	+'<a data-toggle="modal" data-target="#{{dialogId}}" ><i class="fa fa-search"></i></a>'
+ 	    +'<dialog id="{{dialogId}}" data-remote="{{url}}"></dialog></div>';
+      },
+      replace : true,			
+      transclude : false,
+      link:function(scope,element,attr){
+    	 
+      	//随机数生成8位ID
+      	  function nextId(n){
+      		  var randomId=""; 
+      		  for(var i=0;i<n;i++){ 
+      			  randomId += Math.floor(Math.random()*10); 
+      		  }
+      		  return randomId;
+      	  }
+      	  scope.dialogId = nextId(8);
+      }
+  };
+}); 

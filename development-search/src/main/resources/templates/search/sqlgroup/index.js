@@ -1,4 +1,7 @@
-angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
+angular.module('app').controller('sqlGroupCtrl', function($scope,$http,ngDialog) {
+	
+	$scope.select = {text:"divdfa",value:"xxxx"};
+	
 	$scope.pagination = {};
 	$scope.queryparams = {};
 	$scope.search = function(){
@@ -17,6 +20,15 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http) {
 			$scope.$broadcast("sqlgroupgrid");  
 		}
 	}};
+	
+	 $scope.openTemplate = function () {
+         ngDialog.open({
+             template: '/search/sqlgroup/edit',
+             width:'50%',
+             scope: $scope
+         });
+     };
+	
 	$scope.znodes = [
 	     			{ name:"父节点1 - 展开", open:true,
 	    				children: [
