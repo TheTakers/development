@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ngResource','ui.router','oc.lazyLoad','ngDialog']);
+var app = angular.module('app', ['ngRoute', 'ngResource','ui.router','oc.lazyLoad','ui.bootstrap']);
 
 
 /**

@@ -1,4 +1,4 @@
-angular.module('app').controller('sqlGroupCtrl', function($scope,$http,ngDialog) {
+angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal) {
 	
 	$scope.select = {text:"divdfa",value:"xxxx"};
 	
@@ -22,13 +22,26 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,ngDialog)
 	}};
 	
 	 $scope.openTemplate = function () {
-         ngDialog.open({
-             template: '/search/sqlgroup/edit',
-             width:'50%',
-             scope: $scope
+        
+         var modalInstance = $uibModal.open({
+             templateUrl: '/search/sqlgroup/edit',
+             controller: 'sqlGroupCtrl',
+             resolve: {
+               items: function () {
+                 return $scope.items;
+               }
+             }
          });
+         
+         modalInstance.result.then(function (selectedItem) {
+             $scope.selected = selectedItem;
+           }, function () {
+             $log.info('Modal dismissed at: ' + new Date());
+           });
      };
-	
+     $scope.cancel = function () {
+    	 $scope.uibModalInstance.dismiss('cancel');
+  	};
 	$scope.znodes = [
 	     			{ name:"父节点1 - 展开", open:true,
 	    				children: [
