@@ -270,22 +270,33 @@ app.directive('selector', function($http,$log) {
       template:function(element,atts){
      	return  	'<div class="app-search-sm">'
 	    +'<input type="text"  class="form-control input-sm" value="{{text}}"></input><input type="hidden" class="form-control input-sm" value="{{value}}"></input>'
-	 	+'<a data-toggle="modal" data-target="#{{dialogId}}" ><i class="fa fa-search"></i></a>'
- 	    +'<dialog id="{{dialogId}}" data-remote="{{url}}"></dialog></div>';
+	 	+'<a ng-click="showDialog()" ><i class="fa fa-search"></i></a></div>';
       },
       replace : true,			
       transclude : false,
       link:function(scope,element,attr){
-    	 
-      	//随机数生成8位ID
-      	  function nextId(n){
-      		  var randomId=""; 
-      		  for(var i=0;i<n;i++){ 
-      			  randomId += Math.floor(Math.random()*10); 
-      		  }
-      		  return randomId;
-      	  }
-      	  scope.dialogId = nextId(8);
+
+    	  function showDialog(){
+    		  $uibModal.open({
+    	             templateUrl: scope.url,
+    	             controller: 'sqlGroupCtrl',
+    	             resolve: {
+    	               items: function () {
+    	                 return $scope.items;
+    	               }
+    	             }
+    	         });
+    	  }
+
+    	  //随机数生成8位ID
+    	  function nextId(n){
+    		  var randomId=""; 
+    		  for(var i=0;i<n;i++){ 
+    			  randomId += Math.floor(Math.random()*10); 
+    		  }
+    		  return randomId;
+    	  }
+    	  scope.dialogId = nextId(8);
       }
   };
 }); 

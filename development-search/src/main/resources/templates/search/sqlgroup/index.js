@@ -11,7 +11,6 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	}
 	
 	$scope.groupTreeCallback = function(ztree){
-		
 		ztree.expandAll(true);
 	};
 	
@@ -20,10 +19,10 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			$scope.$broadcast("sqlgroupgrid");  
 		}
 	}};
-	
+	 
 	 $scope.openTemplate = function () {
         
-         var modalInstance = $uibModal.open({
+          var modalInstance = $uibModal.open({
              templateUrl: '/search/sqlgroup/edit',
              controller: 'sqlGroupCtrl',
              resolve: {
@@ -39,9 +38,11 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
              $log.info('Modal dismissed at: ' + new Date());
            });
      };
-     $scope.cancel = function () {
-    	 $scope.uibModalInstance.dismiss('cancel');
+     
+    $scope.cancel = function () {
+    	 $scope.$close();
   	};
+  	
 	$scope.znodes = [
 	     			{ name:"父节点1 - 展开", open:true,
 	    				children: [
