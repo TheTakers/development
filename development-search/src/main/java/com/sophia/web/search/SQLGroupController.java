@@ -7,7 +7,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
+import com.sophia.vo.QueryGridParam;
 import com.sophia.vo.SQLGroupParam;
-import com.sophia.vo.UserParam;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
@@ -34,23 +33,19 @@ public class SQLGroupController extends BaseController{
 	public static final String module = "/search/sqlgroup";
 	
 	@RequestMapping("/index")
-    @Secured("ROLE_ADMIN")
-    public ModelAndView sqlGroup(HttpServletRequest request, ModelMap result) {
+    public ModelAndView index(HttpServletRequest request, ModelMap result) {
         return new ModelAndView(module +"/index", result);
     }
 	
 	@RequestMapping("/edit")
-    @Secured("ROLE_ADMIN")
-    public ModelAndView sqlGroupEdit(HttpServletRequest request, ModelMap result) {
+    public ModelAndView edit(HttpServletRequest request, ModelMap result) {
         return new ModelAndView(module + "/edit", result);
     }
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Secured("ROLE_ADMIN")
-	public Map<String, Object> grid(@RequestBody @Valid UserParam userParam) {
+	public Map<String, Object> list(@RequestBody @Valid QueryGridParam queryGridParam) {
 		try {
-		 
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -65,7 +60,8 @@ public class SQLGroupController extends BaseController{
 			sqlGroup.setId(GUID.nextId());
 			sqlGroup.setGroupCode(sqlGroupParam.getGroupCode());
 			sqlGroup.setGroupName(sqlGroup.getGroupName());
-			sqlGroup.setGroupId(sqlGroupParam.getGroupId());
+			sqlGroup.setParentId(GUID.nextId());
+			sqlGroup.setGroupDesc(sqlGroup.getGroupDesc());
 			sqlGroupService.insert(sqlGroup);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

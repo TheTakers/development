@@ -4,6 +4,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	
 	$scope.pagination = {};
 	$scope.queryparams = {};
+ 	$scope.sqlgroup = {};
 	$scope.search = function(){
 		
 		//广播分页条查询
@@ -14,11 +15,19 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 		ztree.expandAll(true);
 	};
 	
-	$scope.sett = {callback: {
-		onClick: function(event,treeId,node,idx){
-			$scope.$broadcast("sqlgroupgrid");  
-		}
-	}};
+	$scope.sett = {
+			data:{
+				simpleData:{
+				enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+				idKey: "id",
+				pIdKey: "pId",
+				rootPId: 0}
+			},
+			callback: {
+				onClick: function(event,treeId,node,idx){
+					$scope.$broadcast("sqlgroupgrid");  
+				}
+			}};
 	 
 	 $scope.openTemplate = function () {
         
@@ -39,48 +48,20 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
            });
      };
      
-    $scope.cancel = function () {
+    $scope.cancel = function() {
     	 $scope.$close();
   	};
   	
-	$scope.znodes = [
-	     			{ name:"父节点1 - 展开", open:true,
-	    				children: [
-	    					{ name:"父节点11 - 折叠",
-	    						children: [
-	    							{ name:"叶子节点111"},
-	    							{ name:"叶子节点112"},
-	    							{ name:"叶子节点113"},
-	    							{ name:"叶子节点114"}
-	    						]},
-	    					{ name:"父节点12 - 折叠",
-	    						children: [
-	    							{ name:"叶子节点121"},
-	    							{ name:"叶子节点122"},
-	    							{ name:"叶子节点123"},
-	    							{ name:"叶子节点124"}
-	    						]},
-	    					{ name:"父节点13", isParent:true}
-	    				]},
-	    			{ name:"父节点2 - 折叠",
-	    				children: [
-	    					{ name:"父节点21 - 展开", open:true,
-	    						children: [
-	    							{ name:"叶子节点211"},
-	    							{ name:"叶子节点212"},
-	    							{ name:"叶子节点213"},
-	    							{ name:"叶子节点214"}
-	    						]},
-	    					{ name:"父节点23 - 折叠",
-	    						children: [
-	    							{ name:"叶子节点231"},
-	    							{ name:"叶子节点232"},
-	    							{ name:"叶子节点233"},
-	    							{ name:"叶子节点234"}
-	    						]}
-	    				]},
-	    			{ name:"父节点3", isParent:true}
-
-	    		];
+  	$scope.save = function() {
+  		$http.post('/search/sqlgroup/save',$scope.sqlgroup).success(function(data){
+  			$scope.$broadcast("sqlgroupgrid");  
+  			$scope.$close();
+  		});	
+ 	};
+  	
+ 	$scope.znodes = [{"id":1, "pId":0, "name":"SQL组"}, 
+ 	                 {"id":11, "pId":1, "name":"test11"}, 
+ 	                 {"id":12, "pId":1, "name":"test12"}, 
+ 	                 {"id":111, "pId":11, "name":"test111"}];
 	
 });

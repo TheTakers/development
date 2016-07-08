@@ -75,7 +75,7 @@ function httpInterceptor($q,$log) {
     },
     responseError: function(err){
       
-      $.error(err);
+      $.error(err.statusText);
       return $q.reject(err);
     }
   };

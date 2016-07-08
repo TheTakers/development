@@ -14,10 +14,6 @@ public class SQLGroupParam {
 	
 	@NotBlank
 	private String groupName;
-	
-	@NotBlank
-	private String groupId;
-	
 	private String groupDesc;
 	
 	public String getGroupCode() {
@@ -31,13 +27,6 @@ public class SQLGroupParam {
 	}
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
-	}
-	 
-	public String getGroupId() {
-		return groupId;
-	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
 	}
 	public String getGroupDesc() {
 		return groupDesc;
