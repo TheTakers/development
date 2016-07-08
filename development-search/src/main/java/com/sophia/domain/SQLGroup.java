@@ -17,35 +17,23 @@ public class SQLGroup extends Auditable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String groupCode;
-	private String groupName;
-	private String parentId;
-	private String groupPath;
-	private String groupDesc;
+	private String code;
+	private String name;
 	
-	public String getGroupCode() {
-		return groupCode;
+	private String parentId;
+	private String path;
+	private String remark;
+	public String getCode() {
+		return code;
 	}
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getGroupName() {
-		return groupName;
+	public String getName() {
+		return name;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
-	}
-	public String getGroupPath() {
-		return groupPath;
-	}
-	public void setGroupPath(String groupPath) {
-		this.groupPath = groupPath;
-	}
-	public String getGroupDesc() {
-		return groupDesc;
-	}
-	public void setGroupDesc(String groupDesc) {
-		this.groupDesc = groupDesc;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getParentId() {
 		return parentId;
@@ -53,4 +41,17 @@ public class SQLGroup extends Auditable{
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 }

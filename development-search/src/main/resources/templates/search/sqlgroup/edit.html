@@ -11,21 +11,21 @@
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">分组编号*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqlgroup.groupCode"></input>
+						<input class="form-control input-sm" ng-model="sqlgroup.code"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">分组名称*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqlgroup.groupName"></input>
+						<input class="form-control input-sm" ng-model="sqlgroup.name"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">所属分组 *</label>
 					<div class="col-sm-6">
-						 <selector url="/search/sqlgroup/edit" ctrl="sqlGroupCtrl" text="select.text" value="select.value"></selector>
+						 <selector url="/search/sqlgroup/edit" ctrl="sqlGroupCtrl" text="sqlgroup.parentId" value="sqlgroup.parentId"></selector>
 					</div>
 			</div>
 			
@@ -39,7 +39,7 @@
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">备注</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" ng-model="sqlgroup.groupDesc"></textarea>
+						<textarea class="form-control" ng-model="sqlgroup.desc"></textarea>
 					</div>
 			</div>
 			

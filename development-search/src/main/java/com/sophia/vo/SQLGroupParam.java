@@ -10,30 +10,35 @@ import org.hibernate.validator.constraints.NotBlank;
 public class SQLGroupParam {
 	
 	@NotBlank
-	private String groupCode;
+	private String code;
 	
 	@NotBlank
-	private String groupName;
-	private String groupDesc;
+	private String name;
+	private String desc;
+	private String parentId;
 	
-	public String getGroupCode() {
-		return groupCode;
+	public String getCode() {
+		return code;
 	}
-	public void setGroupCode(String groupCode) {
-		this.groupCode = groupCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getGroupName() {
-		return groupName;
+	public String getName() {
+		return name;
 	}
-	public void setGroupName(String groupName) {
-		this.groupName = groupName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getGroupDesc() {
-		return groupDesc;
+	public String getDesc() {
+		return desc;
 	}
-	public void setGroupDesc(String groupDesc) {
-		this.groupDesc = groupDesc;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
-
-
+	public String getParentId() {
+		return parentId;
+	}
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 }

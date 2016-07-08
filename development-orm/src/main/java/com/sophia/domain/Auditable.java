@@ -2,8 +2,6 @@ package com.sophia.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
@@ -27,13 +25,13 @@ public class Auditable implements Serializable {
 
     @Version
     private long version;
-
+    
     private String createUser;
 
     private Date createTime;
-
+    
     private String lastUpdateUser;
-
+    
     private Date lastUpdateTime;
 
     public Date getLastUpdateTime() {

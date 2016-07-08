@@ -58,10 +58,10 @@ public class SQLGroupController extends BaseController{
 		try {
 			SQLGroup sqlGroup = new SQLGroup();
 			sqlGroup.setId(GUID.nextId());
-			sqlGroup.setGroupCode(sqlGroupParam.getGroupCode());
-			sqlGroup.setGroupName(sqlGroup.getGroupName());
-			sqlGroup.setParentId(GUID.nextId());
-			sqlGroup.setGroupDesc(sqlGroup.getGroupDesc());
+			sqlGroup.setCode(sqlGroupParam.getCode());
+			sqlGroup.setName(sqlGroupParam.getName());
+			sqlGroup.setParentId(sqlGroupParam.getParentId());
+			sqlGroup.setRemark(sqlGroupParam.getDesc());
 			sqlGroupService.insert(sqlGroup);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

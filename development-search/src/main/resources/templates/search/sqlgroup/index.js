@@ -1,6 +1,6 @@
 angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal) {
 	
-	$scope.select = {text:"divdfa",value:"xxxx"};
+	$scope.select = {text:new Date().format("yyyyMMddhhmmss"),value:"xxxx"};
 	
 	$scope.pagination = {};
 	$scope.queryparams = {};

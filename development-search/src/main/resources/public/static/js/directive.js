@@ -212,14 +212,17 @@ app.directive('datetime', function($http,$log) {
    	   value:'='
       },
       template:function(element,atts){
-     	return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="yyyy/mm/dd" id="datepicker-autoclose"></input>'+
+      	return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="yyyy-mm-dd" ng-model="value"></input>'+
 		 		'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
       },
       replace : false,			
       transclude : false,
       link:function(scope,element,attr){
-    	  scope.id = $.uuid();
-    	  $('#'+scope.id).datetimepicker();
+    	  $(element.find("input")).datepicker({
+    		  format: 'yyyy-mm-dd',
+    		  autoclose: true,
+    		  language: 'zh-CN'
+    	  });
       }
   };
 }); 
