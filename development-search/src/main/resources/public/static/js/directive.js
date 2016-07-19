@@ -256,3 +256,30 @@ app.directive('selector', function($http,$log,$uibModal) {
       } 
   };
 }); 
+
+/**
+app.directive('dialog', function($http) {
+	 return {
+       restrict:'E',
+       template:function(element,atts){
+      	 
+       	return  '<div  class="modal fade"  role="dialog"  aria-hidden="true">'+
+					   '<div class="modal-dialog">'+
+				       '<div class="modal-content"></div>'+
+					'</div>'+
+				'</div>';
+       },
+       scope:{
+    	   id:'@'
+       },
+       replace : true,			
+       transclude : false,
+       link : function(scope,element,attr){
+       	
+       	//移除数据，让对话框能够在每次打开时重新加载页面
+       	$("#"+scope.id).on("hidden.bs.modal", function() {
+       	    $(this).removeData("bs.modal");
+       	});
+       }
+   };
+}); **/

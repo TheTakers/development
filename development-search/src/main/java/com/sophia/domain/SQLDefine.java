@@ -16,7 +16,6 @@ public class SQLDefine extends Auditable{
 	private String sqlName;
 	private String selectSql;
 	private String datasource;
-	private Integer type;
 	/**
 	 * 是否缓存
 	 */
@@ -37,12 +36,6 @@ public class SQLDefine extends Auditable{
 	 */
 	private String groupId;
 	
-	public Integer getType() {
-		return type;
-	}
-	public void setType(Integer type) {
-		this.type = type;
-	}
 	public String getRemark() {
 		return remark;
 	}

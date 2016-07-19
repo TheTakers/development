@@ -1,10 +1,8 @@
 angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModal) {
 	
-	$scope.select = {text:"divdfa",value:"xxxx"};
-	
 	$scope.pagination = {};
 	$scope.queryparams = {};
- 	$scope.sqlgroup = {};
+ 	$scope.sqldefine = {};
 	$scope.search = function(){
 		
 		//广播分页条查询
@@ -45,7 +43,7 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
      };
      
     $scope.cancel = function() {
-    	 $scope.$close();
+    	 $scope.$dismiss();
   	};
   	
   	$scope.save = function() {
@@ -54,10 +52,5 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
   			$scope.$close();
   		});	
  	};
-  	
- 	$scope.znodes = [{"id":1, "pId":0, "name":"SQL组"}, 
- 	                 {"id":11, "pId":1, "name":"test11"}, 
- 	                 {"id":12, "pId":1, "name":"test12"}, 
- 	                 {"id":111, "pId":11, "name":"test111"}];
-	
+ 
 });
