@@ -13,6 +13,7 @@
 					<div class="col-sm-6">
 						<input class="form-control input-sm" ng-model="sqldefine.sqlId"></input>
 					</div>
+					<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>
 			</div>
 			
 			<div class="form-group">
@@ -51,14 +52,14 @@
 			</div>
 				
 			<div class="form-group">
-				<label   class="col-sm-2 control-label">说明</label>
+				<label   class="col-sm-2 control-label">说明*</label>
 					<div class="col-sm-6">
 						<input class="form-control input-sm" ng-model="sqldefine.remark"></input>
 					</div>
 			</div>
 				
 			<div class="form-group">
-				<label   class="col-sm-2 control-label">查询SQL</label>
+				<label   class="col-sm-2 control-label">查询SQL*</label>
 					<div class="col-sm-10">
 						<textarea class="form-control" ng-model="sqldefine.selectSql" rows="20"></textarea>
 					</div>

@@ -9,14 +9,15 @@
 		<form class="form-horizontal" role="form" >
 			
 			<div class="form-group">
-				<label   class="col-sm-3 control-label">分组编号*</label>
+				<label   class="col-sm-3 control-label">编号*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqlgroup.code"></input>
+						<input class="form-control input-sm" ng-model="sqlgroup.code" readonly="readonly"></input>
 					</div>
+					<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>
 			</div>
 			
 			<div class="form-group">
-				<label   class="col-sm-3 control-label">分组名称*</label>
+				<label   class="col-sm-3 control-label">名称*</label>
 					<div class="col-sm-6">
 						<input class="form-control input-sm" ng-model="sqlgroup.name"></input>
 					</div>
@@ -29,12 +30,14 @@
 					</div>
 			</div>
 			
+			<!-- 
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">创建时间 *</label>
 					<div class="col-sm-6">
 						 <datetime></datetime>
 					</div>
-			</div>
+			</div> 
+			-->
 				
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">备注</label>

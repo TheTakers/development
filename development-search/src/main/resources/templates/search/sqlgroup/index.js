@@ -4,6 +4,8 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	
 	$scope.pagination = {};
 	$scope.queryparams = {};
+	
+	//编辑单个对象
  	$scope.sqlgroup = {};
 	$scope.search = function(){
 		
@@ -59,4 +61,12 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
   			$scope.$close();
   		});	
  	};
+ 	
+ 	//生成编码
+ 	$scope.createCode = function(){
+ 		
+ 		//日期加六位随机数
+ 		$scope.sqlgroup.code = $.createCode();
+ 	}
+ 	
 });

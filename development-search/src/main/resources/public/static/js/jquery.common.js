@@ -29,6 +29,21 @@ $.uuid = function() {
 	  });
 }
 
+$.createCode = function(){
+	var sessions = [];
+
+	var clientID = '';
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	var numPossible = possible.length;	
+	do{
+		for (var i = 0; i < 10; i++) {
+			clientID += possible.charAt((Math.random() * numPossible) | 0);
+		}
+	}while(sessions['clientID'] != null);	
+	
+	return clientID;
+}
+
 /**
  * new Date().format("yyyyMMddhhmmss")
  * 时间对象的格式化;
