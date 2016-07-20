@@ -29,18 +29,18 @@ public class SQLDefine extends Auditable{
 	/**
 	 * 功能描述
 	 */
-	private String remark;
+	private String sqldesc;
 	
 	/**
 	 * 所属功能组
 	 */
 	private String groupId;
 	
-	public String getRemark() {
-		return remark;
+	public String getSqldesc() {
+		return sqldesc;
 	}
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setSqldesc(String sqldesc) {
+		this.sqldesc = sqldesc;
 	}
 	public String getGroupId() {
 		return groupId;

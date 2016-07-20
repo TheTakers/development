@@ -1,10 +1,3 @@
-create table TB_SM_DATATYPES_ORCL
-(
-  id        int(16),
-  typevalue int(10),
-  typelabel VARCHAR(50),
-  orcltype  VARCHAR(50)
-);
 create table TB_SM_SQLDEFINE
 (
   oid                     VARCHAR(50) not null,
@@ -37,21 +30,14 @@ create table TB_SM_SQLDEFINE
   datasource              VARCHAR(100)
 );
 
-create table TB_SM_DATATYPES
-(
-  oid       VARCHAR(50),
-  pid       VARCHAR(50),
-  mid       VARCHAR(50),
-  typevalue int(10),
-  typelabel VARCHAR(50)
-);
 create table TB_SM_SQLGROUP
 (
-  id         VARCHAR(50) not null,
-  groupCode   VARCHAR(1000),
-  groupName   VARCHAR(1000),
-  groupDesc   text,
-  groupPath   VARCHAR(2000),
+  id       VARCHAR(50),
+  code       VARCHAR(50),
+  name      VARCHAR(50),
+  parentId VARCHAR(50),
+  path VARCHAR(50),
+  remark VARCHAR(500),
   version NUMERIC,
   createUser VARCHAR(50),
   createTime datetime,
@@ -64,4 +50,22 @@ create table TB_SM_USER
   username    VARCHAR(100),
   password    VARCHAR(100),
   obj_version int(10)
+);
+
+create table TB_SM_SQLDEFINE
+(
+  id                     VARCHAR(50) not null,
+  sqlid                   VARCHAR(100),
+  sqlname                 VARCHAR(1000),
+  select_sql              text,
+  datasource              VARCHAR(100),
+  sqldesc                 VARCHAR(4000),
+  cache NUMERIC,
+	STATUS NUMERIC,
+  groupid VARCHAR(50),
+  version NUMERIC,
+  createUser VARCHAR(50),
+  createTime datetime,
+  lastUpdateUser VARCHAR(50),
+  lastUpdateTime datetime
 );
