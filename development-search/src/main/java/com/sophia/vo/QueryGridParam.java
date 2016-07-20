@@ -1,14 +1,19 @@
 package com.sophia.vo;
 
-import org.hibernate.validator.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * 查询grid
  * @author zkning
  */
-public class QueryGridParam {
+public class QueryGridParam implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * SQLID
 	 */
@@ -17,13 +22,11 @@ public class QueryGridParam {
 	/**
 	 * 分页数据
 	 */
-	@NotBlank
 	private Integer pageSize = 20;
 
 	/**
 	 * 当前页
 	 */
-	@NotBlank
 	private Integer pageNo = 1;
 	
 	/**

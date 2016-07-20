@@ -16,11 +16,12 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	};
 	
 	$scope.sett = {
+			
 			data:{
 				simpleData:{
 				enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
 				idKey: "id",
-				pIdKey: "pId",
+				pIdKey: "parentId",
 				rootPId: 0}
 			},
 			callback: {
@@ -58,10 +59,4 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
   			$scope.$close();
   		});	
  	};
-  	
- 	$scope.znodes = [{"id":1, "pId":0, "name":"SQL组"}, 
- 	                 {"id":11, "pId":1, "name":"test11"}, 
- 	                 {"id":12, "pId":1, "name":"test12"}, 
- 	                 {"id":111, "pId":11, "name":"test111"}];
-	
 });

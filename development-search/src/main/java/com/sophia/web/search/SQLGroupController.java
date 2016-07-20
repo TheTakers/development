@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
+import com.sophia.service.SQLIDService;
 import com.sophia.vo.QueryGridParam;
 import com.sophia.vo.SQLGroupParam;
 import com.sophia.web.constant.Constant;
@@ -29,6 +30,7 @@ import com.sophia.web.util.GUID;
 public class SQLGroupController extends BaseController{
 	
 	@Autowired SQLGroupService sqlGroupService;
+	@Autowired SQLIDService sqlidService;
 	
 	public static final String module = "/search/sqlgroup";
 	
