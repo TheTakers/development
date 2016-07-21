@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
@@ -48,7 +50,18 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryGridParam queryGridParam) {
 		try {
+			
 			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Object treeData() {
+		try {
+			return JSONObject.toJSONString(sqlGroupService.getRepository().findAll());
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
