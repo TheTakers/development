@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +52,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryGridParam queryGridParam) {
 		try {
-			
+			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridParam.getPageNo(), queryGridParam.getPageSize()));
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
