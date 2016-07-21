@@ -9,7 +9,6 @@ function sessionInvalid(){
 	}
 } 
 
-
 $.warning = function warning(info){
 	$.Notification.notify('warning','bottom right','', info);
 }
@@ -27,21 +26,6 @@ $.uuid = function() {
 		  var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
 		  return v.toString(16);
 	  });
-}
-
-$.createCode = function(){
-	var sessions = [];
-
-	var clientID = '';
-	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	var numPossible = possible.length;	
-	do{
-		for (var i = 0; i < 10; i++) {
-			clientID += possible.charAt((Math.random() * numPossible) | 0);
-		}
-	}while(sessions['clientID'] != null);	
-	
-	return clientID;
 }
 
 /**

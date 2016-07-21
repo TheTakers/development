@@ -1,4 +1,6 @@
 package com.sophia.web.util;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -13,6 +15,15 @@ public class GUID {
 	 */
 	public static String nextId(){
 		return  UUID.randomUUID().toString().replace("-", "");
+	}
+	
+	/**
+	 * 生成编码
+	 * @return
+	 */
+	public static synchronized String createCode(){
+		SimpleDateFormat sdf  = new SimpleDateFormat("yyyyMMddhhmmss");
+		return sdf.format(new Date());
 	}
 	
 	public static void main(String[] args) {

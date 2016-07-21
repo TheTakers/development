@@ -64,9 +64,17 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
  	
  	//生成编码
  	$scope.createCode = function(){
- 		
- 		//日期加六位随机数
- 		$scope.sqlgroup.code = $.createCode();
+ 		$.ajax({  
+ 	         type : "post",  
+ 	         url : "/common/func/code",  
+ 	         async : false,  
+ 	         success : function(data){  
+ 	       	  if(data.code = '0'){
+ 	       		$scope.sqlgroup.code = data.result;
+ 	       	  }else{
+ 	       		 $.error(data.message);
+ 	       	  }
+ 	         }  
+ 	    });
  	}
- 	
 });
