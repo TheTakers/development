@@ -23,6 +23,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
+import com.sophia.vo.Grid;
 import com.sophia.vo.QueryGridParam;
 import com.sophia.vo.SQLGroupParam;
 import com.sophia.web.constant.Constant;
@@ -53,7 +54,7 @@ public class SQLGroupController extends BaseController{
 	public Map<String, Object> list(@RequestBody @Valid QueryGridParam queryGridParam) {
 		try {
 			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridParam.getPageNo(), queryGridParam.getPageSize()));
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

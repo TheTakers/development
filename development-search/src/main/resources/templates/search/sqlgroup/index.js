@@ -2,7 +2,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	
 	$scope.select = {text:new Date().format("yyyyMMddhhmmss"),value:"xxxx"};
 	
-	$scope.pagination = {};
+	$scope.dataList = {};
 	$scope.queryparams = {};
 	
 	//编辑单个对象

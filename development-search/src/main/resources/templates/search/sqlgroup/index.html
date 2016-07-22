@@ -74,30 +74,28 @@
 						<table class="table table table-hover m-0" data-page-size="7">
 							<thead>
 								<tr>
-									<th data-sort-ignore="true" class="min-width"></th>
 									<th data-sort-initial="true" data-toggle="true">编号</th>
 									<th>名称</th>
 									<th data-hide="phone">所属分组</th>
 									<th data-hide="phone, tablet">分组路径</th>
-									<th data-hide="phone, tablet">分组描述</th>
+									<th data-hide="phone, tablet">描述</th>
 								</tr>
 							</thead>
 
 							<tbody>
-								<tr ng-repeat="item in pagination.content">
-									<td>{{item.userId}}</td>
-									<td>{{item.account}}</td>
-									<td>{{item.username}}</td>
-									<td>{{item.pwd}}</td>
-									<td>{{item.empId}}</td>
-									<td><span class="label label-table label-success">Active</span></td>
+								<tr ng-repeat="item in dataList">
+									<td>{{item.code}}</td>
+									<td>{{item.name}}</td>
+									<td>{{item.parentId}}</td>
+									<td>{{item.path}}</td>
+									<td>{{item.remark}}</td>
 								</tr>
 							</tbody>
 							<tfoot>
 								<tr>
 									<td colspan="6">
 										<div class="text-right">
-											<pagination id="sqlgroupgrid" url="/search/sqlgroup/list" data="pagination" params="queryparams"></pagination>
+											<pagination id="sqlgroupgrid" url="/search/sqlgroup/list" data="dataList" params="queryparams"></pagination>
 										</div>
 									</td>
 								</tr>

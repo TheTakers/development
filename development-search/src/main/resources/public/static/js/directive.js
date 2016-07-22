@@ -26,7 +26,7 @@ appModule.directive('hello', function() {
 
 
 /**
- * <pagination data="{{pagination}}" ></pagination>
+ * <pagination data="{{dataList}}" ></pagination> 列表数据
  * click event trigger query
  **/
 app.directive('pagination', function($http,$log) {
@@ -132,7 +132,7 @@ app.directive('pagination', function($http,$log) {
         				 return;
         			 }
         			 scope.pagination.pageCount = data.result.totalElements;
-        			 scope.data = data.result;
+        			 scope.data = data.result.content;
         			 createPagination(scope.pagination);
         			 
       			});

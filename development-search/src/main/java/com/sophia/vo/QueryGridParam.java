@@ -27,7 +27,7 @@ public class QueryGridParam implements Serializable{
 	/**
 	 * 当前页
 	 */
-	private Integer pageNo = 1;
+	private Integer pageNo = 0;
 	
 	/**
 	 * 查询参数
@@ -47,7 +47,7 @@ public class QueryGridParam implements Serializable{
 	}
 
 	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
+		this.pageNo = pageNo - 1;
 	}
 
 	public String getParams() {
