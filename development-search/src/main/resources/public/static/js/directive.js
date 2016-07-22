@@ -250,7 +250,8 @@ app.directive('selector', function($http,$log,$uibModal) {
      
     		  $uibModal.open({
     	             templateUrl: scope.url,
-    	             controller: scope.ctrl
+    	             controller: scope.ctrl,
+    	             size:900
     	         });
     	  }
       } 

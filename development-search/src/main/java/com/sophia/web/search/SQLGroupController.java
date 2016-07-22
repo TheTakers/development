@@ -60,6 +60,11 @@ public class SQLGroupController extends BaseController{
 		}
 	}
 	
+	@RequestMapping("/selector")
+    public ModelAndView selector(HttpServletRequest request, ModelMap result) {
+        return new ModelAndView(module + "/selector", result);
+    }
+	
 	@ResponseBody
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {

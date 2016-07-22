@@ -42,7 +42,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
         
           var modalInstance = $uibModal.open({
              templateUrl: '/search/sqlgroup/edit',
-             controller: 'sqlGroupCtrl',
+             controller: 'sqlGroupCtrl', 
              resolve: {
                items: function () {
                  return $scope.items;
