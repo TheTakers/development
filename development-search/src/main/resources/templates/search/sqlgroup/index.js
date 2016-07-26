@@ -6,7 +6,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	$scope.search = function(){
 		
 		//广播分页条查询
-		$scope.$broadcast("sqlgroupgrid");  
+		$scope.$broadcast("grid");  
 	}
 	
 	$scope.groupTreeCallback = function(ztree){
@@ -56,7 +56,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
          modalInstance.result.then(function (selectedItem) { //获取子页返回值
              $scope.selected = selectedItem;
              
-             $scope.$broadcast("sqlgroupgrid");  
+             $scope.$broadcast("grid");  
              
            }, function () { //子页关闭监听
         	   
