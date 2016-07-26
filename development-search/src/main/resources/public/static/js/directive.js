@@ -240,7 +240,7 @@ app.directive('selector', function($http,$log,$uibModal) {
       },
       template:function(element,atts){
      	return  '<div class="app-search-sm">'
-			    +'<input type="text"  class="form-control input-sm" ng-model="text"></input><input type="hidden" class="form-control input-sm" ng-model="value"></input>'
+			    +'<input type="text"  class="form-control input-sm" ng-model="text"></input><input type="hidden"  ng-model="value"></input>'
 			 	+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
       },
       replace : true,			
