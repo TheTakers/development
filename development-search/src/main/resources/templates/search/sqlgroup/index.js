@@ -1,12 +1,8 @@
-angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal) {
-	
-	$scope.select = {text:new Date().format("yyyyMMddhhmmss"),value:"xxxx"};
+angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal,$log) {
 	
 	$scope.dataList = {};
 	$scope.queryparams = {};
 	
-	//编辑单个对象
- 	$scope.sqlgroup = {};
 	$scope.search = function(){
 		
 		//广播分页条查询
@@ -38,49 +34,34 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 				}
 			}};
 	 
+	 
+	 //传递给子页
+	 $scope.items = ['item1', 'item2', 'item3'];
+	
 	 $scope.openTemplate = function () {
         
-          var modalInstance = $uibModal.open({
-             templateUrl: '/search/sqlgroup/edit',
-             controller: 'sqlGroupCtrl', 
-             resolve: {
-               items: function () {
-                 return $scope.items;
-               }
-             }
-         });
+		 var modalInstance = $uibModal.open({
+			 templateUrl: '/search/sqlgroup/edit',
+			 controller: 'sqlGroupCtrl', 
+			 resolve: {
+				 items: function () {
+					 return $scope.items;
+				 },
+				 deps:function($ocLazyLoad,$stateParams,$log){
+					 return $ocLazyLoad.load("templates/search/sqlgroup/edit.js");
+				 }
+			 }
+		 });
          
          modalInstance.result.then(function (selectedItem) {
              $scope.selected = selectedItem;
+             
+             alert(selectedItem)
+             $scope.$broadcast("sqlgroupgrid");  
+             
            }, function () {
+        	   
              $log.info('Modal dismissed at: ' + new Date());
            });
      };
-     
-    $scope.cancel = function() {
-    	 $scope.$close();
-  	};
-  	
-  	$scope.save = function() {
-  		$http.post('/search/sqlgroup/save',$scope.sqlgroup).success(function(data){
-  			$scope.$broadcast("sqlgroupgrid");  
-  			$scope.$close();
-  		});	
- 	};
- 	
- 	//生成编码
- 	$scope.createCode = function(){
- 		$.ajax({  
- 	         type : "post",  
- 	         url : "/common/func/code",  
- 	         async : false,  
- 	         success : function(data){  
- 	       	  if(data.code = '0'){
- 	       		$scope.sqlgroup.code = data.result;
- 	       	  }else{
- 	       		 $.error(data.message);
- 	       	  }
- 	         }  
- 	    });
- 	}
 });

@@ -1,4 +1,4 @@
-
+<div ng-controller="editCtrl">
  <div class="modal-header">
 	<h6 class="modal-title">编辑</h6>
 </div>
@@ -9,7 +9,7 @@
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">编号*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqlgroup.code" readonly="readonly"></input>
+						<input class="form-control input-sm" ng-model="data.code" readonly="readonly"></input>
 					</div>
 					<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>
 			</div>
@@ -17,14 +17,14 @@
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">名称*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqlgroup.name"></input>
+						<input class="form-control input-sm" ng-model="data.name"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">所属分组 *</label>
 					<div class="col-sm-6">
-						 <selector url="/search/sqlgroup/selector" ctrl="sqlGroupCtrl" text="sqlgroup.parentId" value="sqlgroup.parentId"></selector>
+						 <selector url="/search/sqlgroup/selector" ctrl="sqlGroupCtrl" text="data.parentId" value="data.parentId"></selector>
 					</div>
 			</div>
 			
@@ -40,7 +40,7 @@
 			<div class="form-group">
 				<label   class="col-sm-3 control-label">备注</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" ng-model="sqlgroup.desc"></textarea>
+						<textarea class="form-control" ng-model="data.desc"></textarea>
 					</div>
 			</div>
 			
@@ -51,10 +51,4 @@
 	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">取消</button>
 	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="save()">保存</button>
 </div>
-
-<!-- 
-jQuery('#datepicker-autoclose').datepicker({
-                	autoclose: true,
-                	todayHighlight: true
-                });
- -->
+</div>
