@@ -235,7 +235,8 @@ app.directive('selector', function($http,$log,$uibModal) {
 	   	   text:'=',
 	   	   value:'=',
 	   	   url:'@',
-	   	   ctrl:'@'
+	   	   ctrl:'@',
+	   	   param:'=' //传给子页参数
       },
       template:function(element,atts){
      	return  '<div class="app-search-sm">'
@@ -247,40 +248,41 @@ app.directive('selector', function($http,$log,$uibModal) {
       link:function(scope,element,attr){
 
     	  scope.showDialog=function(){
-     
-    		  $uibModal.open({
-    	             templateUrl: scope.url,
+    	        
+    			 var modalInstance = $uibModal.open({
+    				 templateUrl: scope.url,
     	             controller: scope.ctrl,
-    	             size:900
-    	         });
+    				 resolve: {
+    					 param: function () {
+    						 return scope.param;
+    					 },
+    					 deps:function($ocLazyLoad,$stateParams,$log){
+    						 
+    						 return $ocLazyLoad.load("templates/"+scope.url+".js");
+    					 }
+    				 }
+    			 });
+    	         
+    	         modalInstance.result.then(function (selectedItem) { //获取子页返回值
+    	        	 
+    	        	 if(selectedItem.text){
+    	        		 scope.text = selectedItem.text;
+    	        	 }else{
+    	        		 $log.error("text not define");
+    	        	 }
+    	        	 
+    	        	 if(selectedItem.value){
+    	        		 scope.value = selectedItem.value;
+    	        	 }else{
+    	        		 $log.error("value not define");
+    	        	 }
+    	        		 
+    	             
+    	           }, function () { //子页关闭监听
+    	        	   
+    	             $log.info('Modal dismissed at: ' + new Date());
+    	           });
     	  }
       } 
   };
 }); 
-
-/**
-app.directive('dialog', function($http) {
-	 return {
-       restrict:'E',
-       template:function(element,atts){
-      	 
-       	return  '<div  class="modal fade"  role="dialog"  aria-hidden="true">'+
-					   '<div class="modal-dialog">'+
-				       '<div class="modal-content"></div>'+
-					'</div>'+
-				'</div>';
-       },
-       scope:{
-    	   id:'@'
-       },
-       replace : true,			
-       transclude : false,
-       link : function(scope,element,attr){
-       	
-       	//移除数据，让对话框能够在每次打开时重新加载页面
-       	$("#"+scope.id).on("hidden.bs.modal", function() {
-       	    $(this).removeData("bs.modal");
-       	});
-       }
-   };
-}); **/

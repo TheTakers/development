@@ -22,11 +22,9 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	$scope.currentNode= 'selected';
  	
  	$scope.save = function() {
-  		$http.post('/search/sqlgroup/save',$scope.data).success(function(data){
-  			
-  			 //传值给父页
-  			 $uibModalInstance.close($scope.currentNode);
-  		});	
+ 		
+ 		 //传值给父页
+		$uibModalInstance.close($scope.currentNode);
  	};
  	
  	
