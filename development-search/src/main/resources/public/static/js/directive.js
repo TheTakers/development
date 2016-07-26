@@ -276,7 +276,6 @@ app.directive('selector', function($http,$log,$uibModal) {
     	        	 }else{
     	        		 $log.error("value not define");
     	        	 }
-    	        		 
     	             
     	           }, function () { //子页关闭监听
     	        	   
