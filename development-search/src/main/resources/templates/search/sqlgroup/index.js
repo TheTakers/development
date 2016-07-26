@@ -42,7 +42,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
         
 		 var modalInstance = $uibModal.open({
 			 templateUrl: '/search/sqlgroup/edit',
-			 controller: 'sqlGroupCtrl', 
+			 controller: 'editCtrl', 
 			 resolve: {
 				 items: function () {
 					 return $scope.items;
@@ -53,13 +53,12 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			 }
 		 });
          
-         modalInstance.result.then(function (selectedItem) {
+         modalInstance.result.then(function (selectedItem) { //获取子页返回值
              $scope.selected = selectedItem;
              
-             alert(selectedItem)
              $scope.$broadcast("sqlgroupgrid");  
              
-           }, function () {
+           }, function () { //子页关闭监听
         	   
              $log.info('Modal dismissed at: ' + new Date());
            });

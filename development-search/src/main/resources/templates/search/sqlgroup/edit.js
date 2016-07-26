@@ -1,10 +1,11 @@
-angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log) {
+angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log,$uibModalInstance,items) { //接收子页传值
 	
 	//页面数据
 	$scope.data = {};
 	
 	//生成编码
  	$scope.createCode = function(){
+ 		alert(items[0])
  		$.ajax({  
  	         type : "post",  
  	         url : "/common/func/code",  
