@@ -1,6 +1,8 @@
 angular.module('app').controller('selectorCtrl',function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 	
- 	$scope.currentNode= {text:"SQL",value:"0000"};
+ 	$scope.selected= {};
+ 	$scope.dataList = {};
+ 	$scope.queryparams = {};
  	
  	$scope.ok = function() {
  		 //传值给父页
@@ -12,4 +14,8 @@ angular.module('app').controller('selectorCtrl',function($scope,$http,$uibModal,
  		 $uibModalInstance.dismiss('cancel');
  	};
  	
+ 	
+ 	$scope.rowChecked = function(id){
+ 			
+ 	}
 });

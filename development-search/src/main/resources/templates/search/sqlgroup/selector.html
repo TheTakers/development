@@ -20,11 +20,11 @@
 
 										<div class="row">
 											<div class="form-group">
-												<label>编号</label><input class="form-control input-sm" type="text"  />
+												<label>编号</label><input class="form-control input-sm" type="text" ng-model="queryparams.code" />
 											</div>
 
 											<div class="form-group">
-												<label>名称</label> <input class="form-control input-sm" type="text"  />
+												<label>名称</label> <input class="form-control input-sm" type="text"  ng-model="queryparams.name"/>
 											</div>
 											<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="search()">查询</button>
 										</div>
@@ -48,6 +48,7 @@
 						<table class="table table table-hover m-0">
 							<thead>
 								<tr>
+									<th data-sort-initial="true" data-toggle="true">选择</th>
 									<th data-sort-initial="true" data-toggle="true">编号</th>
 									<th>名称</th>
 									<th data-hide="phone">所属分组</th>
@@ -58,6 +59,7 @@
 
 							<tbody>
 								<tr ng-repeat="item in dataList">
+									<td><input type="checkbox"  ng-click="rowChecked(item.id)"></input></td>
 									<td>{{item.code}}</td>
 									<td>{{item.name}}</td>
 									<td>{{item.parentId}}</td>
