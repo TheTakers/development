@@ -1,4 +1,4 @@
-angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log,$uibModalInstance,items) { //接收子页传值
+angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 	
 	//页面数据
 	$scope.data = {};

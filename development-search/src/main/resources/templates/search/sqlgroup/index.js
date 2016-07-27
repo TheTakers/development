@@ -1,4 +1,4 @@
-angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal,$log) {
+angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal,$log,commonService) {
 	
 	$scope.dataList = {};
 	$scope.queryparams = {};
@@ -37,30 +37,8 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	 
 	 //传递给子页
 	 $scope.items = ['item1', 'item2', 'item3'];
-	
+	 
 	 $scope.openTemplate = function () {
-        
-		 var modalInstance = $uibModal.open({
-			 templateUrl: '/search/sqlgroup/edit',
-			 controller: 'editCtrl', 
-			 resolve: {
-				 items: function () {
-					 return $scope.items;
-				 },
-				 deps:function($ocLazyLoad,$stateParams,$log){
-					 return $ocLazyLoad.load("templates/search/sqlgroup/edit.js");
-				 }
-			 }
-		 });
-         
-         modalInstance.result.then(function (selectedItem) { //获取子页返回值
-             $scope.selected = selectedItem;
-             
-             $scope.$broadcast("grid");  
-             
-           }, function () { //子页关闭监听
-        	   
-             $log.info('Modal dismissed at: ' + new Date());
-           });
+		 commonService.show('/search/sqlgroup/edit','editCtrl',$scope.items,$scope.search);
      };
 });

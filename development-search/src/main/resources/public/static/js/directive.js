@@ -236,7 +236,7 @@ app.directive('selector', function($http,$log,$uibModal) {
 	   	   value:'=',
 	   	   url:'@',
 	   	   ctrl:'@',
-	   	   load:'@', //加载一个js文件
+	   	   loadScript:'@', //加载一个js文件
 	   	   param:'=' //传给子页参数
       },
       template:function(element,atts){
@@ -259,7 +259,7 @@ app.directive('selector', function($http,$log,$uibModal) {
     					 },
     					 deps:function($ocLazyLoad,$stateParams,$log){
     						 
-    						 if(_.isUndefined(scope.load) || scope.load)
+    						 if(_.isUndefined(scope.loadScript) || scope.loadScript)
     						 return $ocLazyLoad.load("templates/"+scope.url+".js");
     					 }
     				 }
@@ -283,3 +283,54 @@ app.directive('selector', function($http,$log,$uibModal) {
       } 
   };
 }); 
+
+/*弹出页
+app.directive('popup', function($http,$log,$uibModal) {
+	 return {
+      restrict:'E',
+      scope:{
+    	   param:'=', //传给子页参数
+	   	   url:'@',  // 窗体url
+	   	   ctrl:'@', //窗体ctrl
+	 loadScript:'@', //加载一个js脚本
+	   	   callback:'&',
+	   	   name:'@'
+      },
+      template:function(element,atts){
+      	return '<button type="button" class="btn btn-info waves-effect waves-light" ng-click="showDialog()">{{name}}</button>';
+      },
+      replace : true,			
+      transclude : false,
+      link:function(scope,element,attr){
+
+    	  scope.showDialog=function(){
+    	        
+    			 var modalInstance = $uibModal.open({
+    				 templateUrl: scope.url,
+    	             controller: scope.ctrl,
+    				 resolve: {
+    					 param: function () {
+    						 return scope.param;
+    					 },
+    					 deps:function($ocLazyLoad,$stateParams,$log){
+    						 
+    						 if(_.isUndefined(scope.loadScript) || scope.loadScript)
+    						 return $ocLazyLoad.load("templates/"+scope.url+".js");
+    					 }
+    				 }
+    			 });
+    	         
+    	         modalInstance.result.then(function (selectedItem) { //获取子页返回值
+    	        	 
+    	        	 if(scope.callback){
+    	        		 scope.callback(selectedItem);
+    	        	 }
+    	             
+    	           }, function () { //子页关闭监听
+    	        	   
+    	             $log.info('Modal dismissed at: ' + new Date());
+    	           });
+    	  }
+      } 
+  };
+}); */
