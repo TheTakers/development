@@ -253,6 +253,7 @@ app.directive('selector', function($http,$log,$uibModal) {
     			 var modalInstance = $uibModal.open({
     				 templateUrl: scope.url,
     	             controller: scope.ctrl,
+    	             size:'lg',
     				 resolve: {
     					 param: function () {
     						 return scope.param;
