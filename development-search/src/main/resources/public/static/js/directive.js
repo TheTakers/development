@@ -236,6 +236,7 @@ app.directive('selector', function($http,$log,$uibModal) {
 	   	   value:'=',
 	   	   url:'@',
 	   	   ctrl:'@',
+	   	   load:'@', //加载一个js文件
 	   	   param:'=' //传给子页参数
       },
       template:function(element,atts){
@@ -258,6 +259,7 @@ app.directive('selector', function($http,$log,$uibModal) {
     					 },
     					 deps:function($ocLazyLoad,$stateParams,$log){
     						 
+    						 if(_.isUndefined(scope.load) || scope.load)
     						 return $ocLazyLoad.load("templates/"+scope.url+".js");
     					 }
     				 }
@@ -267,15 +269,11 @@ app.directive('selector', function($http,$log,$uibModal) {
     	        	 
     	        	 if(selectedItem.text){
     	        		 scope.text = selectedItem.text;
-    	        	 }else{
-    	        		 $log.error("text not define");
     	        	 }
     	        	 
     	        	 if(selectedItem.value){
     	        		 scope.value = selectedItem.value;
-    	        	 }else{
-    	        		 $log.error("value not define");
-    	        	 }
+    	        	 } 
     	             
     	           }, function () { //子页关闭监听
     	        	   
