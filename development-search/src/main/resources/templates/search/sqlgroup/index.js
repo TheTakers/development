@@ -30,17 +30,15 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			},
 			callback: {
 				onClick: function(event,treeId,node,idx){
-					$scope.$broadcast("sqlgroupgrid");  
+					$scope.$broadcast("grid");  
 				}
 			}};
 
 	$scope.openTemplate = function () {
 		
 		//根据选中ID获取最新数据
-		var data = ['item1', 'item2', 'item3']
-		
-		commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:data});
-
-		
+		$http.post('/search/sqlgroup/treeData',{}).success(function(data){
+			commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:data});
+		});
 	};
 });
