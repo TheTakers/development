@@ -1,7 +1,7 @@
 angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 	
 	//页面数据
-	$scope.data = {};
+	$scope.data = param;
 	
 	//生成编码
  	$scope.createCode = function(){

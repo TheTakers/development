@@ -9,7 +9,7 @@ app.service('commonService', function($log,$uibModal){
 	 */
 	this.show = function(options){
 		 
-		return $uibModal.open(_.extend({ 
+		var modalInstance = $uibModal.open(_.extend({ 
 			resolve: {
 				param: function () {
 					return options.param;
@@ -21,5 +21,18 @@ app.service('commonService', function($log,$uibModal){
 				}
 			}
 		},options));
+
+		modalInstance.result.then(function (selectedItem) { //获取子页返回值
+
+			if(options.callback){
+				options.callback(selectedItem);
+			}
+
+		}, function () { //子页关闭监听
+
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+		
+		return modalInstance;
 	}
 });

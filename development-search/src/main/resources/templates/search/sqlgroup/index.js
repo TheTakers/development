@@ -34,16 +34,13 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 				}
 			}};
 
-
-	//传递给子页
-	$scope.items = ['item1', 'item2', 'item3'];
-
 	$scope.openTemplate = function () {
+		
+		//根据选中ID获取最新数据
+		var data = ['item1', 'item2', 'item3']
+		
+		commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:data});
 
-		var modalInstance = commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:$scope.items});
-
-		modalInstance.result.then(function (selectedItem) { //获取子页返回值
-			$scope.search();
-		});
+		
 	};
 });
