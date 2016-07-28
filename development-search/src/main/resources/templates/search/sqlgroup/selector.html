@@ -59,7 +59,7 @@
 
 							<tbody>
 								<tr ng-repeat="item in dataList">
-									<td><input type="checkbox"  ng-click="rowChecked(item.id)"></input></td>
+									<td><input type="checkbox" name="list" ng-click="rowClick(item)"></input></td>
 									<td>{{item.code}}</td>
 									<td>{{item.name}}</td>
 									<td>{{item.parentId}}</td>
