@@ -1,7 +1,10 @@
 package com.sophia.domain;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * 菜单
@@ -29,6 +32,17 @@ public class Menu extends Auditable {
 	
 	private String path;
 	
+	@Transient
+	private ArrayList<Menu> child = new ArrayList<>();
+	
+	public ArrayList<Menu> getChild() {
+		return child;
+	}
+
+	public void setChild(ArrayList<Menu> child) {
+		this.child = child;
+	}
+
 	public String getPath() {
 		return path;
 	}

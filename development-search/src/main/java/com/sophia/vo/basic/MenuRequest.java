@@ -7,7 +7,7 @@ public class MenuRequest {
 	@NotBlank
 	private String name;
 	private String remark;
-	private String pId;
+	private String pid;
 	private String icon;
 	private String url;
 	
@@ -23,11 +23,11 @@ public class MenuRequest {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getpId() {
-		return pId;
+	public String getPid() {
+		return pid;
 	}
-	public void setpId(String pId) {
-		this.pId = pId;
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	public String getIcon() {
 		return icon;

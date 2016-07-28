@@ -18,20 +18,11 @@ app.controller('sqlDefineContextCtrl', ['$scope', function () {
 }]);
 
 
-//menu data repository
+/*menu data repository
 app.factory('menuRepository',function(){
 	return {
-		
-		//导航标识
-		navId : 2,
-		
-		// 设置导航标识
-		setNavId:function(navId){
-			this.navId = navId;
-		},
 		//获取导航数据
 		getMenuData:function(){
-			if(this.navId != 1){
 				return [
 				          {id:'1',name:'首页',icon:'ti-home',url:'/',pid:''},
 			              {id:'2',name:'控制台',icon:'ti-spray',url:'',pid:'',child:[
@@ -55,10 +46,9 @@ app.factory('menuRepository',function(){
 		                                                                ]}
 		                          ]}
 		                ];
-			}
 		}
 	};
-});
+});*/
 
 /**
 app.controller('NavCtrl', ['$scope', function ($scope) {
@@ -73,7 +63,7 @@ app.controller('NavCtrl', ['$scope', function ($scope) {
     };
 }]);**/
 
-app.controller('indexCtrl', function($scope,$compile,$http,menuRepository,$ocLazyLoad) {
+app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
     
     /**logout**/
     $scope.logout = function(){
@@ -81,7 +71,23 @@ app.controller('indexCtrl', function($scope,$compile,$http,menuRepository,$ocLaz
     }
 });
 
-app.controller('menuCtrl', function($scope,$http,menuRepository) {
-	$scope.menu = menuRepository.getMenuData();
-	 
+app.controller('menuCtrl', function($scope,$http) {
+	
+	$scope.menu;
+	$scope.init=function(){
+		$.ajax({  
+	         type : "post",  
+	         url : "/basic/menu/menuTreeData",  
+	         contentType:'application/json',
+	         dataType:'json',
+	         async:false,
+	         success : function(data){  
+	       	  if(data.code = '0'){
+	        	$scope.menu = data.result;
+	       	  }else{
+	       		 $.error(data.message);
+	       	  }
+	         }  
+	    });
+	}
 });

@@ -72,6 +72,16 @@ public class MenuController extends BaseController{
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> menuTreeData() {
+		try {
+			return responseOk(menuService.getTreeData());
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> save(@RequestBody @Valid MenuRequest menuRequest) {
 		try {
@@ -79,7 +89,8 @@ public class MenuController extends BaseController{
 			menu.setId(GUID.nextId());
 			menu.setIcon(menuRequest.getIcon());
 			menu.setName(menuRequest.getName());
-			menu.setPid(menuRequest.getpId());
+			menu.setPid(menuRequest.getPid());
+			menu.setUrl(menuRequest.getUrl());
 			menu.setRemark(menuRequest.getRemark());
 			menuService.insert(menu);
 			return responseOk(Constant.SUCCESS_MESSAGE);
