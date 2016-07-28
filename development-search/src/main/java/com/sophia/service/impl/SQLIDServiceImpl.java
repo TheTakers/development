@@ -19,7 +19,7 @@ import com.sophia.exception.ServiceException;
 import com.sophia.service.MultipleDataSouceService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
-import com.sophia.utils.PaginationSqlFactory;
+import com.sophia.utils.SQLLimitFactory;
 import com.sophia.vo.Grid;
 import com.sophia.vo.Limit;
 
@@ -62,7 +62,7 @@ public class SQLIDServiceImpl implements SQLIDService {
 	public Integer count(String SQLID,Object... args){
 		SQLDefine selDefine = get(SQLID);
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args);
+		return jdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args);
 	}
 	
 	public <T> T execute(String SQLID, CallableStatementCallback<T> action){
@@ -76,8 +76,8 @@ public class SQLIDServiceImpl implements SQLIDService {
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
 		Grid<T> grid = new Grid<T>();
 		  try {
-			  grid.setContent(jdbcTemplate.queryForList(PaginationSqlFactory.buildPaginationSQL(selDefine.getSelectSql(),limit, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
-			  grid.setTotalElements(jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
+			  grid.setContent(jdbcTemplate.queryForList(SQLLimitFactory.createLimit(selDefine.getSelectSql(),limit, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
+			  grid.setTotalElements(jdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
 			  grid.setPageNo(limit.getPageNo());
 			  grid.setPageSize(limit.getPageSize());
 		  } catch (SQLException e) {

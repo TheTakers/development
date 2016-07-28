@@ -8,10 +8,10 @@ import com.sophia.vo.Limit;
  * 分页语句工厂
  * @author zkning
  */
-public class PaginationSqlFactory extends JdbcTemplate{
+public class SQLLimitFactory extends JdbcTemplate{
 	
 	
-	public static String buildPaginationSQL(String sql,Limit pagination,String database){
+	public static String createLimit(String sql,Limit pagination,String database){
 		
 //		if(database.equals(""))
 		if(true)
