@@ -12,21 +12,12 @@ function uniqueOf(array,item){
 }
 
 
-function saveOf(url,param,$uibModalInstance){
-	$.ajax({  
-		type : "post",  
-		url : url,  
-		data:param,
-		async : true,  
-		contentType:'application/json',
-		dataType:'json',
-		success : function(data){
-			
-			if(data.code = '0'){
-				$scope.data.code = data.result;
-			}else{
-				$.error(data.message);
-			}
-		}  
-	});
+function saveOf($http,url,param,$uibModalInstance){
+	$http.post(url,param).success(function(data){
+		 if(data.code = '0'){
+	       		$uibModalInstance.close(data.result);
+	       	  }else{
+	       		 $.error(data.message);
+	       	  }
+		});	
 };

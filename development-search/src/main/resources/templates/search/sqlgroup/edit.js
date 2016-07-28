@@ -20,9 +20,8 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	}
  	
  	$scope.save = function() {
- 		saveOf('/search/sqlgroup/save',$scope.data,$uibModalInstance)
+ 		saveOf($http,'/search/sqlgroup/save',$scope.data,$uibModalInstance);
  	};
- 	
  	
  	$scope.cancel = function() {
  		 $uibModalInstance.dismiss('cancel');
