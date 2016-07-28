@@ -24,6 +24,26 @@ public class Menu extends Auditable {
 	private String url;
 	
 	private String pid;
+	
+	private String remark;
+	
+	private String path;
+	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
 	public String getName() {
 		return name;

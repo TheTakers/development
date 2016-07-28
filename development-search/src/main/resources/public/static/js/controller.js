@@ -41,8 +41,7 @@ app.factory('menuRepository',function(){
 			              {id:'3',name:'系统设置',icon:'ti-light-bulb',url:'',pid:'',child:[
 				        
 		                {id:'',name:'系统菜单',icon:'ti-spray',url:'',pid:'',child:[
-		                                                                {id:'',name:'图标管理',icon:'glyphicon glyphicon-adjust',url:'',pid:''},
-		                                                                {id:'',name:'菜单配置',icon:'glyphicon glyphicon-tint',url:'',pid:''}
+		                                                                {id:'',name:'菜单配置',icon:'glyphicon glyphicon-tint',url:'/basic/menu/index',pid:''}
 		                                                                ]},
 		                {id:'',name:'查询配置',icon:'ti-pencil-alt',url:'',pid:'',child:[
 		                                                                {id:'',name:'SQL组',icon:'glyphicon glyphicon-text-width',url:'/search/sqlgroup/index',pid:''},

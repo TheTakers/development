@@ -19,23 +19,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
-import com.sophia.domain.SQLGroup;
-import com.sophia.service.SQLGroupService;
-import com.sophia.service.SQLIDService;
+import com.sophia.domain.Menu;
+import com.sophia.service.MenuService;
 import com.sophia.vo.QueryGridRequest;
-import com.sophia.vo.SQLGroupRequest;
+import com.sophia.vo.basic.MenuRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
 
 @Controller
-@RequestMapping(SQLGroupController.module)
-public class SQLGroupController extends BaseController{
+@RequestMapping(MenuController.module)
+public class MenuController extends BaseController{
 	
-	@Autowired SQLGroupService sqlGroupService;
-	@Autowired SQLIDService sqlidService;
+	@Autowired MenuService menuService;
 	
-	public static final String module = "/search/sqlgroup";
+	public static final String module = "/basic/menu";
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, ModelMap result) {
@@ -51,7 +49,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridRequest) {
 		try {
-			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
+			Page<Menu> data = menuService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -67,7 +65,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {
 		try {
-			return JSONObject.toJSONString(sqlGroupService.getRepository().findAll());
+			return JSONObject.toJSONString(menuService.getRepository().findAll());
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
@@ -75,15 +73,15 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest sqlGroupRequest) {
+	public Map<String, Object> save(@RequestBody @Valid MenuRequest menuRequest) {
 		try {
-			SQLGroup sqlGroup = new SQLGroup();
-			sqlGroup.setId(GUID.nextId());
-			sqlGroup.setCode(sqlGroupRequest.getCode());
-			sqlGroup.setName(sqlGroupRequest.getName());
-			sqlGroup.setParentId(sqlGroupRequest.getParentId());
-			sqlGroup.setRemark(sqlGroupRequest.getDesc());
-			sqlGroupService.insert(sqlGroup);
+			Menu menu = new Menu();
+			menu.setId(GUID.nextId());
+			menu.setIcon(menuRequest.getIcon());
+			menu.setName(menuRequest.getName());
+			menu.setPid(menuRequest.getpId());
+			menu.setRemark(menuRequest.getRemark());
+			menuService.insert(menu);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

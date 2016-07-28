@@ -1,0 +1,112 @@
+<div class="container" ng-controller="menuCtrl">
+
+	<div class="row">
+		<div class="col-sm-12">
+			<ol class="breadcrumb">
+				<li>系统设置</li>
+				<li>查询配置</li>
+				<li>SQL组</li>
+			</ol>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<!-- tree start-->
+		<div class="col-md-2">
+			<dtree class="card-box" id="groupTree" setting="setting"  callback="groupTreeCallback(ztree)"></dtree>
+		</div>
+		<!-- tree end -->
+
+
+		<!-- start of search row -->
+
+		<div class="col-md-10">
+			<form class="form-inline">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel-group panel-group-joined" id="accordion-test">
+							<div class="panel panel-color panel-default">
+
+								<!-- toolbar start -->
+								<div class="panel-heading">
+									<a data-toggle="collapse" data-parent="#accordion-test"
+										href="#collapseOne" class="" aria-expanded="true"></a>
+									<div class="button-list">
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="edit()">新增</button>
+									</div>
+
+								</div>
+								<!-- toolbar end -->
+
+								<!-- search start -->
+								<div id="collapseOne" class="panel-collapse collapse in"
+									aria-expanded="true">
+									<div class="panel-body">
+
+										<div class="row">
+											<div class="form-group">
+												<label>编号</label><input class="form-control input-sm" type="text"  />
+											</div>
+
+											<div class="form-group">
+												<label>名称</label> <input class="form-control input-sm" type="text"  />
+											</div>
+											<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="search()">查询</button>
+										</div>
+
+									</div>
+								</div>
+								<!-- search end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- End of search Row -->
+
+
+			<!-- start of datagrid -->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card-box">
+						<table class="table table table-hover m-0" data-page-size="7">
+							<thead>
+								<tr>
+									<th data-sort-initial="true" data-toggle="true">名称</th>
+									<th>url</th>
+									<th>图标</th>
+									<th data-hide="phone">所属菜单</th>
+									<th data-hide="phone, tablet">菜单路径</th>
+									<th data-hide="phone, tablet">描述</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="item in dataList">
+									<td>{{item.name}}</td>
+									<td>{{item.url}}</td>
+									<td>{{item.icon}}</td>
+									<td>{{item.pid}}</td>
+									<td>{{item.path}}</td>
+									<td>{{item.remark}}</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="6">
+										<div class="text-right">
+											<pagination id="grid" url="/basic/menu/list" data="dataList" params="queryparams"></pagination>
+										</div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end of datagrid -->
+	</div>
+</div>
