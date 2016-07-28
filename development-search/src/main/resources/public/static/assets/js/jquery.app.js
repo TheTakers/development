@@ -43,7 +43,11 @@ $(function() {
         if($(this).parent().hasClass("has_sub")) {
           e.preventDefault();  
         } */
-    	   
+    	
+    	if(!($($(this)[0]).attr("href").length > 1)){
+    		e.preventDefault();  
+    	}
+    	
         if(!$(this).hasClass("subdrop")) {
           // hide any open menus and remove all other classes
           $("ul",$(this).parents("ul:first")).slideUp(350);

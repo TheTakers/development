@@ -1,0 +1,7 @@
+INSERT INTO `` VALUES ('db5f81dad3f04f14b18ef75ee6b33936', '首页', '0', 'ti-home', NULL, '系统首页', 0, 'admin', '2016-7-28 15:12:04', 'admin', '2016-7-28 15:12:04', '/');
+INSERT INTO `` VALUES ('70d39ffec3654d24977fa2518a6ab427', '控制台', '0', 'ti-spray', NULL, '系统信息', 0, 'admin', '2016-7-28 15:13:15', 'admin', '2016-7-28 15:13:15', NULL);
+INSERT INTO `` VALUES ('2ab11cc9846748d8aaa9247e96f730ef', '系统设置', '0', 'ti-light-bulb', NULL, NULL, 0, 'admin', '2016-7-28 15:13:53', 'admin', '2016-7-28 15:13:53', NULL);
+INSERT INTO `` VALUES ('ccc32ee4e418491bac0ff184f4a2ed97', '菜单配置', '2ab11cc9846748d8aaa9247e96f730ef', 'ti-spray', NULL, '管理系统菜单', 0, 'admin', '2016-7-28 15:21:13', 'admin', '2016-7-28 15:21:13', '/basic/menu/index');
+INSERT INTO `` VALUES ('3f042ab4546740298f1c2d685e097769', '查询配置', '2ab11cc9846748d8aaa9247e96f730ef', 'ti-pencil-alt', NULL, NULL, 0, 'admin', '2016-7-28 15:25:55', 'admin', '2016-7-28 15:25:55', NULL);
+INSERT INTO `` VALUES ('586f7d6d230b47008a649490af90d195', 'SQL分组', '3f042ab4546740298f1c2d685e097769', 'glyphicon glyphicon-text-width', NULL, NULL, 0, 'admin', '2016-7-28 15:27:11', 'admin', '2016-7-28 15:27:11', '/search/sqlgroup/index');
+INSERT INTO `` VALUES ('9a88e1c6f0a14b52a76c00bb8a3adcd3', 'SQL', '3f042ab4546740298f1c2d685e097769', 'glyphicon glyphicon-chevron-left', NULL, NULL, 0, 'admin', '2016-7-28 15:27:38', 'admin', '2016-7-28 15:27:38', '/search/sqldefine/index');

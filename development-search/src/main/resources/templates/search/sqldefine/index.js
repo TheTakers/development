@@ -28,6 +28,7 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
           var modalInstance = $uibModal.open({
              templateUrl: '/search/sqldefine/edit',
              controller: 'sqlDefineCtrl',
+             size:'lg',
              resolve: {
                items: function () {
                  return $scope.items;
