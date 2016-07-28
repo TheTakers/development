@@ -71,15 +71,15 @@ public class SQLIDServiceImpl implements SQLIDService {
 		return jdbcTemplate.execute(selDefine.getSelectSql(),action);
 	}
 	
-	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Limit pagination){
+	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Limit limit){
 		SQLDefine selDefine = get(SQLID);
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
 		Grid<T> grid = new Grid<T>();
 		  try {
-			  grid.setData(jdbcTemplate.queryForList(PaginationSqlFactory.buildPaginationSQL(selDefine.getSelectSql(),pagination, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
-			  grid.setCount(jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
-			  grid.setPageNo(pagination.getPageNo());
-			  grid.setPageSize(pagination.getPageSize());
+			  grid.setContent(jdbcTemplate.queryForList(PaginationSqlFactory.buildPaginationSQL(selDefine.getSelectSql(),limit, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
+			  grid.setTotalElements(jdbcTemplate.queryForObject(PaginationSqlFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
+			  grid.setPageNo(limit.getPageNo());
+			  grid.setPageSize(limit.getPageSize());
 		  } catch (SQLException e) {
 			logger.error("分页查询异常:{}",e);
 			throw new ServiceException("分页查询异常");

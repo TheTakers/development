@@ -60,7 +60,7 @@ app.directive('pagination', function($http,$log) {
          link : function(scope,element,attr){
         	 
         	 //create Pagination
-        	 function createPagination(limit){
+        	 function createLimit(limit){
         		 
         		 if(_.isUndefined(limit.pageCount)){
         			 $log.error('pageCount not define.');
@@ -133,7 +133,7 @@ app.directive('pagination', function($http,$log) {
         			 }
         			 scope.limit.pageCount = data.result.totalElements;
         			 scope.data = data.result.content;
-        			 createPagination(scope.limit);
+        			 createLimit(scope.limit);
         			 
       			});
         	 }

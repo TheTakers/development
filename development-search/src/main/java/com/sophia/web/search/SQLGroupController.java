@@ -57,7 +57,7 @@ public class SQLGroupController extends BaseController{
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
-		}Specification<T>
+		}
 	}
 	
 	@RequestMapping("/selector")
