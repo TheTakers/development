@@ -1,4 +1,4 @@
-package com.sophia.web.search;
+package com.sophia.web.basic;
 
 import java.util.Map;
 
