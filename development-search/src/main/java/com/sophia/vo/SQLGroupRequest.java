@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author zkning
  *
  */
-public class SQLGroupParam {
+public class SQLGroupRequest {
 	
 	@NotBlank
 	private String code;

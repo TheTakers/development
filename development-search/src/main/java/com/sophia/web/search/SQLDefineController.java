@@ -17,8 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sophia.api.BaseController;
 import com.sophia.service.UserService;
-import com.sophia.vo.QueryGridParam;
-import com.sophia.vo.SQLGroupParam;
+import com.sophia.vo.QueryGridRequest;
+import com.sophia.vo.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 
 /**
@@ -46,7 +46,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryGridParam queryGridParam) {
+	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridParam) {
 		try {
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
@@ -56,7 +56,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLGroupParam sqlGroupParam) {
+	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest sqlGroupParam) {
 		try {
 			 
 			return responseOk(Constant.SUCCESS_MESSAGE);

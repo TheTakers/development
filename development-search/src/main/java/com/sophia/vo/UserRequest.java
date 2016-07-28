@@ -3,7 +3,7 @@ package com.sophia.vo;
 /**
  * Created by Kim on 2015/10/12.
  */
-public class UserParam {
+public class UserRequest {
 
     private String username;
     

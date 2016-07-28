@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 查询grid
  * @author zkning
  */
-public class QueryGridParam implements Serializable{
+public class QueryGridRequest implements Serializable{
 	
 	
 	/**

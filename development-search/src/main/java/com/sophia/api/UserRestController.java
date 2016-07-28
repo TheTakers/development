@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.sophia.vo.UserParam;
+import com.sophia.vo.UserRequest;
 import com.sophia.web.constant.Constant;
 
 /**
@@ -26,7 +26,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/permit/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> permituser(@RequestBody @Valid UserParam userParam) {
+    public Map<String, Object> permituser(@RequestBody @Valid UserRequest userParam) {
   
         try {
             
@@ -42,7 +42,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> user(@RequestBody @Valid UserParam userLuckParam) {
+    public Map<String, Object> user(@RequestBody @Valid UserRequest userLuckParam) {
      
         try {
             return responseOk(Constant.SUCCESS_MESSAGE);

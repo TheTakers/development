@@ -14,7 +14,7 @@ import com.sophia.domain.User;
 import com.sophia.repository.UserRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.UserService;
-import com.sophia.vo.UserParam;
+import com.sophia.vo.UserRequest;
 
 @Service
 public class UserServiceImpl extends JpaRepositoryImpl<UserRepository> implements UserService{
@@ -36,7 +36,7 @@ public class UserServiceImpl extends JpaRepositoryImpl<UserRepository> implement
 		}
 	}
 	
-	public Page<User> grid(UserParam userParam){
+	public Page<User> grid(UserRequest userParam){
 		PageRequest pageRequest = new PageRequest(userParam.getPageNo() -1, userParam.getPageSize());
 		return getRepository().findAll(pageRequest);
 	}
