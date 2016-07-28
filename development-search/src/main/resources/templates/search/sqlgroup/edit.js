@@ -7,7 +7,7 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	$scope.createCode = function(){
  		$.ajax({  
  	         type : "post",  
- 	         url : "/common/func/code",  
+ 	         url : "/basic/func/code",  
  	         async : false,  
  	         success : function(data){  
  	       	  if(data.code = '0'){

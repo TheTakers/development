@@ -1,4 +1,4 @@
-package com.sophia.web.common;
+package com.sophia.web.basic;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ import com.sophia.web.util.GUID;
 @RequestMapping(CommonController.module)
 public class CommonController extends BaseController{
 	
-	public static final String module = "/common/func";
+	public static final String module = "/basic/func";
 	
 	@ResponseBody
 	@RequestMapping(value="/code",method=RequestMethod.POST, consumes = MediaType.ALL_VALUE)
