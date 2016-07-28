@@ -60,8 +60,6 @@ function httpInterceptor($q,$log) {
       return $q.reject(err);
     },
     response: function(res){
-      
-      $log.info(res)
   	  
       if(res.status == 200){
   		  

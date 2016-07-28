@@ -19,12 +19,8 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	    });
  	}
  	
- 	$scope.currentNode= 'selected';
- 	
  	$scope.save = function() {
- 		
- 		 //传值给父页
-		$uibModalInstance.close($scope.currentNode);
+ 		saveOf('/search/sqlgroup/save',$scope.data,$uibModalInstance)
  	};
  	
  	
