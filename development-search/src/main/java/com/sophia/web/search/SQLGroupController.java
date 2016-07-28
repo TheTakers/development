@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
-import com.sophia.vo.Grid;
 import com.sophia.vo.QueryGridRequest;
 import com.sophia.vo.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
@@ -51,9 +49,9 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridParam) {
+	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridRequest) {
 		try {
-			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridParam.getPageNo(), queryGridParam.getPageSize()));
+			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -77,14 +75,14 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest sqlGroupParam) {
+	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest sqlGroupRequest) {
 		try {
 			SQLGroup sqlGroup = new SQLGroup();
 			sqlGroup.setId(GUID.nextId());
-			sqlGroup.setCode(sqlGroupParam.getCode());
-			sqlGroup.setName(sqlGroupParam.getName());
-			sqlGroup.setParentId(sqlGroupParam.getParentId());
-			sqlGroup.setRemark(sqlGroupParam.getDesc());
+			sqlGroup.setCode(sqlGroupRequest.getCode());
+			sqlGroup.setName(sqlGroupRequest.getName());
+			sqlGroup.setParentId(sqlGroupRequest.getParentId());
+			sqlGroup.setRemark(sqlGroupRequest.getDesc());
 			sqlGroupService.insert(sqlGroup);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

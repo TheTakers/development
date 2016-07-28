@@ -26,4 +26,9 @@ angular.module('app').controller('selectorCtrl',function($scope,$http,$uibModal,
  	$scope.rowClick = function(item){
  		uniqueOf($scope.selected,item);
  	}
+ 	
+ 	$scope.search = function(){
+		$scope.$broadcast("selectorGrid");  
+	}
+ 	
 });
