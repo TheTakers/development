@@ -3,17 +3,22 @@ package com.sophia.vo;
 import java.io.Serializable;
 import java.util.List;
 
+
+/**
+ * 分页数据
+ * @author zkning
+ */
 public class Grid<T> implements Serializable{
-	
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer pageSize;
 	private Integer pageNo;
-	private Integer count;
-	private List<T>	data;
+	private Integer totalElements;
+	private List<T>	content;
+	
+	
 	public Integer getPageSize() {
 		return pageSize;
 	}
@@ -26,16 +31,17 @@ public class Grid<T> implements Serializable{
 	public void setPageNo(Integer pageNo) {
 		this.pageNo = pageNo;
 	}
-	public Integer getCount() {
-		return count;
+	public Integer getTotalElements() {
+		return totalElements;
 	}
-	public void setCount(Integer count) {
-		this.count = count;
+	public void setTotalElements(Integer totalElements) {
+		this.totalElements = totalElements;
 	}
-	public List<T> getData() {
-		return data;
+	public List<T> getContent() {
+		return content;
 	}
-	public void setData(List<T> data) {
-		this.data = data;
+	public void setContent(List<T> content) {
+		this.content = content;
 	}
+	 
 }

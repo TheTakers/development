@@ -2,7 +2,7 @@ package com.sophia.utils;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.sophia.vo.Pagination;
+import com.sophia.vo.Limit;
 
 /**
  * 分页语句工厂
@@ -11,7 +11,7 @@ import com.sophia.vo.Pagination;
 public class PaginationSqlFactory extends JdbcTemplate{
 	
 	
-	public static String buildPaginationSQL(String sql,Pagination pagination,String database){
+	public static String buildPaginationSQL(String sql,Limit pagination,String database){
 		
 //		if(database.equals(""))
 		if(true)
@@ -20,7 +20,7 @@ public class PaginationSqlFactory extends JdbcTemplate{
 		return "";
 	}
 	
-	private static String mySql(String sql,Pagination pagination){
+	private static String mySql(String sql,Limit pagination){
 		StringBuilder sqlbuilder = new StringBuilder(sql);
 		sqlbuilder.append(" LIMIT ")
 				  .append((pagination.getPageNo() -1) * pagination.getPageSize())

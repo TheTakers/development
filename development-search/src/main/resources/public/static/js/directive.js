@@ -34,9 +34,9 @@ app.directive('pagination', function($http,$log) {
          restrict:'E',
          template:function(element,atts){
         	 
-        	return  "<div class='fixed-table-pagination' ng-if='pagination.code.length'>"+
+        	return  "<div class='fixed-table-pagination' ng-if='limit.code.length'>"+
 	        	"<div class='pull-left pagination-stats'>"+
-				"	<div class='pagecount'><span>共{{pagination.pageCount}}条 / {{pagination.totalPageNum}}页</span></div>"+
+				"	<div class='pagecount'><span>共{{limit.pageCount}}条 / {{limit.totalPageNum}}页</span></div>"+
 				"	<div class='pagesize'>"+
 				"		 <select ng-change='setPageSize(selected)' ng-model='selected' ng-options='x.id as x.value for x in options' class='form-control input-sm' ></select>"+
 				"	</div>"+
@@ -44,7 +44,7 @@ app.directive('pagination', function($http,$log) {
 	 			"<div class='pull-left pagination-detail'></div>"+
 	 				"<div class='pull-right pagination'>"+
 		 				"<ul class='pagination'>"+
-		 					"<li class='{{item.classs}}' ng-repeat='item in pagination.code' ng-click='go(item.value)'><a href='javascript:void(0)'>{{item.label}}</a></li>"+
+		 					"<li class='{{item.classs}}' ng-repeat='item in limit.code' ng-click='go(item.value)'><a href='javascript:void(0)'>{{item.label}}</a></li>"+
 		 				"</ul>"+
 		 			"</div>"+
 		 		"</div>";
@@ -60,59 +60,59 @@ app.directive('pagination', function($http,$log) {
          link : function(scope,element,attr){
         	 
         	 //create Pagination
-        	 function createPagination(pagination){
+        	 function createPagination(limit){
         		 
-        		 if(_.isUndefined(pagination.pageCount)){
+        		 if(_.isUndefined(limit.pageCount)){
         			 $log.error('pageCount not define.');
         			 return;
         		 }
         		 
-        		 if(_.isUndefined(pagination.pageSize)){
+        		 if(_.isUndefined(limit.pageSize)){
         			 $log.error('pageSize not define.');
         			 return;
         		 }
         		 
-        		 if(_.isUndefined(pagination.pageNo)){
+        		 if(_.isUndefined(limit.pageNo)){
         			 $log.error('pageNo not define.');
         			 return;
         		 }
         		 
-        		 if(pagination.pageCount < 1){
+        		 if(limit.pageCount < 1){
         			 return;
         		 }
         		 
         		 //计算总页数
-            	 var totalPageNum = Math.floor((pagination.pageCount  +  pagination.pageSize - 1) / pagination.pageSize);  
-            	 pagination.totalPageNum = totalPageNum;
+            	 var totalPageNum = Math.floor((limit.pageCount  +  limit.pageSize - 1) / limit.pageSize);  
+            	 limit.totalPageNum = totalPageNum;
             	 
             	 //开始页码计算 
-            	 var startPage = pagination.pageNo - 5 < 1 ? 1 : pagination.pageNo - 5;
+            	 var startPage = limit.pageNo - 5 < 1 ? 1 : limit.pageNo - 5;
             	 
             	 //结束页码
-            	 var endPage = (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4) > totalPageNum ? totalPageNum : (pagination.pageNo + 4 < 10 ? 10 : pagination.pageNo + 4);
+            	 var endPage = (limit.pageNo + 4 < 10 ? 10 : limit.pageNo + 4) > totalPageNum ? totalPageNum : (limit.pageNo + 4 < 10 ? 10 : limit.pageNo + 4);
             	 
         		 //number
         		 var code = [];
         		 
         		 //page first
-        		 code.push({classs:'page-first' + (pagination.pageNo == 1 ? ' disabled' :''),value:1,label:'«'});
+        		 code.push({classs:'page-first' + (limit.pageNo == 1 ? ' disabled' :''),value:1,label:'«'});
         		 //page pre
-        		 code.push({classs:'page-pre' + (pagination.pageNo == 1 ? ' disabled' :'') ,value:pagination.pageNo-1,label:'‹'});
+        		 code.push({classs:'page-pre' + (limit.pageNo == 1 ? ' disabled' :'') ,value:limit.pageNo-1,label:'‹'});
         		 
         		 // class pageno 
         		 for(var idx = startPage ; idx <= endPage ; idx++){
         			 
-        			 if(idx == pagination.pageNo)
+        			 if(idx == limit.pageNo)
         				 code.push({classs:'page-number active',value:idx,label:idx});
         			 else
         				 code.push({classs:'page-number',value:idx,label:idx}); 
         		 }
         		 
         		 //page next
-        		 code.push({classs:'page-next' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:pagination.pageNo+1,label:'›'});
+        		 code.push({classs:'page-next' + (limit.pageNo == totalPageNum ? ' disabled' :''),value:limit.pageNo+1,label:'›'});
         		 //page last
-        		 code.push({classs:'page-last' + (pagination.pageNo == totalPageNum ? ' disabled' :''),value:totalPageNum,label:'»'});
-        		 scope.pagination.code = code;
+        		 code.push({classs:'page-last' + (limit.pageNo == totalPageNum ? ' disabled' :''),value:totalPageNum,label:'»'});
+        		 scope.limit.code = code;
         	 }
         	 
         	 
@@ -120,20 +120,20 @@ app.directive('pagination', function($http,$log) {
         	 scope.selected = 10;
 
         	 //define pagination
-        	 scope.pagination = {pageSize:scope.selected,pageNo:1};
+        	 scope.limit = {pageSize:scope.selected,pageNo:1};
         	 
         	 //get data
         	 function post(){
         		 
-        		 $http.post(scope.url,_.extend({pageSize:scope.pagination.pageSize,pageNo:scope.pagination.pageNo},scope.params)).success(function(data){
+        		 $http.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params)).success(function(data){
         			
         			 if(_.isUndefined(data.result)){
         				 $log.error("结果集未包含result");
         				 return;
         			 }
-        			 scope.pagination.pageCount = data.result.totalElements;
+        			 scope.limit.pageCount = data.result.totalElements;
         			 scope.data = data.result.content;
-        			 createPagination(scope.pagination);
+        			 createPagination(scope.limit);
         			 
       			});
         	 }
@@ -150,11 +150,11 @@ app.directive('pagination', function($http,$log) {
         	 scope.go = function(v){
         		 
         		 //check data
-        		 if(v < 1 || v > scope.pagination.totalPageNum){
+        		 if(v < 1 || v > scope.limit.totalPageNum){
         			 return;
         		 }
         		 
-        		 scope.pagination.pageNo = v;
+        		 scope.limit.pageNo = v;
         		 post();
         	 };
         	
@@ -170,8 +170,8 @@ app.directive('pagination', function($http,$log) {
         	 
         	 scope.setPageSize = function(option){
         		 
-        		scope.pagination.pageSize = option;
-        		scope.pagination.pageNo = 1;
+        		scope.limit.pageSize = option;
+        		scope.limit.pageNo = 1;
         		post();
         	 };
         	 

@@ -1,6 +1,6 @@
 package com.sophia.vo;
 
-public class Pagination {
+public class Limit {
 	
 	private Integer pageSize;
 	private Integer pageNo;
@@ -16,12 +16,12 @@ public class Pagination {
 	public void setPageNo(Integer pageNo) {
 		this.pageNo = pageNo;
 	}
-	public Pagination(Integer pageSize,Integer pageNo){
+	public Limit(Integer pageSize,Integer pageNo){
 		this.pageSize = pageSize;
 		this.pageNo = pageNo;
 	}
 	
-	public static Pagination create(Integer pageSize,Integer pageNo){
-		return new Pagination(pageSize, pageNo);
+	public static Limit create(Integer pageSize,Integer pageNo){
+		return new Limit(pageSize, pageNo);
 	}
 }

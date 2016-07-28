@@ -21,7 +21,7 @@ import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
 import com.sophia.utils.PaginationSqlFactory;
 import com.sophia.vo.Grid;
-import com.sophia.vo.Pagination;
+import com.sophia.vo.Limit;
 
 /**
  *  
@@ -71,7 +71,7 @@ public class SQLIDServiceImpl implements SQLIDService {
 		return jdbcTemplate.execute(selDefine.getSelectSql(),action);
 	}
 	
-	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Pagination pagination){
+	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Limit pagination){
 		SQLDefine selDefine = get(SQLID);
 		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
 		Grid<T> grid = new Grid<T>();
