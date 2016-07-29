@@ -49,13 +49,18 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 	};
 	
 	$scope.remove = function (id) {
-		$http.post('/basic/menu/delete',{id:id}).success(function(data){
-			if(data.code == '0'){
-				$scope.search();
-				$.info(data.message);
-			}else{
-				$.error(data.message);
-			}
+		
+		$.confirm({
+		    confirm: function(){
+		    	$http.post('/basic/menu/delete',{id:id}).success(function(data){
+					if(data.code == '0'){
+						$scope.search();
+						$.info(data.message);
+					}else{
+						$.error(data.message);
+					}
+				});
+		    } 
 		});
 	}
 });
