@@ -295,11 +295,11 @@ var jconfirm, Jconfirm;
              * Settings up buttons
              */
             this.$btnc = this.$el.find('.buttons');
+            if (this.cancelButton && $.trim(this.cancelButton) !== '') {
+            	this.$cancelButton = $('<button type="button" class="btn">' + this.cancelButton + '</button>').appendTo(this.$btnc).addClass(this.cancelButtonClass);
+            }
             if (this.confirmButton && $.trim(this.confirmButton) !== '') {
                 this.$confirmButton = $('<button type="button" class="btn">' + this.confirmButton + '</button>').appendTo(this.$btnc).addClass(this.confirmButtonClass);
-            }
-            if (this.cancelButton && $.trim(this.cancelButton) !== '') {
-                this.$cancelButton = $('<button type="button" class="btn">' + this.cancelButton + '</button>').appendTo(this.$btnc).addClass(this.cancelButtonClass);
             }
             if (!this.confirmButton && !this.cancelButton) {
                 this.$btnc.hide();
