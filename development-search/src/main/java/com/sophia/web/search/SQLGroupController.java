@@ -25,7 +25,7 @@ import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
 import com.sophia.vo.QueryGridRequest;
-import com.sophia.vo.SQLGroupRequest;
+import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 

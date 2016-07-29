@@ -2,7 +2,9 @@ package com.sophia.vo.basic;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class MenuRequest {
+import com.sophia.vo.CrudRequest;
+
+public class MenuRequest extends CrudRequest{
 
 	@NotBlank
 	private String name;

@@ -1,4 +1,4 @@
-package com.sophia.vo;
+package com.sophia.vo.search.sqlgroup;
 
 import org.hibernate.validator.constraints.NotBlank;
 

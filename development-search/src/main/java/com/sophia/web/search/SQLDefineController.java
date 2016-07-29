@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sophia.api.BaseController;
 import com.sophia.service.UserService;
 import com.sophia.vo.QueryGridRequest;
-import com.sophia.vo.SQLGroupRequest;
+import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 
 /**
