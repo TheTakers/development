@@ -81,10 +81,10 @@ public class SQLGroupController extends BaseController{
 		try {
 			SQLGroup target = new SQLGroup();
 			
+			BeanUtils.copyProperties(request, target);
 			if(StringUtils.isBlank(request.getId())){
 				target.setId(GUID.nextId());
 			}
-			BeanUtils.copyProperties(request, target);
 			sqlGroupService.save(target);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

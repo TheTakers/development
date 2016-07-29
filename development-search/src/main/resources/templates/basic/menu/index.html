@@ -14,7 +14,7 @@
 
 		<!-- tree start-->
 		<div class="col-md-2">
-			<dtree class="card-box" id="menuTree" setting="setting"  callback="initTree(ztree)"></dtree>
+			<dtree class="card-box" id="menuTree" setting="setting"></dtree>
 		</div>
 		<!-- tree end -->
 
@@ -91,6 +91,10 @@
 									<td>{{item.pid}}</td>
 									<td>{{item.path}}</td>
 									<td>{{item.remark}}</td>
+									<td>
+										<button type="button" class="btn btn-warning waves-effect waves-light" ng-click="edit(item.id)">修改</button>
+										<button type="button" class="btn btn-danger waves-effect waves-light" ng-click="remove(item.id)">删除</button>
+									</td>
 								</tr>
 							</tbody>
 							<tfoot>

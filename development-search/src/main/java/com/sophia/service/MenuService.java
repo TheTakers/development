@@ -11,4 +11,8 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	public String save(Menu menu);
 	
 	public List<Menu> getTreeData();
+	
+	public Menu findById(String id);
+	
+	public void delete(String id);
 }

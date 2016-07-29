@@ -21,12 +21,12 @@ public class BaseController {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected Map<String, Object> responseOk(Object obj) {
-    	Map<String, Object> resultMap = Maps.newHashMap();
-        resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_SUCCESS);
-        resultMap.put(Constant.KEY_OF_MESSAGE, Constant.RESPONSE_OK);
-        resultMap.put(Constant.KEY_OF_RESULT, obj);
-        return resultMap;
+    protected Map<String, Object> responseOk(Object result) {
+    	 return responseOk(Constant.SUCCESS_MESSAGE,result);
+    }
+    
+    protected Map<String, Object> responseOk(String message) {
+        return responseOk(message,null);
     }
 
     protected Map<String, Object> responseOk(String msg, Object obj) {

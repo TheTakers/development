@@ -9,10 +9,6 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 		$scope.$broadcast("grid");  
 	}
 
-	$scope.initTree = function(ztree){
-		ztree.expandAll(true);
-	};
-
 	$scope.setting = {
 			async:{
 				url:"/basic/menu/treeData",
@@ -34,12 +30,32 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 				}
 			}};
 
-	$scope.edit = function () {
+	$scope.edit = function (id) {
 		
-		/*根据选中ID获取最新数据
-		$http.post('/search/sqlgroup/treeData',{}).success(function(data){
-			commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:data});
-		});*/
-		commonService.show({templateUrl:'/basic/menu/edit',controller:'editCtrl',param:{},callback:$scope.search});
+		if(!_.isEmpty(id)){
+			
+			/*根据选中ID获取最新数据*/
+			$http.post('/basic/menu/findById',{id:id}).success(function(data){
+				
+				if(data.code == '0'){
+					commonService.show({templateUrl:'/basic/menu/edit',controller:'editCtrl',param:data.result,callback:$scope.search});
+				}else{
+					$.error(data.message);
+				}
+			});
+		}else{
+			commonService.show({templateUrl:'/basic/menu/edit',controller:'editCtrl',param:{},callback:$scope.search});
+		}
 	};
+	
+	$scope.remove = function (id) {
+		$http.post('/basic/menu/delete',{id:id}).success(function(data){
+			if(data.code == '0'){
+				$scope.search();
+				$.info(data.message);
+			}else{
+				$.error(data.message);
+			}
+		});
+	}
 });

@@ -41,7 +41,6 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 			}
 		}
 		formatTreeData(menuData, data);
-		System.out.println(JSONObject.toJSONString(menuData));
 		return menuData;
 	}
 	
@@ -59,5 +58,15 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 				formatTreeData(item.getChild(), data);
 			}
 		}
+	}
+	
+	@Override
+	public Menu findById(String id) {
+		return getRepository().findOne(id);
+	}
+	
+	@Override
+	public void delete(String id) {
+		getRepository().delete(id);
 	}
 }

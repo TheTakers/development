@@ -16,10 +16,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Menu;
 import com.sophia.service.MenuService;
@@ -84,14 +86,37 @@ public class MenuController extends BaseController{
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findById(@RequestBody String param) {
+		try {
+			JSONObject json = new JSONObject().parseObject(param);
+			return responseOk(menuService.findById(json.getString("id")));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> delete(@RequestBody String param) {
+		try {
+			JSONObject json = new JSONObject().parseObject(param);
+			menuService.delete(json.getString("id"));
+			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> save(@RequestBody @Valid MenuRequest request) {
 		try {
 			Menu target = new Menu();
+			BeanUtils.copyProperties(request, target);
 			if(StringUtils.isBlank(request.getId())){
 				target.setId(GUID.nextId());
 			}
-			BeanUtils.copyProperties(request, target);
 			menuService.save(target);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

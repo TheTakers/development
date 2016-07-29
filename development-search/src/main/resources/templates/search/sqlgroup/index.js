@@ -9,10 +9,6 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 		$scope.$broadcast("grid");  
 	}
 
-	$scope.groupTreeCallback = function(ztree){
-		ztree.expandAll(true);
-	};
-
 	$scope.setting = {
 			async:{
 				url:"/search/sqlgroup/treeData",
