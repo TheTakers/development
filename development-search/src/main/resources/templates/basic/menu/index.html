@@ -79,6 +79,7 @@
 									<th>图标</th>
 									<th data-hide="phone">所属菜单</th>
 									<th data-hide="phone, tablet">菜单路径</th>
+									<th data-hide="phone, tablet">排序</th>
 									<th data-hide="phone, tablet">描述</th>
 								</tr>
 							</thead>
@@ -90,6 +91,7 @@
 									<td>{{item.ico}}</td>
 									<td>{{item.pid}}</td>
 									<td>{{item.path}}</td>
+									<td>{{item.index}}</td>
 									<td>{{item.remark}}</td>
 									<td>
 										<button type="button" class="btn btn-warning waves-effect waves-light" ng-click="edit(item.id)">修改</button>
