@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -87,11 +88,7 @@ public class MenuController extends BaseController{
 		try {
 			Menu menu = new Menu();
 			menu.setId(GUID.nextId());
-			menu.setIcon(menuRequest.getIcon());
-			menu.setName(menuRequest.getName());
-			menu.setPid(menuRequest.getPid());
-			menu.setUrl(menuRequest.getUrl());
-			menu.setRemark(menuRequest.getRemark());
+			BeanUtils.copyProperties(menuRequest, menu);
 			menuService.insert(menu);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {

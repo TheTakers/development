@@ -14,7 +14,7 @@ public class SQLGroupRequest {
 	
 	@NotBlank
 	private String name;
-	private String desc;
+	private String remark;
 	private String parentId;
 	
 	public String getCode() {
@@ -29,16 +29,17 @@ public class SQLGroupRequest {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
 	public String getParentId() {
 		return parentId;
 	}
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 }

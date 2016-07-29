@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -79,10 +80,7 @@ public class SQLGroupController extends BaseController{
 		try {
 			SQLGroup sqlGroup = new SQLGroup();
 			sqlGroup.setId(GUID.nextId());
-			sqlGroup.setCode(sqlGroupRequest.getCode());
-			sqlGroup.setName(sqlGroupRequest.getName());
-			sqlGroup.setParentId(sqlGroupRequest.getParentId());
-			sqlGroup.setRemark(sqlGroupRequest.getDesc());
+			BeanUtils.copyProperties(sqlGroupRequest, sqlGroup);
 			sqlGroupService.insert(sqlGroup);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
