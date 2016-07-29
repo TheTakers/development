@@ -2,6 +2,7 @@ package com.sophia.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -18,11 +19,18 @@ public class SQLGroup extends Auditable{
 	private static final long serialVersionUID = 1L;
 	
 	private String code;
+	
 	private String name;
 	
 	private String parentId;
+	
 	private String path;
+	
 	private String remark;
+	
+	@Transient
+	private Boolean open = true;
+	
 	public String getCode() {
 		return code;
 	}
@@ -52,6 +60,12 @@ public class SQLGroup extends Auditable{
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public Boolean getOpen() {
+		return open;
+	}
+	public void setOpen(Boolean open) {
+		this.open = open;
 	}
 	
 }

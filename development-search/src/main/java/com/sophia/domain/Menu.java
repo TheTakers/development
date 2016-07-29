@@ -33,6 +33,9 @@ public class Menu extends Auditable {
 	private String path;
 	
 	@Transient
+	private Boolean open = true;
+	
+	@Transient
 	private ArrayList<Menu> child = new ArrayList<>();
 	
 	public ArrayList<Menu> getChild() {
@@ -90,4 +93,13 @@ public class Menu extends Auditable {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
+
+	public Boolean getOpen() {
+		return open;
+	}
+
+	public void setOpen(Boolean open) {
+		this.open = open;
+	}
+	
 }
