@@ -9,7 +9,7 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 		$scope.$broadcast("grid");  
 	}
 
-	$scope.groupTreeCallback = function(ztree){
+	$scope.initTree = function(ztree){
 		ztree.expandAll(true);
 	};
 

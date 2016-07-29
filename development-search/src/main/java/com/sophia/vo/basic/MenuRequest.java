@@ -9,7 +9,7 @@ public class MenuRequest {
 	private String remark;
 	private String pid;
 	private String ico;
-	private String url;
+	private String link;
 	
 	public String getName() {
 		return name;
@@ -35,10 +35,10 @@ public class MenuRequest {
 	public void setIco(String icon) {
 		this.ico = icon;
 	}
-	public String getUrl() {
-		return url;
+	public String getLink() {
+		return link;
 	}
-	public void setUrl(String url) {
-		this.url = url;
+	public void setLink(String url) {
+		this.link = url;
 	}
 }

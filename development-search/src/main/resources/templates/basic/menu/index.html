@@ -14,7 +14,7 @@
 
 		<!-- tree start-->
 		<div class="col-md-2">
-			<dtree class="card-box" id="groupTree" setting="setting"  callback="groupTreeCallback(ztree)"></dtree>
+			<dtree class="card-box" id="menuTree" setting="setting"  callback="initTree(ztree)"></dtree>
 		</div>
 		<!-- tree end -->
 
@@ -86,7 +86,7 @@
 							<tbody>
 								<tr ng-repeat="item in dataList">
 									<td>{{item.name}}</td>
-									<td>{{item.url}}</td>
+									<td>{{item.link}}</td>
 									<td>{{item.ico}}</td>
 									<td>{{item.pid}}</td>
 									<td>{{item.path}}</td>

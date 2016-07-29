@@ -184,18 +184,18 @@
 				
 				<!-- level 1 -->
 						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
-                                 <a href="#{{item.url}}" class="waves-effect" ><i class="{{item.ico}}"></i><span>{{item.name}}</span></a>
+                                 <a href="#{{item.link}}" class="waves-effect" ><i class="{{item.ico}}"></i><span>{{item.name}}</span></a>
                                
                 	<!-- level 2 -->
                                 <ul class="list-unstyled" ng-if="item.child.length">
                                 	 
                                 	<li class="has_sub" ng-repeat="second in item.child">
-                                      	<a href="#{{second.url}}" class="waves-effect" ><span>{{second.name}}</span></a>
+                                      	<a href="#{{second.link}}" class="waves-effect" ><span>{{second.name}}</span></a>
                                       	
                			 <!-- level 3 -->
                                 		<ul class="list-unstyled"  ng-if="second.child.length">
                                             <li>
-                                            <a href="#{{third.url}}" ng-repeat="third in second.child" ><span>{{third.name}}</span></a>
+                                            <a href="#{{third.link}}" ng-repeat="third in second.child" ><span>{{third.name}}</span></a>
                                             </li>
                                         </ul>
                                         
