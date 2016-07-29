@@ -20,7 +20,7 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
 	.state('index',{url:"/",templateUrl:"/home"})
     .state('authorize', {
         // 这里设置了url参数
-        url: "/:module/:controller/:mapping",
+        url: "/{module}/{controller}/{mapping}",
         templateUrl: function(param){
         	 return "/"+param.module+"/"+param.controller+"/"+param.mapping;
         },
