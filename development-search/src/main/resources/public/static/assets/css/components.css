@@ -653,8 +653,9 @@ File: Components
   border: none !important;
   padding: 10px 20px;
 }
+
 .panel-default > .panel-heading {
-  background-color: #eef4f9;
+  background-color: #C8F4F9; /**#eef4f9**/
   border-bottom: none;
   color: #797979;
 }
