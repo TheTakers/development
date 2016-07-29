@@ -564,7 +564,7 @@ var jconfirm, Jconfirm;
         cancelButton: '取消',
         confirmButtonClass: 'btn-info',
         cancelButtonClass: 'btn-default',
-        theme: 'white',
+        theme: 'material',
         animation: 'zoom',
         closeAnimation: 'scale',
         animationSpeed: 500,
