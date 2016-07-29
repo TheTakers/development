@@ -8,7 +8,7 @@ import com.sophia.repository.MenuRepository;
 
 public interface MenuService  extends JpaRepository<MenuRepository>{
 	
-	public String insert(Menu menu);
+	public String save(Menu menu);
 	
 	public List<Menu> getTreeData();
 }

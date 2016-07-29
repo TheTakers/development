@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -76,12 +77,15 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest sqlGroupRequest) {
+	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest request) {
 		try {
-			SQLGroup sqlGroup = new SQLGroup();
-			sqlGroup.setId(GUID.nextId());
-			BeanUtils.copyProperties(sqlGroupRequest, sqlGroup);
-			sqlGroupService.insert(sqlGroup);
+			SQLGroup target = new SQLGroup();
+			
+			if(StringUtils.isBlank(request.getId())){
+				target.setId(GUID.nextId());
+			}
+			BeanUtils.copyProperties(request, target);
+			sqlGroupService.save(target);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

@@ -24,7 +24,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	private static final long serialVersionUID = 1L;
 	
 	
-	public String insert(Menu menu){
+	public String save(Menu menu){
 		
 		//生成GROUP PATH
 		return getRepository().save(menu).getId();

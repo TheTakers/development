@@ -18,7 +18,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public String insert(SQLGroup sqlGroup){
+	public String save(SQLGroup sqlGroup){
 		
 		//生成GROUP PATH
 		return getRepository().save(sqlGroup).getId();

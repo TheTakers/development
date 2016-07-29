@@ -6,6 +6,5 @@ import com.sophia.repository.SQLGroupRepository;
 
 public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
 	
-	public String insert(SQLGroup sqlGroup);
-	
+	public String save(SQLGroup sqlGroup);
 }

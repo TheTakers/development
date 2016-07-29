@@ -9,12 +9,16 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class SQLGroupRequest {
 	
+	private String id;
+	
 	@NotBlank
 	private String code;
 	
 	@NotBlank
 	private String name;
+	
 	private String remark;
+	
 	private String parentId;
 	
 	public String getCode() {
@@ -40,6 +44,12 @@ public class SQLGroupRequest {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }
