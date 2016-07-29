@@ -31,36 +31,10 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			}};
 
 	$scope.edit = function (id) {
-		
-		if(!_.isEmpty(id)){
-			
-			/*根据选中ID获取最新数据*/
-			$http.post('/basic/menu/findById',{id:id}).success(function(data){
-				
-				if(data.code == '0'){
-					commonService.show({templateUrl:'/basic/menu/edit',controller:'editCtrl',param:data.result,callback:$scope.search});
-				}else{
-					$.error(data.message);
-				}
-			});
-		}else{
-			commonService.show({templateUrl:'/basic/menu/edit',controller:'editCtrl',param:{},callback:$scope.search});
-		}
+		edit($http,commonService,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:id},$scope.search);
 	};
 	
 	$scope.remove = function (id) {
-		
-		$.confirm({
-		    confirm: function(){
-		    	$http.post('/basic/menu/delete',{id:id}).success(function(data){
-					if(data.code == '0'){
-						$scope.search();
-						$.info(data.message);
-					}else{
-						$.error(data.message);
-					}
-				});
-		    } 
-		});
+		remove($http,'/basic/menu/delete',{id:id},$scope.search);
 	}
 });

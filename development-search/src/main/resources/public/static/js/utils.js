@@ -12,6 +12,13 @@ function uniqueOf(array,item){
 }
 
 
+/**
+ * 弹窗保存并关闭
+ * @param $http
+ * @param url
+ * @param param
+ * @param $uibModalInstance
+ */
 function saveOf($http,url,param,$uibModalInstance){
 	$http.post(url,param).success(function(data){
 		 if(data.code = '0'){
@@ -21,3 +28,47 @@ function saveOf($http,url,param,$uibModalInstance){
 	       	  }
 		});	
 };
+
+
+/**
+ * dataUrl :编辑页初始化数据页
+ * templateUrl :编辑页url
+ * ctrl :编辑页controller
+ * callback :回调函数
+ */
+function edit($http,commonService,dataUrl,templateUrl,ctrl,param,callback) {
+		
+		if(!_.isEmpty(param.id)){
+			
+			/*根据选中ID获取最新数据*/
+			$http.post(dataUrl,param).success(function(data){
+				
+				if(data.code == '0'){
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:data.result,callback:callback});
+				}else{
+					$.error(data.message);
+				}
+			});
+		}else{
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback});
+		}
+	};
+	
+function remove($http,url,param,callback) {
+		
+		$.confirm({
+		    confirm: function(){
+		    	$http.post(url,param).success(function(data){
+					if(data.code == '0'){
+						$.info(data.message);
+						
+						if(callback){
+							callback(param);
+						}
+					}else{
+						$.error(data.message);
+					}
+				});
+		    } 
+		});
+	}
