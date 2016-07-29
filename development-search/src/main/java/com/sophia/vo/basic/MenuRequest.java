@@ -8,7 +8,7 @@ public class MenuRequest {
 	private String name;
 	private String remark;
 	private String pid;
-	private String icon;
+	private String ico;
 	private String url;
 	
 	public String getName() {
@@ -29,11 +29,11 @@ public class MenuRequest {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-	public String getIcon() {
-		return icon;
+	public String getIco() {
+		return ico;
 	}
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setIco(String icon) {
+		this.ico = icon;
 	}
 	public String getUrl() {
 		return url;

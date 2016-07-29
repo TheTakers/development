@@ -22,7 +22,7 @@ public class Menu extends Auditable {
 	
 	private String name;
 	
-	private String icon;
+	private String ico;
 	
 	private String url;
 	
@@ -67,12 +67,12 @@ public class Menu extends Auditable {
 		this.name = name;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getIco() {
+		return ico;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setIco(String ico) {
+		this.ico = ico;
 	}
 
 	public String getUrl() {
