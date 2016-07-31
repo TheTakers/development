@@ -52,20 +52,20 @@ create table TB_SM_USER
   obj_version int(10)
 );
 
-create table TB_SM_SQLDEFINE
-(
-  id                     VARCHAR(50) not null,
-  sqlid                   VARCHAR(100),
-  sqlname                 VARCHAR(1000),
-  select_sql              text,
-  datasource              VARCHAR(100),
-  sqldesc                 VARCHAR(4000),
-  cache NUMERIC,
-	STATUS NUMERIC,
-  groupid VARCHAR(50),
-  version NUMERIC,
-  createUser VARCHAR(50),
-  createTime datetime,
-  lastUpdateUser VARCHAR(50),
-  lastUpdateTime datetime
-);
+CREATE TABLE `tb_sm_sqldefine` (
+  `id` varchar(50) NOT NULL,
+  `sql_Id` varchar(50) DEFAULT NULL,
+  `sql_Name` varchar(50) DEFAULT NULL,
+  `group_id` varchar(50) DEFAULT NULL,
+  `select_Sql` text,
+  `datasource` varchar(50) DEFAULT NULL,
+  `sqldesc` text,
+  `create_Time` datetime DEFAULT NULL,
+  `create_User` varchar(50) DEFAULT NULL,
+  `version` decimal(50,0) DEFAULT NULL,
+  `last_Update_User` varchar(50) DEFAULT NULL,
+  `last_Update_Time` datetime DEFAULT NULL,
+  `status` decimal(2,0) DEFAULT NULL,
+  `cache` decimal(2,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
