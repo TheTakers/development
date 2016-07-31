@@ -25,9 +25,6 @@ public class JUnitTest {
 	@Autowired UserService userService;
 	@Autowired SQLIDService sqlidService;
 	
-	NamedParameterJdbcTemplate npt;
-	
-	
 	@Test
 	public void testCase(){
 //		EntityManagerFactory factory = Persistence.createEntityManagerFactory("master");
@@ -37,9 +34,9 @@ public class JUnitTest {
 //	    for(Object object : data){
 //	    	System.out.println(object);
 //	    }
-		Map<String,Object> param=new HashMap<String, Object>();
-		param.put("pid", 0);
-		List<Map> data = sqlidService.queryForList("20160731040054", param, Map.class);
+		Map<String,Object> mp=new HashMap<String, Object>();
+		mp.put("pid", 0);
+		List<Map<String,Object>> data = sqlidService.queryForList("20160731040054",mp);
 		for(Map map : data){
 			System.out.println(map.get("pid"));
 		}

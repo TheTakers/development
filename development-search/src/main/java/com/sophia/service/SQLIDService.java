@@ -13,6 +13,8 @@ public interface SQLIDService {
 	
 	public <T> List<T> queryForList(String sqlID ,Map<String,Object> args,Class<T> elementType);
 	
+	public List<Map<String,Object>> queryForList(String sqlID ,Map<String,Object> args);
+	
 	public <T> T queryForObject(String sql, Class<T> requiredType,Map<String,Object> args);
 
 	public Map<String, Object> queryForMap(String sql, Map<String,Object> args);

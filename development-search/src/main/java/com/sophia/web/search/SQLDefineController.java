@@ -1,6 +1,5 @@
 package com.sophia.web.search;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLDefine;
-import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
 import com.sophia.vo.QueryGridRequest;
 import com.sophia.vo.search.sqldefine.SQLDefineRequest;
-import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
@@ -90,9 +87,7 @@ public class SQLDefineController extends BaseController{
 	public Map<String, Object> findById(@RequestBody String param) {
 		try {
 			JSONObject json = new JSONObject().parseObject(param);
-			Map<String,Object> mp=new HashMap<String, Object>();
-			mp.put("pid", 0);
-			return responseOk(sqlIDService.queryForList("20160731040054",mp, HashMap.class));
+			return responseOk(sqlDefineService.getRepository().findOne(json.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
