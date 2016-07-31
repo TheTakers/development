@@ -1,8 +1,6 @@
-angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModal) {
+angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$uibModal,commonService) {
 	
-	$scope.pagination = {};
 	$scope.queryparams = {};
- 	$scope.sqldefine = {};
 	$scope.search = function(){
 		
 		//广播分页条查询
@@ -23,25 +21,13 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 				}
 			}};
 	 
-	 $scope.openTemplate = function () {
-        
-          var modalInstance = $uibModal.open({
-             templateUrl: '/search/sqldefine/edit',
-             controller: 'sqlDefineCtrl',
-             size:'lg',
-             resolve: {
-               items: function () {
-                 return $scope.items;
-               }
-             }
-         });
-         
-         modalInstance.result.then(function (selectedItem) {
-             $scope.selected = selectedItem;
-           }, function () {
-             $log.info('Modal dismissed at: ' + new Date());
-           });
-     };
+	$scope.edit = function (id) {
+		edit($http,commonService,'/search/sqldefine/findById','/search/sqldefine/edit','editCtrl',{id:id},$scope.search);
+	};
+	
+	$scope.remove = function (id) {
+		remove($http,'/basic/menu/delete',{id:id},$scope.search);
+	}
      
     $scope.cancel = function() {
     	 $scope.$dismiss();

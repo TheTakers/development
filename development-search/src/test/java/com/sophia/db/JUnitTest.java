@@ -37,6 +37,5 @@ public class JUnitTest {
 //	    for(Object object : data){
 //	    	System.out.println(object);
 //	    }
-		npt.q
 	}
 }

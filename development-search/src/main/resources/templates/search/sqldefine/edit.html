@@ -1,4 +1,3 @@
-
  <div class="modal-header">
 	<h6 class="modal-title">编辑</h6>
 </div>
@@ -11,7 +10,7 @@
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">SQLID*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqldefine.sqlId"></input>
+						<input class="form-control input-sm" ng-model="data.sqlId"></input>
 					</div>
 					<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>
 			</div>
@@ -19,49 +18,49 @@
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">别名*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqldefine.sqlName"></input>
+						<input class="form-control input-sm" ng-model="data.sqlName"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">所属分组 *</label>
 					<div class="col-sm-6">
-						 <selector url="/search/sqlgroup/edit" ctrl="sqlDefineCtrl" text="select.text" value="select.value"></selector>
+						 <selector url="/search/sqlgroup/selector" ctrl="selectorCtrl" text="data.groupText" value="data.groupId"></selector>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">数据源 *</label>
 					<div class="col-sm-6">
-						 <input class="form-control input-sm" ng-model="sqldefine.datasource"></input>
+						 <input class="form-control input-sm" ng-model="data.datasource"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">缓存数据 *</label>
 					<div class="col-sm-6">
-						 <input class="form-control input-sm" ng-model="sqldefine.cache"></input>
+						 <input class="form-control input-sm" ng-model="data.cache"></input>
 					</div>
 			</div>
 			
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">状态 *</label>
 					<div class="col-sm-6">
-						 <input class="form-control input-sm" ng-model="sqldefine.status"></input>
+						 <input class="form-control input-sm" ng-model="data.status"></input>
 					</div>
 			</div>
 				
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">说明*</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="sqldefine.remark"></input>
+						<input class="form-control input-sm" ng-model="data.remark"></input>
 					</div>
 			</div>
 				
 			<div class="form-group">
 				<label   class="col-sm-2 control-label">查询SQL*</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" ng-model="sqldefine.selectSql" rows="20"></textarea>
+						<textarea class="form-control" ng-model="data.selectSql" rows="20"></textarea>
 					</div>
 			</div>
 			

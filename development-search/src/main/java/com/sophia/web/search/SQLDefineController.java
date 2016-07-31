@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sophia.api.BaseController;
-import com.sophia.service.UserService;
+import com.sophia.domain.SQLDefine;
+import com.sophia.service.SQLDefineService;
 import com.sophia.vo.QueryGridRequest;
 import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
@@ -30,7 +33,7 @@ import com.sophia.web.constant.Constant;
 public class SQLDefineController extends BaseController{
 	
 	
-	@Autowired UserService userService;
+	@Autowired SQLDefineService sqlDefineService;
 	
 	public static final String module = "search/sqldefine";
 	
@@ -46,9 +49,10 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridParam) {
+	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridRequest) {
 		try {
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			Page<SQLDefine> data = sqlDefineService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
+			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
