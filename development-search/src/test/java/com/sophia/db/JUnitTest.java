@@ -1,11 +1,8 @@
 package com.sophia.db;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.sophia.Application;
-import com.sophia.domain.User;
+import com.sophia.service.SQLIDService;
 import com.sophia.service.UserService;
 
 /**
@@ -26,8 +23,11 @@ import com.sophia.service.UserService;
 public class JUnitTest {  
 	
 	@Autowired UserService userService;
+	@Autowired SQLIDService sqlidService;
 	
 	NamedParameterJdbcTemplate npt;
+	
+	
 	@Test
 	public void testCase(){
 //		EntityManagerFactory factory = Persistence.createEntityManagerFactory("master");
@@ -37,5 +37,11 @@ public class JUnitTest {
 //	    for(Object object : data){
 //	    	System.out.println(object);
 //	    }
+		Map<String,Object> param=new HashMap<String, Object>();
+		param.put("pid", 0);
+		List<Map> data = sqlidService.queryForList("20160731040054", param, Map.class);
+		for(Map map : data){
+			System.out.println(map.get("pid"));
+		}
 	}
 }

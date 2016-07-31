@@ -1,6 +1,7 @@
 angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$uibModal,commonService) {
 	
 	$scope.queryparams = {};
+	$scope.dataList = {};
 	$scope.search = function(){
 		
 		//广播分页条查询

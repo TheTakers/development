@@ -70,11 +70,12 @@
 												<th data-hide="phone, tablet">状态</th>
 												<th data-hide="phone, tablet">说明</th>
 												<th data-hide="phone, tablet">SQL</th>
+												<th>操作</th>
 											</tr>
 										</thead>
 										
 										<tbody>
-											<tr ng-repeat="item in pagination.content">
+											<tr ng-repeat="item in dataList">
 												<td>{{item.sqlId}}</td>
 												<td>{{item.sqlName}}</td>
 												<td>{{item.groupId}}</td>
@@ -83,13 +84,18 @@
 												<td>{{item.status}}</td>
 												<td>{{item.remark}}</td>
 												<td>{{item.selectSql}}</td>
+												<td>
+			                                        <a href="javascript:void(0);" class="table-action-btn" title="查看" ng-click="search(item.id)"><i class="glyphicon glyphicon-eye-open"></i></a>
+													<a href="javascript:void(0);" class="table-action-btn" title="编辑" ng-click="edit(item.id)"><i class="glyphicon glyphicon-pencil"></i></a>
+			                                        <a href="javascript:void(0);" class="table-action-btn" title="删除" ng-click="remove(item.id)"><i class="glyphicon glyphicon-remove"></i></a>
+												</td>
 											</tr>
 										</tbody>
 										<tfoot>
 											<tr>
 												<td colspan="6">
 													<div class="text-right">
-															 <pagination  url="/search/sqldefine/list"  data="pagination"  params="queryparams"></pagination>
+															 <pagination  url="/search/sqldefine/list"  data="dataList"  params="queryparams"></pagination>
 														</div>
 												</td>
 											</tr>

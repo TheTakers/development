@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.sophia.domain.SQLDefine;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SQLDefineService;
@@ -21,5 +22,10 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
+
+	public String save(SQLDefine sqlDefine){
+		
+		//生成GROUP PATH
+		return getRepository().save(sqlDefine).getId();
+	}
 }
