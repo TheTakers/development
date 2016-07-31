@@ -3,7 +3,7 @@ package com.sophia.service;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 
 import com.sophia.vo.Grid;
 import com.sophia.vo.Limit;
@@ -11,13 +11,13 @@ import com.sophia.vo.Limit;
 
 public interface SQLIDService {
 	
-	public <T> List<T> queryForList(String sqlID ,Object[] args,Class<T> elementType);
+	public <T> List<T> queryForList(String sqlID ,Map<String,Object> args,Class<T> elementType);
 	
-	public <T> T queryForObject(String sql, Class<T> requiredType,Object... args);
+	public <T> T queryForObject(String sql, Class<T> requiredType,Map<String,Object> args);
 
-	public Map<String, Object> queryForMap(String sql, Object... args);
+	public Map<String, Object> queryForMap(String sql, Map<String,Object> args);
 	
-	public <T> T execute(String SQLID, CallableStatementCallback<T> action);
+	public <T> T execute(String SQLID, PreparedStatementCallback<T> action);
 	
-	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Limit pagination);
+	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit pagination);
 }

@@ -8,8 +8,10 @@ import com.sophia.vo.Limit;
  * 分页语句工厂
  * @author zkning
  */
-public class SQLLimitFactory extends JdbcTemplate{
+public class SQLLimitFactory{
 	
+	public static final String DATABASE_MYSQL = "";
+	public static final String DATABASE_ORACLE = "";
 	
 	public static String createLimit(String sql,Limit pagination,String database){
 		

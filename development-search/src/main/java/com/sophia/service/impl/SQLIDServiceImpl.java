@@ -1,6 +1,5 @@
 package com.sophia.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,8 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.constant.DataSourceEnum;
@@ -35,55 +35,52 @@ public class SQLIDServiceImpl implements SQLIDService {
 	@Autowired SQLDefineService sqlDefineService;
 	@Autowired MultipleDataSouceService multipleDataSouceService;
 	
-	public <T> List<T> queryForList(String SQLID ,Object[] args,Class<T> elementType)  {
+	public <T> List<T> queryForList(String SQLID ,Map<String,Object> args,Class<T> elementType)  {
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForList(selDefine.getSelectSql(), args, elementType);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.queryForList(selDefine.getSelectSql(), args, elementType);
 	}
 	
-	public Map<String, Object> queryForMap(String SQLID, Object... args){
+	public Map<String, Object> queryForMap(String SQLID, Map<String,Object> args){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForMap(selDefine.getSelectSql(),args);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.queryForMap(selDefine.getSelectSql(),args);
 	}
 	
-	public List<Map<String, Object>> queryForList(String SQLID, Object... args){
+	public List<Map<String, Object>> queryForList(String SQLID, Map<String,Object> args){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForList(selDefine.getSelectSql(),args);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.queryForList(selDefine.getSelectSql(),args);
 	}
 	
-	public <T> T queryForObject(String SQLID, Class<T> requiredType,Object... args){
+	public <T> T queryForObject(String SQLID, Class<T> requiredType,Map<String,Object> args){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForObject(selDefine.getSelectSql(),requiredType,args);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.queryForObject(selDefine.getSelectSql(),args,requiredType);
 	}
 	
-	public Integer count(String SQLID,Object... args){
+	public Integer count(String SQLID,Map<String,Object> args){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),args,Integer.class);
 	}
 	
-	public <T> T execute(String SQLID, CallableStatementCallback<T> action){
+	public <T> T execute(String SQLID, PreparedStatementCallback<T> action){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
-		return jdbcTemplate.execute(selDefine.getSelectSql(),action);
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+		return namedJdbcTemplate.execute(selDefine.getSelectSql(),action);
 	}
 	
-	public <T> Grid<T> findAll(String SQLID ,Object[] args,Class<T> elementType,Limit limit){
+	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit limit){
 		SQLDefine selDefine = get(SQLID);
-		JdbcTemplate jdbcTemplate = getTemplate(selDefine.getDatasource());
+		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
+
 		Grid<T> grid = new Grid<T>();
-		  try {
-			  grid.setContent(jdbcTemplate.queryForList(SQLLimitFactory.createLimit(selDefine.getSelectSql(),limit, jdbcTemplate.getDataSource().getConnection().getMetaData().getDatabaseProductName()), args, elementType));
-			  grid.setTotalElements(jdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),Integer.class,args));
-			  grid.setPageNo(limit.getPageNo());
-			  grid.setPageSize(limit.getPageSize());
-		  } catch (SQLException e) {
-			logger.error("分页查询异常:{}",e);
-			throw new ServiceException("分页查询异常");
-		} 
+		//TODO getJdbcTemplate().getDataSource().getConnection().getMetaData().getDatabaseProductName())
+		grid.setContent(namedJdbcTemplate.queryForList(SQLLimitFactory.createLimit(selDefine.getSelectSql(),limit,SQLLimitFactory.DATABASE_MYSQL), args, elementType));
+		grid.setTotalElements(namedJdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),args,Integer.class));
+		grid.setPageNo(limit.getPageNo());
+		grid.setPageSize(limit.getPageSize()); 
 		return grid;
 	}
 	
@@ -105,7 +102,11 @@ public class SQLIDServiceImpl implements SQLIDService {
 		return sqlDefine;
 	}
 	
-	private JdbcTemplate getTemplate(String dataSource){
+	private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(String dataSource){
+		return new NamedParameterJdbcTemplate(getJdbcTemplate(dataSource));
+	}
+	
+	private JdbcTemplate getJdbcTemplate(String dataSource){
 		return multipleDataSouceService.getDataSourceByBean(DataSourceEnum.getDataSource(dataSource));
 	}
 }
