@@ -1,14 +1,15 @@
 package com.sophia.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sophia.domain.Menu;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
@@ -25,12 +26,17 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	
 	
 	public String save(Menu menu){
-		
-		//生成GROUP PATH
 		return getRepository().save(menu).getId();
 	}
-
-
+	
+	public List<String> getMenuPath(String id){
+		String paths = getRepository().getPath(id);
+		if(StringUtils.isNoneBlank(paths)){
+			return  Arrays.asList(paths.split(","));
+		}
+		return null;
+	}
+	
 	@Override
 	public List<Menu> getTreeData() {
 		List<Menu> data = getRepository().findAll();

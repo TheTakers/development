@@ -65,6 +65,8 @@ app.controller('NavCtrl', ['$scope', function ($scope) {
 
 app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
     
+	$scope.breadcrumbData = [];
+	
     /**logout**/
     $scope.logout = function(){
       $('#logout').submit();
@@ -90,4 +92,27 @@ app.controller('menuCtrl', function($scope,$http) {
 	         }  
 	    });
 	}
+	
+	//获取菜单路径
+ 	$scope.getpaths = function(id,link){
+ 		
+ 		if(link && link.length > 0){
+ 			$.ajax({  
+ 				type : "post",  
+ 				url : "/basic/menu/breadcrumb",  
+ 				async : false,  
+ 				contentType:'application/json;charset=UTF-8',
+ 				dataType:'json',
+ 				data:JSON.stringify({id:id}),
+ 				success : function(data){  
+ 					if(data.code = '0'){
+ 						$scope.$parent.breadcrumbData = data.result;
+ 					}else{
+ 						$.error(data.message);
+ 					}
+ 				}  
+ 			});
+ 		}
+ 		
+ 	}
 });
