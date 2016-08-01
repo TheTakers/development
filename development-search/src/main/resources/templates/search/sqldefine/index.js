@@ -8,20 +8,27 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$ui
 		$scope.$broadcast("sqldefinegrid");  
 	}
 	
-	$scope.sett = {
+	$scope.setting = {
+			async:{
+				url:"/search/sqlgroup/treeData",
+				type:"post",
+				contentType: "application/json",
+				enable:true
+			},
 			data:{
 				simpleData:{
-				enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
-				idKey: "id",
-				pIdKey: "pId",
-				rootPId: 0}
+					enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+					idKey: "id",
+					pIdKey: "parentId",
+					rootPId: 0
+				}
 			},
 			callback: {
 				onClick: function(event,treeId,node,idx){
-					$scope.$broadcast("sqldefinegrid");  
+					$scope.$broadcast("grid");  
 				}
 			}};
-	 
+	
 	$scope.edit = function (id) {
 		edit($http,commonService,'/search/sqldefine/findById','/search/sqldefine/edit','editCtrl',{id:id},$scope.search);
 	};
