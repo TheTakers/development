@@ -10,7 +10,7 @@ import com.sophia.domain.Menu;
 public interface MenuRepository extends JpaRepository<Menu, String>{
 	
 	@Query(value="SELECT paths FROM ( "+
-		     " SELECT id,pid,  "+
+		     " SELECT id,pid,link,  "+
 		     " @le\\:= IF (pid = 0 ,0,    "+
 		     "    IF( LOCATE( CONCAT('|',pid,':'),@pathlevel)   > 0  ,      "+ 
 		     "             SUBSTRING_INDEX( SUBSTRING_INDEX(@pathlevel,CONCAT('|',pid,':'),-1),'|',1) +1 "+
@@ -25,7 +25,7 @@ public interface MenuRepository extends JpaRepository<Menu, String>{
 		    "FROM  tb_basic_menu,  "+
 		    "(SELECT @le\\:=0,@pathlevel\\:='', @pathall\\:='',@pathnodes\\:='') vv "+
 		    "where pid <> '-1' "+
-		    "ORDER BY  pid,id ) src where id = ?1 ",nativeQuery=true)
-	public String getPath(String id);
+		    "ORDER BY  pid,id ) src where link = ?1 ",nativeQuery=true)
+	public String getPath(String link);
 	
 }

@@ -126,10 +126,10 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/breadcrumb",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getPath(@RequestBody String param) {
+	public Map<String, Object> getPath(@RequestBody String action) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(menuService.getMenuPath(json.getString("id")));
+			JSONObject json = new JSONObject().parseObject(action);
+			return responseOk(menuService.getMenuPath(json.getString("action")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

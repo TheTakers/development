@@ -285,6 +285,43 @@ app.directive('selector', function($http,$log,$uibModal) {
   };
 }); 
 
+//面包屑
+app.directive('breadcrumb', function($http,$log,$stateParams) {
+
+	return {
+		restrict:'A',
+		template:function(element,atts){
+			return  '<div class="row">'+
+						'<div class="col-sm-12">'+
+							'<ol class="breadcrumb">'+
+								'<li ng-repeat="item in items">{{item}}</li>'+
+							'</ol>'+
+						'</div>'+
+					'</div>';
+		},
+		replace : false,			
+		transclude : false,
+		link:function(scope,element,attr){
+			scope.items = [];
+			$.ajax({  
+ 				type : "post",  
+ 				url : "/basic/menu/breadcrumb",  
+ 				async : false,  
+ 				contentType:'application/json;charset=UTF-8',
+ 				dataType:'json',
+ 				data:JSON.stringify({action:"/"+$stateParams.module+"/"+$stateParams.controller+"/"+$stateParams.mapping}),
+ 				success : function(data){  
+ 					if(data.code = '0'){
+ 						scope.items = data.result;
+ 					}else{
+ 						$.error(data.message);
+ 					}
+ 				}  
+ 			});
+		}
+	};
+})
+
 /*弹出页
 app.directive('popup', function($http,$log,$uibModal) {
 	 return {
