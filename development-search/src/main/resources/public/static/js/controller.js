@@ -53,7 +53,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	       	  if(data.code = '0'){
 	        	$scope.menu = data.result;
 	        	
-	        	/*初始化选中首页
+	        	/*初始化选中首页*/
 	        	if(!_.isEmpty(data.result)){
 	        		
 	        		var item;
@@ -67,7 +67,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	        		}
         			
         			//TODO loading js ..
-	        	}*/
+	        	}
 	       	  }else{
 	       		 $.error(data.message);
 	       	  }
