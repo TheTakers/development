@@ -76,6 +76,10 @@ a:focus {
 }
 .container {
   width: auto;
+  
+  /*nzk tab内容左右间隔*/
+  padding-right: 0px;
+  padding-left: 0px;
 }
 .container-alt {
   margin-left: auto;
