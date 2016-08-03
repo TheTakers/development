@@ -312,7 +312,7 @@ File: Helper clasess
 /* Card Box */
 .card-box {
   padding: 20px;
-  border: 1px solid rgba(54, 64, 74, 0.05);
+  border: 1px solid rgba(54, 64, 74, 0.10); /*nzk*/
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -320,6 +320,12 @@ File: Helper clasess
   margin-bottom: 20px;
   background-color: #ffffff;
 }
+
+/*nzk*/
+.panel-collapse {
+	  border: 1px solid rgba(54, 64, 74, 0.10);
+}
+
 .grid-structure .grid-container {
   background-color: #f4f8fb;
   margin-bottom: 10px;
@@ -1247,7 +1253,7 @@ body.fixed-left .side-menu.left {
 .content-page > .content {
  /** margin-bottom: 60px;**/
   margin-bottom: 0px;/*忽略底部*/
-  margin-top: 50px; /*距离顶部调整2016/08/03*/
+  margin-top: 50px; /*nzk*/
   padding: 20px 5px 15px 5px;/*内容空隙*/
 }
 .button-menu-mobile {
