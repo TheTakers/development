@@ -185,7 +185,6 @@ app.directive('dtree', function($http,$log) {
 	 return {
        restrict:'E',
        scope:{
-    	   id:'@',
     	   setting:'=',
     	   znodes:'=',
     	   callback:'&'
