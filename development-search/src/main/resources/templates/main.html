@@ -3,7 +3,7 @@
       xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
       layout:decorator="layout" ng-app="app">
-<body class="fixed-left" ng-controller = "indexCtrl">
+<body class="fixed-left" ng-controller = "indexCtrl" ng-init="init()">
 <div id="wrapper" layout:fragment="content">
 
      <!-- Begin page -->
@@ -184,18 +184,18 @@
 				
 				<!-- level 1 -->
 						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
-                                 <a href="#{{item.link}}" class="waves-effect" ><i class="{{item.ico}}"></i><span>{{item.name}}</span></a>
+                                 <a href="#" class="waves-effect" ng-click="forward(item)"><i class="{{item.ico}}"></i><span>{{item.name}}</span></a>
                                
                 	<!-- level 2 -->
                                 <ul class="list-unstyled" ng-if="item.child.length">
                                 	 
                                 	<li class="has_sub" ng-repeat="second in item.child">
-                                      	<a href="#{{second.link}}" class="waves-effect" ><span>{{second.name}}</span></a>
+                                      	<a href="#" class="waves-effect" ng-click="forward(second)"><span>{{second.name}}</span></a>
                                       	
                			 <!-- level 3 -->
                                 		<ul class="list-unstyled"  ng-if="second.child.length">
                                             <li>
-                                            <a href="#{{third.link}}" ng-repeat="third in second.child" ><span>{{third.name}}</span></a>
+                                            <a href="#" ng-repeat="third in second.child" ng-click="forward(third)"><span>{{third.name}}</span></a>
                                             </li>
                                         </ul>
                                         
@@ -222,10 +222,30 @@
             <div class="content-page" >
           		    <!-- Start content -->
                 	
-                	<breadcrumb></breadcrumb>
- 					<div class="content" ui-view=""></div> 
+ 					<!-- <div class="content" ui-view=""></div> --> 
+ 					<div class="content" > 
+ 					
+ 						<div id="tabs">
+			                
+			                <!-- Nav tabs -->
+			                <ul class="nav nav-tabs">
+			                    <li ng-class="{true: 'active', false: ''}[isSelected(item.id)]" ng-repeat="item in tabs">
+				                    <a href="#{{item.id}}"  data-toggle="tab">
+				                  	  <span class="hidden-xs">{{item.name}}</span>
+				                    </a>
+				                    <i class="close-tab glyphicon glyphicon-remove" style="display: none;">1</i>
+			                    </li>                    
+			                </ul>
+			                
+			                <!-- Tab panes -->
+			                <div class="tab-content">
+			                    <div role="tabpanel" ng-class="{true: 'tab-pane active', false: 'tab-pane'}[isSelected(item.id)]"  ng-repeat="item in tabs" id="{{item.id}}" ng-include="item.link"></div>                    
+			                </div>
+						</div>	
+ 					
+ 					</div>
                     
-                   	<footer class="footer"> 2016/06/06 © zk. </footer>
+                   	<footer class="footer"> 2016/06/06 © z.k </footer>
             </div>
 
             <!-- ============================================================== -->

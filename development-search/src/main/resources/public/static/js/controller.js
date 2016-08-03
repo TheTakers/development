@@ -17,55 +17,19 @@ app.controller('sqlDefineContextCtrl', ['$scope', function () {
     $('.menu.item').tab();
 }]);
 
-
-/*menu data repository
-app.factory('menuRepository',function(){
-	return {
-		//获取导航数据
-		getMenuData:function(){
-				return [
-				          {id:'1',name:'首页',icon:'ti-home',url:'/',pid:''},
-			              {id:'2',name:'控制台',icon:'ti-spray',url:'',pid:'',child:[
-			   		                                                               {id:'',name:'系统上下文',icon:'glyphicon glyphicon-bookmark',url:'/console/context',pid:''},
-					                                                                {id:'',name:'内存监控',icon:'glyphicon glyphicon-print',url:'/console/memory',pid:''}
-					                                                               ]},
-			              {id:'3',name:'系统设置',icon:'ti-light-bulb',url:'',pid:'',child:[
-				        
-		                {id:'',name:'系统菜单',icon:'ti-spray',url:'',pid:'',child:[
-		                                                                {id:'',name:'菜单配置',icon:'glyphicon glyphicon-tint',url:'/basic/menu/index',pid:''}
-		                                                                ]},
-		                {id:'',name:'查询配置',icon:'ti-pencil-alt',url:'',pid:'',child:[
-		                                                                {id:'',name:'SQL组',icon:'glyphicon glyphicon-text-width',url:'/search/sqlgroup/index',pid:''},
-		                                                                {id:'',name:'SQL',icon:'glyphicon glyphicon-chevron-left',url:'/search/sqldefine/index',pid:''},
-		                                                                {id:'',name:'数据源',icon:'glyphicon glyphicon-tag',url:'',pid:''}
-		                                                                ]},
-		                {id:'',name:'用户管理',icon:'ti-menu-alt',url:'',pid:'',child:[]},
-		                {id:'',name:'日志管理',icon:'ti-bar-chart',url:'',pid:'',child:[
-		                                                                {id:'',name:'系统日志',icon:'glyphicon glyphicon-user',url:'',pid:''},
-		                                                                {id:'',name:'接口日志',icon:'glyphicon glyphicon-music',url:'',pid:''}
-		                                                                ]}
-		                          ]}
-		                ];
-		}
-	};
-});*/
-
-/**
-app.controller('NavCtrl', ['$scope', function ($scope) {
-    $scope.$root.$on('nav:head', function (event, header) {
-        $scope.header = header;
-    });
-    $scope.$root.$on('nav:crumb', function (event, breadcrumb) {
-        $scope.breadcrumb = breadcrumb;
-    });
-    $scope.is = function (header) {
-        return $scope.header === header;
-    };
-}]);**/
-
 app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
-    
+	
+	$scope.tabs = [];
+	
+	//选中tabs
+	$scope.selectId;
 	$scope.breadcrumbData = [];
+	
+	$scope.isSelected = function(id){
+		return _.isEqual($scope.selectId, id);
+	}
+	
+	$scope.init = function(){}
 	
     /**logout**/
     $scope.logout = function(){
@@ -73,9 +37,10 @@ app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
     }
 });
 
-app.controller('menuCtrl', function($scope,$http) {
+app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	
 	$scope.menu;
+	
 	$scope.init=function(){
 		$.ajax({  
 	         type : "post",  
@@ -86,6 +51,22 @@ app.controller('menuCtrl', function($scope,$http) {
 	         success : function(data){  
 	       	  if(data.code = '0'){
 	        	$scope.menu = data.result;
+	        	
+	        	//初始化选中首页
+	        	if(!_.isEmpty(data.result)){
+	        		
+	        		var item;
+	        		for(var idx in $scope.menu){
+	        			item = $scope.menu[idx];
+	        			if(item.ico == 'ti-home'){
+	        				$scope.$parent.selectId = item.id;
+	        				$scope.$parent.tabs.push(item);	
+	        				break;
+	        			}
+	        		}
+        			
+        			//TODO loading js ..
+	        	}
 	       	  }else{
 	       		 $.error(data.message);
 	       	  }
@@ -93,26 +74,23 @@ app.controller('menuCtrl', function($scope,$http) {
 	    });
 	}
 	
-	//获取菜单路径
- 	$scope.getpaths = function(id,link){
- 		
- 		if(link && link.length > 0){
- 			$.ajax({  
- 				type : "post",  
- 				url : "/basic/menu/breadcrumb",  
- 				async : false,  
- 				contentType:'application/json;charset=UTF-8',
- 				dataType:'json',
- 				data:JSON.stringify({id:id}),
- 				success : function(data){  
- 					if(data.code = '0'){
- 						$scope.$parent.breadcrumbData = data.result;
- 					}else{
- 						$.error(data.message);
- 					}
- 				}  
- 			});
- 		}
- 		
- 	}
+	$scope.forward = function(item){
+		
+		if(!_.isEmpty(item.link)){
+			var promise =  $ocLazyLoad.load("templates"+item.link+".js");
+			promise.then(function(res){//success 
+ 			},function(error){//error
+			},function(info){//notify
+			}).catch(function(ex){
+			}).finally(function(res){
+				
+				if(_.findIndex($scope.$parent.tabs, item) < 0){
+					$scope.$parent.tabs.push(item);	
+				} 
+				//绑定选中tab
+				$scope.$parent.selectId = item.id;
+			})
+		}
+	}
+
 });

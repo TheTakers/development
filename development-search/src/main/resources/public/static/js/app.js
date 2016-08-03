@@ -10,7 +10,7 @@ app.config(['$routeProvider', '$httpProvider', function ($route) {
         .when('/console/memory', {templateUrl: '/console/memory', controller: 'MemoryContextCtrl'})
         .when('/search/sqlDefine', {templateUrl: '/search/sqlDefine', controller: 'sqlDefineContextCtrl'})
         ;
-}]);**/
+}]);
 
 
 app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
@@ -46,7 +46,7 @@ app.config(['$stateProvider', '$httpProvider', function ($stateProvider) {
         }
     })
 }]);
-
+**/
 
 //定义一个 Service ，稍等将会把它作为 Interceptors 的处理函数
 app.factory('httpInterceptor', ['$q', httpInterceptor]);
