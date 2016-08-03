@@ -25,6 +25,7 @@ app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
 	$scope.selectId;
 	$scope.breadcrumbData = [];
 	
+	
 	$scope.isSelected = function(id){
 		return _.isEqual($scope.selectId, id);
 	}
@@ -52,12 +53,12 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	       	  if(data.code = '0'){
 	        	$scope.menu = data.result;
 	        	
-	        	//初始化选中首页
+	        	/*初始化选中首页
 	        	if(!_.isEmpty(data.result)){
 	        		
 	        		var item;
-	        		for(var idx in $scope.menu){
-	        			item = $scope.menu[idx];
+	        		for(var idx in data.result){
+	        			item = data.result[idx];
 	        			if(item.ico == 'ti-home'){
 	        				$scope.$parent.selectId = item.id;
 	        				$scope.$parent.tabs.push(item);	
@@ -66,7 +67,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	        		}
         			
         			//TODO loading js ..
-	        	}
+	        	}*/
 	       	  }else{
 	       		 $.error(data.message);
 	       	  }
