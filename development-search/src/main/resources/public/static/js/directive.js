@@ -321,53 +321,62 @@ app.directive('breadcrumb', function($http,$log,$stateParams) {
 	};
 })
 
-/*弹出页
-app.directive('popup', function($http,$log,$uibModal) {
-	 return {
-      restrict:'E',
-      scope:{
-    	   param:'=', //传给子页参数
-	   	   url:'@',  // 窗体url
-	   	   ctrl:'@', //窗体ctrl
-	 loadScript:'@', //加载一个js脚本
-	   	   callback:'&',
-	   	   name:'@'
-      },
-      template:function(element,atts){
-      	return '<button type="button" class="btn btn-info waves-effect waves-light" ng-click="showDialog()">{{name}}</button>';
-      },
-      replace : true,			
-      transclude : false,
-      link:function(scope,element,attr){
 
-    	  scope.showDialog=function(){
-    	        
-    			 var modalInstance = $uibModal.open({
-    				 templateUrl: scope.url,
-    	             controller: scope.ctrl,
-    				 resolve: {
-    					 param: function () {
-    						 return scope.param;
-    					 },
-    					 deps:function($ocLazyLoad,$stateParams,$log){
-    						 
-    						 if(_.isUndefined(scope.loadScript) || scope.loadScript)
-    						 return $ocLazyLoad.load("templates/"+scope.url+".js");
-    					 }
-    				 }
-    			 });
-    	         
-    	         modalInstance.result.then(function (selectedItem) { //获取子页返回值
-    	        	 
-    	        	 if(scope.callback){
-    	        		 scope.callback(selectedItem);
-    	        	 }
-    	             
-    	           }, function () { //子页关闭监听
-    	        	   
-    	             $log.info('Modal dismissed at: ' + new Date());
-    	           });
-    	  }
-      } 
-  };
-}); */
+//面包屑
+app.directive('tab', function($http,$log,$stateParams) {
+
+	return {
+		restrict:'E',
+		scope:{
+			data:"=",
+			selected:"="
+		},
+		template:function(element,atts){
+			return  '<div  ng-if="data.length > 0">'+
+			           ' <ul class="nav nav-tabs">'+
+			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
+			                    '<a href="#{{item.id}}"  data-toggle="tab">'+
+			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
+			                    '</a>'+
+			                    '<i class="close-tab glyphicon glyphicon-remove" ng-if="item.id == focusId" ng-click="closed(item)"></i>'+
+			                '</li>       '+             
+			            '</ul>'+
+			            '<div class="tab-content">'+
+			                '<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ng-include="item.link"></div>   '+                 
+			            '</div>'+
+					'</div>	';
+		},
+		replace : false,			
+		transclude : false,
+		link:function(scope,element,attr){
+			
+			//tabs焦点
+			scope.focusId;
+		
+			scope.isSelected = function(id){
+				return _.isEqual(scope.selected, id);
+			}
+			
+			scope.mouseover = function(itemId){
+				scope.focusId = itemId;
+			}
+			
+			scope.mouseleave = function(itemId){
+				scope.focusId = '';
+			}
+			
+			scope.closed = function(item){
+				var idx = _.findIndex(scope.data, item);
+				if(idx > -1){
+					scope.data.splice(idx,1);
+					
+					//更新focusId
+					if(scope.data.length > 0){
+						scope.selected = scope.data[scope.data.length-1].id;
+					}
+				}
+			}
+		}
+	};
+})
+ 

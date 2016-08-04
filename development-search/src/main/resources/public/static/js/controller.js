@@ -19,18 +19,11 @@ app.controller('sqlDefineContextCtrl', ['$scope', function () {
 
 app.controller('indexCtrl', function($scope,$compile,$http,$ocLazyLoad) {
 	
-	$scope.tabs = [];
-	
 	//选中tabs
 	$scope.selectId;
-	$scope.breadcrumbData = [];
 	
-	
-	$scope.isSelected = function(id){
-		return _.isEqual($scope.selectId, id);
-	}
-	
-	$scope.init = function(){}
+	//tab数据
+	$scope.tabs = [];
 	
     /**logout**/
     $scope.logout = function(){

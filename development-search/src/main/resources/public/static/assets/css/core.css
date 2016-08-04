@@ -2087,3 +2087,16 @@ body.fixed-left .side-menu.left {
 .waves-block {
   display: block;
 }
+
+/*nzk*/
+.close-tab {
+    font-size: 10px;
+    position:absolute;
+    right: 5px;
+    top: 5px;
+    padding-left: 25px;
+    z-index: 100;
+    cursor: hand;
+    cursor: pointer;
+    color: #94A6B0;
+}

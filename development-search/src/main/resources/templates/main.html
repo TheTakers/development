@@ -225,23 +225,7 @@
  					<!-- <div class="content" ui-view=""></div> --> 
  					<div class="content" > 
  					
- 						<div id="tabs" ng-if="tabs.length > 0">
-			                
-			                <!-- Nav tabs -->
-			                <ul class="nav nav-tabs">
-			                    <li ng-class="{true: 'active', false: ''}[isSelected(item.id)]" ng-repeat="item in tabs">
-				                    <a href="#{{item.id}}"  data-toggle="tab">
-				                  	  <span class="hidden-xs">{{item.name}}</span>
-				                    </a>
-				                    <i class="close-tab glyphicon glyphicon-remove" style="display: none;">1</i>
-			                    </li>                    
-			                </ul>
-			                
-			                <!-- Tab panes -->
-			                <div class="tab-content">
-			                    <div role="tabpanel" ng-class="{true: 'tab-pane active', false: 'tab-pane'}[isSelected(item.id)]"  ng-repeat="item in tabs" id="{{item.id}}" ng-include="item.link"></div>                    
-			                </div>
-						</div>	
+ 						 <tab data="tabs" selected="selectId"></tab>
  					
  					</div>
                     
