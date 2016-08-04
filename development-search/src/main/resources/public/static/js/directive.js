@@ -366,13 +366,15 @@ app.directive('tab', function($http,$log,$stateParams) {
 			}
 			
 			scope.closed = function(item){
+				mouseleave();
+				
 				var idx = _.findIndex(scope.data, item);
 				if(idx > -1){
 					scope.data.splice(idx,1);
 					
 					//更新focusId
 					if(scope.data.length > 0){
-						scope.selected = scope.data[scope.data.length-1].id;
+						scope.selected = _.last(scope.data).id;
 					}
 				}
 			}
