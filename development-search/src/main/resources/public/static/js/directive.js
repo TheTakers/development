@@ -366,7 +366,7 @@ app.directive('tab', function($http,$log,$stateParams) {
 			}
 			
 			scope.closed = function(item){
-				mouseleave();
+				scope.mouseleave();
 				
 				var idx = _.findIndex(scope.data, item);
 				if(idx > -1){
