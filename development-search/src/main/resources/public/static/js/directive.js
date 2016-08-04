@@ -335,7 +335,7 @@ app.directive('tab', function($http,$log,$stateParams) {
 			return  '<div  ng-if="data.length > 0">'+
 			           ' <ul class="nav nav-tabs">'+
 			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
-			                    '<a href="#{{item.id}}"  data-toggle="tab">'+
+			                    '<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
 			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
 			                    '</a>'+
 			                    '<i class="close-tab glyphicon glyphicon-remove" ng-if="item.id == focusId" ng-click="closed(item)"></i>'+
