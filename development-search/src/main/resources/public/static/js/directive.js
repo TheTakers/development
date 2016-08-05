@@ -323,17 +323,17 @@ app.directive('breadcrumb', function($http,$log,$stateParams) {
 
 
 //面包屑
-app.directive('tab', function($http,$log,$stateParams) {
+app.directive('uitab', function($http,$log,$stateParams) {
 
 	return {
 		restrict:'E',
 		scope:{
-			data:"=",
-			selected:"="
+			data:"=",//tab数据
+			selected:"="//选中tab
 		},
 		template:function(element,atts){
 			return  '<div  ng-if="data.length > 0">'+
-			           ' <ul class="nav nav-tabs">'+
+			           ' <ul class="nav nav-tabs" id="{{id}}">'+
 			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
 			                    '<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
 			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
@@ -349,6 +349,8 @@ app.directive('tab', function($http,$log,$stateParams) {
 		replace : false,			
 		transclude : false,
 		link:function(scope,element,attr){
+			
+			scope.id = 'tab_'+$.uuid();
 			
 			//tabs焦点
 			scope.focusId;
@@ -367,14 +369,11 @@ app.directive('tab', function($http,$log,$stateParams) {
 			
 			scope.closed = function(item){
 				scope.mouseleave();
-				
 				var idx = _.findIndex(scope.data, item);
 				if(idx > -1){
 					scope.data.splice(idx,1);
-					
-					//更新focusId
 					if(scope.data.length > 0){
-						scope.selected = _.last(scope.data).id;
+						$('#'+scope.id+' a[data-target="#'+_.last(scope.data).id+'"]').tab('show');
 					}
 				}
 			}
