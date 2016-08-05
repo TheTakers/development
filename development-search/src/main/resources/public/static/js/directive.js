@@ -334,6 +334,13 @@ app.directive('uitab', function($http,$log,$stateParams) {
 		template:function(element,atts){
 			return  '<div  ng-if="data.length > 0">'+
 			           ' <ul class="nav nav-tabs" id="{{id}}">'+
+			           
+			           ' 	<li class="dropdown pull-right tabdrop">'+
+			           ' 	<a class="dropdown-toggle" data-toggle="dropdown" href="#" >'+
+			           '    <i class="glyphicon glyphicon-align-justify"></i><b=class="caret"></b></a>'+
+			           '    <ul class="dropdown-menu idx" role="menu">'+
+			           '    <li role="presentation"><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item.id)"  >{{item.name}}</a></li></ul></li>'+
+			           
 			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
 			                    '<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
 			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
@@ -365,6 +372,10 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			
 			scope.mouseleave = function(itemId){
 				scope.focusId = '';
+			}
+			
+			scope.setSelected = function(id){
+				$('#'+scope.id+' a[data-target="#'+id+'"]').tab('show');
 			}
 			
 			scope.closed = function(item){
