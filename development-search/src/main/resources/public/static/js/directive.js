@@ -339,9 +339,9 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			           ' 	<a class="dropdown-toggle" data-toggle="dropdown" href="#" >'+
 			           '    <i class="glyphicon glyphicon-align-justify"></i><b=class="caret"></b></a>'+
 			           '    <ul class="dropdown-menu">'+
-			           '    <li role="presentation"><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item.id)"  >{{item.name}}</a></li></ul></li>'+
+			           '    <li ><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item.id)"  >{{item.name}}</a></li></ul></li>'+
 			           
-			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
+			                '<li role="presentation" ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
 			                    '<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
 			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
 			                    '</a>'+
@@ -375,8 +375,17 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			}
 			
 			scope.setSelected = function(id){
+				
+				//激活选中tab
 				$('#'+scope.id+' a[data-target="#'+id+'"]').tab('show');
 			}
+			
+			scope.$watch('selected',function(newValue,oldeValue){
+				
+				//监听选中tab变更,清除所有激活样式避免激活多个tab -> 这里会重新触发ng-class isSelected方法
+				$('li[role = "presentation"].active').removeClass('active'); 
+		        $('div[role = "tabpanel"].active').removeClass('active');
+			})
 			
 			scope.closed = function(item){
 				scope.mouseleave();
@@ -384,6 +393,8 @@ app.directive('uitab', function($http,$log,$stateParams) {
 				if(idx > -1){
 					scope.data.splice(idx,1);
 					if(scope.data.length > 0){
+						
+						//直接激活最后一个tab
 						$('#'+scope.id+' a[data-target="#'+_.last(scope.data).id+'"]').tab('show');
 					}
 				}
