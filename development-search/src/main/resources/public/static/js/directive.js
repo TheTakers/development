@@ -349,7 +349,7 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			                '</li>       '+             
 			            '</ul>'+
 			            '<div class="tab-content">'+
-			                '<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ng-include="item.link"></div>   '+                 
+			                '<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ><ng-include src="item.link"></ng-include></div>   '+                 
 			            '</div>'+
 					'</div>	';
 		},
