@@ -338,7 +338,7 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			           ' 	<li class="dropdown pull-right tabdrop">'+
 			           ' 	<a class="dropdown-toggle" data-toggle="dropdown" href="#" >'+
 			           '    <i class="glyphicon glyphicon-align-justify"></i><b=class="caret"></b></a>'+
-			           '    <ul class="dropdown-menu idx" role="menu">'+
+			           '    <ul class="dropdown-menu">'+
 			           '    <li role="presentation"><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item.id)"  >{{item.name}}</a></li></ul></li>'+
 			           
 			                '<li ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+

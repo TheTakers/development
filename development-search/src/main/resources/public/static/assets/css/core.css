@@ -2100,7 +2100,3 @@ body.fixed-left .side-menu.left {
     cursor: pointer;
     color: #94A6B0;
 }
-
-.dropdown-menu idx{
-	z-index: 10000;
-}
