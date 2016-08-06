@@ -341,7 +341,7 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			           '    <ul class="dropdown-menu">'+
 			           '    <li ><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item.id)"  >{{item.name}}</a></li></ul></li>'+
 			           
-			                '<li role="presentation" ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" >'+
+			                '<li role="presentation" ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" ng-click="click(item.id)" >'+
 			                    '<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
 			                  	  '<span class="hidden-xs">{{item.name}}</span>'+
 			                    '</a>'+
@@ -378,6 +378,11 @@ app.directive('uitab', function($http,$log,$stateParams) {
 				
 				//激活选中tab
 				$('#'+scope.id+' a[data-target="#'+id+'"]').tab('show');
+			}
+			
+			//点击事件更新selected
+			scope.click = function(id){
+				scope.selected = id;
 			}
 			
 			scope.$watch('selected',function(newValue,oldeValue){
