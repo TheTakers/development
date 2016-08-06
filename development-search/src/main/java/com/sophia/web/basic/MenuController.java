@@ -16,16 +16,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Menu;
 import com.sophia.service.MenuService;
-import com.sophia.vo.QueryGridRequest;
+import com.sophia.vo.QueryRequest;
 import com.sophia.vo.basic.MenuRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
@@ -51,7 +49,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridRequest) {
+	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {
 		try {
 			Page<Menu> data = menuService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
 			return responseOk(Constant.SUCCESS_MESSAGE,data);

@@ -24,7 +24,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
-import com.sophia.vo.QueryGridRequest;
+import com.sophia.vo.QueryRequest;
 import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
@@ -51,7 +51,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryGridRequest queryGridRequest) {
+	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {
 		try {
 			Page<SQLGroup> data = sqlGroupService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
 			return responseOk(Constant.SUCCESS_MESSAGE,data);

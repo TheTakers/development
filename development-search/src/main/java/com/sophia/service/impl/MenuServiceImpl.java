@@ -2,11 +2,15 @@ package com.sophia.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,6 +28,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	public String save(Menu menu){
 		return getRepository().save(menu).getId();
@@ -49,6 +54,20 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		formatTreeData(menuData, data);
 		return menuData;
 	}
+	
+	@Override
+	public List<Menu> getMenuByName(String name) {
+		
+		
+		String sql  = "";
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("name", name);
+		namedParameterJdbcTemplate.queryForList(sql, paramMap, Menu.class);
+		
+		return null;
+	}
+	
+	
 	
 	public void formatTreeData(List<Menu> tree,List<Menu> data){
 		
