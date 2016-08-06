@@ -820,7 +820,7 @@ textarea.form-control {
 .nav.nav-tabs + .tab-content {
   background: #ffffff;
   margin-bottom: 30px;
-  padding: 30px;
+  padding: 20px; /*nzk 修改tab内容*/
 }
 .tabs-vertical-env {
   margin-bottom: 30px;
@@ -858,7 +858,7 @@ textarea.form-control {
   border: none;
   color: #505461 !important;
   cursor: pointer;
-  line-height: 50px;
+  line-height: 45px;/*nzk tab高度调整*/
   padding-left: 20px;
   padding-right: 20px;
   letter-spacing: 0.03em;
