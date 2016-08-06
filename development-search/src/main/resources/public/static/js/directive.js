@@ -397,7 +397,7 @@ app.directive('uitab', function($http,$log,$stateParams) {
 				var idx = _.findIndex(scope.data, item);
 				if(idx > -1){
 					scope.data.splice(idx,1);
-					if(scope.data.length > 0){
+					if(!_.isEmpty(scope.data)){
 						
 						if(_.isEqual(scope.selected, item.id))
 						//直接激活最后一个tab
