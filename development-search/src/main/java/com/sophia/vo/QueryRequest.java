@@ -30,9 +30,9 @@ public class QueryRequest implements Serializable{
 	private Integer pageNo = 0;
 	
 	/**
-	 * 查询参数
+	 * 查询条件
 	 */
-	private String params;
+	private String condition;
 
 	public Integer getPageSize() {
 		return pageSize;
@@ -50,12 +50,12 @@ public class QueryRequest implements Serializable{
 		this.pageNo = pageNo - 1;
 	}
 
-	public String getParams() {
-		return params;
+	public String getCondition() {
+		return condition;
 	}
 
-	public void setParams(String params) {
-		this.params = params;
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 
 	public String getSqlId() {

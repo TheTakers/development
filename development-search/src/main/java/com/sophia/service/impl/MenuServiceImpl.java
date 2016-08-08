@@ -71,8 +71,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	
-	
-	public void formatTreeData(List<Menu> tree,List<Menu> data){
+	private void formatTreeData(List<Menu> tree,List<Menu> data){
 		
 		if(!CollectionUtils.isEmpty(tree)){
 			 
