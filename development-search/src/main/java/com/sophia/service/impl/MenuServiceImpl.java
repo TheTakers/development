@@ -56,15 +56,18 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	@Override
-	public List<Menu> getMenuByName(String name) {
+	public List getMenuByName(String name) {
 		
 		
-		String sql  = "";
-		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put("name", name);
-		namedParameterJdbcTemplate.queryForList(sql, paramMap, Menu.class);
-		
-		return null;
+		if(StringUtils.isEmpty(name)){
+			return getTreeData();
+		}else{
+			String sql  = "SELECT * FROM TB_BASIC_MENU T WHERE NAME LIKE :NAME ";
+			Map<String,Object> paramMap = new HashMap<>();
+			paramMap.put("NAME", "%"+name+"%");
+			List<Map<String,Object>> menuList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
+			return menuList;
+		}
 	}
 	
 	

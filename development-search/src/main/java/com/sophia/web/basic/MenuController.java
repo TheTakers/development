@@ -2,7 +2,6 @@ package com.sophia.web.basic;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,12 +37,12 @@ public class MenuController extends BaseController{
 	public static final String module = "/basic/menu";
 	
 	@RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request, ModelMap result) {
+    public ModelAndView index(ModelMap result) {
         return new ModelAndView(module +"/index", result);
     }
 	
 	@RequestMapping("/edit")
-    public ModelAndView edit(HttpServletRequest request, ModelMap result) {
+    public ModelAndView edit(ModelMap result) {
         return new ModelAndView(module + "/edit", result);
     }
 	
@@ -59,7 +58,7 @@ public class MenuController extends BaseController{
 	}
 	
 	@RequestMapping("/selector")
-    public ModelAndView selector(HttpServletRequest request, ModelMap result) {
+    public ModelAndView selector(ModelMap result) {
         return new ModelAndView(module + "/selector", result);
     }
 	
@@ -75,9 +74,10 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> menuTreeData() {
+	public Map<String, Object> menuTreeData(@RequestBody String param) {
 		try {
-			return responseOk(menuService.getTreeData());
+			JSONObject paramJson = new JSONObject().parseObject(param);
+			return responseOk(menuService.getMenuByName(paramJson.getString("name")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

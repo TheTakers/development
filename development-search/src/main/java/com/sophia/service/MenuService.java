@@ -12,7 +12,7 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	
 	public List<Menu> getTreeData();
 	
-	public List<Menu> getMenuByName(String name);
+	public List getMenuByName(String name);
 	
 	public Menu findById(String id);
 	
