@@ -174,7 +174,7 @@
 									<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
 								 
 									 <form  class="sidebar-search">
-					                     <input type="text" placeholder="Search..." class="search" ng-model="name" ></input>
+					                     <input type="text" placeholder="Search..." class="search" ng-model="name" ng-change="search()"></input>
 					                     <span class="ti-search" ng-click="search()"></span>
 					                </form>
 									<!-- END RESPONSIVE QUICK SEARCH FORM -->
@@ -183,7 +183,7 @@
 				<!-- menu begin -->
 				
 				<!-- level 1 -->
-						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu">
+						 <li class="has_sub" ng-if="menu.length" ng-repeat="item in menu" on-finish-render-filters="">
                                  <a href="#" class="waves-effect" ng-click="forward(item)"><i class="{{item.ico}}"></i><span>{{item.name}}</span></a>
                                
                 	<!-- level 2 -->

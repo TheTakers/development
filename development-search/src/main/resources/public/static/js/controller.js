@@ -77,11 +77,24 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	    });
 	}
 	
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+		sidemenuInit()
+	});
+	
 	$scope.init=function(){
 		$scope.search();
 	}
 	
 	$scope.forward = function(item){
+		
+		function flag(){
+			for(var idx in $scope.$parent.tabs){
+				
+				if(_.isEqual($scope.$parent.tabs[idx].id, item.id))
+					return true;
+			}
+			return false;
+		}
 		
 		if(!_.isEmpty(item.link)){
 			var promise =  $ocLazyLoad.load("templates"+item.link+".js");
@@ -91,9 +104,9 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 			}).catch(function(ex){
 			}).finally(function(res){
 				
-				if(_.findIndex($scope.$parent.tabs, item) < 0){
+				if(!flag()){
 					$scope.$parent.tabs.push(item);	
-				} 
+				}
 				//绑定选中tab
 				$scope.$parent.selectId = item.id;
 			})
