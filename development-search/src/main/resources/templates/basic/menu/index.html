@@ -64,7 +64,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-box">
-						<table class="table table table-hover m-0" data-page-size="7">
+						<table class="table table table-hover m-0 table-actions-bar" data-page-size="7">
 							<thead>
 								<tr>
 									<th>名称</th>
@@ -87,7 +87,7 @@
 									<td>{{item.path}}</td>
 									<td>{{item.index}}</td>
 									<td>{{item.remark}}</td>
-									<td class="table-actions-bar">
+									<td>
                                         <a href="javascript:void(0);" class="table-action-btn" title="查看" ng-click="search(item.id)"><i class="ion-eye"></i></a>
 										<a href="javascript:void(0);" class="table-action-btn" title="编辑" ng-click="edit(item.id)"><i class="ion-edit"></i></a>
                                         <a href="javascript:void(0);" class="table-action-btn" title="删除" ng-click="remove(item.id)"><i class="ion-trash-a"></i></a>
