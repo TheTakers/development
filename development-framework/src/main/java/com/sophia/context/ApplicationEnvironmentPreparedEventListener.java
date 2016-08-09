@@ -36,7 +36,7 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 	private static final String zk_switch = "apache.zk.switch";
 	private static final String zk_server = "apache.zk.server";
 	private static final String zk_timeout="apache.zk.timeout";
-	private static final String sophiaConfg="/sophiaConfig";
+	private static final String sophiaConfg="/development";
 
 
 	@Override
@@ -90,39 +90,40 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 			}else{
 				
 				List<EnumerableCompositePropertySource> sources = (List<EnumerableCompositePropertySource>)propertySource.getSource();
-				JSONObject configJson= new JSONObject();
+			 
 				
 				for(EnumerableCompositePropertySource source : sources){
 					
 					if(source.getName().contains(applictionConfig)){
 						
+						String node;
 						for(String key : source.getPropertyNames()){
-							configJson.put(key, source.getProperty(key));
+							
+							node = zkClient.create(sophiaConfg + "/"+ key,source.getProperty(key), CreateMode.EPHEMERAL);
+							
+							//添加监听
+							zkClient.subscribeDataChanges(node, new IZkDataListener() {
+								
+								@Override
+								public void handleDataDeleted(String dataPath) throws Exception {
+									logger.warn("Zookeeper配置节点已被删除");
+								}
+								
+								@Override
+								public void handleDataChange(String dataPath, Object data) throws Exception {
+									logger.warn("Zookeeper配置节点已更新");
+								}
+							});
+							
+							logger.info("创建Zookeeper节点{}成功",node);
 						}
 						break;
 					}
 				}
-				String configNode = zkClient.create(sophiaConfg, configJson.toJSONString(), CreateMode.PERSISTENT);
-				
-				zkClient.subscribeDataChanges(sophiaConfg, new IZkDataListener() {
-					
-					@Override
-					public void handleDataDeleted(String dataPath) throws Exception {
-						logger.warn("Zookeeper配置节点已被删除");
-					}
-					
-					@Override
-					public void handleDataChange(String dataPath, Object data) throws Exception {
-						logger.warn("Zookeeper配置节点已更新");
-					}
-				});
-				
-				logger.info("创建Zookeeper节点{}成功",configNode);
 			}
 		}catch(Exception e){
 			logger.error("获取Zookeeper配置异常,仍应用本地配置",e);
 		}
 		return zkConfig;
 	}
-
 }
