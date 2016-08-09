@@ -99,7 +99,7 @@ public class ApplicationEnvironmentPreparedEventListener implements ApplicationL
 						String node;
 						for(String key : source.getPropertyNames()){
 							
-							node = zkClient.create(sophiaConfg + "/"+ key,source.getProperty(key), CreateMode.EPHEMERAL);
+							node = zkClient.create(sophiaConfg + "/"+ key,source.getProperty(key), CreateMode.PERSISTENT);
 							
 							//添加监听
 							zkClient.subscribeDataChanges(node, new IZkDataListener() {
