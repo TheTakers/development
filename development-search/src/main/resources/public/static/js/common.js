@@ -12,7 +12,7 @@ $.shadetab = function shadetab(){
 		return null;
 	
 	var $shade = $("#shade"+$.shadeId);
-	var $parent = $($shade.parent().parent());
+	var $parent = $($shade.parent());
 	$shade.css({"width":$parent.width(),"height":$parent.height()});
 	$shade.css({'left':$parent.offset().left,'top':$parent.offset().top});
 
