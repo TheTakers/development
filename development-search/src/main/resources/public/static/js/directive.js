@@ -349,7 +349,7 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			                '</li>       '+             
 			            '</ul>'+
 			            '<div class="tab-content">'+
-			                '<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ><ng-include src="item.link"></ng-include></div>   '+                 
+			                '<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ><div class="shade" id="shade{{item.id}}"></div><ng-include src="item.link"></ng-include></div>   '+                 
 			            '</div>'+
 					'</div>	';
 		},
@@ -386,6 +386,9 @@ app.directive('uitab', function($http,$log,$stateParams) {
 			}
 			
 			scope.$watch('selected',function(newValue,oldeValue){
+				
+				//TODO 解耦
+				$.shadeId = newValue;
 				
 				//监听选中tab变更,清除所有激活样式避免激活多个tab -> 这里会重新触发ng-class isSelected方法
 				$('li[role = "presentation"].active').removeClass('active'); 

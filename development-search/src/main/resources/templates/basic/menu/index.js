@@ -4,7 +4,8 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 	$scope.queryparams = {};
 
 	$scope.search = function(){
-
+		
+		$.shadetab()
 		//广播分页条查询
 		$scope.$broadcast("grid");  
 	}

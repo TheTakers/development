@@ -2100,3 +2100,16 @@ body.fixed-left .side-menu.left {
     cursor: pointer;
     color: #94A6B0;
 }
+ 
+.shade {
+	background-color:#000;
+	position:absolute;
+	z-index:49;
+	display:none;
+	opacity:0.6;
+	filter: alpha(opacity=60);
+	-moz-opacity: 0.6;
+	margin: 0px;
+	background: url('../images/loading.gif')no-repeat center center;
+}
+ 

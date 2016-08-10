@@ -78,7 +78,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 	}
 	
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-		sidemenuInit()
+		sidemenuInit();
 	});
 	
 	$scope.init=function(){
