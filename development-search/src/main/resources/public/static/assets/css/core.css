@@ -2114,10 +2114,12 @@ body.fixed-left .side-menu.left {
 } 
 
 .spinner {
-  margin: 100px auto;
+  /*margin: 100px auto;*/
   width: 32px;
   height: 32px;
   position: relative;
+  left:50%;
+  top:40%;
 }
 
 .cube1, .cube2 {
