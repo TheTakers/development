@@ -18,8 +18,8 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
 		            {title:"url",field:"link",required:false,element:"text"},
 		            {title:"图标",field:"ico",required:false,element:"text"},
 		            {title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",option:{text:"pText",value:"pid"}},
-		            {title:"菜单路径",field:"name",required:false,element:"text"},
-		            {title:"排序",field:"path",required:false,element:"text"},
+		            {title:"菜单路径",field:"path",required:false,element:"text"},
+		            {title:"排序",field:"idx",required:false,element:"text"},
 		            {title:"描述",field:"remark",required:false,element:"textarea"}
 		            ]
  	
