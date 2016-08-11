@@ -19,7 +19,7 @@ function uniqueOf(array,item){
  * @param param
  * @param $uibModalInstance
  */
-function saveOf($http,url,param,$uibModalInstance){
+function saveOfClose($http,url,param,$uibModalInstance){
 	$http.post(url,param).success(function(data){
 		 if(data.code == '0'){
 	       		$uibModalInstance.close(data.result);
@@ -36,31 +36,31 @@ function saveOf($http,url,param,$uibModalInstance){
  * ctrl :编辑页controller
  * callback :回调函数
  */
-function edit($utils,dataUrl,templateUrl,ctrl,param,callback) {
+function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 		
 		if(!_.isEmpty(param.id)){
 			
 			/*根据选中ID获取最新数据*/
 			
-			$utils.post(dataUrl,param,function(data){
+			commonService.post(dataUrl,param,function(data){
 				
 				if(data.code == '0'){
-					$utils.show({templateUrl:templateUrl,controller:ctrl,param:data.result,callback:callback});
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:data.result,callback:callback});
 				}else{
 					$.error(data.message);
 				}
 			});
 			
 		}else{
-			$utils.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback});
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback});
 		}
 	};
 	
-function remove($utils,url,param,callback) {
+function remove(commonService,url,param,callback) {
 		
 		$.confirm({
 		    confirm: function(){
-		    	$utils.post(url,param,function(data){
+		    	commonService.post(url,param,function(data){
 					if(data.code == '0'){
 						$.info(data.message);
 						

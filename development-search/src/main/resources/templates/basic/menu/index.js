@@ -1,4 +1,4 @@
-angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$log,$utils) {
+angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$log,commonService) {
 
 	$scope.dataList = {};
 	$scope.queryparams = {};
@@ -32,10 +32,10 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			}};
 
 	$scope.edit = function (id) {
-		edit($utils,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:id},$scope.search);
+		edit(commonService,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:id},$scope.search);
 	};
 	
 	$scope.remove = function (id) {
-		remove($utils,'/basic/menu/delete',{id:id},$scope.search);
+		remove(commonService,'/basic/menu/delete',{id:id},$scope.search);
 	}
 });

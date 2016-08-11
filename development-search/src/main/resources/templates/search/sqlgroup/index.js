@@ -1,4 +1,4 @@
-angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal,$log,$utils) {
+angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal,$log,commonService) {
 
 	$scope.dataList = {};
 	$scope.queryparams = {};
@@ -36,6 +36,6 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 		$http.post('/search/sqlgroup/treeData',{}).success(function(data){
 			commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:data});
 		});*/
-		$utils.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:{},callback:$scope.search});
+		commonService.show({templateUrl:'/search/sqlgroup/edit',controller:'editCtrl',param:{},callback:$scope.search});
 	};
 });

@@ -1,4 +1,4 @@
-app.service('$utils', function($log,$uibModal,$http){
+app.service('commonService', function($log,$uibModal,$http){
 	
 	/**
 	 * url 目标链接

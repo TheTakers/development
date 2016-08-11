@@ -20,7 +20,7 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	}
  	
  	$scope.save = function() {
- 		saveOf($http,'/search/sqldefine/save',$scope.data,$uibModalInstance);
+ 		saveOfClose($http,'/search/sqldefine/save',$scope.data,$uibModalInstance);
  	};
  	
  	$scope.cancel = function() {
