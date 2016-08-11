@@ -61,31 +61,18 @@
 					<div class="card-box">
 						<table class="table table table-hover m-0 table-actions-bar" data-page-size="7">
 							<thead>
-								<tr>
-									<th>名称</th>
-									<th>url</th>
-									<th>图标</th>
-									<th>所属菜单</th>
-									<th>菜单路径</th>
-									<th>排序</th>
-									<th>描述</th>
-									<th>操作</th>
+								<tr >
+									<th ng-repeat="item in grid.columnList" >{{item.title}}</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr ng-repeat="item in grid.dataList">
-									<td>{{item.name}}</td>
-									<td>{{item.link}}</td>
-									<td>{{item.ico}}</td>
-									<td>{{item.pid}}</td>
-									<td>{{item.path}}</td>
-									<td>{{item.idx}}</td>
-									<td>{{item.remark}}</td>
+									<td ng-repeat="field in grid.columnList">{{item[field.field]}}</td>
 									<td>
-                                        <a href="javascript:void(0);" class="table-action-btn" title="查看" ng-click="view(item.id)"><i class="ion-eye"></i></a>
-										<a href="javascript:void(0);" class="table-action-btn" title="编辑" ng-click="edit(item.id)"><i class="ion-edit"></i></a>
-                                        <a href="javascript:void(0);" class="table-action-btn" title="删除" ng-click="remove(item.id)"><i class="ion-trash-a"></i></a>
+                                        <a href="javascript:void(0);" class="table-action-btn" title="查看" ng-click="crud(item.id,'view')"><i class="ion-eye"></i></a>
+										<a href="javascript:void(0);" class="table-action-btn" title="编辑" ng-click="crud(item.id,'edit')"><i class="ion-edit"></i></a>
+                                        <a href="javascript:void(0);" class="table-action-btn" title="删除" ng-click="crud(item.id,'remove')"><i class="ion-trash-a"></i></a>
 									</td>
 								</tr>
 							</tbody>
@@ -93,7 +80,7 @@
 								<tr>
 									<td colspan="16">
 										<div class="text-right">
-											<pagination id="{{grid.id}}" url="/basic/menu/list" data="grid.dataList" params="toolbar.inputList"></pagination>
+											<pagination id="{{grid.id}}" url="{{grid.url}}" data="grid.dataList" params="toolbar.inputList"></pagination>
 										</div>
 									</td>
 								</tr>

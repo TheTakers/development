@@ -1,8 +1,9 @@
 angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$log,commonService) {
-
+	
+	//grid
 	$scope.grid = {
-
 			id:$.uuid(),
+			url:'/basic/menu/list',
 
 			//table展示的数据
 			dataList:{}, 
@@ -10,10 +11,21 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			//查询
 			search:function(){
 				$scope.$broadcast(this.id);  
-			}	
+			},
+			
+			columnList:[
+			            {title:"名称",field:"name"},
+			            {title:"url",field:"url"},
+			            {title:"图标",field:"ico"},
+			            {title:"所属菜单",field:"pid"},
+			            {title:"菜单路径",field:"name"},
+			            {title:"排序",field:"path"},
+			            {title:"描述",field:"remark"},
+			            {title:"操作",field:""}
+			            ]
 	}
 
-
+	//tree config
 	$scope.treeConfig = {
 			async:{
 				url:"/basic/menu/treeData",
@@ -48,10 +60,30 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 
 	//查看
 	$scope.view = function(id){
-
+		
 	}
 
+	$scope.crud = function crud(id,target){
+		switch(target){
+		case "edit":
+			$scope.edit(id);
+			break;
 
+		case "remove":
+			$scope.remove(id);
+			break;
+
+		case "view":
+			$scope.view(id);
+			break;
+
+		default :
+			$log.info(target);
+		break;
+		}
+	}
+	
+	
 	//按钮工具栏
 	$scope.toolbar = {
 			id: "toolbar"+$.uuid(),
