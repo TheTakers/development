@@ -9,7 +9,7 @@ public class MenuRequest extends CrudRequest{
 	@NotBlank
 	private String name;
 	private String remark;
-	private String pid;
+	private String pid = "0"; //默认为0
 	private String ico;
 	private String link;
 	private String id;
