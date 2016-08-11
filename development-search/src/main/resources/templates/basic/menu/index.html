@@ -40,7 +40,7 @@
 												<label>{{item.label}}</label> <input class="form-control input-sm" type="text"  ng-model="item.value"/>
 											</div>
 											
-											<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="search()">查询</button>
+											<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="grid.search()">查询</button>
 											<button type="reset" class="btn btn-danger waves-effect waves-light input-sm">重置</button>
 										</div>
 									</div>
@@ -74,7 +74,7 @@
 							</thead>
 
 							<tbody>
-								<tr ng-repeat="item in dataList">
+								<tr ng-repeat="item in grid.dataList">
 									<td>{{item.name}}</td>
 									<td>{{item.link}}</td>
 									<td>{{item.ico}}</td>
@@ -93,7 +93,7 @@
 								<tr>
 									<td colspan="16">
 										<div class="text-right">
-											<pagination id="grid" url="/basic/menu/list" data="dataList" params="toolbar.inputList"></pagination>
+											<pagination id="{{grid.id}}" url="/basic/menu/list" data="grid.dataList" params="toolbar.inputList"></pagination>
 										</div>
 									</td>
 								</tr>
