@@ -1,20 +1,20 @@
 angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$log,commonService) {
 
-	$scope.grid  = {
-			
-		id:$.uuid(),
-		
-		//table展示的数据
-		dataList:{}, 
-		
-		//查询
-		search:function(){
-			$scope.$broadcast(this.id);  
-		}	
+	$scope.grid = {
+
+			id:$.uuid(),
+
+			//table展示的数据
+			dataList:{}, 
+
+			//查询
+			search:function(){
+				$scope.$broadcast(this.id);  
+			}	
 	}
 
 
-	$scope.setting = {
+	$scope.treeConfig = {
 			async:{
 				url:"/basic/menu/treeData",
 				type:"post",
@@ -31,9 +31,10 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			},
 			callback: {
 				onClick: function(event,treeId,node,idx){
-					$scope.$broadcast("grid");  
+					$scope.$broadcast($scope.grid.id);  
 				}
 			}};
+
 
 	//编辑
 	$scope.edit = function (id) {
@@ -51,18 +52,6 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 	}
 
 
-	$scope.todo = function(target){
-		switch(target){
-		case "edit":
-			$scope.edit();
-			break;
-		default :
-			$log.info(target);
-		break;
-		}
-	}
-
-
 	//按钮工具栏
 	$scope.toolbar = {
 			id: "toolbar"+$.uuid(),
@@ -71,6 +60,18 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 
 			//查询列
 			inputList:[{label:"编号",type:"",value:""},
-			           {label:"名称",type:"",value:""}] 
+			           {label:"名称",type:"",value:""}],
+			
+			//工具栏点击触发事件
+			trigger : function(target){
+			       switch(target){
+			        case "edit":
+			        	$scope.edit();
+			        break;
+			       	default :
+			       		$log.info(target);
+			        	break;
+			     	}
+			}
 	};
 });

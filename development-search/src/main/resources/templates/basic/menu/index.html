@@ -4,7 +4,7 @@
 
 		<!-- tree start-->
 		<div class="col-md-2">
-			<dtree class="card-box" setting="setting" id="sqlmenutree"></dtree>
+			<dtree class="card-box" setting="treeConfig" id="sqlmenutree"></dtree>
 		</div>
 		<!-- tree end -->
 
@@ -24,7 +24,7 @@
 									<a data-toggle="collapse"  href="#{{toolbar.id}}" class="" aria-expanded="true"></a>
 									
 									<div class="button-list">
-										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="todo(item.target)" ng-repeat="item in toolbar.buttonList">{{item.name}}</button>
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="toolbar.trigger(item.target)" ng-repeat="item in toolbar.buttonList">{{item.name}}</button>
 									</div>
 
 								</div>
