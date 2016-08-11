@@ -179,7 +179,7 @@ app.directive('pagination', function($http,$log,commonService) {
 }); 
 
 //ztree
-app.directive('dtree', function($http,$log) {
+app.directive('uitree', function($http,$log) {
 	 return {
        restrict:'E',
        scope:{
@@ -188,12 +188,16 @@ app.directive('dtree', function($http,$log) {
     	   callback:'&'
        },
        template:function(element,atts){
-      	return  '<ul class="ztree"></ul>';
+      	return  '<ul class="ztree" id="id"></ul>';
        },
        replace : true,			
        transclude : false,
        link:function(scope,element,attr){
+    	   
+    	   scope.id=$.uuid();
+    	   
     	   var ztree = $.fn.zTree.init($(element), scope.setting, scope.znodes);
+    	   
     	   if(scope.callback){
     		   scope.callback({ztree:ztree});
     	   }
@@ -202,7 +206,7 @@ app.directive('dtree', function($http,$log) {
 }); 
 
 /*时间*/
-app.directive('datetime', function($http,$log) {
+app.directive('uidatetime', function($http,$log) {
 	 return {
       restrict:'E',
       scope:{

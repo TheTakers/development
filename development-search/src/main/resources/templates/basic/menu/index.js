@@ -33,7 +33,6 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 
 	//tree config
 	$scope.treeConfig ={
-			id:$.uuid(),
 			setting:{
 				async:{
 					url:"/basic/menu/treeData",
