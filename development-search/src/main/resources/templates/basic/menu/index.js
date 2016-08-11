@@ -15,14 +15,20 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			
 			columnList:[
 			            {title:"名称",field:"name"},
-			            {title:"url",field:"url"},
+			            {title:"url",field:"link"},
 			            {title:"图标",field:"ico"},
 			            {title:"所属菜单",field:"pid"},
 			            {title:"菜单路径",field:"name"},
 			            {title:"排序",field:"path"},
 			            {title:"描述",field:"remark"},
 			            {title:"操作",field:""}
-			            ]
+			            ],
+		   funcList:[
+		             {title:"查看",icon:"ion-eye",target:"view"},
+		             {title:"编辑",icon:"ion-edit",target:"edit"},
+		             {title:"删除",icon:"ion-trash-a",target:"remove"}
+		             ]            
+			
 	}
 
 	//tree config
@@ -53,32 +59,33 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 
 
 	//编辑
-	$scope.edit = function (id) {
-		edit(commonService,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:id},$scope.search);
+	$scope.edit = function (item) {
+		item = item || {id:""};
+		edit(commonService,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:item.id},$scope.search);
 	};
 
 	//删除
-	$scope.remove = function (id) {
-		remove(commonService,'/basic/menu/delete',{id:id},$scope.search);
+	$scope.remove = function (item) {
+		remove(commonService,'/basic/menu/delete',{id:item.id},$scope.search);
 	};
 
 	//查看
-	$scope.view = function(id){
+	$scope.view = function(item){
 		
 	}
 
-	$scope.crud = function crud(id,target){
+	$scope.crud = function crud(item,target){
 		switch(target){
 		case "edit":
-			$scope.edit(id);
+			$scope.edit(item);
 			break;
 
 		case "remove":
-			$scope.remove(id);
+			$scope.remove(item);
 			break;
 
 		case "view":
-			$scope.view(id);
+			$scope.view(item);
 			break;
 
 		default :
