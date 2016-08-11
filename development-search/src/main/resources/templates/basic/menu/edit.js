@@ -3,22 +3,6 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
 	//页面数据
 	$scope.data = param;
 	
-	//生成编码
- 	$scope.createCode = function(){
- 		$.ajax({  
- 	         type : "post",  
- 	         url : "/basic/func/code",  
- 	         async : false,  
- 	         success : function(data){  
- 	       	  if(data.code = '0'){
- 	       		$scope.data.code = data.result;
- 	       	  }else{
- 	       		 $.error(data.message);
- 	       	  }
- 	         }  
- 	    });
- 	}
- 	
  	$scope.save = function() {
  		saveOfClose($http,'/basic/menu/save',$scope.data,$uibModalInstance);
  	};
@@ -27,7 +11,9 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  		 $uibModalInstance.dismiss('cancel');
  	};
  	
- 	$scope.columnList = [
+ 	
+ 	//字段列表
+ 	$scope.fieldList = [
 		            {title:"名称",field:"name",required:false,element:"text"},
 		            {title:"url",field:"link",required:false,element:"text"},
 		            {title:"图标",field:"ico",required:false,element:"text"},

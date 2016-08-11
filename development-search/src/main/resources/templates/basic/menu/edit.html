@@ -7,10 +7,12 @@
 			<input type="hidden" ng-model="data.id"></input>
 			<input type="hidden" ng-model="data.version"></input>
 			
-			<div class="form-group" ng-repeat="item in columnList" >
+			<div class="form-group" ng-repeat="item in fieldList" >
 				<label class="col-sm-3 control-label">{{item.title}}</label>
 					<div class="col-sm-6">
-					
+						
+						<uigeneratecode data="data[item.field]" required="{{item.required}}" ng-if="item.element=='uigeneratecode'"></uigeneratecode>
+						
 						<input class="form-control input-sm" ng-model="data[item.field]" required="{{item.required}}" ng-if="item.element=='text'"></input>
 						
 						<uiselector url="{{item.url}}" ctrl="selectorCtrl" text="data[option.text]" value="data[option.value]" ng-if="item.element=='selector'"></uiselector>

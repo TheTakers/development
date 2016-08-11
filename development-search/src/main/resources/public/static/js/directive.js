@@ -282,45 +282,7 @@ app.directive('uiselector', function($http,$log,$uibModal) {
   };
 }); 
 
-//面包屑
-app.directive('breadcrumb', function($http,$log,$stateParams) {
-
-	return {
-		restrict:'A',
-		template:function(element,atts){
-			return  '<div class="row">'+
-						'<div class="col-sm-12">'+
-							'<ol class="breadcrumb">'+
-								'<li ng-repeat="item in items">{{item}}</li>'+
-							'</ol>'+
-						'</div>'+
-					'</div>';
-		},
-		replace : false,			
-		transclude : false,
-		link:function(scope,element,attr){
-			scope.items = [];
-			$.ajax({  
- 				type : "post",  
- 				url : "/basic/menu/breadcrumb",  
- 				async : false,  
- 				contentType:'application/json;charset=UTF-8',
- 				dataType:'json',
- 				data:JSON.stringify({action:"/"+$stateParams.module+"/"+$stateParams.controller+"/"+$stateParams.mapping}),
- 				success : function(data){  
- 					if(data.code = '0'){
- 						scope.items = data.result;
- 					}else{
- 						$.error(data.message);
- 					}
- 				}  
- 			});
-		}
-	};
-})
-
-
-//面包屑
+//tabs
 app.directive('uitab', function($http,$log,$stateParams) {
 
 	return {
@@ -422,4 +384,37 @@ app.directive('onFinishRenderFilters', function ($timeout) {
         }
     };
 });
- 
+
+//自动生成编码
+app.directive('uigeneratecode', function($http,$log,commonService) {
+
+	return {
+		restrict:'E',
+		scope:{
+			data:"=",
+			required:"@"
+		},
+		template:function(element,atts){
+			return  '<input class="form-control input-sm" ng-model="data" required="{{required}}"></input>'+
+					'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
+		},
+		replace : false,			
+		transclude : false,
+		link:function(scope,element,attr){ 
+			
+			//生成编码
+		 	scope.createCode = function(){
+		 		 
+		 		commonService.ajax({url:"/basic/func/code",async:false,success:function(data){
+		 			  
+		 	       	  if(data.code = '0'){
+		 	       		  scope.data = data.result;
+		 	       	  }else{
+		 	       		 $.error(data.message);
+		 	       	  }
+		 	         
+		 		}});
+		 	}
+		}
+	};
+})
