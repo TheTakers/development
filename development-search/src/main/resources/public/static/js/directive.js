@@ -225,7 +225,7 @@ app.directive('datetime', function($http,$log) {
 }); 
 
 //选择器
-app.directive('selector', function($http,$log,$uibModal) {
+app.directive('uiselector', function($http,$log,$uibModal) {
 	 return {
       restrict:'E',
       scope:{

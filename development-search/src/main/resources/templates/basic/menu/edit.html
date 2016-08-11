@@ -4,51 +4,29 @@
  
 <div class="modal-body">
 		<form class="form-horizontal" name="actionForm" >
+			<input type="hidden" ng-model="data.id"></input>
+			<input type="hidden" ng-model="data.version"></input>
 			
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">名称 *</label>
+			<div class="form-group" ng-repeat="item in columnList" >
+				<label class="col-sm-3 control-label">{{item.title}}</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="data.name" required="required"></input>
-						<input type="hidden" ng-model="data.id"></input>
-						<input type="hidden" ng-model="data.version"></input>
+					
+						<input class="form-control input-sm" ng-model="data[item.field]" required="{{item.required}}" ng-if="item.element=='text'"></input>
+						
+						<uiselector url="{{item.url}}" ctrl="selectorCtrl" text="data[option.text]" value="data[option.value]" ng-if="item.element=='selector'"></uiselector>
+						
+						<textarea class="form-control" ng-model="data[item.field]" ng-if="item.element=='textarea'" required="{{item.required}}"></textarea>
 					</div>
 			</div>
 			
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">图标</label>
-					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="data.ico"></input>
-					</div>
-			</div>
-			
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">url</label>
-					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="data.link"></input>
-					</div>
-			</div>
-			
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">所属菜单</label>
-					<div class="col-sm-6">
-						 <selector url="/basic/menu/selector" ctrl="selectorCtrl" text="data.pText" value="data.pid"></selector>
-					</div>
-			</div>
-			
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">排序</label>
-					<div class="col-sm-6">
-						<input class="form-control input-sm" ng-model="data.idx"></input>
-					</div>
-			</div>
-
-			<div class="form-group">
-				<label   class="col-sm-3 control-label">备注</label>
-					<div class="col-sm-6">
-						<textarea class="form-control" ng-model="data.remark"></textarea>
-					</div>
-			</div>
-			
+			<!-- 
+				<div class="form-group">
+					<label   class="col-sm-3 control-label">所属菜单</label>
+						<div class="col-sm-6">
+							 <selector url="/basic/menu/selector" ctrl="selectorCtrl" text="data.pText" value="data.pid"></selector>
+						</div>
+				</div>
+			 -->
 		</form>		
 </div>
 
