@@ -32,7 +32,7 @@ public class Menu extends Auditable {
 	
 	private String path;
 	
-	private Long index;
+	private Long idx;
 	
 	@Transient
 	private Boolean open = true;
@@ -40,12 +40,12 @@ public class Menu extends Auditable {
 	@Transient
 	private ArrayList<Menu> child = new ArrayList<>();
 	
-	public Long getIndex() {
-		return index;
+	public Long getIdx() {
+		return idx;
 	}
 
-	public void setIndex(Long index) {
-		this.index = index;
+	public void setIdx(Long idx) {
+		this.idx = idx;
 	}
 
 	public ArrayList<Menu> getChild() {

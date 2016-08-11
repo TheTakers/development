@@ -13,13 +13,13 @@ public class MenuRequest extends CrudRequest{
 	private String ico;
 	private String link;
 	private String id;
-	private Long index;
+	private Long idx;
 	
-	public Long getIndex() {
-		return index;
+	public Long getIdx() {
+		return idx;
 	}
-	public void setIndex(Long index) {
-		this.index = index;
+	public void setIdx(Long index) {
+		this.idx = index;
 	}
 	public String getId() {
 		return id;

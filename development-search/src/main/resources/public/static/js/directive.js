@@ -29,7 +29,7 @@ appModule.directive('hello', function() {
  * <pagination data="{{dataList}}" ></pagination> 列表数据
  * click event trigger query
  **/
-app.directive('pagination', function($http,$log) {
+app.directive('pagination', function($http,$log,$utils) {
 	 return {
          restrict:'E',
          template:function(element,atts){
@@ -125,8 +125,8 @@ app.directive('pagination', function($http,$log) {
         	 //get data
         	 function post(){
         		 
-        		 $http.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params)).success(function(data){
-        			
+        		 $utils.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(data){
+
         			 if(_.isUndefined(data.result)){
         				 $log.error("结果集未包含result");
         				 return;
@@ -134,8 +134,7 @@ app.directive('pagination', function($http,$log) {
         			 scope.limit.pageCount = data.result.totalElements;
         			 scope.data = data.result.content;
         			 createLimit(scope.limit);
-        			 
-      			});
+        		 });
         	 }
         	 
         	 //initialize
@@ -145,7 +144,6 @@ app.directive('pagination', function($http,$log) {
         	 scope.$on(scope.id, function(d,data) {  
         		 post();
         	 });  
-
         	 
         	 scope.go = function(v){
         		 

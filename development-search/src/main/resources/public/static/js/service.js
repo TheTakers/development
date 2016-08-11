@@ -1,4 +1,4 @@
-app.service('commonService', function($log,$uibModal){
+app.service('$utils', function($log,$uibModal,$http){
 	
 	/**
 	 * url 目标链接
@@ -34,5 +34,55 @@ app.service('commonService', function($log,$uibModal){
 		});
 		
 		return modalInstance;
-	}
+	};
+	
+	//wrap post
+	this.post = function post(url,param,success){
+		
+		var $shade = $.shadetab();
+		$http.post(url,param).success(function(data){
+			$.trash($shade);
+			success(data);
+		});
+	};
+
+	this.ajax = function ajax(options){
+		var $shade;
+		
+		var param = {type:"post",
+				contentType:'application/json',
+				dataType:'json',
+				async:true,
+				data:{},
+				url:""};
+		
+		$.extend(param,options);
+		
+		$.ajax({  
+			type : param.type,  
+			url : param.url,  
+			contentType:param.contentType,
+			dataType:param.dataType,
+			async:param.async,
+			data:param.data,
+			beforeSend: function(){
+				$shade = $.shadetab();
+			},
+			complete: function () {
+				
+				if(!_.isEmpty($shade))
+					$.trash($shade);
+			},
+			success : function(data){  
+				
+				if(param.success)
+					param.success(data);
+			},
+			error: function (data) {
+				
+		       if(!_.isEmpty($shade))
+		    	    $.trash($shade);
+		    }
+		});
+	};
 });

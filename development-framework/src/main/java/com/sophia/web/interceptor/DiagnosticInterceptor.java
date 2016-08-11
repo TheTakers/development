@@ -15,19 +15,22 @@ public class DiagnosticInterceptor implements HandlerInterceptor {
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        Diagnostic.endCall();
-        Diagnostic.finishDiagnostic().printStackTrace();
+      
+    	//Diagnostic.endCall();
+        //Diagnostic.finishDiagnostic().printStackTrace();
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
+    	
 //        Diagnostic.endCall();
 //        Diagnostic.startCall("start renderer " + (modelAndView == null ? "" : modelAndView.getViewName()));
     }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Diagnostic.startDiagnostic();
-        Diagnostic.startCall("start call handler " + handler);
+      
+      //  Diagnostic.startDiagnostic();
+      //  Diagnostic.startCall("start call handler " + handler);
         return true;
     }
 

@@ -1,4 +1,4 @@
-angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$uibModal,commonService) {
+angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$uibModal,$utils) {
 	
 	$scope.queryparams = {};
 	$scope.dataList = {};
@@ -30,11 +30,11 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$log,$http,$ui
 			}};
 	
 	$scope.edit = function (id) {
-		edit($http,commonService,'/search/sqldefine/findById','/search/sqldefine/edit','editCtrl',{id:id},$scope.search);
+		edit($utils,'/search/sqldefine/findById','/search/sqldefine/edit','editCtrl',{id:id},$scope.search);
 	};
 	
 	$scope.remove = function (id) {
-		remove($http,'/basic/menu/delete',{id:id},$scope.search);
+		remove($utils,'/basic/menu/delete',{id:id},$scope.search);
 	}
      
     $scope.cancel = function() {
