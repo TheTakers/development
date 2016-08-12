@@ -286,8 +286,25 @@ app.directive('uiselector', function($http,$log,$uibModal) {
   };
 }); 
 
+//page
+app.directive('uipage', function($http,$log) {
+	 return {
+	       restrict:'A',
+	       scope:{
+	    	   url:'@' 
+	       },
+	       templateUrl:scope.url,
+	       replace : true,			
+	       transclude : false,
+	       link:function(scope,element,attr){
+	    	   scope.ctrl=$.uuid();
+	    	   
+	       }
+	   };
+});
+
 //tabs
-app.directive('uitab', function($http,$log,$stateParams) {
+app.directive('uitab', function($http,$log) {
 
 	return {
 		restrict:'E',

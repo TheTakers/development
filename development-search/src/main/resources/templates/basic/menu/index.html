@@ -37,7 +37,10 @@
 										<div class="row">
 										
 											<div class="form-group" ng-repeat="item in toolbar.inputList" >
-												<label>{{item.label}}</label> <input class="form-control input-sm" type="text"  ng-model="item.value"/>
+												<label>{{item.label}}</label> 
+												
+												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
+												
 											</div>
 											
 											<div class="form-group" >
@@ -61,7 +64,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card-box">
-						<table class="table table table-hover m-0 table-actions-bar" data-page-size="7">
+						<table class="table table table-hover m-0 table-actions-bar">
 							<thead>
 								<tr >
 									<th ng-repeat="item in grid.columnList" >{{item.title}}</th>

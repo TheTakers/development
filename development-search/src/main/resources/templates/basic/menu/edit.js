@@ -14,9 +14,9 @@ angular.module('app').controller('editCtrl',function($scope,$http,$uibModal,$log
  	
  	//字段列表
  	$scope.fieldList = [
-		            {title:"名称",field:"name",required:false,element:"text"},
+		            {title:"名称",field:"name",required:true,element:"text"},
 		            {title:"url",field:"link",required:false,element:"text"},
-		            {title:"图标",field:"ico",required:false,element:"text"},
+		            {title:"图标",field:"ico",required:true,element:"text"},
 		            {title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",option:{text:"pText",value:"pid"}},
 		            {title:"菜单路径",field:"path",required:false,element:"text"},
 		            {title:"排序",field:"idx",required:false,element:"text"},

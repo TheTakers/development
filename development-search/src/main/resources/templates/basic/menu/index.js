@@ -14,13 +14,13 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			},
 			
 			columnList:[
-			            {title:"名称",field:"name"},
-			            {title:"url",field:"link"},
-			            {title:"图标",field:"ico"},
-			            {title:"所属菜单",field:"pid"},
-			            {title:"菜单路径",field:"name"},
-			            {title:"排序",field:"path"},
-			            {title:"描述",field:"remark"},
+			            {title:"名称",field:"name",display:true,exdata:"",query:true},
+			            {title:"url",field:"link",display:true,exdata:"",query:true},
+			            {title:"图标",field:"ico",display:true,exdata:"",query:true},
+			            {title:"所属菜单",field:"pid",display:true,exdata:"",query:true},
+			            {title:"菜单路径",field:"name",display:true,exdata:"",query:true},
+			            {title:"排序",field:"path",display:true,exdata:"",query:true},
+			            {title:"描述",field:"remark",display:true,exdata:"",query:true},
 			            {title:"操作",field:""}
 			            ],
 		   funcList:[
@@ -101,15 +101,18 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			buttonList:[{name:"新增",target:"edit"}],
 
 			//查询列
-			inputList:[{label:"编号",type:"",value:""},
-			           {label:"名称",type:"",value:""}],
+			inputList:[{label:"编号",field:"",element:"",value:"",expr:"",exdata:""},
+			           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}],
 			
 			//工具栏点击触发事件
 			trigger : function(target){
+				
 			       switch(target){
+			       
 			        case "edit":
 			        	$scope.edit();
 			        break;
+			        
 			       	default :
 			       		$log.info(target);
 			        	break;
