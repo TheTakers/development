@@ -56,43 +56,6 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			}
 	};
 
-
-	//编辑
-	$scope.edit = function (item) {
-		item = item || {id:""};
-		edit(commonService,'/basic/menu/findById','/basic/menu/edit','editCtrl',{id:item.id},$scope.search);
-	};
-
-	//删除
-	$scope.remove = function (item) {
-		remove(commonService,'/basic/menu/delete',{id:item.id},$scope.search);
-	};
-
-	//查看
-	$scope.view = function(item){
-		
-	}
-
-	$scope.crud = function crud(item,target){
-		switch(target){
-		case "edit":
-			$scope.edit(item);
-			break;
-
-		case "remove":
-			$scope.remove(item);
-			break;
-
-		case "view":
-			$scope.view(item);
-			break;
-
-		default :
-			$log.info(target);
-		break;
-		}
-	}
-	
 	
 	//按钮工具栏
 	$scope.toolbar = {
@@ -102,21 +65,6 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 
 			//查询列
 			inputList:[{label:"编号",field:"",element:"",value:"",expr:"",exdata:""},
-			           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}],
-			
-			//工具栏点击触发事件
-			trigger : function(target){
-				
-			       switch(target){
-			       
-			        case "edit":
-			        	$scope.edit();
-			        break;
-			        
-			       	default :
-			       		$log.info(target);
-			        	break;
-			     	}
-			}
+			           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}]
 	};
 });

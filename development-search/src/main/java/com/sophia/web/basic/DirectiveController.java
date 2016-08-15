@@ -29,23 +29,17 @@ import com.sophia.web.util.GUID;
 
 
 @Controller
-@RequestMapping(MenuController.module)
-public class MenuController extends BaseController{
+@RequestMapping(DirectiveController.module)
+public class DirectiveController extends BaseController{
 	
 	@Autowired MenuService menuService;
 	
-	public static final String module = "/basic/menu";
+	public static final String module = "/basic/directive";
 	
 	@RequestMapping("/index")
     public ModelAndView index(ModelMap result) {
         return new ModelAndView(module +"/index", result);
     }
-	
-	@RequestMapping("/main")
-    public ModelAndView main(ModelMap result) {
-        return new ModelAndView(module +"/main", result);
-    }
-	
 	
 	@RequestMapping("/edit")
     public ModelAndView edit(ModelMap result) {
