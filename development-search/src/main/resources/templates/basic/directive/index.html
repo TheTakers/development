@@ -11,7 +11,7 @@
 
 		<!-- start of search row -->
 
-		<div class="col-md-10">
+		<div ng-class="{true: 'col-md-12', false: 'col-md-10'}[_.isUndefined(treeconfig)]">
 			<form class="form-inline">
 				<div class="row">
 					<div class="col-md-12">
