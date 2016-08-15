@@ -395,6 +395,10 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService) {
 	    	    			}
 	    	    		}
 	    	    		
+	    	    		//判断是否显示树
+	    	    		scope.findtreeconfig = function(){
+	    	    			return _.isUndefined(scope.treeconfig);
+	    	    		}
 	    	    		
 	    	    		//按钮工具栏
 //	    	    		scope.toolbar = {
