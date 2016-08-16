@@ -362,12 +362,12 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService) {
 	    	    		//编辑
 	    	    		scope.edit = function (item) {
 	    	    			item = item || {id:""};
-	    	    			edit(commonService,'/basic/menu/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id},scope.grid.search);
+	    	    			edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id},scope.grid.search);
 	    	    		};
 
 	    	    		//删除
 	    	    		scope.remove = function (item) {
-	    	    			remove(commonService,'/basic/menu/delete',{id:item.id},scope.search);
+	    	    			remove(commonService,scope.grid.action + '/delete',{id:item.id},scope.search);
 	    	    		};
 
 	    	    		//查看

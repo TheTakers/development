@@ -13,13 +13,15 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 				$scope.$broadcast(this.id);  
 			},
 			
+			action:"/search/sqlgroup",
+			
 			editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 				
 				//页面数据
 				$scope.data = param;
 				
 			 	$scope.save = function() {
-			 		saveOfClose($http,'/search/sqlgroup/save',$scope.data,$uibModalInstance);
+			 		saveOfClose($http,this.action + '/save',$scope.data,$uibModalInstance);
 			 	};
 			 	
 			 	$scope.cancel = function() {
