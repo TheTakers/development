@@ -52,14 +52,16 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 			            {title:"描述",field:"remark",display:true,exdata:"",query:true},
 			            {title:"SQL",field:"selectSql",display:true,exdata:"",query:true},
 			            {title:"操作",field:""}
-			            ],
-		   funcList:[
-		             {title:"查看",icon:"ion-eye",target:"view"},
-		             {title:"编辑",icon:"ion-edit",target:"edit"},
-		             {title:"删除",icon:"ion-trash-a",target:"remove"}
-		             ]            
-			
+			            ]       
 	}
+	
+	//0 行内按钮, 1 工具栏按钮
+	$scope.buttonList = [
+	             {title:"查看",icon:"ion-eye",target:"view",type:0},
+	             {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+	             {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+	             {title:"新增",icon:"",target:"edit",type:1}
+	             ]  
 	
 	//tree config
 	$scope.treeConfig ={
@@ -90,8 +92,6 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 	//按钮工具栏
 	$scope.toolbar = {
 			id: "toolbar"+$.uuid(),
-
-			buttonList:[{name:"新增",target:"edit"}],
 
 			//查询列
 			inputList:[{label:"SQLID",field:"sqlid",element:"",value:"",expr:"",exdata:""},

@@ -47,13 +47,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			            {title:"路径",field:"path",display:true,exdata:"",query:true},
 			            {title:"备注",field:"remark",display:true,exdata:"",query:true},
 			            {title:"操作",field:""}
-			            ],
-		   funcList:[
-		             {title:"查看",icon:"ion-eye",target:"view",type:"toolbar"},
-		             {title:"编辑",icon:"ion-edit",target:"edit",type:"toolbar"},
-		             {title:"删除",icon:"ion-trash-a",target:"remove",type:"toolbar"}
-		             ]            
-			
+			            ]         
 	}
 	
 	//tree config
@@ -81,6 +75,13 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			}
 	};
 
+	//0 行内按钮, 1 工具栏按钮
+	$scope.buttonList = [
+	             {title:"查看",icon:"ion-eye",target:"view",type:0},
+	             {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+	             {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+	             {title:"新增",icon:"",target:"edit",type:1}
+	             ]  
 	
 	//按钮工具栏
 	$scope.toolbar = {
@@ -92,10 +93,4 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			inputList:[{label:"编号",field:"sqlid",element:"",value:"",expr:"",exdata:""},
 			           {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
 	};
-	
-	$.scope.funcList = [{title:"新增",target:"edit",icon:"",type:"table"},
-	                    {title:"查看",icon:"ion-eye",target:"view",type:"toolbar"},
-			             {title:"编辑",icon:"ion-edit",target:"edit",type:"toolbar"},
-			             {title:"删除",icon:"ion-trash-a",target:"remove",type:"toolbar"}
-	                   ]
 });

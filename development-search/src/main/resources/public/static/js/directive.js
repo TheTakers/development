@@ -295,7 +295,8 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService) {
 	       scope:{
 	    	    grid:"=",
 	    	    treeconfig:"=",
-	    	    toolbar:"="
+	    	    toolbar:"=",
+	    	    buttonlist:"="
 	    	    
 	       },
 	       compile: function compile(tElement, tAttrs, transclude) {
