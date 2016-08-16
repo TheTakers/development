@@ -32,7 +32,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 					            {title:"SQLID",field:"code",required:true,element:"uigeneratecode"},
 					            {title:"别名",field:"name",required:false,element:"text"},
 					            {title:"所属分组",field:"parentId",required:false,element:"selector",url:"/search/sqlgroup/selector",option:{text:"pText",value:"pid"}},
-					            {title:"状态",field:"remark",required:false,element:"text"},
+					            {title:"状态",field:"status",required:false,element:"text"},
 					            {title:"描述",field:"remark",required:false,element:"text"}
 					            ]
 			 	
