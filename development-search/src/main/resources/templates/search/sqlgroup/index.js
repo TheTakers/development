@@ -49,9 +49,9 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			            {title:"操作",field:""}
 			            ],
 		   funcList:[
-		             {title:"查看",icon:"ion-eye",target:"view"},
-		             {title:"编辑",icon:"ion-edit",target:"edit"},
-		             {title:"删除",icon:"ion-trash-a",target:"remove"}
+		             {title:"查看",icon:"ion-eye",target:"view",type:"toolbar"},
+		             {title:"编辑",icon:"ion-edit",target:"edit",type:"toolbar"},
+		             {title:"删除",icon:"ion-trash-a",target:"remove",type:"toolbar"}
 		             ]            
 			
 	}
@@ -86,10 +86,16 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	$scope.toolbar = {
 			id: "toolbar"+$.uuid(),
 
-			buttonList:[{name:"新增",target:"edit"}],
+			buttonList:[{name:"新增",target:"edit",icon:"",type:"table"}],
 
 			//查询列
 			inputList:[{label:"编号",field:"sqlid",element:"",value:"",expr:"",exdata:""},
 			           {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
 	};
+	
+	$.scope.funcList = [{title:"新增",target:"edit",icon:"",type:"table"},
+	                    {title:"查看",icon:"ion-eye",target:"view",type:"toolbar"},
+			             {title:"编辑",icon:"ion-edit",target:"edit",type:"toolbar"},
+			             {title:"删除",icon:"ion-trash-a",target:"remove",type:"toolbar"}
+	                   ]
 });
