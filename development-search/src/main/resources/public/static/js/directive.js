@@ -362,7 +362,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService) {
 	    	    		//编辑
 	    	    		scope.edit = function (item) {
 	    	    			item = item || {id:""};
-	    	    			edit(commonService,'/basic/menu/findById','/basic/directive/edit','editCtrl',{id:item.id},scope.search);
+	    	    			edit(commonService,'/basic/menu/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id},scope.grid.search);
 	    	    		};
 
 	    	    		//删除

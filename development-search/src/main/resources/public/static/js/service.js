@@ -30,7 +30,7 @@ app.service('commonService', function($log,$uibModal,$http){
 
 		}, function () { //子页关闭监听
 
-			$log.info('Modal dismissed at: ' + new Date());
+		//	$log.info('Modal dismissed at: ' + new Date());
 		});
 		
 		return modalInstance;
