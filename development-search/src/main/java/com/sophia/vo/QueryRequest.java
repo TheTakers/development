@@ -2,6 +2,9 @@ package com.sophia.vo;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 查询grid
  * @author zkning
@@ -32,7 +35,17 @@ public class QueryRequest implements Serializable{
 	/**
 	 * 查询条件
 	 */
-	private String condition;
+	private JSONArray condition;
+	
+	private JSONObject treeNode;
+
+	public JSONObject getTreeNode() {
+		return treeNode;
+	}
+
+	public void setTreeNode(JSONObject treeNode) {
+		this.treeNode = treeNode;
+	}
 
 	public Integer getPageSize() {
 		return pageSize;
@@ -50,11 +63,11 @@ public class QueryRequest implements Serializable{
 		this.pageNo = pageNo - 1;
 	}
 
-	public String getCondition() {
+	public JSONArray getCondition() {
 		return condition;
 	}
 
-	public void setCondition(String condition) {
+	public void setCondition(JSONArray condition) {
 		this.condition = condition;
 	}
 

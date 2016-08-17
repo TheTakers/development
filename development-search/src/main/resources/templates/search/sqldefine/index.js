@@ -82,6 +82,7 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 				},
 				callback: {
 					onClick: function(event,treeId,node,idx){
+						$scope.parameter.treeNode=node;
 						$scope.$broadcast($scope.grid.id);  
 					}
 				}
@@ -96,5 +97,9 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 			//查询列
 			inputList:[{label:"SQLID",field:"sqlid",element:"",value:"",expr:"",exdata:""},
 			           {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
+	};
+	
+	$scope.parameter = {
+			condition:$scope.toolbar.inputList
 	};
 });

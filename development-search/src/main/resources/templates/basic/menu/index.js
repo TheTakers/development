@@ -81,6 +81,7 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 				},
 				callback: {
 					onClick: function(event,treeId,node,idx){
+						$scope.parameter.treeNode=node;
 						$scope.$broadcast($scope.grid.id);  
 					}
 				}
@@ -95,5 +96,9 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			//查询列
 			inputList:[{label:"编号",field:"",element:"",value:"",expr:"",exdata:""},
 			           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}]
+	};
+	
+	$scope.parameter = {
+			condition:$scope.toolbar.inputList
 	};
 });

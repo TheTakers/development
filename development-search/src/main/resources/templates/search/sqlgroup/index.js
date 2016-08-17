@@ -69,6 +69,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 				},
 				callback: {
 					onClick: function(event,treeId,node,idx){
+						$scope.parameter.treeNode=node;
 						$scope.$broadcast($scope.grid.id);  
 					}
 				}
@@ -86,11 +87,13 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 	//按钮工具栏
 	$scope.toolbar = {
 			id: "toolbar"+$.uuid(),
-
-			buttonList:[{name:"新增",target:"edit",icon:"",type:"table"}],
-
+			
 			//查询列
 			inputList:[{label:"编号",field:"code",element:"",value:"",expr:"like",exdata:""},
 			           {label:"别名",field:"name",element:"",value:"",expr:"like",exdata:""}]
+	};
+	
+	$scope.parameter = {
+			condition:$scope.toolbar.inputList
 	};
 });

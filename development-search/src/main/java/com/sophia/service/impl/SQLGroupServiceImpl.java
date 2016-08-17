@@ -44,8 +44,14 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	}
 
 	public Grid list(QueryRequest queryRequest){
-		SQLFilter sqlFilter = SQLFilter.getInstance(queryRequest.getCondition());
+		SQLFilter sqlFilter = SQLFilter.getInstance();
+		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
+		
+		if(queryRequest.getTreeNode()!=null){
+			sqlFilter.EQ("parent_id", queryRequest.getTreeNode().getString("id"));
+		}
+		
 		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }
