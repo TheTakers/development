@@ -33,7 +33,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			 	$scope.fieldList = [
 					            {title:"SQLID",field:"code",required:true,element:"uigeneratecode"},
 					            {title:"别名",field:"name",required:false,element:"text"},
-					            {title:"所属分组",field:"parentId",required:false,element:"selector",url:"/search/sqlgroup/selector",option:{text:"pText",value:"pid"}},
+					            {title:"所属分组",field:"parent_id",required:false,element:"selector",url:"/search/sqlgroup/selector",option:{text:"pText",value:"parent_id"}},
 					            {title:"状态",field:"status",required:false,element:"text"},
 					            {title:"描述",field:"remark",required:false,element:"text"}
 					            ]
@@ -43,7 +43,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			columnList:[
 			            {title:"编号",field:"code",display:true,exdata:"",query:true},
 			            {title:"别名",field:"name",display:true,exdata:"",query:true},
-			            {title:"所属分组",field:"parentId",display:true,exdata:"",query:true},
+			            {title:"所属分组",field:"pText",display:true,exdata:"",query:true},
 			            {title:"路径",field:"path",display:true,exdata:"",query:true},
 			            {title:"备注",field:"remark",display:true,exdata:"",query:true},
 			            {title:"操作",field:""}
@@ -90,7 +90,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 			buttonList:[{name:"新增",target:"edit",icon:"",type:"table"}],
 
 			//查询列
-			inputList:[{label:"编号",field:"sqlid",element:"",value:"",expr:"",exdata:""},
-			           {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
+			inputList:[{label:"编号",field:"code",element:"",value:"",expr:"like",exdata:""},
+			           {label:"别名",field:"name",element:"",value:"",expr:"like",exdata:""}]
 	};
 });

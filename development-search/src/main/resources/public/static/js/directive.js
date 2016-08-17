@@ -125,7 +125,7 @@ app.directive('pagination', function($http,$log,commonService) {
         	 //get data
         	 function post(){
         		 
-        		 commonService.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(data){
+        		 commonService.post(scope.url,{pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo,condition:JSON.stringify(scope.params)},function(data){
 
         			 if(_.isUndefined(data.result)){
         				 $log.error("结果集未包含result");

@@ -21,5 +21,5 @@ public interface SQLIDService {
 	
 	public <T> T execute(String SQLID, PreparedStatementCallback<T> action);
 	
-	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit pagination);
+	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit limit);
 }
