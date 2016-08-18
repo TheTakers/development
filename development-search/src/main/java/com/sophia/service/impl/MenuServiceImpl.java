@@ -34,7 +34,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	@Autowired NPJdbcTemplateService npJdbcTemplateService;
 	
 	
-	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.id = c.pid ";
+	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.pid = c.id ";
 	
 	public String save(Menu menu){
 		return getRepository().save(menu).getId();
