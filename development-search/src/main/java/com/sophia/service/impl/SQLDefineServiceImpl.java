@@ -1,5 +1,7 @@
 package com.sophia.service.impl;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,13 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		}
 		
 		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+	}
+	
+	@Override
+	public Map<String,Object> findById(String id) {
+		SQLFilter sqlFilter = SQLFilter.getInstance();
+		sqlFilter.setMainSql(sql);
+		sqlFilter.EQ("id", id);
+		return npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 }

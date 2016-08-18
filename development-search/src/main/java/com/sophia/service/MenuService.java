@@ -1,6 +1,7 @@
 package com.sophia.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sophia.domain.Menu;
 import com.sophia.repository.JpaRepository;
@@ -16,7 +17,7 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	
 	public List getMenuByName(String name);
 	
-	public Menu findById(String id);
+	public Map<String,Object> findById(String id);
 	
 	public void delete(String id);
 	

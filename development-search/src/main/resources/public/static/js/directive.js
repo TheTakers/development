@@ -241,13 +241,17 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="text"></input><input type="hidden"  ng-model="value"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-model="text"></input><input type="text"  ng-model="value"></input>'
 			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-
+			
+			scope.item = null;
+			
+			
+			
 			scope.showDialog=function(){
 
 				var modalInstance = $uibModal.open({
@@ -302,13 +306,7 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (selectedItem) { //获取子页返回值
 
-					if(selectedItem.text){
-						scope.text = selectedItem.text;
-					}
-
-					if(selectedItem.value){
-						scope.value = selectedItem.value;
-					} 
+					scope.item = selectedItem;
 
 				}, function () { //子页关闭监听
 

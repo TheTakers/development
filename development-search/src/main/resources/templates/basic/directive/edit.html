@@ -15,7 +15,7 @@
 						
 						<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.element=='text'" ng-required="item.required"></input>
 						
-						<uiselector url="{{item.url}}"  text="data[option.text]" value="data[option.value]" ng-if="item.element=='selector'"></uiselector>
+						<uiselector url="{{item.url}}"  text="data[item.pText]" value="data[item.field]" ng-if="item.element=='selector'"></uiselector>
 						
 						<textarea class="form-control" ng-model="data[item.field]" ng-if="item.element=='textarea'" ng-required="item.required"></textarea>
 					</div>

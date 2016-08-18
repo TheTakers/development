@@ -93,8 +93,11 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	@Override
-	public Menu findById(String id) {
-		return getRepository().findOne(id);
+	public Map<String,Object> findById(String id) {
+		SQLFilter sqlFilter = SQLFilter.getInstance();
+		sqlFilter.setMainSql(sql);
+		sqlFilter.EQ("id", id);
+		return npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 	
 	@Override
