@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -18,6 +17,10 @@ import com.sophia.domain.Menu;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.MenuService;
+import com.sophia.service.NPJdbcTemplateService;
+import com.sophia.utils.SQLFilter;
+import com.sophia.vo.Grid;
+import com.sophia.vo.QueryRequest;
 
 @Service
 public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {
@@ -28,7 +31,10 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	@Autowired NPJdbcTemplateService npJdbcTemplateService;
+	
+	
+	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.id = c.pid ";
 	
 	public String save(Menu menu){
 		return getRepository().save(menu).getId();
@@ -58,14 +64,13 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	@Override
 	public List getMenuByName(String name) {
 		
-		
 		if(StringUtils.isEmpty(name)){
 			return getTreeData();
 		}else{
 			String sql  = "SELECT * FROM TB_BASIC_MENU T WHERE NAME LIKE :NAME ";
 			Map<String,Object> paramMap = new HashMap<>();
 			paramMap.put("NAME", "%"+name+"%");
-			List<Map<String,Object>> menuList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
+			List<Map<String,Object>> menuList = npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
 			return menuList;
 		}
 	}
@@ -95,5 +100,21 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	@Override
 	public void delete(String id) {
 		getRepository().delete(id);
+	}
+	
+	
+	
+	@Override
+	public Grid list(QueryRequest queryRequest) {
+
+		SQLFilter sqlFilter = SQLFilter.getInstance();
+		sqlFilter.addCondition(queryRequest.getCondition());
+		sqlFilter.setMainSql(sql);
+		
+		if(queryRequest.getTreeNode()!=null){
+			sqlFilter.EQ("pid", queryRequest.getTreeNode().getString("id"));
+		}
+		
+		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

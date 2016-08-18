@@ -8,8 +8,6 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,6 +22,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.SQLDefine;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
+import com.sophia.vo.Grid;
 import com.sophia.vo.QueryRequest;
 import com.sophia.vo.search.sqldefine.SQLDefineRequest;
 import com.sophia.web.constant.Constant;
@@ -56,9 +55,9 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {
+	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			Page<SQLDefine> data = sqlDefineService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
+			Grid data = sqlDefineService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

@@ -46,7 +46,7 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			            {title:"名称",field:"name",display:true,exdata:"",query:true},
 			            {title:"url",field:"link",display:true,exdata:"",query:true},
 			            {title:"图标",field:"ico",display:true,exdata:"",query:true},
-			            {title:"所属菜单",field:"pid",display:true,exdata:"",query:true},
+			            {title:"所属菜单",field:"pText",display:true,exdata:"",query:true},
 			            {title:"菜单路径",field:"name",display:true,exdata:"",query:true},
 			            {title:"排序",field:"path",display:true,exdata:"",query:true},
 			            {title:"描述",field:"remark",display:true,exdata:"",query:true},

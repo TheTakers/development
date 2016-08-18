@@ -5,6 +5,8 @@ import java.util.List;
 import com.sophia.domain.Menu;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.MenuRepository;
+import com.sophia.vo.Grid;
+import com.sophia.vo.QueryRequest;
 
 public interface MenuService  extends JpaRepository<MenuRepository>{
 	
@@ -24,4 +26,6 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	 * @return
 	 */
 	public List<String>  getMenuPath(String id);
+	
+	public Grid list(QueryRequest queryRequest);
 }

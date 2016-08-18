@@ -45,7 +45,7 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 			columnList:[
 			            {title:"SQLID",field:"sqlId",display:true,exdata:"",query:true},
 			            {title:"别名",field:"sqlName",display:true,exdata:"",query:true},
-			            {title:"SQL组",field:"groupId",display:true,exdata:"",query:true},
+			            {title:"SQL组",field:"pText",display:true,exdata:"",query:true},
 			            {title:"数据源",field:"datasource",display:true,exdata:"",query:true},
 			            {title:"缓存",field:"cache",display:true,exdata:"",query:true},
 			            {title:"状态",field:"status",display:true,exdata:"",query:true},
