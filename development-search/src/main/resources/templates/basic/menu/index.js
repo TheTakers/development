@@ -21,7 +21,7 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 				$scope.data = param;
 				
 			 	$scope.save = function() {
-			 		saveOfClose($http,this.action + '/save',$scope.data,$uibModalInstance);
+			 		saveOfClose($http,'/basic/menu/save',$scope.data,$uibModalInstance);
 			 	};
 			 	
 			 	$scope.cancel = function() {

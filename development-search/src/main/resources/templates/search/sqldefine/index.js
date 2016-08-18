@@ -21,7 +21,7 @@ angular.module('app').controller('sqlDefineCtrl', function($scope,$http,$uibModa
 				$scope.data = param;
 				
 			 	$scope.save = function() {
-			 		saveOfClose($http,this.action + '/save',$scope.data,$uibModalInstance);
+			 		saveOfClose($http,'/search/sqlDefine/save',$scope.data,$uibModalInstance);
 			 	};
 			 	
 			 	$scope.cancel = function() {

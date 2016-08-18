@@ -21,7 +21,7 @@ angular.module('app').controller('sqlGroupCtrl', function($scope,$http,$uibModal
 				$scope.data = param;
 				
 			 	$scope.save = function() {
-			 		saveOfClose($http,this.action + '/save',$scope.data,$uibModalInstance);
+			 		saveOfClose($http,'/search/sqlgroup/save',$scope.data,$uibModalInstance);
 			 	};
 			 	
 			 	$scope.cancel = function() {
