@@ -285,7 +285,7 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 						}
 
 					},
-					size:'lg',
+					size:'l',
 					resolve: {
 						param: function () {
 							return scope.param;
