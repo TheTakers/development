@@ -270,6 +270,8 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 								
 								action:"/basic/menu",
 								
+								opt:1,
+								
 								editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 									
 									//页面数据

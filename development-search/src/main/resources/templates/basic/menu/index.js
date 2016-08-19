@@ -15,6 +15,7 @@ angular.module('app').controller('menuCtrl', function($scope,$http,$uibModal,$lo
 			
 			action:"/basic/menu",
 			
+			
 			editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 				
 				//页面数据
