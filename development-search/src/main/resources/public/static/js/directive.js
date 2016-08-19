@@ -232,25 +232,21 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
-			text:'=',
-			value:'=',
+			data:"=",
+			key:"@",
+			value:"@",
 			url:'@',
-			ctrl:'@',
-			loadScript:'@', //加载一个js文件
+ 			loadScript:'@', //加载一个js文件
 			param:'=' //传给子页参数
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="text"></input><input type="text"  ng-model="value"></input>'
-			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
+					+'<input type="text"  class="form-control input-sm" ng-model="data[value]"></input>'
+					+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			
-			scope.item = null;
-			
-			
 			
 			scope.showDialog=function(){
 
@@ -265,12 +261,10 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 
 						$scope.ok = function() {
 							var item ={}
-							if($scope.selected.length>0){
-								item.value = $scope.selected[0].id;
-								item.text = $scope.selected[0].name;
+							if(!_.isEmpty($scope.selected)){
 
 								//传值给父页
-								$uibModalInstance.close(item);
+								$uibModalInstance.close($scope.selected);
 							}else{
 								$.warning("请选择记录!");
 							}
@@ -305,8 +299,8 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 				});
 
 				modalInstance.result.then(function (selectedItem) { //获取子页返回值
-
-					scope.item = selectedItem;
+					scope.data[scope.key] =  selectedItem[0].id;
+					scope.data[scope.value] = selectedItem[0].name;
 
 				}, function () { //子页关闭监听
 
