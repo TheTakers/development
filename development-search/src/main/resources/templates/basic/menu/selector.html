@@ -3,7 +3,89 @@
 </div>
 
 <div class="modal-body">
-   <uipage grid="grid" treeconfig="treeConfig" toolbar="toolbar" buttonlist="buttonList" parameter="parameter"></uipage>
+ 
+  <div class="row">
+		<!-- start of search row -->
+		<div class="col-md-12">
+			<form class="form-inline">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel-group panel-group-joined" id="accordion-test">
+							<div class="panel panel-color panel-default">
+
+								<!-- search start -->
+								<div id="collapseOne" class="panel-collapse collapse in"
+									aria-expanded="true">
+									<div class="panel-body">
+
+										<div class="row">
+
+											<div class="form-group">
+												<label>名称</label> <input class="form-control input-sm" type="text"  ng-model="queryparams.name"/>
+											</div>
+											<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="search()">查询</button>
+										</div>
+
+									</div>
+								</div>
+								<!-- search end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- End of search Row -->
+
+
+			<!-- start of datagrid -->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card-box">
+						<table class="table table table-hover m-0">
+							<thead>
+								<tr>
+									<th data-sort-initial="true" data-toggle="true">选择</th>
+									<th data-sort-initial="true" data-toggle="true">名称</th>
+									<th data-sort-initial="true" data-toggle="true">url</th>
+									<th>图标</th>
+									<th data-hide="phone">所属菜单</th>
+									<th data-hide="phone, tablet">菜单路径</th>
+									<th data-hide="phone, tablet">描述</th>
+								</tr>
+							</thead>
+ 
+
+							<tbody>
+								<tr ng-repeat="item in dataList">
+									<td><input type="checkbox" ng-click="rowClick(item)"></input></td>
+									<td>{{item.name}}</td>
+									<td>{{item.link}}</td>
+									<td>{{item.ico}}</td>
+									<td>{{item.pid}}</td>
+									<td>{{item.path}}</td>
+									<td>{{item.remark}}</td>
+								</tr>
+							</tbody>
+						 
+							<tfoot>
+								<tr>
+									<td colspan="12">
+										<div class="text-right">
+										
+											<pagination id="selectorGrid" url="/basic/menu/list" data="dataList" params="queryparams"></pagination>
+										</div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end of datagrid -->
+	</div>
+ 
 </div>
 
 <div class="modal-footer">
