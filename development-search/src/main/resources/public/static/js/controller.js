@@ -97,7 +97,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 		}
 		
 		if(!_.isEmpty(item.link)){
-			var promise =  $ocLazyLoad.load("templates"+item.link+".js");
+			var promise =  $ocLazyLoad.load("templates"+item.link+".json");
 			promise.then(function(res){//success 
  			},function(error){//error
 			},function(info){//notify

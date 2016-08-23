@@ -78,7 +78,7 @@ app.service('commonService', function($log,$uibModal,$http){
 				if(param.success)
 					param.success(data);
 			},
-			error: function (data) {
+			error: function (textStatus) {
 				
 		       if(!_.isEmpty($shade))
 		    	    $.trash($shade);

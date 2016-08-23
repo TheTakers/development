@@ -311,24 +311,102 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 }); 
 
 //page
-app.directive('uipage', function($http,$log,$ocLazyLoad,commonService) {
+app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	return {
 		restrict:'E',
 		templateUrl:"/basic/directive/index",
 		replace : false,			
 		transclude : false,
 		scope:{
-			grid:"=",
-			treeconfig:"=",
-			toolbar:"=",
-			buttonlist:"=",
-			parameter:"="
-
+			point:"@"
 		},
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
+					
+					scope.grid = {
+						id:$.uuid(),
+						
+						//table展示的数据
+						dataList:{}, 
+						
+						//查询
+						search:function(){
+							scope.$broadcast(this.id);  
+						},
+						
+						action:"/basic/menu",
+						url:"/basic/menu/list",
 
+						editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+
+							//页面数据
+							$scope.data = param;
+
+							$scope.save = function() {
+								saveOfClose($http,'/basic/menu/save',$scope.data,$uibModalInstance);
+							};
+
+							$scope.cancel = function() {
+								$uibModalInstance.dismiss('cancel');
+							};
+
+
+							//字段列表
+							$scope.fieldList = [
+							                    {title:"名称",field:"name",required:true,element:"text"},
+							                    {title:"url",field:"link",required:false,element:"text"},
+							                    {title:"图标",field:"ico",required:true,element:"text"},
+							                    {title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",option:{text:"pText"}},
+							                    {title:"菜单路径",field:"path",required:false,element:"text"},
+							                    {title:"排序",field:"idx",required:false,element:"text"},
+							                    {title:"描述",field:"remark",required:false,element:"textarea"}
+							                    ]
+
+						}
+					};
+					
+					//请求参数
+					scope.parameter ={id:$.uuid()};
+					
+					scope.treeConfig = {
+						setting:{
+							async:{
+								url:"/basic/menu/treeData",
+								type:"post",
+								contentType: "application/json",
+								enable:true
+							},
+							data:{
+								simpleData:{
+									enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+									idKey: "id",
+									pIdKey: "pid",
+									rootPId: 0
+								}
+							},
+							callback: {
+								onClick: function(event,treeId,node,idx){
+									scope.parameter.treeNode=node;
+									scope.$broadcast($scope.grid.id);  
+								}
+							}
+						}
+					};
+					
+					function success(data){
+						data = eval('(' + data + ')');
+						scope.grid =  $.extend(scope.grid,data.grid);
+						//scope.treeconfig =  $.extend(scope.treeconfig,data.treeconfig);
+						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
+						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
+						
+						scope.parameter = {
+								condition:scope.toolbar.inputList
+						};
+					}
+					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text"});
+					
 					//编辑
 					scope.edit = function (item) {
 						item = item || {id:""};

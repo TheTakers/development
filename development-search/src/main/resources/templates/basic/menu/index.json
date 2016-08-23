@@ -1,0 +1,23 @@
+{grid:{
+	columnList:[
+	            {title:"名称",field:"name",display:true,exdata:"",query:true},
+	            {title:"url",field:"link",display:true,exdata:"",query:true},
+	            {title:"图标",field:"ico",display:true,exdata:"",query:true},
+	            {title:"所属菜单",field:"pText",display:true,exdata:"",query:true},
+	            {title:"菜单路径",field:"name",display:true,exdata:"",query:true},
+	            {title:"排序",field:"path",display:true,exdata:"",query:true},
+	            {title:"描述",field:"remark",display:true,exdata:"",query:true},
+	            {title:"操作",field:""}
+	            ]
+}
+,buttonList:[
+               {title:"查看",icon:"ion-eye",target:"view",type:0},
+               {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+               {title:"新增",icon:"",target:"edit",type:1}
+               ]
+,toolbar:{
+	
+	inputList:[{label:"编号",field:"",element:"",value:"",expr:"",exdata:""},
+	           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}]
+}}
