@@ -341,27 +341,18 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 						editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 
 							//页面数据
-							$scope.data = param;
-
+							$scope.data = param.formData;
+							
 							$scope.save = function() {
-								saveOfClose($http,'/basic/menu/save',$scope.data,$uibModalInstance);
+								saveOfClose($http,param.modalData.url,$scope.data,$uibModalInstance);
 							};
 
 							$scope.cancel = function() {
 								$uibModalInstance.dismiss('cancel');
 							};
 
-
 							//字段列表
-							$scope.fieldList = [
-							                    {title:"名称",field:"name",required:true,element:"text"},
-							                    {title:"url",field:"link",required:false,element:"text"},
-							                    {title:"图标",field:"ico",required:true,element:"text"},
-							                    {title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",option:{text:"pText"}},
-							                    {title:"菜单路径",field:"path",required:false,element:"text"},
-							                    {title:"排序",field:"idx",required:false,element:"text"},
-							                    {title:"描述",field:"remark",required:false,element:"textarea"}
-							                    ]
+							$scope.fieldList = param.modalData.fieldList;
 
 						}
 					};
@@ -403,7 +394,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
 						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
 						scope.treeconfig =  setTreeParam(data.treeConfig);
-						
+						scope.modalData = data.modalData;
 						scope.parameter = {
 								condition:scope.toolbar.inputList
 						};
@@ -413,7 +404,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					//编辑
 					scope.edit = function (item) {
 						item = item || {id:""};
-						edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id},scope.grid.search);
+						edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id,modalData:scope.modalData},scope.grid.search);
 					};
 
 					//删除

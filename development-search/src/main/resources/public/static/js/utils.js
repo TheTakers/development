@@ -45,7 +45,7 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 			commonService.post(dataUrl,param,function(data){
 				
 				if(data.code == '0'){
-					commonService.show({templateUrl:templateUrl,controller:ctrl,param:data.result,callback:callback});
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:data.result,modalData:param.modalData},callback:callback});
 				}else{
 					$.error(data.message);
 				}
