@@ -369,37 +369,40 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					//请求参数
 					scope.parameter ={id:$.uuid()};
 					
-					scope.treeConfig = {
-						setting:{
-							async:{
-								url:"/basic/menu/treeData",
-								type:"post",
-								contentType: "application/json",
-								enable:true
-							},
-							data:{
-								simpleData:{
-									enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
-									idKey: "id",
-									pIdKey: "pid",
-									rootPId: 0
+					//设置树参数
+					function setTreeParam(treeConfig){
+						return {
+								setting:{
+									async:{
+										url:treeConfig.url,
+										type:"post",
+										contentType: "application/json",
+										enable:true
+									},
+									data:{
+										simpleData:{
+											enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+											idKey: treeConfig.idKey,
+											pIdKey: treeConfig.pIdKey,
+											rootPId: treeConfig.rootPId
+										}
+									},
+									callback: {
+										onClick: function(event,treeId,node,idx){
+											scope.parameter.treeNode=node;
+											scope.$broadcast(scope.grid.id);  
+										}
+									}
 								}
-							},
-							callback: {
-								onClick: function(event,treeId,node,idx){
-									scope.parameter.treeNode=node;
-									scope.$broadcast($scope.grid.id);  
-								}
-							}
-						}
-					};
+							};
+					}
 					
 					function success(data){
 						data = eval('(' + data + ')');
 						scope.grid =  $.extend(scope.grid,data.grid);
-						//scope.treeconfig =  $.extend(scope.treeconfig,data.treeconfig);
 						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
 						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
+						scope.treeconfig =  setTreeParam(data.treeConfig);
 						
 						scope.parameter = {
 								condition:scope.toolbar.inputList
