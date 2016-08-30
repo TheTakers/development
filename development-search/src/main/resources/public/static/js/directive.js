@@ -324,37 +324,24 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
 					
-					scope.grid = {
-						id:$.uuid(),
-						
-						//table展示的数据
-						dataList:{}, 
-						
-						//查询
-						search:function(){
-							scope.$broadcast(this.id);  
-						},
-						
-						action:"/basic/menu",
-						url:"/basic/menu/list",
-
-						modalCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-
-							//页面数据
-							$scope.data = param.formData;
-							
-							$scope.save = function() {
-								saveOfClose($http,param.modalData.url,$scope.data,$uibModalInstance);
+					//初始化grid
+					function initGrid(grid){
+						var data = {
+								id:$.uuid(),
+								
+								//table展示的数据
+								dataList:{}, 
+								
+								//查询
+								search:function(){
+									scope.$broadcast(this.id);  
+								}
 							};
-
-							$scope.cancel = function() {
-								$uibModalInstance.dismiss('cancel');
-							};
-
-							//字段列表
-							$scope.fieldList = param.modalData.fieldList;
-						}
-					};
+						 $.extend(data,grid);
+						 data.url = grid.controller + '/list';
+						 return data
+					} 
+					
 					
 					//请求参数
 					scope.parameter ={id:$.uuid()};
@@ -389,7 +376,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					
 					function success(data){
 						data = eval('(' + data + ')');
-						scope.grid =  $.extend(scope.grid,data.grid);
+						scope.grid = initGrid(data.grid);
 						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
 						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
 						scope.treeconfig =  setTreeParam(data.treeConfig);
@@ -398,17 +385,34 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 								condition:scope.toolbar.inputList
 						};
 					}
-					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text"});
+					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
+					
+					//子窗口 
+					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+
+						//页面数据
+						$scope.data = param.formData;
+						$scope.save = function() {
+							saveOfClose($http,param.modalData.url,$scope.data,$uibModalInstance);
+						};
+						$scope.cancel = function() {
+							$uibModalInstance.dismiss('cancel');
+						};
+						
+						//字段列表
+						$scope.fieldList = param.modalData.fieldList;
+					}
+					
 					
 					scope.crud = function crud(item,target){
 						switch(target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.modalCtrl,{id:item.id,modalData:scope.modalData},scope.grid.search);
+							edit(commonService,scope.grid.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modalData:scope.modalData},scope.grid.search);
 							break;
 
 						case "remove":
-							remove(commonService,scope.grid.action + '/delete',{id:item.id},scope.search);
+							remove(commonService,scope.grid.controller + '/delete',{id:item.id},scope.search);
 							break;
 
 						case "view":

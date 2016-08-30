@@ -1,4 +1,5 @@
 {grid:{
+	controller:"/basic/menu",
 	columnList:[
 	            {title:"名称",field:"name",display:true,exdata:"",query:true},
 	            {title:"url",field:"link",display:true,exdata:"",query:true},
@@ -17,9 +18,7 @@
                {title:"新增",icon:"",target:"edit",type:1}
                ]
 ,toolbar:{
-	
-	inputList:[{label:"编号",field:"",element:"",value:"",expr:"",exdata:""},
-	           {label:"名称",field:"",element:"",value:"",expr:"",exdata:""}]
+	inputList:[{label:"名称",field:"name",element:"text",value:"",expr:"like",exdata:""}]
 }
 ,treeConfig:{
 	url:"/basic/menu/treeData",
