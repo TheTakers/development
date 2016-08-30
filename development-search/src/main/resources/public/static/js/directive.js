@@ -347,7 +347,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					scope.parameter ={id:$.uuid()};
 					
 					//设置树参数
-					function setTreeParam(treeConfig){
+					function initTree(treeConfig){
 						return {
 							setting:{
 								async:{
@@ -379,7 +379,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 						scope.grid = initGrid(data.grid);
 						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
 						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
-						scope.treeconfig =  setTreeParam(data.treeConfig);
+						scope.treeconfig =  initTree(data.treeConfig);
 						scope.modalData = data.modalData;
 						scope.parameter = {
 								condition:scope.toolbar.inputList
