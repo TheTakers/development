@@ -338,7 +338,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 						action:"/basic/menu",
 						url:"/basic/menu/list",
 
-						editCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+						modalCtrl:function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 
 							//页面数据
 							$scope.data = param.formData;
@@ -353,7 +353,6 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 
 							//字段列表
 							$scope.fieldList = param.modalData.fieldList;
-
 						}
 					};
 					
@@ -363,29 +362,29 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					//设置树参数
 					function setTreeParam(treeConfig){
 						return {
-								setting:{
-									async:{
-										url:treeConfig.url,
-										type:"post",
-										contentType: "application/json",
-										enable:true
-									},
-									data:{
-										simpleData:{
-											enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
-											idKey: treeConfig.idKey,
-											pIdKey: treeConfig.pIdKey,
-											rootPId: treeConfig.rootPId
-										}
-									},
-									callback: {
-										onClick: function(event,treeId,node,idx){
-											scope.parameter.treeNode=node;
-											scope.$broadcast(scope.grid.id);  
-										}
+							setting:{
+								async:{
+									url:treeConfig.url,
+									type:"post",
+									contentType: "application/json",
+									enable:true
+								},
+								data:{
+									simpleData:{
+										enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+										idKey: treeConfig.idKey,
+										pIdKey: treeConfig.pIdKey,
+										rootPId: treeConfig.rootPId
+									}
+								},
+								callback: {
+									onClick: function(event,treeId,node,idx){
+										scope.parameter.treeNode=node;
+										scope.$broadcast(scope.grid.id);  
 									}
 								}
-							};
+							}
+						};
 					}
 					
 					function success(data){
@@ -401,36 +400,21 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text"});
 					
-					//编辑
-					scope.edit = function (item) {
-						item = item || {id:""};
-						edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.editCtrl,{id:item.id,modalData:scope.modalData},scope.grid.search);
-					};
-
-					//删除
-					scope.remove = function (item) {
-						remove(commonService,scope.grid.action + '/delete',{id:item.id},scope.search);
-					};
-
-					//查看
-					scope.view = function(item){
-
-					}
-
 					scope.crud = function crud(item,target){
 						switch(target){
 						case "edit":
-							scope.edit(item);
+							item = item || {id:""};
+							edit(commonService,scope.grid.action + '/findById','/basic/directive/edit',scope.grid.modalCtrl,{id:item.id,modalData:scope.modalData},scope.grid.search);
 							break;
 
 						case "remove":
-							scope.remove(item);
+							remove(commonService,scope.grid.action + '/delete',{id:item.id},scope.search);
 							break;
 
 						case "view":
-							scope.view(item);
+							 
 							break;
-
+							
 						default :
 							$log.info(target);
 						break;
@@ -441,11 +425,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					scope.findtreeconfig = function(){
 						return _.isUndefined(scope.treeconfig);
 					}
-
-				},
-				post: function postLink(scope, iElement, iAttrs, controller) {
-
-				}
+				} 
 			}
 		}
 	};
