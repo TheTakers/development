@@ -16,7 +16,7 @@ app.service('commonService', function($log,$uibModal,$http){
 				},
 				deps:function($ocLazyLoad,$stateParams,$log){
 
-					if(_.isUndefined(options.loadScript) || options.loadScript)
+					if(!_.isUndefined(options.loadScript))
 						return $ocLazyLoad.load("templates/"+options.templateUrl+".js");
 				}
 			}

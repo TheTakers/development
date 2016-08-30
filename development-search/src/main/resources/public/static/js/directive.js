@@ -311,7 +311,7 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 }); 
 
 //page
-app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	return {
 		restrict:'E',
 		templateUrl:"/basic/directive/index",
@@ -344,7 +344,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 					
 					
 					//请求参数
-					scope.parameter ={id:$.uuid()};
+					scope.parameter = {id:$.uuid()};
 					
 					//设置树参数
 					function initTree(treeConfig){
@@ -373,7 +373,7 @@ app.directive('uipage', function($http,$log,$ocLazyLoad,commonService,$uibModal)
 							}
 						};
 					}
-					
+					scope.toolbar = {id:$.uuid()};
 					function success(data){
 						data = eval('(' + data + ')');
 						scope.grid = initGrid(data.grid);

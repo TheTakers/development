@@ -1,4 +1,5 @@
 {grid:{
+	
 	controller:"/basic/menu",
 	columnList:[
 	            {title:"名称",field:"name",display:true,exdata:"",query:true},
