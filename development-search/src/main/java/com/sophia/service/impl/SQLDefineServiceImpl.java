@@ -48,7 +48,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		sqlFilter.setMainSql(sql);
 		
 		if(queryRequest.getTreeNode()!=null){
-			sqlFilter.EQ("group_id", queryRequest.getTreeNode().getString("id"));
+			sqlFilter.EQ("groupid", queryRequest.getTreeNode().getString("id"));
 		}
 		
 		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
