@@ -7,9 +7,9 @@ CREATE TABLE `tb_basic_menu` (
   `remark` varchar(500) DEFAULT NULL,
   `version` decimal(10,0) DEFAULT NULL,
   `create_user` varchar(50) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `last_Update_User` varchar(50) DEFAULT NULL,
-  `last_Update_Time` datetime DEFAULT NULL,
+  `createtime` datetime DEFAULT NULL,
+  `lastUpdateUser` varchar(50) DEFAULT NULL,
+  `lastUpdateTime` datetime DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   KEY `idx_unqiue_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
