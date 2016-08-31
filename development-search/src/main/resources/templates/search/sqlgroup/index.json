@@ -1,0 +1,39 @@
+{grid:{
+	controller:"/search/sqlgroup",
+	columnList:[
+			             {title:"编号",field:"code",display:true,exdata:"",query:true},
+			            {title:"别名",field:"name",display:true,exdata:"",query:true},
+			            {title:"所属分组",field:"pText",display:true,exdata:"",query:true},
+			            {title:"路径",field:"path",display:true,exdata:"",query:true},
+			            {title:"备注",field:"remark",display:true,exdata:"",query:true},
+			            {title:"操作",field:""}
+			            ]     
+}
+,buttonList:[
+               {title:"查看",icon:"ion-eye",target:"view",type:0},
+               {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+               {title:"新增",icon:"",target:"edit",type:1}
+               ]
+,toolbar:{
+			inputList:[{label:"编号",field:"code",element:"",value:"",expr:"like",exdata:""},
+			           {label:"别名",field:"name",element:"",value:"",expr:"like",exdata:""}]
+}
+,treeConfig:{
+	url:"/search/sqlgroup/treeData",
+	idKey: "id",
+	pIdKey: "parentId",
+	rootPId: 0
+	}
+	
+,modalData:{
+	url:'/search/sqlgroup/save',
+	fieldList:[
+					           {title:"SQLID",field:"code",required:true,element:"uigeneratecode"},
+					            {title:"别名",field:"name",required:false,element:"text"},
+					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"状态",field:"status",required:false,element:"text"},
+					            {title:"描述",field:"remark",required:false,element:"text"}
+			]
+	}
+}
