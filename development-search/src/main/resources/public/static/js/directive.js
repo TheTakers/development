@@ -233,15 +233,13 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			data:"=",
-			key:"@",
-			value:"@",
 			url:'@',
- 			loadScript:'@', //加载一个js文件
+			extdata:'@', //扩展字段
 			param:'=' //传给子页参数
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-					+'<input type="text"  class="form-control input-sm" ng-model="data[value]"></input>'
+					+'<input type="text"  class="form-control input-sm" value="{{inputText}}"></input>'
 					+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
@@ -298,8 +296,17 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 				});
 
 				modalInstance.result.then(function (selectedItem) { //获取子页返回值
-					scope.data[scope.key] =  selectedItem[0].id;
-					scope.data[scope.value] = selectedItem[0].name;
+					
+					if(!_.isEmpty(scope.extdata)){
+						
+						var data = eval('(' + scope.extdata + ')');
+						scope.data[data.dataKey] =  selectedItem[0][data.returnKey];
+						scope.data[data.dataValue] = selectedItem[0][data.returnValue];
+						
+						//控件显示数据
+						scope.inputText = scope.data[data.dataValue];
+					}
+					
 
 				}, function () { //子页关闭监听
 
@@ -318,7 +325,9 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		replace : false,			
 		transclude : false,
 		scope:{
-			point:"@"
+			point:"@",
+			param:"=",
+			returndata:"="
 		},
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {

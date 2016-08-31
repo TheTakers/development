@@ -2,13 +2,13 @@
 	
 	controller:"/basic/menu",
 	columnList:[
-	            {title:"名称",field:"name",display:true,exdata:"",query:true},
-	            {title:"url",field:"link",display:true,exdata:"",query:true},
-	            {title:"图标",field:"ico",display:true,exdata:"",query:true},
-	            {title:"所属菜单",field:"pText",display:true,exdata:"",query:true},
-	            {title:"菜单路径",field:"name",display:true,exdata:"",query:true},
-	            {title:"排序",field:"path",display:true,exdata:"",query:true},
-	            {title:"描述",field:"remark",display:true,exdata:"",query:true},
+	            {title:"名称",field:"name",display:true,extdata:""},
+	            {title:"url",field:"link",display:true,extdata:""},
+	            {title:"图标",field:"ico",display:true,extdata:""},
+	            {title:"所属菜单",field:"pText",display:true,extdata:""},
+	            {title:"菜单路径",field:"name",display:true,extdata:""},
+	            {title:"排序",field:"path",display:true,extdata:""},
+	            {title:"描述",field:"remark",display:true,extdata:""},
 	            {title:"操作",field:""}
 	            ]
 }
@@ -19,7 +19,7 @@
                {title:"新增",icon:"",target:"edit",type:1}
                ]
 ,toolbar:{
-	inputList:[{label:"名称",field:"name",element:"text",value:"",expr:"like",exdata:""}]
+	inputList:[{label:"名称",field:"name",element:"text",value:"",expr:"like",extdata:""}]
 }
 ,treeConfig:{
 	url:"/basic/menu/treeData",
@@ -34,7 +34,7 @@
 		{title:"名称",field:"name",required:true,element:"text"},
 		{title:"url",field:"link",required:false,element:"text"},
 		{title:"图标",field:"ico",required:true,element:"text"},
-		{title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",option:{text:"pText"}},
+		{title:"所属菜单",field:"pid",required:false,element:"selector",url:"/basic/menu/selector",extdata:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 		{title:"菜单路径",field:"path",required:false,element:"text"},
 		{title:"排序",field:"idx",required:false,element:"text"},
 		{title:"描述",field:"remark",required:false,element:"textarea"}
