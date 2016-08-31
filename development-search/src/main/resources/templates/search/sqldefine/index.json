@@ -1,14 +1,14 @@
 {grid:{
 	controller:"/search/sqldefine",
 	columnList:[
-			            {title:"SQLID",field:"sql_Id",display:true,exdata:"",query:true},
-			            {title:"别名",field:"sql_Name",display:true,exdata:"",query:true},
-			            {title:"SQL组",field:"pText",display:true,exdata:"",query:true},
-			            {title:"数据源",field:"datasource",display:true,exdata:"",query:true},
-			            {title:"缓存",field:"cache",display:true,exdata:"",query:true},
-			            {title:"状态",field:"status",display:true,exdata:"",query:true},
-			            {title:"描述",field:"remark",display:true,exdata:"",query:true},
-			            {title:"SQL",field:"selectSql",display:true,exdata:"",query:true},
+			            {title:"SQLID",field:"sqlId",display:true,exdata:""},
+			            {title:"别名",field:"sqlName",display:true,exdata:""},
+			            {title:"SQL组",field:"pText",display:true,exdata:""},
+			            {title:"数据源",field:"datasource",display:true,exdata:""},
+			            {title:"缓存",field:"cache",display:true,exdata:""},
+			            {title:"状态",field:"status",display:true,exdata:""},
+			            {title:"描述",field:"remark",display:true,exdata:""},
+			            {title:"SQL",field:"selectSql",display:true,exdata:""},
 			            {title:"操作",field:""}
 			            ]     
 }
@@ -38,7 +38,7 @@
 					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 					            {title:"缓存",field:"cache",required:false,element:"text"},
 					            {title:"状态",field:"status",required:false,element:"text"},
-					            {title:"描述",field:"remark",required:false,element:"text"},
+					            {title:"描述",field:"remark",required:false,element:"textarea"},
 					            {title:"SQL",field:"sql",required:false,element:"textarea"}
 			]
 	}

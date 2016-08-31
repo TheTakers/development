@@ -31,7 +31,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	
 	@Autowired NPJdbcTemplateService npJdbcTemplateService;
 	
-	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.group_id = c.id ";
+	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
 	public String save(SQLDefine sqlDefine){
 		

@@ -17,4 +17,11 @@ public class MySQLUpperCaseStrategy extends ImprovedNamingStrategy {
 	public String tableName(String tableName) {
 		return tableName.toUpperCase();
 	}
+	
+	@Override
+	public String propertyToColumnName(String propertyName) {
+		return propertyName;
+	}
+	
+	
 }

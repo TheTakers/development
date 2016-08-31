@@ -27,7 +27,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 
 	@Autowired NPJdbcTemplateService npJdbcTemplateService;
 
-	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.id =  c.parent_id ";
+	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.id =  c.parentid ";
 
 	public String save(SQLGroup sqlGroup){
 
@@ -49,7 +49,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		sqlFilter.setMainSql(sql);
 		
 		if(queryRequest.getTreeNode()!=null){
-			sqlFilter.EQ("parent_id", queryRequest.getTreeNode().getString("id"));
+			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
 		
 		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());

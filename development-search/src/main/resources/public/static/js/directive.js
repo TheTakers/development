@@ -348,6 +348,11 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 					
 					//设置树参数
 					function initTree(treeConfig){
+						
+						if(_.isUndefined(treeConfig)){
+							return;
+						}
+						
 						return {
 							setting:{
 								async:{

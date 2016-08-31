@@ -1,11 +1,11 @@
 {grid:{
 	controller:"/search/sqlgroup",
 	columnList:[
-			             {title:"编号",field:"code",display:true,exdata:"",query:true},
-			            {title:"别名",field:"name",display:true,exdata:"",query:true},
-			            {title:"所属分组",field:"pText",display:true,exdata:"",query:true},
-			            {title:"路径",field:"path",display:true,exdata:"",query:true},
-			            {title:"备注",field:"remark",display:true,exdata:"",query:true},
+			             {title:"编号",field:"code",display:true,exdata:""},
+			            {title:"别名",field:"name",display:true,exdata:""},
+			            {title:"所属分组",field:"pText",display:true,exdata:""},
+			            {title:"路径",field:"path",display:true,exdata:""},
+			            {title:"备注",field:"remark",display:true,exdata:""},
 			            {title:"操作",field:""}
 			            ]     
 }
@@ -33,7 +33,7 @@
 					            {title:"别名",field:"name",required:false,element:"text"},
 					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 					            {title:"状态",field:"status",required:false,element:"text"},
-					            {title:"描述",field:"remark",required:false,element:"text"}
+					            {title:"描述",field:"remark",required:false,element:"textarea"}
 			]
 	}
 }
