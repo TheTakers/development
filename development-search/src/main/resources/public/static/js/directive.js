@@ -228,7 +228,7 @@ app.directive('uidatetime', function($http,$log) {
 }); 
 
 //选择器
-app.directive('uiselector', function($http,$log,$uibModal) {
+app.directive('uibaseselector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
@@ -254,18 +254,21 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 			scope.showDialog=function(){
 				
 				var modalInstance = $uibModal.open({
-					templateUrl: scope.url,
+					templateUrl: '/basic/menu/selector',
 					
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
 						
+						$scope.url = param.url;
+						$scope.returndata = {};
+						
 						//选择器ok按钮
 						$scope.ok = function() {
 							var item ={}
-							if(!_.isEmpty($scope.selected)){
+							if(!_.isEmpty($scope.returndata.checkedData)){
 
 								//传值给父页
-								$uibModalInstance.close($scope.selected);
+								$uibModalInstance.close($scope.returndata.checkedData);
 							}else{
 								$.warning("请选择记录!");
 							}
@@ -276,26 +279,16 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 							$uibModalInstance.dismiss('cancel');
 						};
 
-						//选中列表
-						$scope.selected= [];
-						$scope.rowClick = function(item){
-							uniqueOf($scope.selected,item);
-						}
-
-						$scope.search = function(){
-							$scope.$broadcast("selectorGrid");  
-						}
-
 					},
 					size:'l',
 					resolve: {
 						param: function () {
-							return scope.param;
+							return scope;
 						},
 						deps:function($ocLazyLoad,$stateParams,$log){
 
-							if(_.isUndefined(scope.loadScript) || scope.loadScript)
-								return $ocLazyLoad.load("templates/"+scope.url+".js");
+							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
+								//return $ocLazyLoad.load("templates/"+scope.url+".js");
 						}
 					}
 				});
@@ -351,7 +344,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 					
 					
 					//请求参数
-					scope.parameter = {id:$.uuid()};
+					scope.parameter = $.extend({id:$.uuid()},scope.param);
 					
 					//设置树参数
 					function initTree(treeConfig){
@@ -410,7 +403,13 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						$scope.fieldList = param.modalData.fieldList;
 					}
 					
-					
+					//选中列表
+					var checkedData= [];
+					scope.rowClick = function(item){
+						uniqueOf(checkedData,item);
+						scope.returndata.checkedData = checkedData;
+					}
+ 					
 					scope.crud = function crud(item,target){
 						switch(target){
 						case "edit":
