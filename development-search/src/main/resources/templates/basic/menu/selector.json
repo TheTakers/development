@@ -9,8 +9,7 @@
 		            {title:"所属菜单",field:"pText",display:true,extdata:""},
 		            {title:"菜单路径",field:"name",display:true,extdata:""},
 		            {title:"排序",field:"path",display:true,extdata:""},
-		            {title:"描述",field:"remark",display:true,extdata:""},
-		            {title:"操作",field:""}
+		            {title:"描述",field:"remark",display:true,extdata:""}
 		            ]
 	}
 	,toolbar:{

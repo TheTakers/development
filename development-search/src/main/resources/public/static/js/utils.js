@@ -52,7 +52,7 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 			});
 			
 		}else{
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback});
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modalData:param.modalData},callback:callback});
 		}
 	};
 	

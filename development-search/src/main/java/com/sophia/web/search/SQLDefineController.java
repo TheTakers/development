@@ -21,7 +21,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLDefine;
 import com.sophia.service.SQLDefineService;
-import com.sophia.service.SQLIDService;
 import com.sophia.vo.Grid;
 import com.sophia.vo.QueryRequest;
 import com.sophia.vo.search.sqldefine.SQLDefineRequest;
@@ -38,7 +37,6 @@ public class SQLDefineController extends BaseController{
 	
 	
 	@Autowired SQLDefineService sqlDefineService;
-	@Autowired SQLIDService sqlIDService;
 	
 	
 	public static final String module = "search/sqldefine";
@@ -69,7 +67,6 @@ public class SQLDefineController extends BaseController{
 	public Map<String, Object> save(@RequestBody @Valid SQLDefineRequest request) {
 		try {
 			SQLDefine target = new SQLDefine();
-			
 			BeanUtils.copyProperties(request, target);
 			if(StringUtils.isBlank(request.getId())){
 				target.setId(GUID.nextId());
@@ -86,7 +83,7 @@ public class SQLDefineController extends BaseController{
 	public Map<String, Object> findById(@RequestBody String param) {
 		try {
 			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(sqlDefineService.getRepository().findOne(json.getString("id")));
+			return responseOk(sqlDefineService.findById(json.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

@@ -18,17 +18,8 @@
 						<uibaseselector url="{{item.url}}" data="data"  extdata="{{item.extdata}}"  ng-if="item.element=='selector'"></uibaseselector>
 						
 						<textarea class="form-control" ng-model="data[item.field]" ng-if="item.element=='textarea'" ng-required="item.required"></textarea>
-					</div>
+ 					</div>
 			</div>
-			
-			<!-- 
-				<div class="form-group">
-					<label   class="col-sm-3 control-label">所属菜单</label>
-						<div class="col-sm-6">
-							 <selector url="/basic/menu/selector" ctrl="selectorCtrl" text="data.pText" value="data.pid"></selector>
-						</div>
-				</div>
-			 -->
 		</form>		
 </div>
 

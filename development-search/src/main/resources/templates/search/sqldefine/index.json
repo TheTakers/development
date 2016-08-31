@@ -1,0 +1,45 @@
+{grid:{
+	controller:"/search/sqldefine",
+	columnList:[
+			            {title:"SQLID",field:"sql_Id",display:true,exdata:"",query:true},
+			            {title:"别名",field:"sql_Name",display:true,exdata:"",query:true},
+			            {title:"SQL组",field:"pText",display:true,exdata:"",query:true},
+			            {title:"数据源",field:"datasource",display:true,exdata:"",query:true},
+			            {title:"缓存",field:"cache",display:true,exdata:"",query:true},
+			            {title:"状态",field:"status",display:true,exdata:"",query:true},
+			            {title:"描述",field:"remark",display:true,exdata:"",query:true},
+			            {title:"SQL",field:"selectSql",display:true,exdata:"",query:true},
+			            {title:"操作",field:""}
+			            ]     
+}
+,buttonList:[
+               {title:"查看",icon:"ion-eye",target:"view",type:0},
+               {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+               {title:"新增",icon:"",target:"edit",type:1}
+               ]
+,toolbar:{
+	inputList:[{label:"SQLID",field:"sqlid",element:"",value:"",expr:"",exdata:""},
+			   {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
+}
+,treeConfig:{
+	url:"/search/sqlgroup/treeData",
+	idKey: "id",
+	pIdKey: "parentId",
+	rootPId: 0
+	}
+	
+,modalData:{
+	url:'/search/sqldefine/save',
+	fieldList:[
+					            {title:"SQLID",field:"sqlId",required:true,element:"uigeneratecode"},
+					            {title:"别名",field:"sqlName",required:false,element:"text"},
+					            {title:"数据源",field:"datasource",required:true,element:"text"},
+					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"缓存",field:"cache",required:false,element:"text"},
+					            {title:"状态",field:"status",required:false,element:"text"},
+					            {title:"描述",field:"remark",required:false,element:"text"},
+					            {title:"SQL",field:"sql",required:false,element:"textarea"}
+			]
+	}
+}

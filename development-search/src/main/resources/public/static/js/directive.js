@@ -254,7 +254,7 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 			scope.showDialog=function(){
 				
 				var modalInstance = $uibModal.open({
-					templateUrl: '/basic/menu/selector',
+					templateUrl: '/basic/directive/selector',
 					
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
