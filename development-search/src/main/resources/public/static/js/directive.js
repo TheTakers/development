@@ -239,12 +239,17 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-					+'<input type="text"  class="form-control input-sm" value="{{inputText}}"></input>'
+					+'<input type="text"  class="form-control input-sm" value="{{data[inputData.dataValue]}}"></input>'
 					+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
+			
+			if(_.isEmpty(scope.extdata)){
+				return;
+			}
+			scope.inputData = eval('(' + scope.extdata + ')');
 			
 			scope.showDialog=function(){
 				
@@ -297,16 +302,9 @@ app.directive('uiselector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (selectedItem) { //获取子页返回值
 					
-					if(!_.isEmpty(scope.extdata)){
-						
-						var data = eval('(' + scope.extdata + ')');
-						scope.data[data.dataKey] =  selectedItem[0][data.returnKey];
-						scope.data[data.dataValue] = selectedItem[0][data.returnValue];
-						
-						//控件显示数据
-						scope.inputText = scope.data[data.dataValue];
-					}
-					
+					var extdata = scope.inputData;
+					scope.data[extdata.dataKey] =  selectedItem[0][extdata.returnKey];
+					scope.data[extdata.dataValue] = selectedItem[0][extdata.returnValue];
 
 				}, function () { //子页关闭监听
 
