@@ -7,7 +7,7 @@
 			            {title:"数据源",field:"datasource",display:true,exdata:""},
 			            {title:"缓存",field:"cache",display:true,exdata:""},
 			            {title:"状态",field:"status",display:true,exdata:""},
-			            {title:"描述",field:"remark",display:true,exdata:""},
+			            {title:"描述",field:"sqldesc",display:true,exdata:""},
 			            {title:"SQL",field:"selectSql",display:true,exdata:""},
 			            {title:"操作",field:""}
 			            ]     
@@ -35,11 +35,11 @@
 					            {title:"SQLID",field:"sqlId",required:true,element:"uigeneratecode"},
 					            {title:"别名",field:"sqlName",required:false,element:"text"},
 					            {title:"数据源",field:"datasource",required:true,element:"text"},
-					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 					            {title:"缓存",field:"cache",required:false,element:"text"},
 					            {title:"状态",field:"status",required:false,element:"text"},
-					            {title:"描述",field:"remark",required:false,element:"textarea"},
-					            {title:"SQL",field:"sql",required:false,element:"textarea"}
+					            {title:"描述",field:"sqldesc",required:false,element:"textarea"},
+					            {title:"SQL",field:"selectSql",required:false,element:"textarea"}
 			]
 	}
 }

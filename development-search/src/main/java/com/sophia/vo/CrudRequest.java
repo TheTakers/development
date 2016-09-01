@@ -4,6 +4,8 @@ import javax.validation.constraints.NotNull;
 
 public class CrudRequest{
 	
+	private String id;
+	
 	@NotNull
 	private long version;
 
@@ -13,6 +15,13 @@ public class CrudRequest{
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

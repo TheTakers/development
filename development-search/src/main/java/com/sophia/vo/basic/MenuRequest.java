@@ -12,7 +12,6 @@ public class MenuRequest extends CrudRequest{
 	private String pid = "0"; //默认为0
 	private String ico;
 	private String link;
-	private String id;
 	private Long idx;
 	
 	public Long getIdx() {
@@ -20,12 +19,6 @@ public class MenuRequest extends CrudRequest{
 	}
 	public void setIdx(Long index) {
 		this.idx = index;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 	public String getName() {
 		return name;

@@ -2,14 +2,16 @@ package com.sophia.vo.search.sqlgroup;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.sophia.vo.CrudRequest;
+
 /**
  * SQL分组参数
  * @author zkning
  *
  */
-public class SQLGroupRequest {
+public class SQLGroupRequest extends CrudRequest{
 	
-	private String id;
+	
 	
 	@NotBlank
 	private String code;
@@ -45,11 +47,4 @@ public class SQLGroupRequest {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	
 }

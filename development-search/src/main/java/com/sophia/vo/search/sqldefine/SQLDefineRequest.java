@@ -2,9 +2,10 @@ package com.sophia.vo.search.sqldefine;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class SQLDefineRequest {
+import com.sophia.vo.CrudRequest;
+
+public class SQLDefineRequest extends CrudRequest{
 	
-	private String id;
 	@NotBlank
 	private String sqlId;
 	private String sqlName;
@@ -79,11 +80,5 @@ public class SQLDefineRequest {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
 	}
 }
