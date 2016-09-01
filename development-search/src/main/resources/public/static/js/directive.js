@@ -526,9 +526,12 @@ app.directive('uitab', function($http,$log) {
 					scope.data.splice(idx,1);
 					if(!_.isEmpty(scope.data)){
 
-						if(_.isEqual(scope.selected, item.id))
+						if(_.isEqual(scope.selected, item.id)){
+							
 							//直接激活最后一个tab
 							$('#'+scope.id+' a[data-target="#'+_.last(scope.data).id+'"]').tab('show');
+							scope.selected=_.last(scope.data).id;
+						}
 					}
 				}
 			}
