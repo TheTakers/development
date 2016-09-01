@@ -8,7 +8,6 @@
 			            {title:"缓存",field:"cache",display:true,exdata:""},
 			            {title:"状态",field:"status",display:true,exdata:""},
 			            {title:"描述",field:"sqldesc",display:true,exdata:""},
-			            {title:"SQL",field:"selectSql",display:true,exdata:""},
 			            {title:"操作",field:""}
 			            ]     
 }
