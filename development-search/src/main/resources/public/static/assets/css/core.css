@@ -2178,3 +2178,11 @@ body.fixed-left .side-menu.left {
 .modal-xl{
 	width:80%;
 }
+
+/**radio**/
+.checkbox, .radio {
+	position: relative;
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

@@ -73,7 +73,7 @@
 
 							<tbody>
 								<tr ng-repeat="item in grid.dataList">
-									<td ng-if="grid.opt>0"><div class="checkbox checkbox-primary m-r-15"><input type="checkbox" ng-click="rowClick(item)"></input><label for="checkbox"></label></div></td>
+									<td ng-if="grid.opt>0"><div class="checkbox checkbox-primary"><input type="checkbox" ng-click="rowClick(item)"></input><label for="checkbox"></label></div></td>
 									<td ng-repeat="field in grid.columnList">{{item[field.field]}}</td>
 									<td ng-if="!_.isEmpty(grid.funcList)">
                                         <a href="javascript:void(0);" class="table-action-btn" title="{{func.title}}" ng-click="crud(item,func.target)"  ng-repeat="func in buttonlist" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
