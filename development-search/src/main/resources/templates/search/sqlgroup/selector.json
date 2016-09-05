@@ -1,6 +1,6 @@
 {
 	grid:{
-		opt:1,
+		option:1,
 		controller:"/search/sqlgroup",
 		columnList:[
 		            	{title:"编号",field:"code",display:true,expand:""},

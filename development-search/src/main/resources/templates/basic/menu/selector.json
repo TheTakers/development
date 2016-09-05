@@ -1,6 +1,6 @@
 {
 	grid:{
-		opt:1,
+		option:1,
 		controller:"/basic/menu",
 		columnList:[
 		            {title:"名称",field:"name",display:true,expand:""},
