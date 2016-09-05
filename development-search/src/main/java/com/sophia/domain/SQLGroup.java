@@ -1,6 +1,5 @@
 package com.sophia.domain;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,13 +19,9 @@ public class SQLGroup extends Auditable{
 	private static final long serialVersionUID = 1L;
 	
 	private String code;
-	
 	private String name;
-	
 	private String parentId;
-	
 	private String path;
-	
 	private String remark;
 	
 	@Transient
