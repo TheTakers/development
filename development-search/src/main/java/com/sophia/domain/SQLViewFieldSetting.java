@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_SM_VIEW_FIELDSET")
+@Table(name = "TB_SM_VIEW_FIELDSETTING")
 public class SQLViewFieldSetting extends Auditable {
 
 	/**
