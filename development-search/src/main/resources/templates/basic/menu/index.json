@@ -2,13 +2,13 @@
 	
 	controller:"/basic/menu",
 	columnList:[
-	            {title:"名称",field:"name",display:true,extdata:""},
-	            {title:"url",field:"link",display:true,extdata:""},
-	            {title:"图标",field:"ico",display:true,extdata:""},
-	            {title:"所属菜单",field:"pText",display:true,extdata:""},
-	            {title:"菜单路径",field:"name",display:true,extdata:""},
-	            {title:"排序",field:"path",display:true,extdata:""},
-	            {title:"描述",field:"remark",display:true,extdata:""},
+	            {title:"名称",field:"name",display:true,expand:""},
+	            {title:"url",field:"link",display:true,expand:""},
+	            {title:"图标",field:"ico",display:true,expand:""},
+	            {title:"所属菜单",field:"pText",display:true,expand:""},
+	            {title:"菜单路径",field:"name",display:true,expand:""},
+	            {title:"排序",field:"path",display:true,expand:""},
+	            {title:"描述",field:"remark",display:true,expand:""},
 	            {title:"操作",field:""}
 	            ]
 }
@@ -19,7 +19,7 @@
                {title:"新增",icon:"",target:"edit",type:1}
                ]
 ,toolbar:{
-	inputList:[{label:"名称",field:"name",element:"text",value:"",expr:"like",extdata:""}]
+	inputList:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
 }
 ,treeConfig:{
 	url:"/basic/menu/treeData",
@@ -31,13 +31,13 @@
 ,modalData:{
 	url:'/basic/menu/save',
 	fieldList:[
-		{title:"名称",field:"name",required:true,element:"text"},
-		{title:"url",field:"link",required:false,element:"text"},
-		{title:"图标",field:"ico",required:true,element:"text"},
-		{title:"所属菜单",field:"pid",required:false,element:"selector",url:"templates/basic/menu/selector.json",extdata:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-		{title:"菜单路径",field:"path",required:false,element:"text"},
-		{title:"排序",field:"idx",required:false,element:"text"},
-		{title:"描述",field:"remark",required:false,element:"textarea"}
+		{title:"名称",field:"name",required:true,companyType:"text"},
+		{title:"url",field:"link",required:false,companyType:"text"},
+		{title:"图标",field:"ico",required:true,companyType:"text"},
+		{title:"所属菜单",field:"pid",required:false,companyType:"selector",url:"templates/basic/menu/selector.json",expand:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+		{title:"菜单路径",field:"path",required:false,companyType:"text"},
+		{title:"排序",field:"idx",required:false,companyType:"text"},
+		{title:"描述",field:"remark",required:false,companyType:"textarea"}
 		]
 	}
 }

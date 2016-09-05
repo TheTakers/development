@@ -3,15 +3,15 @@
 		opt:1,
 		controller:"/search/sqlgroup",
 		columnList:[
-		            	{title:"编号",field:"code",display:true,exdata:""},
-			            {title:"别名",field:"name",display:true,exdata:""},
-			            {title:"所属分组",field:"pText",display:true,exdata:""},
-			            {title:"路径",field:"path",display:true,exdata:""},
-			            {title:"备注",field:"remark",display:true,exdata:""}
+		            	{title:"编号",field:"code",display:true,expand:""},
+			            {title:"别名",field:"name",display:true,expand:""},
+			            {title:"所属分组",field:"pText",display:true,expand:""},
+			            {title:"路径",field:"path",display:true,expand:""},
+			            {title:"备注",field:"remark",display:true,expand:""}
 		            ]
 	}
 	,toolbar:{
-	 inputList:[{label:"编号",field:"code",element:"",value:"",expr:"like",exdata:""},
-			           {label:"别名",field:"name",element:"",value:"",expr:"like",exdata:""}]
+	 inputList:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
+			           {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
 	}
 }

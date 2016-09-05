@@ -1,13 +1,13 @@
 {grid:{
 	controller:"/search/sqldefine",
 	columnList:[
-			            {title:"SQLID",field:"sqlId",display:true,exdata:""},
-			            {title:"别名",field:"sqlName",display:true,exdata:""},
-			            {title:"SQL组",field:"pText",display:true,exdata:""},
-			            {title:"数据源",field:"datasource",display:true,exdata:""},
-			            {title:"缓存",field:"cache",display:true,exdata:""},
-			            {title:"状态",field:"status",display:true,exdata:""},
-			            {title:"描述",field:"sqldesc",display:true,exdata:""},
+			            {title:"SQLID",field:"sqlId",display:true,expand:""},
+			            {title:"别名",field:"sqlName",display:true,expand:""},
+			            {title:"SQL组",field:"pText",display:true,expand:""},
+			            {title:"数据源",field:"datasource",display:true,expand:""},
+			            {title:"缓存",field:"cache",display:true,expand:""},
+			            {title:"状态",field:"status",display:true,expand:""},
+			            {title:"描述",field:"sqldesc",display:true,expand:""},
 			            {title:"操作",field:""}
 			            ]     
 }
@@ -18,8 +18,8 @@
                {title:"新增",icon:"",target:"edit",type:1}
                ]
 ,toolbar:{
-	inputList:[{label:"SQLID",field:"sqlid",element:"",value:"",expr:"",exdata:""},
-			   {label:"别名",field:"sqlname",element:"",value:"",expr:"",exdata:""}]
+	inputList:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
+			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"",expand:""}]
 }
 ,treeConfig:{
 	url:"/search/sqlgroup/treeData",
@@ -31,14 +31,14 @@
 ,modalData:{
 	url:'/search/sqldefine/save',
 	fieldList:[
-					            {title:"SQLID",field:"sqlId",required:true,element:"uigeneratecode"},
-					            {title:"别名",field:"sqlName",required:false,element:"text"},
-					            {title:"数据源",field:"datasource",required:true,element:"text"},
-					            {title:"所属分组",field:"groupId",required:true,element:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-					            {title:"缓存",field:"cache",required:false,element:"text"},
-					            {title:"状态",field:"status",required:false,element:"text"},
-					            {title:"描述",field:"sqldesc",required:false,element:"textarea"},
-					            {title:"SQL",field:"selectSql",required:false,element:"textarea"}
+					            {title:"SQLID",field:"sqlId",required:true,companyType:"uigeneratecode"},
+					            {title:"别名",field:"sqlName",required:false,companyType:"text"},
+					            {title:"数据源",field:"datasource",required:true,companyType:"text"},
+					            {title:"所属分组",field:"groupId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"缓存",field:"cache",required:false,companyType:"text"},
+					            {title:"状态",field:"status",required:false,companyType:"text"},
+					            {title:"描述",field:"sqldesc",required:false,companyType:"textarea"},
+					            {title:"SQL",field:"selectSql",required:false,companyType:"textarea"}
 			]
 	}
 }

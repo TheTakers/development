@@ -3,16 +3,16 @@
 		opt:1,
 		controller:"/basic/menu",
 		columnList:[
-		            {title:"名称",field:"name",display:true,extdata:""},
-		            {title:"url",field:"link",display:true,extdata:""},
-		            {title:"图标",field:"ico",display:true,extdata:""},
-		            {title:"所属菜单",field:"pText",display:true,extdata:""},
-		            {title:"菜单路径",field:"name",display:true,extdata:""},
-		            {title:"排序",field:"path",display:true,extdata:""},
-		            {title:"描述",field:"remark",display:true,extdata:""}
+		            {title:"名称",field:"name",display:true,expand:""},
+		            {title:"url",field:"link",display:true,expand:""},
+		            {title:"图标",field:"ico",display:true,expand:""},
+		            {title:"所属菜单",field:"pText",display:true,expand:""},
+		            {title:"菜单路径",field:"name",display:true,expand:""},
+		            {title:"排序",field:"path",display:true,expand:""},
+		            {title:"描述",field:"remark",display:true,expand:""}
 		            ]
 	}
 	,toolbar:{
-		inputList:[{label:"名称",field:"name",element:"text",value:"",expr:"like",extdata:""}]
+		inputList:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
 	}
 }
