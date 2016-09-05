@@ -20,8 +20,7 @@ import com.sophia.service.MultipleDataSouceService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
 import com.sophia.utils.SQLLimitFactory;
-import com.sophia.vo.Grid;
-import com.sophia.vo.Limit;
+import com.sophia.vo.GridResponse;
 
 /**
  *  
@@ -71,16 +70,16 @@ public class SQLIDServiceImpl implements SQLIDService {
 		return namedJdbcTemplate.execute(selDefine.getSelectSql(),action);
 	}
 	
-	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit limit){
+	public <T> GridResponse<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo){
 		SQLDefine selDefine = get(SQLID);
 		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
 
-		Grid<T> grid = new Grid<T>();
+		GridResponse<T> grid = new GridResponse<T>();
 		//TODO getJdbcTemplate().getDataSource().getConnection().getMetaData().getDatabaseProductName())
-		grid.setContent(namedJdbcTemplate.queryForList(SQLLimitFactory.createLimit(selDefine.getSelectSql(),limit,SQLLimitFactory.DATABASE_MYSQL), args, elementType));
+		grid.setContent(namedJdbcTemplate.queryForList(SQLLimitFactory.createLimit(selDefine.getSelectSql(),pageSize,pageNo,SQLLimitFactory.DATABASE_MYSQL), args, elementType));
 		grid.setTotalElements(namedJdbcTemplate.queryForObject(SQLLimitFactory.buildCountSQL(selDefine.getSelectSql()),args,Integer.class));
-		grid.setPageNo(limit.getPageNo());
-		grid.setPageSize(limit.getPageSize()); 
+		grid.setPageSize(pageSize); 
+		grid.setPageNo(pageNo);
 		return grid;
 	}
 	

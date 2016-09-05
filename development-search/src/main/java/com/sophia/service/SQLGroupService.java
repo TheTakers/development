@@ -5,7 +5,7 @@ import java.util.Map;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLGroupRepository;
-import com.sophia.vo.Grid;
+import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
 
 public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
@@ -14,5 +14,5 @@ public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
 	
 	public Map<String,Object> findById(String id);
 	
-	public Grid list(QueryRequest queryRequest);
+	public GridResponse list(QueryRequest queryRequest);
 }

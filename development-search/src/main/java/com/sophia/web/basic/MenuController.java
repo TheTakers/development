@@ -20,7 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Menu;
 import com.sophia.service.MenuService;
-import com.sophia.vo.Grid;
+import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
 import com.sophia.vo.basic.MenuRequest;
 import com.sophia.web.constant.Constant;
@@ -55,7 +55,7 @@ public class MenuController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			Grid data = menuService.list(queryRequest);
+			GridResponse data = menuService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

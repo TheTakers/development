@@ -5,8 +5,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCallback;
 
-import com.sophia.vo.Grid;
-import com.sophia.vo.Limit;
+import com.sophia.vo.GridResponse;
 
 
 public interface SQLIDService {
@@ -21,5 +20,5 @@ public interface SQLIDService {
 	
 	public <T> T execute(String SQLID, PreparedStatementCallback<T> action);
 	
-	public <T> Grid<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Limit limit);
+	public <T> GridResponse<T> findAll(String SQLID ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo);
 }

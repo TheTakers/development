@@ -22,7 +22,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.SQLGroup;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
-import com.sophia.vo.Grid;
+import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
 import com.sophia.vo.search.sqlgroup.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
@@ -52,7 +52,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			Grid data = sqlGroupService.list(queryRequest);
+			GridResponse data = sqlGroupService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

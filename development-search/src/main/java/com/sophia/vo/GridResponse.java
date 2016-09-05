@@ -8,7 +8,7 @@ import java.util.List;
  * 分页数据
  * @author zkning
  */
-public class Grid<T> implements Serializable{
+public class GridResponse<T> implements Serializable{
 	/**
 	 * 
 	 */

@@ -13,7 +13,7 @@ import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.NPJdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.Grid;
+import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
 
 /**
@@ -41,7 +41,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	
 	
 	@Override
-	public Grid list(QueryRequest queryRequest) {
+	public GridResponse list(QueryRequest queryRequest) {
 
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
