@@ -410,7 +410,16 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 					
 					//选中列表
 					var checkedData= [];
-					scope.rowClick = function(item){
+					scope.rowClick = function(item,option){
+						
+						//单选
+						if(_.isEqual(1, option)){
+						}
+						
+						//多选
+						if(_.isEqual(2, option)){
+						}
+						
 						uniqueOf(checkedData,item);
 						scope.returndata.checkedData = checkedData;
 					}

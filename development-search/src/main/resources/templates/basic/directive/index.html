@@ -74,6 +74,9 @@
 							<tbody>
 								<tr ng-repeat="item in grid.dataList">
 									<td ng-if="grid.option">
+									 	<!-- 
+										<div class="radio radio-info" ng-if="grid.option == 1" ng-click="rowClick(item,grid.option)"><input type="radio" name="radio5" id="radio" value="option5" checked=""></input><label for="radio"></label></div>
+										 -->
 										<div class="checkbox checkbox-info checkbox-circle" ng-if="grid.option == 1" ng-click="rowClick(item)"><input type="checkbox" ></input><label for="checkbox"></label></div>
 										<div class="checkbox checkbox-info" ng-if="grid.option == 2" ng-click="rowClick(item)"><input type="checkbox"></input><label for="checkbox"></label></div>
 									</td>
