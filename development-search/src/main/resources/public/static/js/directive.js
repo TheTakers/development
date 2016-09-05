@@ -234,7 +234,7 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 		scope:{
 			data:"=",
 			url:'@',
-			extdata:'@', //扩展字段
+			expand:'@', //扩展字段
 			param:'=' //传给子页参数
 		},
 		template:function(element,atts){
@@ -246,10 +246,10 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 		transclude : false,
 		link:function(scope,element,attr){
 			
-			if(_.isEmpty(scope.extdata)){
+			if(_.isEmpty(scope.expand)){
 				return;
 			}
-			scope.inputData = eval('(' + scope.extdata + ')');
+			scope.inputData = eval('(' + scope.expand + ')');
 			
 			scope.showDialog=function(){
 				
@@ -295,9 +295,9 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (selectedItem) { //获取子页返回值
 					
-					var extdata = scope.inputData;
-					scope.data[extdata.dataKey] =  selectedItem[0][extdata.returnKey];
-					scope.data[extdata.dataValue] = selectedItem[0][extdata.returnValue];
+					var expand = scope.inputData;
+					scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
+					scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 
 				}, function () { //子页关闭监听
 
