@@ -1,17 +1,13 @@
 {
-	grid:{
-		option:1,
-		controller:"/search/sqlgroup",
-		columnList:[
+		option:1
+		,controller:"/search/sqlgroup"
+		,fieldData:[
 		            	{title:"编号",field:"code",display:true,expand:""},
 			            {title:"别名",field:"name",display:true,expand:""},
 			            {title:"所属分组",field:"pText",display:true,expand:""},
 			            {title:"路径",field:"path",display:true,expand:""},
 			            {title:"备注",field:"remark",display:true,expand:""}
 		            ]
-	}
-	,toolbar:{
-	 inputList:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
+	, filterData:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
 			           {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
-	}
 }

@@ -324,28 +324,6 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
 					
-					//初始化grid
-					function initGrid(grid){
-						var data = {
-								id:$.uuid(),
-								
-								//table展示的数据
-								dataList:{}, 
-								
-								//查询
-								search:function(){
-									scope.$broadcast(this.id);  
-								}
-							};
-						 $.extend(data,grid);
-						 data.url = grid.controller + '/list';
-						 return data
-					} 
-					
-					
-					//请求参数
-					scope.parameter = $.extend({id:$.uuid()},scope.param);
-					
 					//设置树参数
 					function initTree(treeConfig){
 						
@@ -378,16 +356,34 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							}
 						};
 					}
+					
+					//工具栏
 					scope.toolbar = {id:$.uuid()};
+					
+					//请求参数
+					scope.parameter = $.extend({id:$.uuid()},scope.param);
+					
 					function success(data){
 						data = eval('(' + data + ')');
-						scope.grid = initGrid(data.grid);
-						scope.toolbar =  $.extend(scope.toolbar,data.toolbar);
-						scope.buttonlist =  $.extend(scope.buttonlist,data.buttonList);
-						scope.treeconfig =  initTree(data.treeConfig);
-						scope.modalData = data.modalData;
+						
+						scope.modelView = data;
+						
+						scope.grid = {
+								id:$.uuid(),
+								//table展示的数据
+								dataList:{}, 
+								//查询
+								search:function(){
+									scope.$broadcast(this.id);  
+								},
+								url:data.controller + '/list',
+								fieldData:data.fieldData
+							};
+						scope.treeconfig = initTree(data.treeData);
+						
+						//查询参数
 						scope.parameter = {
-								condition:scope.toolbar.inputList
+								condition:scope.modelView.filterData
 						};
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
@@ -397,15 +393,18 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 
 						//页面数据
 						$scope.data = param.formData;
+						
+						//保存操作
 						$scope.save = function() {
-							saveOfClose($http,param.modalData.url,$scope.data,$uibModalInstance);
+							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
 						};
+						
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
 						
 						//字段列表
-						$scope.fieldList = param.modalData.fieldList;
+						$scope.fieldList = param.modelView.fieldSetting;
 					}
 					
 					//选中列表
@@ -428,11 +427,11 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.grid.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modalData:scope.modalData},scope.grid.search);
+							edit(commonService,scope.modelView.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
 							break;
 
 						case "remove":
-							remove(commonService,scope.grid.controller + '/delete',{id:item.id},scope.search);
+							remove(commonService,scope.modelView.controller + '/delete',{id:item.id},scope.search);
 							break;
 
 						case "view":

@@ -1,8 +1,7 @@
 {
-	grid:{
-		option:1,
-		controller:"/basic/menu",
-		columnList:[
+controller:"/basic/menu"
+,option:1
+,fieldData:[
 		            {title:"名称",field:"name",display:true,expand:""},
 		            {title:"url",field:"link",display:true,expand:""},
 		            {title:"图标",field:"ico",display:true,expand:""},
@@ -11,8 +10,5 @@
 		            {title:"排序",field:"path",display:true,expand:""},
 		            {title:"描述",field:"remark",display:true,expand:""}
 		            ]
-	}
-	,toolbar:{
-		inputList:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
-	}
+,filterData:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
 }

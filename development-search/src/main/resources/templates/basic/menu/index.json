@@ -1,7 +1,6 @@
-{grid:{
-	
-	controller:"/basic/menu",
-	columnList:[
+{
+controller:"/basic/menu"
+,fieldData:[
 	            {title:"名称",field:"name",display:true,expand:""},
 	            {title:"url",field:"link",display:true,expand:""},
 	            {title:"图标",field:"ico",display:true,expand:""},
@@ -11,26 +10,22 @@
 	            {title:"描述",field:"remark",display:true,expand:""},
 	            {title:"操作",field:""}
 	            ]
-}
-,buttonList:[
+,buttonData:[
                {title:"查看",icon:"ion-eye",target:"view",type:0},
                {title:"编辑",icon:"ion-edit",target:"edit",type:0},
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,toolbar:{
-	inputList:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
-}
-,treeConfig:{
+,filterData:[{label:"名称",field:"name",companyType:"text",value:"",expr:"like",expand:""}]
+
+,treeData:{
 	url:"/basic/menu/treeData",
 	idKey: "id",
 	pIdKey: "pid",
 	rootPId: 0
 	}
-	
-,modalData:{
-	url:'/basic/menu/save',
-	fieldList:[
+
+,fieldSetting:[
 		{title:"名称",field:"name",required:true,companyType:"text"},
 		{title:"url",field:"link",required:false,companyType:"text"},
 		{title:"图标",field:"ico",required:true,companyType:"text"},
@@ -39,5 +34,4 @@
 		{title:"排序",field:"idx",required:false,companyType:"text"},
 		{title:"描述",field:"remark",required:false,companyType:"textarea"}
 		]
-	}
 }

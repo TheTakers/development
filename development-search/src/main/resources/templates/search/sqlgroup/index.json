@@ -1,39 +1,35 @@
-{grid:{
-	controller:"/search/sqlgroup",
-	columnList:[
-			             {title:"编号",field:"code",display:true,expand:""},
+{
+controller:"/search/sqlgroup"
+,fieldData:[
+			            {title:"编号",field:"code",display:true,expand:""},
 			            {title:"别名",field:"name",display:true,expand:""},
 			            {title:"所属分组",field:"pText",display:true,expand:""},
 			            {title:"路径",field:"path",display:true,expand:""},
 			            {title:"备注",field:"remark",display:true,expand:""},
 			            {title:"操作",field:""}
 			            ]     
-}
-,buttonList:[
-               {title:"查看",icon:"ion-eye",target:"view",type:0},
-               {title:"编辑",icon:"ion-edit",target:"edit",type:0},
-               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
-               {title:"新增",icon:"",target:"edit",type:1}
-               ]
-,toolbar:{
-			inputList:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
-			           {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
-}
-,treeConfig:{
+,buttonData:[
+          {title:"查看",icon:"ion-eye",target:"view",type:0},
+          {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+          {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+          {title:"新增",icon:"",target:"edit",type:1}
+]
+               
+,filterData:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
+			 {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
+			           
+,treeData:{
 	url:"/search/sqlgroup/treeData",
 	idKey: "id",
 	pIdKey: "parentId",
 	rootPId: 0
 	}
 	
-,modalData:{
-	url:'/search/sqlgroup/save',
-	fieldList:[
+,fieldSetting:[
 					           {title:"SQLID",field:"code",required:true,companyType:"uigeneratecode"},
 					            {title:"别名",field:"name",required:false,companyType:"text"},
-					            {title:"所属分组",field:"groupId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"所属分组",field:"groupId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'group_id',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 					            {title:"状态",field:"status",required:false,companyType:"text"},
 					            {title:"描述",field:"remark",required:false,companyType:"textarea"}
 			]
-	}
 }

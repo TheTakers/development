@@ -1,6 +1,6 @@
-{grid:{
-	controller:"/search/sqldefine",
-	columnList:[
+{
+controller:"/search/sqldefine",
+fieldData:[
 			            {title:"SQLID",field:"sqlId",display:true,expand:""},
 			            {title:"别名",field:"sqlName",display:true,expand:""},
 			            {title:"SQL组",field:"pText",display:true,expand:""},
@@ -10,35 +10,29 @@
 			            {title:"描述",field:"sqldesc",display:true,expand:""},
 			            {title:"操作",field:""}
 			            ]     
-}
-,buttonList:[
+,buttonData:[
                {title:"查看",icon:"ion-eye",target:"view",type:0},
                {title:"编辑",icon:"ion-edit",target:"edit",type:0},
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,toolbar:{
-	inputList:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
+,filterData:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
 			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"",expand:""}]
-}
-,treeConfig:{
+,treeData:{
 	url:"/search/sqlgroup/treeData",
 	idKey: "id",
 	pIdKey: "parentId",
 	rootPId: 0
 	}
 	
-,modalData:{
-	url:'/search/sqldefine/save',
-	fieldList:[
+,fieldSetting:[
 					            {title:"SQLID",field:"sqlId",required:true,companyType:"uigeneratecode"},
 					            {title:"别名",field:"sqlName",required:false,companyType:"text"},
 					            {title:"数据源",field:"datasource",required:true,companyType:"text"},
-					            {title:"所属分组",field:"groupId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",extdata:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"所属分组",field:"groupId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 					            {title:"缓存",field:"cache",required:false,companyType:"text"},
 					            {title:"状态",field:"status",required:false,companyType:"text"},
 					            {title:"描述",field:"sqldesc",required:false,companyType:"textarea"},
 					            {title:"SQL",field:"selectSql",required:false,companyType:"textarea"}
 			]
-	}
 }

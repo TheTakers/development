@@ -45,14 +45,14 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 			commonService.post(dataUrl,param,function(data){
 				
 				if(data.code == '0'){
-					commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:data.result,modalData:param.modalData},callback:callback});
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:data.result,modelView:param.modelView},callback:callback});
 				}else{
 					$.error(data.message);
 				}
 			});
 			
 		}else{
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modalData:param.modalData},callback:callback});
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modelView:param.modelView},callback:callback});
 		}
 	};
 	
