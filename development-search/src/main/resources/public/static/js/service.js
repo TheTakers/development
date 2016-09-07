@@ -78,8 +78,8 @@ app.service('commonService', function($log,$uibModal,$http){
 				if(param.success)
 					param.success(data);
 			},
-			error: function (textStatus) {
-				
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+			   $log.info(errorThrown);
 		       if(!_.isEmpty($shade))
 		    	    $.trash($shade);
 		    }
