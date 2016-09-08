@@ -1,5 +1,7 @@
 package com.sophia.service;
 
+import java.util.Map;
+
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.sophia.utils.SQLFilter;
@@ -9,5 +11,5 @@ public interface NPJdbcTemplateService {
 	
 	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate();
 	
-	public GridResponse grid(SQLFilter sqlFilter,Integer pageSize,Integer pageNo);
+	public GridResponse<Map<String,Object>> grid(SQLFilter sqlFilter,Integer pageSize,Integer pageNo);
 }

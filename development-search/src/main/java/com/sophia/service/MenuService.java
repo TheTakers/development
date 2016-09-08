@@ -28,5 +28,5 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	 */
 	public List<String>  getMenuPath(String id);
 	
-	public GridResponse list(QueryRequest queryRequest);
+	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
 }

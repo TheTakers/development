@@ -105,10 +105,8 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		getRepository().delete(id);
 	}
 	
-	
-	
 	@Override
-	public GridResponse list(QueryRequest queryRequest) {
+	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest) {
 
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());

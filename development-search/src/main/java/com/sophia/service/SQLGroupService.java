@@ -14,5 +14,5 @@ public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
 	
 	public Map<String,Object> findById(String id);
 	
-	public GridResponse list(QueryRequest queryRequest);
+	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
 }

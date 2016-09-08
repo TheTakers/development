@@ -52,7 +52,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			GridResponse data = sqlGroupService.list(queryRequest);
+			GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

@@ -55,7 +55,7 @@ public class MenuController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			GridResponse data = menuService.list(queryRequest);
+			GridResponse<Map<String,Object>> data = menuService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

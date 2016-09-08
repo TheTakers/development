@@ -19,14 +19,12 @@ public class NamedJdbcTemplateServiceImpl implements NPJdbcTemplateService {
 		return namedParameterJdbcTemplate;
 	}
 	@Override
-	public GridResponse grid(SQLFilter sqlFilter, Integer pageSize, Integer pageNo) {
-		
-		GridResponse<Map<String,Object>> grid = new GridResponse<Map<String,Object>>();
-		grid.setPageNo(pageNo);
-		grid.setPageSize(pageSize);
-		
-		grid.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.getLimitSql(pageNo, pageSize) , sqlFilter.getParams()));
-		grid.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.getCountSql(), sqlFilter.getParams(), Integer.class));
-		return grid;
+	public GridResponse<Map<String,Object>> grid(SQLFilter sqlFilter, Integer pageSize, Integer pageNo) {
+		GridResponse<Map<String,Object>> gridResponse = new GridResponse<Map<String,Object>>();
+		gridResponse.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.getLimitSql(pageNo, pageSize) , sqlFilter.getParams()));
+		gridResponse.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.getCountSql(), sqlFilter.getParams(), Integer.class));
+		gridResponse.setPageSize(pageSize);
+		gridResponse.setPageNo(pageNo);
+		return gridResponse;
 	}
 }
