@@ -77,8 +77,8 @@
 									 	<!-- 
 										<div class="radio radio-info" ng-if="grid.option == 1" ng-click="rowClick(item,grid.option)"><input type="radio" name="radio5" id="radio" value="option5" checked=""></input><label for="radio"></label></div>
 										 -->
-										<div class="checkbox checkbox-info checkbox-circle" ng-if="modelView.option == 1" ng-click="rowClick(item)"><input type="checkbox" ></input><label for="checkbox"></label></div>
-										<div class="checkbox checkbox-info" ng-if="modelView.option == 2" ng-click="rowClick(item)"><input type="checkbox"></input><label for="checkbox"></label></div>
+										<div class="checkbox checkbox-info checkbox-circle" ng-if="modelView.option == 1" ng-click="rowClick(item,modelView.option)" ng-checked="isChecked(item)"><input type="checkbox" ></input><label for="checkbox"></label></div>
+										<div class="checkbox checkbox-info" ng-if="modelView.option == 2" ng-click="rowClick(item,modelView.option)" ng-checked="isChecked(item)"><input type="checkbox"></input><label for="checkbox"></label></div>
 									</td>
 									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
 									<td ng-if="!_.isEmpty(grid.funcList)">

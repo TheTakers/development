@@ -1,7 +1,7 @@
 /**
  * array crud item
  */
-function uniqueOf(array,item){
+function updateCheckBox(array,item){
 
 	var idx = _.findIndex(array, item);
 	if(idx > -1){

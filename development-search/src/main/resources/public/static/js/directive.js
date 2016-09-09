@@ -265,10 +265,10 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 						//选择器ok按钮
 						$scope.ok = function() {
 							var item ={}
-							if(!_.isEmpty($scope.returndata.checkedData)){
+							if(!_.isEmpty($scope.returndata.data)){
 
 								//传值给父页
-								$uibModalInstance.close($scope.returndata.checkedData);
+								$uibModalInstance.close($scope.returndata);
 							}else{
 								$.warning("请选择记录!");
 							}
@@ -293,12 +293,29 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 					}
 				});
 
-				modalInstance.result.then(function (selectedItem) { //获取子页返回值
+				modalInstance.result.then(function (checked) { //获取子页返回值
 					
 					var expand = scope.inputData;
-					scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
-					scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
-
+					
+					var selectedItem = checked.data;
+					//单选
+					if(_.isEqual(1, checked.option)){
+						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
+						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
+					}else{
+						//多选
+						var value = "";
+						var id = "";
+						for(var idx in selectedItem){
+							
+							id +=  selectedItem[idx][expand.returnKey] + ',';
+							value += selectedItem[idx][expand.returnValue] + ',';
+						}
+						id = id.substring(0,_.lastIndexOf(id,","));
+						value = value.substring(0,_.lastIndexOf(value,","));
+						scope.data[expand.dataKey] = id;
+						scope.data[expand.dataValue] = value;
+					}
 				}, function () { //子页关闭监听
 
 					$log.info('Modal dismissed at: ' + new Date());
@@ -410,17 +427,13 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 					//选中列表
 					var checkedData= [];
 					scope.rowClick = function(item,option){
-						
-						//单选
-						if(_.isEqual(1, option)){
-						}
-						
-						//多选
-						if(_.isEqual(2, option)){
-						}
-						
-						uniqueOf(checkedData,item);
-						scope.returndata.checkedData = checkedData;
+						updateCheckBox(checkedData,item);
+						scope.returndata.option = option;
+						scope.returndata.data = checkedData;
+					}
+					
+					scope.isChecked = function(item){
+						return _.findIndex(checkedData, item) > 0;
 					}
  					
 					scope.crud = function crud(item,target){
