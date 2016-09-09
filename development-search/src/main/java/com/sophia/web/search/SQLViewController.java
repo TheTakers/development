@@ -19,24 +19,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
-import com.sophia.domain.SQLGroup;
-import com.sophia.service.SQLGroupService;
-import com.sophia.service.SQLIDService;
+import com.sophia.domain.SQLView;
+import com.sophia.service.SQLViewService;
 import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
 import com.sophia.vo.search.SQLGroupRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
-
 @Controller
 @RequestMapping(SQLGroupController.module)
-public class SQLGroupController extends BaseController{
+public class SQLViewController extends BaseController{
 	
-	@Autowired SQLGroupService sqlGroupService;
-	@Autowired SQLIDService sqlidService;
+	@Autowired SQLViewService sqlViewService;
 	
-	public static final String module = "/search/sqlgroup";
+	public static final String module = "/search/sqlview";
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, ModelMap result) {
@@ -52,7 +49,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
+			GridResponse<Map<String,Object>> data = sqlViewService.list(queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -68,7 +65,7 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {
 		try {
-			return JSONObject.toJSONString(sqlGroupService.getRepository().findAll());
+			return JSONObject.toJSONString(sqlViewService.getRepository().findAll());
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
@@ -78,13 +75,13 @@ public class SQLGroupController extends BaseController{
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest request) {
 		try {
-			SQLGroup target = new SQLGroup();
+			SQLView target = new SQLView();
 			
 			BeanUtils.copyProperties(request, target);
 			if(StringUtils.isBlank(request.getId())){
 				target.setId(GUID.nextId());
 			}
-			sqlGroupService.save(target);
+			sqlViewService.save(target);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -96,7 +93,7 @@ public class SQLGroupController extends BaseController{
 	public Map<String, Object> delete(@RequestBody String param) {
 		try {
 			JSONObject json = new JSONObject().parseObject(param);
-			sqlGroupService.getRepository().delete(json.getString("id"));
+			sqlViewService.getRepository().delete(json.getString("id"));
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -108,7 +105,7 @@ public class SQLGroupController extends BaseController{
 	public Map<String, Object> findById(@RequestBody String param) {
 		try {
 			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(sqlGroupService.findById(json.getString("id")));
+			return responseOk(sqlViewService.findById(json.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

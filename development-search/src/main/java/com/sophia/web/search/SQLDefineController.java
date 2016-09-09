@@ -23,7 +23,7 @@ import com.sophia.domain.SQLDefine;
 import com.sophia.service.SQLDefineService;
 import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
-import com.sophia.vo.search.sqldefine.SQLDefineRequest;
+import com.sophia.vo.search.SQLDefineRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 

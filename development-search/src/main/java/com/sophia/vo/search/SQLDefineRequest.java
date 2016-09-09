@@ -1,4 +1,4 @@
-package com.sophia.vo.search.sqldefine;
+package com.sophia.vo.search;
 
 import org.hibernate.validator.constraints.NotBlank;
 
