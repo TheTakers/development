@@ -28,7 +28,7 @@ import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
 @Controller
-@RequestMapping(SQLGroupController.module)
+@RequestMapping(SQLViewController.module)
 public class SQLViewController extends BaseController{
 	
 	@Autowired SQLViewService sqlViewService;
