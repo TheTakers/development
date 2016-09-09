@@ -79,7 +79,7 @@
 										<div class="checkbox checkbox-info" ng-if="modelView.option == 2" ng-click="rowClick(item,modelView.option)"><input type="checkbox" ></input><label for="checkbox"></label></div>
 									</td>
 									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
-									<td ng-if="!_.isEmpty(grid.funcList)">
+									<td ng-if="modelView.buttonData">
                                         <a href="javascript:void(0);" class="table-action-btn" title="{{func.title}}" ng-click="crud(item,func.target)"  ng-repeat="func in modelView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
