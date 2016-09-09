@@ -427,13 +427,16 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 					//选中列表
 					var checkedData= [];
 					scope.rowClick = function(item,option){
-						updateCheckBox(checkedData,item);
 						scope.returndata.option = option;
+						
+						//单选
+						if(_.isEqual("1", option)){
+							checkedData[0] = item; 
+						}else{
+							updateCheckBox(checkedData,item);
+						}
+						
 						scope.returndata.data = checkedData;
-					}
-					
-					scope.isChecked = function(item){
-						return _.findIndex(checkedData, item) > 0;
 					}
  					
 					scope.crud = function crud(item,target){
