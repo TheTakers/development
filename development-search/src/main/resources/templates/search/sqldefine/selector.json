@@ -1,0 +1,17 @@
+{
+controller:"/search/sqldefine",
+multiple:1,
+fieldData:[
+			            {title:"SQLID",field:"sqlId",display:true,expand:""},
+			            {title:"别名",field:"sqlName",display:true,expand:""},
+			            {title:"SQL组",field:"pText",display:true,expand:""},
+			            {title:"数据源",field:"datasource",display:true,expand:""},
+			            {title:"缓存",field:"cache",display:true,expand:""},
+			            {title:"状态",field:"status",display:true,expand:""},
+			            {title:"描述",field:"sqldesc",display:true,expand:""},
+			            {title:"操作",field:""}
+			            ], 
+filterData:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
+			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"",expand:""}]
+ 
+}

@@ -1,5 +1,5 @@
 {
-		option:1
+		multiple:1
 		,controller:"/search/sqlgroup"
 		,fieldData:[
 		            	{title:"编号",field:"code",display:true,expand:""},

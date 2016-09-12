@@ -1,24 +1,28 @@
-package com.sophia.domain;
+package com.sophia.vo.search;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
-@Table(name="TB_SM_VIEW")
-public class SQLView extends Auditable{
+import com.sophia.vo.CrudRequest;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class SQLViewRequest extends CrudRequest{
 	
+	@NotBlank
 	private String code;
+	
+	@NotBlank
 	private String name;
+	
 	private String showRowNum;
+	
+	/**
+	 * 1 单选,2多选
+	 */
 	private Integer multiple;
 	private String conditions;
 	private String buttons;
 	private String treedata;
+	
+	@NotBlank
 	private String sqlId;
 
 	public String getCode() {
@@ -44,7 +48,7 @@ public class SQLView extends Auditable{
 	public void setShowRowNum(String showRowNum) {
 		this.showRowNum = showRowNum;
 	}
-	
+
 	public Integer getMultiple() {
 		return multiple;
 	}

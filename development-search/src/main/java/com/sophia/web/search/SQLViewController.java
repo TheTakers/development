@@ -23,7 +23,7 @@ import com.sophia.domain.SQLView;
 import com.sophia.service.SQLViewService;
 import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
-import com.sophia.vo.search.SQLGroupRequest;
+import com.sophia.vo.search.SQLViewRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
@@ -73,7 +73,7 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLGroupRequest request) {
+	public Map<String, Object> save(@RequestBody @Valid SQLViewRequest request) {
 		try {
 			SQLView target = new SQLView();
 			

@@ -1,6 +1,6 @@
 {
 controller:"/basic/menu"
-,option:1
+,multiple:1
 ,fieldData:[
 		            {title:"名称",field:"name",display:true,expand:""},
 		            {title:"url",field:"link",display:true,expand:""},

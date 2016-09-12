@@ -67,16 +67,16 @@
 						<table class="table table table-hover m-0 table-actions-bar">
 							<thead>
 								<tr >
-									<th ng-if="modelView.option" >选择</th>
+									<th ng-if="modelView.multiple" >选择</th>
 									<th ng-repeat="item in modelView.fieldData" >{{item.title}}</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr ng-repeat="item in grid.dataList">
-									<td ng-if="modelView.option">
-										<div class="radio radio-info" ng-if="modelView.option == 1" ng-click="rowClick(item,modelView.option)"><input type="radio" name="radio"  ></input><label for="radio"></label></div>
-										<div class="checkbox checkbox-info" ng-if="modelView.option == 2" ng-click="rowClick(item,modelView.option)"><input type="checkbox" ></input><label for="checkbox"></label></div>
+									<td ng-if="modelView.multiple">
+										<div class="radio radio-info" ng-if="modelView.multiple == 1" ng-click="rowClick(item,modelView.multiple)"><input type="radio" name="radio"  ></input><label for="radio"></label></div>
+										<div class="checkbox checkbox-info" ng-if="modelView.multiple == 2" ng-click="rowClick(item,modelView.multiple)"><input type="checkbox" ></input><label for="checkbox"></label></div>
 									</td>
 									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
 									<td ng-if="modelView.buttonData">

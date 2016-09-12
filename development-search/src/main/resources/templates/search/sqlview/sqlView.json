@@ -5,7 +5,7 @@ fieldData:[
 			            {title:"别名",field:"name",display:true,expand:""},
 			            {title:"SQLID",field:"sqlId",display:true,expand:""},
 			            {title:"显示序号",field:"showRowNum",display:true,expand:""},
-			            {title:"选项",field:"option",display:true,expand:""},
+			            {title:"选项",field:"multiple",display:true,expand:""},
 			            {title:"创建时间",field:"createTime",display:true,expand:""},
 			            {title:"描述",field:"remark",display:true,expand:""},
 			            {title:"操作",field:""}
@@ -22,9 +22,9 @@ fieldData:[
 ,fieldSetting:[
 					            {title:"编码",field:"code",required:true,companyType:"uigeneratecode"},
 					            {title:"别名",field:"name",required:false,companyType:"text"},
-					            {title:"SQLID",field:"sqlId",required:true,companyType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"SQLID",field:"sqlId",required:true,companyType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
 					            {title:"显示序号",field:"showRowNum",required:true,companyType:"text"},
-					            {title:"选项",field:"option",required:false,companyType:"text"},
-					            {title:"描述",field:"sqldesc",required:false,companyType:"textarea"}
+					            {title:"选项",field:"multiple",required:false,companyType:"text"},
+					            {title:"描述",field:"remark",required:false,companyType:"textarea"}
 			]
 }
