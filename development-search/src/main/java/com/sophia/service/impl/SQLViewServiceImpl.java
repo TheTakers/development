@@ -27,7 +27,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 	@Autowired NPJdbcTemplateService npJdbcTemplateService;
 
-	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.parentid =  c.id ";
+	private String sql="select t.* from TB_SM_VIEW t ";
 
 	public String save(SQLView sqlView){
 

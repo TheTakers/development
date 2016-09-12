@@ -430,7 +430,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						scope.returndata.option = option;
 						
 						//单选
-						if(_.isEqual("1", option)){
+						if(_.isEqual(1, option)){
 							checkedData[0] = item; 
 						}else{
 							updateCheckBox(checkedData,item);

@@ -37,7 +37,7 @@ public class SQLViewController extends BaseController{
 	
 	@RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, ModelMap result) {
-        return new ModelAndView(module +"/index", result);
+        return new ModelAndView(module +"/sqlView", result);
     }
 	
 	@RequestMapping("/edit")
