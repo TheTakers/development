@@ -325,6 +325,10 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 	};
 }); 
 
+app.directive('uibasebutton', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	
+});
+
 //page
 app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	return {
@@ -439,8 +443,8 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						scope.returndata.data = checkedData;
 					}
  					
-					scope.crud = function crud(item,target){
-						switch(target){
+					scope.crud = function crud(item,func){
+						switch(func.target){
 						case "edit":
 							item = item || {id:""};
 							edit(commonService,scope.modelView.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
@@ -455,7 +459,8 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							break;
 							
 						default :
-							$log.info(target);
+							item = item || {id:""};
+							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
 						break;
 						}
 					}

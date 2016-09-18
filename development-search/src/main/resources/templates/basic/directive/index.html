@@ -24,7 +24,7 @@
 									<a data-toggle="collapse"  href="#{{toolbar.id}}" aria-expanded="true"></a>
 									
 									<div class="button-list">
-										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item.target)" ng-repeat="item in modelView.buttonData" ng-if="item.type==1">{{item.title}}</button>
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in modelView.buttonData" ng-if="item.type==1">{{item.title}}</button>
 									</div>
 
 								</div>
@@ -80,7 +80,7 @@
 									</td>
 									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
 									<td ng-if="modelView.buttonData">
-                                        <a href="javascript:void(0);" class="table-action-btn" title="{{func.title}}" ng-click="crud(item,func.target)"  ng-repeat="func in modelView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
+                                        <a href="javascript:void(0);" class="table-action-btn" title="{{func.title}}" ng-click="crud(item,func)"  ng-repeat="func in modelView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
 							</tbody>

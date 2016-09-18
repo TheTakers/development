@@ -42,7 +42,7 @@ public class SQLViewController extends BaseController{
 	
 	@RequestMapping("/edit")
     public ModelAndView edit(HttpServletRequest request, ModelMap result) {
-        return new ModelAndView(module + "/edit", result);
+        return new ModelAndView(module + "/sqlViewEdit", result);
     }
 	
 	@ResponseBody

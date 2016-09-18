@@ -16,8 +16,8 @@ fieldData:[
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,filterData:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
-			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"",expand:""}]
+,filterData:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"like",expand:""},
+			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"like",expand:""}]
 ,treeData:{
 	url:"/search/sqlgroup/treeData",
 	idKey: "id",
