@@ -38,7 +38,21 @@
 		</ul>
 		<div class="tab-content">
 			<div style="display: block;" class="tab-pane active" id="basic">
-				 
+				<input type="hidden" ng-model="data.id"></input>
+				<input type="hidden" ng-model="data.version"></input>
+				<div class="form-group" ng-repeat="item in fieldList" >
+					<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
+						<div class="col-sm-6">
+							
+							<uigeneratecode data="data[item.field]"  ng-if="item.companyType=='uigeneratecode'"></uigeneratecode>
+							
+							<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.companyType=='text'" ng-required="item.required"></input>
+							
+							<uibaseselector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="item.companyType=='selector'"></uibaseselector>
+							
+							<textarea class="form-control" ng-model="data[item.field]" ng-if="item.companyType=='textarea'" ng-required="item.required"></textarea>
+	 					</div>
+				</div>
 			</div>
 			<div style="display: none;" class="tab-pane" id="fields">
 				 
