@@ -15,8 +15,8 @@ controller:"/search/sqlgroup"
           {title:"新增",icon:"",target:"edit",type:1}
 ]
                
-,filterData:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
-			 {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
+,filterData:[{label:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
+			 {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 			           
 ,treeData:{
 	url:"/search/sqlgroup/treeData",
@@ -26,10 +26,10 @@ controller:"/search/sqlgroup"
 	}
 	
 ,fieldSetting:[
-					           {title:"SQLID",field:"code",required:true,companyType:"uigeneratecode"},
-					            {title:"别名",field:"name",required:false,companyType:"text"},
-					            {title:"所属分组",field:"parentId",required:true,companyType:"selector",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-					            {title:"状态",field:"status",required:false,companyType:"text"},
-					            {title:"描述",field:"remark",required:false,companyType:"textarea"}
+					           {title:"SQLID",field:"code",required:true,componentType:"uigeneratecode"},
+					            {title:"别名",field:"name",required:false,componentType:"text"},
+					            {title:"所属分组",field:"parentId",required:true,componentType:"selector",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+					            {title:"状态",field:"status",required:false,componentType:"text"},
+					            {title:"描述",field:"remark",required:false,componentType:"textarea"}
 			]
 }

@@ -11,7 +11,7 @@ fieldData:[
 			            {title:"描述",field:"sqldesc",display:true,expand:""},
 			            {title:"操作",field:""}
 			            ], 
-filterData:[{label:"SQLID",field:"sqlid",companyType:"",value:"",expr:"",expand:""},
-			   {label:"别名",field:"sqlname",companyType:"",value:"",expr:"",expand:""}]
+filterData:[{label:"SQLID",field:"sqlid",componentType:"",value:"",expr:"",expand:""},
+			   {label:"别名",field:"sqlname",componentType:"",value:"",expr:"",expand:""}]
  
 }

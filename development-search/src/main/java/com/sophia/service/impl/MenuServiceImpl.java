@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -17,7 +18,7 @@ import com.sophia.domain.Menu;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.MenuService;
-import com.sophia.service.NPJdbcTemplateService;
+import com.sophia.service.JdbcTemplateService;
 import com.sophia.utils.SQLFilter;
 import com.sophia.vo.GridResponse;
 import com.sophia.vo.QueryRequest;
@@ -31,7 +32,8 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired NPJdbcTemplateService npJdbcTemplateService;
+	@Autowired JdbcTemplateService npJdbcTemplateService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	
 	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.pid = c.id ";
@@ -70,7 +72,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 			String sql  = "SELECT * FROM TB_BASIC_MENU T WHERE NAME LIKE :NAME ";
 			Map<String,Object> paramMap = new HashMap<>();
 			paramMap.put("NAME", "%"+name+"%");
-			List<Map<String,Object>> menuList = npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+			List<Map<String,Object>> menuList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
 			return menuList;
 		}
 	}
@@ -97,7 +99,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 	
 	@Override

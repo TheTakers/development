@@ -16,15 +16,15 @@ fieldData:[
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,filterData:[{label:"编码",field:"code",companyType:"",value:"",expr:"like",expand:""},
-			   {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
+,filterData:[{label:"编码",field:"code",componentType:"",value:"",expr:"like",expand:""},
+			   {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 	
 ,fieldSetting:[
-					            {title:"编码",field:"code",required:true,companyType:"uigeneratecode"},
-					            {title:"别名",field:"name",required:false,companyType:"text"},
-					            {title:"SQLID",field:"sqlId",required:true,companyType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
-					            {title:"序号",field:"showRowNum",required:true,companyType:"text"},
-					            {title:"选项",field:"multiple",required:false,companyType:"text"},
-					            {title:"描述",field:"remark",required:false,companyType:"textarea"}
+					            {title:"编码",field:"code",required:true,componentType:"uigeneratecode"},
+					            {title:"别名",field:"name",required:false,componentType:"text"},
+					            {title:"SQLID",field:"sqlId",required:true,componentType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
+					            {title:"序号",field:"showRowNum",required:true,componentType:"text"},
+					            {title:"选项",field:"multiple",required:false,componentType:"text"},
+					            {title:"描述",field:"remark",required:false,componentType:"textarea"}
 			]
 }

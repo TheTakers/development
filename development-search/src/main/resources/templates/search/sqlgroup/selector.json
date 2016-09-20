@@ -8,6 +8,6 @@
 			            {title:"路径",field:"path",display:true,expand:""},
 			            {title:"备注",field:"remark",display:true,expand:""}
 		            ]
-	, filterData:[{label:"编号",field:"code",companyType:"",value:"",expr:"like",expand:""},
-			           {label:"别名",field:"name",companyType:"",value:"",expr:"like",expand:""}]
+	, filterData:[{label:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
+			           {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 }

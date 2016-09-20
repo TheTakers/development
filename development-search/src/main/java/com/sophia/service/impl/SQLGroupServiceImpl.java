@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.NPJdbcTemplateService;
+import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLGroupService;
 import com.sophia.utils.SQLFilter;
 import com.sophia.vo.GridResponse;
@@ -25,7 +25,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired NPJdbcTemplateService npJdbcTemplateService;
+	@Autowired JdbcTemplateService npJdbcTemplateService;
 
 	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.parentid =  c.id ";
 
@@ -40,7 +40,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){

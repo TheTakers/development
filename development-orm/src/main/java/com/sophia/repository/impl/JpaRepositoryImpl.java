@@ -3,8 +3,10 @@ package com.sophia.repository.impl;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.data.repository.Repository;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.sophia.repository.JpaRepository;
 
@@ -14,6 +16,9 @@ import com.sophia.repository.JpaRepository;
 public class JpaRepositoryImpl<I extends Repository<?, ?>> extends ApplicationObjectSupport implements JpaRepository<I> {
 
     private static final long serialVersionUID = 1L;
+    
+    @Autowired
+	public NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private Class<?> clazz;
 

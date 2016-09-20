@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.SQLDefine;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.NPJdbcTemplateService;
+import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.utils.SQLFilter;
 import com.sophia.vo.GridResponse;
@@ -29,7 +29,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired NPJdbcTemplateService npJdbcTemplateService;
+	@Autowired JdbcTemplateService npJdbcTemplateService;
 	
 	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
@@ -59,6 +59,6 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return npJdbcTemplateService.getNamedParameterJdbcTemplate().queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 }

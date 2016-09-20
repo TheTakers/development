@@ -808,6 +808,10 @@ textarea.form-control {
 .nav-pills li a {
   line-height: 36px !important;
 }
+/*nzk*/
+.panel .nav-pills li a {
+    color: #4c5667 !important;
+}
 .nav-pills li.active a {
   background-color: #5fbeaa !important;
 }

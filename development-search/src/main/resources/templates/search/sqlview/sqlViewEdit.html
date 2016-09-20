@@ -3,40 +3,25 @@
 	<h6 class="modal-title">编辑</h6>
 </div>
  -->
-<div class="modal-body bg">
+<div class="modal-body panel">
 		<input type="hidden" ng-model="data.id"></input> 
 		<input type="hidden" ng-model="data.version"></input>
 	<form class="form-horizontal" name="actionForm">
-		<ul class="nav nav-tabs tabs">
-             <li class="active tab">
-                 <a href="#basic" data-toggle="tab" aria-expanded="false"> 
-                     <span class="visible-xs"><i class="fa fa-home"></i></span> 
-                     <span class="hidden-xs">基本信息</span> 
-                 </a> 
+		<ul class="nav nav-pills m-b-30">
+             <li class="active">
+                 <a href="#basic" data-toggle="tab" aria-expanded="true">基本信息</a> 
              </li> 
-             <li class="tab"> 
-                 <a href="#fields" data-toggle="tab" aria-expanded="false"> 
-                     <span class="visible-xs"><i class="fa fa-user"></i></span> 
-                     <span class="hidden-xs">显示列表</span> 
-                 </a> 
+             <li class=""> 
+                  <a href="#fields" data-toggle="tab" aria-expanded="true">显示列表</a> 
              </li> 
-             <li class="tab"> 
-                 <a href="#conditions" data-toggle="tab" aria-expanded="true"> 
-                     <span class="visible-xs"><i class="fa fa-envelope-o"></i></span> 
-                     <span class="hidden-xs">查询列表</span> 
-                 </a> 
+             <li class=""> 
+                  <a href="#conditions" data-toggle="tab" aria-expanded="true">查询列表</a> 
              </li> 
-             <li class="tab"> 
-                 <a href="#buttons" data-toggle="tab" aria-expanded="false"> 
-                     <span class="visible-xs"><i class="fa fa-cog"></i></span> 
-                     <span class="hidden-xs">按钮列表</span> 
-                 </a> 
+             <li class=""> 
+                  <a href="#buttons" data-toggle="tab" aria-expanded="true">按钮列表</a> 
              </li> 
-             <li class="tab"> 
-                 <a href="#treesetting" data-toggle="tab" aria-expanded="false"> 
-                     <span class="visible-xs"><i class="fa fa-cog"></i></span> 
-                     <span class="hidden-xs">树设置</span> 
-                 </a> 
+             <li class=""> 
+                  <a href="#treesetting" data-toggle="tab" aria-expanded="true">树设置</a> 
              </li> 
          </ul> 
          <div class="tab-content"> 
@@ -44,10 +29,10 @@
              	<div class="form-group" ng-repeat="item in fieldList" >
 					<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
 						<div class="col-sm-6">
-							<uigeneratecode data="data[item.field]"  ng-if="item.companyType=='uigeneratecode'"></uigeneratecode>
-							<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.companyType=='text'" ng-required="item.required"></input>
-							<uibaseselector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="item.companyType=='selector'"></uibaseselector>
-							<textarea class="form-control" ng-model="data[item.field]" ng-if="item.companyType=='textarea'" ng-required="item.required"></textarea>
+							<uigeneratecode data="data[item.field]"  ng-if="item.componentType=='uigeneratecode'"></uigeneratecode>
+							<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.componentType=='text'" ng-required="item.required"></input>
+							<uibaseselector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="item.componentType=='selector'"></uibaseselector>
+							<textarea class="form-control" ng-model="data[item.field]" ng-if="item.componentType=='textarea'" ng-required="item.required"></textarea>
 	 					</div>
 				</div>
              </div> 
