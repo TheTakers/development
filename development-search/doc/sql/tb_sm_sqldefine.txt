@@ -1,0 +1,18 @@
+"a81de8ff7d624c67b6943cbc0f283907"	"20160831114541"	"2"	"74c005535128491294dd3c690f1ad4b9"	"CREATE TABLE `tb_sm_sqldefine` (
+  `id` varchar(50) NOT NULL,
+  `sqlId` varchar(50) DEFAULT NULL,
+  `sqlName` varchar(50) DEFAULT NULL,
+  `groupId` varchar(50) DEFAULT NULL,
+  `selectSql` text,
+  `datasource` varchar(50) DEFAULT NULL,
+  `sqldesc` text,
+  `createTime` datetime DEFAULT NULL,
+  `createUser` varchar(50) DEFAULT NULL,
+  `version` decimal(50,0) DEFAULT NULL,
+  `lastUpdateUser` varchar(50) DEFAULT NULL,
+  `lastUpdateTime` datetime DEFAULT NULL,
+  `status` decimal(2,0) DEFAULT NULL,
+  `cache` decimal(2,0) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;"	"1"	"米哦按花素"	""	""	"2"	"admin"	"2016/9/1 10:18:48"	"3"	"2"
+"1727db4fda61474283f98c1aeedf3091"	"20160831114837"	"33"	"74c005535128491294dd3c690f1ad4b9"	""	"4"	""	"2016/8/31 11:49:35"	"admin"	"0"	"admin"	"2016/8/31 11:49:35"	"6"	"5"
+"0f02a4db0c8646068b2f3e45d24cac45"	"20160901095609"	"菜单目录"	"74c005535128491294dd3c690f1ad4b9"	""	"1"	""	"2016/9/1 09:58:00"	"admin"	"0"	"admin"	"2016/9/1 09:58:00"	"3"	"2"
