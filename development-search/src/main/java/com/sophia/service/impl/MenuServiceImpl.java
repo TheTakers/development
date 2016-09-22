@@ -17,11 +17,11 @@ import org.springframework.util.CollectionUtils;
 import com.sophia.domain.Menu;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
 import com.sophia.service.MenuService;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
 
 @Service
 public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {

@@ -1,4 +1,4 @@
-package com.sophia.vo;
+package com.sophia.request;
 
 import javax.validation.constraints.NotNull;
 

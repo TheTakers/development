@@ -155,8 +155,7 @@ app.directive('pagination', function($http,$log,commonService) {
 				scope.limit.pageNo = v;
 				post();
 			};
-
-
+			
 			//num of page
 			scope.options = [
 			                 {id:10,value:10},
@@ -167,7 +166,6 @@ app.directive('pagination', function($http,$log,commonService) {
 			                 ];
 
 			scope.setPageSize = function(option){
-
 				scope.limit.pageSize = option;
 				scope.limit.pageNo = 1;
 				post();
@@ -434,7 +432,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						scope.returndata.option = option;
 						
 						//单选
-						if(_.isEqual(1, option)){
+						if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
 							checkedData[0] = item; 
 						}else{
 							updateCheckBox(checkedData,item);
@@ -462,6 +460,155 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							item = item || {id:""};
 							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
 						break;
+						}
+					}
+
+					//判断是否显示树
+					scope.findtreeconfig = function(){
+						return _.isUndefined(scope.treeconfig);
+					}
+				} 
+			}
+		}
+	};
+});
+
+//page
+app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	return {
+		restrict:'E',
+		templateUrl:"/basic/directive/index",
+		replace : false,			
+		transclude : false,
+		scope:{ 
+			point:"@",
+			param:"=",
+			returndata:"="
+		},
+		compile: function compile(tElement, tAttrs, transclude) {
+			return {
+				pre: function preLink(scope, iElement, iAttrs, controller) {
+					
+					//设置树参数
+					function initTree(treeConfig){
+						
+						if(_.isUndefined(treeConfig)){
+							return;
+						}
+						
+						return {
+							setting:{
+								async:{
+									url:treeConfig.url,
+									type:"post",
+									contentType: "application/json",
+									enable:true
+								},
+								data:{
+									simpleData:{
+										enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+										idKey: treeConfig.idKey,
+										pIdKey: treeConfig.pIdKey,
+										rootPId: treeConfig.rootPId
+									}
+								},
+								callback: {
+									onClick: function(event,treeId,node,idx){
+										scope.parameter.treeNode=node;
+										scope.$broadcast(scope.grid.id);  
+									}
+								}
+							}
+						};
+					}
+					
+					//工具栏
+					scope.toolbar = {id:$.uuid()};
+					
+					//请求参数
+					scope.parameter = $.extend({id:$.uuid()},scope.param);
+					
+					function success(data){
+						data = eval('(' + data + ')');
+						
+						scope.modelView = data;
+						
+						scope.grid = {
+								id:$.uuid(),
+								//table展示的数据
+								dataList:{}, 
+								//查询
+								search:function(){
+									scope.$broadcast(this.id);  
+								},
+								url:data.controller + '/list',
+								fieldData:data.fieldData
+							};
+						scope.treeconfig = initTree(data.treeData);
+						
+						//查询参数
+						scope.parameter = {
+								condition:scope.modelView.filterData
+						};
+					}
+					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
+					
+					//子窗口 
+					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+
+						//页面数据
+						$scope.data = param.formData;
+						
+						//保存操作
+						$scope.save = function() {
+							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+						};
+						
+						$scope.cancel = function() {
+							$uibModalInstance.dismiss('cancel');
+						};
+						
+						//字段列表
+						$scope.fieldList = param.modelView.fieldSetting;
+						
+						//生成列表
+						$scope.generateField = function(){
+							
+						}
+					}
+					
+					//选中列表
+					var checkedData= [];
+					scope.rowClick = function(item,option){
+						scope.returndata.option = option;
+						
+						//单选
+						if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
+							checkedData[0] = item; 
+						}else{
+							updateCheckBox(checkedData,item);
+						}
+						
+						scope.returndata.data = checkedData;
+					}
+ 					
+					scope.crud = function crud(item,func){
+						switch(func.target){
+						case "edit":
+							item = item || {id:""};
+							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
+							break;
+
+						case "remove":
+							remove(commonService,scope.modelView.controller + '/delete',{id:item.id},scope.search);
+							break;
+
+						case "view":
+
+							break;
+
+						default :
+							break;
 						}
 					}
 

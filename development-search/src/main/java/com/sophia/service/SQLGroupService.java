@@ -5,8 +5,8 @@ import java.util.Map;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLGroupRepository;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
 
 public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
 	

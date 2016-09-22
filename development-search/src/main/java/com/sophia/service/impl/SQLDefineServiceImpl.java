@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.SQLDefine;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
 
 /**
  * SQL定义服务

@@ -11,6 +11,4 @@ import com.sophia.domain.SQLView;
 public interface SQLViewRepository  extends JpaRepository<SQLView, String>{
 	
 	public Page<SQLView> findAll(Pageable pageable);
-	
-	public SQLView findBySqlId(String sqlId);
 }

@@ -1,4 +1,4 @@
-package com.sophia.vo.search;
+package com.sophia.vo;
 
 import java.io.Serializable;
 

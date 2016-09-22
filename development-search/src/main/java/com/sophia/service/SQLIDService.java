@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCallback;
 
-import com.sophia.vo.GridResponse;
+import com.sophia.request.GridResponse;
 
 
 public interface SQLIDService {

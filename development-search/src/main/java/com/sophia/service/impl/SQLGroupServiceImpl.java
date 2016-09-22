@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLGroupService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
 
 @Service
 public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> implements SQLGroupService  {

@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.sophia.request.CrudRequest;
 import com.sophia.validator.CrudValidator;
-import com.sophia.vo.CrudRequest;
 
 @Component
 public class MenuValidator implements CrudValidator {

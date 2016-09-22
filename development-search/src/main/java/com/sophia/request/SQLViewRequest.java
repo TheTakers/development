@@ -1,8 +1,6 @@
-package com.sophia.vo.search;
+package com.sophia.request;
 
 import org.hibernate.validator.constraints.NotBlank;
-
-import com.sophia.vo.CrudRequest;
 
 public class SQLViewRequest extends CrudRequest{
 	

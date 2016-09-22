@@ -2,7 +2,7 @@ package com.sophia.validator;
 
 import java.util.Map;
 
-import com.sophia.vo.CrudRequest;
+import com.sophia.request.CrudRequest;
 
 public interface CrudValidator {
 	

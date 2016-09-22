@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.User;
 import com.sophia.repository.UserRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.request.UserRequest;
 import com.sophia.service.UserService;
-import com.sophia.vo.UserRequest;
 
 @Service
 public class UserServiceImpl extends JpaRepositoryImpl<UserRepository> implements UserService{

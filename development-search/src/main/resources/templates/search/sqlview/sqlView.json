@@ -1,30 +1,29 @@
 {
 controller:"/search/sqlview",
 fieldData:[
-			            {title:"编码",field:"code",display:true,expand:""},
-			            {title:"别名",field:"name",display:true,expand:""},
-			            {title:"SQLID",field:"sqlId",display:true,expand:""},
-			            {title:"序号",field:"showRowNum",display:true,expand:""},
-			            {title:"选项",field:"multiple",display:true,expand:""},
-			            {title:"创建时间",field:"createTime",display:true,expand:""},
-			            {title:"描述",field:"remark",display:true,expand:""},
-			            {title:"操作",field:""}
-			            ]     
+    {title:"编号",field:"code",display:true,expand:""},
+    {title:"别名",field:"name",display:true,expand:""},
+    {title:"序号",field:"showRowNum",display:true,expand:""},
+    {title:"选项",field:"multiple",display:true,expand:""},
+    {title:"创建时间",field:"createTime",display:true,expand:""},
+    {title:"描述",field:"remark",display:true,expand:""},
+    {title:"操作",field:""}
+    ]     
 ,buttonData:[
-               {title:"查看",icon:"ion-eye",target:"view",type:0},
-               {title:"编辑",icon:"ion-edit",target:"",type:0,url:"/search/sqlview/edit"},
-               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
-               {title:"新增",icon:"",target:"edit",type:1}
-               ]
+       {title:"查看",icon:"ion-eye",target:"view",type:0},
+       {title:"编辑",icon:"ion-edit",target:"",type:0,url:"/search/sqlview/edit"},
+       {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+       {title:"新增",icon:"",target:"edit",type:1}
+       ]
 ,filterData:[{label:"编码",field:"code",componentType:"",value:"",expr:"like",expand:""},
-			   {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
-	
+			  {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 ,fieldSetting:[
-					            {title:"编码",field:"code",required:true,componentType:"uigeneratecode"},
-					            {title:"别名",field:"name",required:false,componentType:"text"},
-					            {title:"SQLID",field:"sqlId",required:true,componentType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
-					            {title:"序号",field:"showRowNum",required:true,componentType:"text"},
-					            {title:"选项",field:"multiple",required:false,componentType:"text"},
-					            {title:"描述",field:"remark",required:false,componentType:"textarea"}
-			]
+        {title:"编号",field:"code",required:true,componentType:"uigeneratecode"},
+        {title:"别名",field:"name",required:false,componentType:"text"},
+        {title:"序号",field:"showRowNum",required:true,componentType:"text"},
+        {title:"选项",field:"multiple",required:false,componentType:"text"},
+        {title:"描述",field:"remark",required:false,componentType:"textarea"}
+        {title:"SQL",field:"mainsql",required:false,componentType:"textarea"}
+        {title:"SQL扩展",field:"sqlexpand",required:false,componentType:"textarea"}
+	]
 }

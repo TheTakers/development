@@ -1,0 +1,2 @@
+/*选项*/
+var GRID_OPTIONS = {SINGLE:1,MULTIPLE:2}

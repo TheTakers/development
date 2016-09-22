@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLView;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLViewRequest;
 import com.sophia.service.SQLViewService;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
-import com.sophia.vo.search.SQLViewRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
@@ -110,4 +110,15 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/createField",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> generateField(@RequestBody String code) {
+		try {
+			return responseOk(null);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
 }

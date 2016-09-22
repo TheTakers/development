@@ -10,9 +10,9 @@ import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sophia.request.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.GridResponse;
 
 @Service
 public class JdbcTemplateServiceImpl implements JdbcTemplateService {

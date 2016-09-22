@@ -1,4 +1,4 @@
-package com.sophia.vo;
+package com.sophia.request;
 
 /**
  * Created by Kim on 2015/10/12.

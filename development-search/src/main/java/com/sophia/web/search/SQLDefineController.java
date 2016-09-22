@@ -20,10 +20,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.SQLDefine;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLDefineRequest;
 import com.sophia.service.SQLDefineService;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
-import com.sophia.vo.search.SQLDefineRequest;
 import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 

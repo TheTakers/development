@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.sophia.vo.UserRequest;
+import com.sophia.request.UserRequest;
 import com.sophia.web.constant.Constant;
 
 /**

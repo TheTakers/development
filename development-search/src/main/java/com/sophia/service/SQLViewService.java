@@ -6,9 +6,9 @@ import java.util.Map;
 import com.sophia.domain.SQLView;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
-import com.sophia.vo.GridResponse;
-import com.sophia.vo.QueryRequest;
-import com.sophia.vo.search.TmSqlFieldVO;
+import com.sophia.request.GridResponse;
+import com.sophia.request.QueryRequest;
+import com.sophia.vo.TmSqlFieldVO;
 
 public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	

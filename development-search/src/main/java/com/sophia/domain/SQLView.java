@@ -19,7 +19,8 @@ public class SQLView extends Auditable{
 	private String conditions;
 	private String buttons;
 	private String treedata;
-	private String sqlId;
+	private String mainsql;
+	private String sqlexpand;
 
 	public String getCode() {
 		return code;
@@ -77,11 +78,19 @@ public class SQLView extends Auditable{
 		this.treedata = treedata;
 	}
 
-	public String getSqlId() {
-		return sqlId;
+	public String getMainsql() {
+		return mainsql;
 	}
 
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
+	public void setMainsql(String mainsql) {
+		this.mainsql = mainsql;
+	}
+
+	public String getSqlexpand() {
+		return sqlexpand;
+	}
+
+	public void setSqlexpand(String sqlexpand) {
+		this.sqlexpand = sqlexpand;
 	}
 }
