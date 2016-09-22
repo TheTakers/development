@@ -11,7 +11,7 @@ fieldData:[
     ]     
 ,buttonData:[
        {title:"查看",icon:"ion-eye",target:"view",type:0},
-       {title:"编辑",icon:"ion-edit",target:"",type:0,url:"/search/sqlview/edit"},
+       {title:"编辑",icon:"ion-edit",target:"edit",type:0,url:"/search/sqlview/edit"},
        {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
        {title:"新增",icon:"",target:"edit",type:1}
        ]
@@ -22,8 +22,8 @@ fieldData:[
         {title:"别名",field:"name",required:false,componentType:"text"},
         {title:"序号",field:"showRowNum",required:true,componentType:"text"},
         {title:"选项",field:"multiple",required:false,componentType:"text"},
-        {title:"描述",field:"remark",required:false,componentType:"textarea"}
-        {title:"SQL",field:"mainsql",required:false,componentType:"textarea"}
+        {title:"描述",field:"remark",required:false,componentType:"textarea"},
+        {title:"SQL",field:"mainsql",required:false,componentType:"textarea"},
         {title:"SQL扩展",field:"sqlexpand",required:false,componentType:"textarea"}
 	]
 }

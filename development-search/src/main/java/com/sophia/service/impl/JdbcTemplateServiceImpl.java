@@ -30,11 +30,11 @@ public class JdbcTemplateServiceImpl implements JdbcTemplateService {
 	}
 	
 	@Override
-	public Boolean execute(String sql){
+	public Boolean execute(final String sql){
 		return namedParameterJdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
 			@Override
 			public Boolean doInPreparedStatement(PreparedStatement arg) throws SQLException, DataAccessException {
-				return arg.execute();
+				return arg.execute(sql);
 			}
 		});
 	}

@@ -113,9 +113,9 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/createField",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> generateField(@RequestBody String code) {
+	public Map<String, Object> generateField(@RequestBody String sql) {
 		try {
-			return responseOk(null);
+			return responseOk(sqlViewService.getObtainFieldListBySql("select * from tb_sm_view"));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

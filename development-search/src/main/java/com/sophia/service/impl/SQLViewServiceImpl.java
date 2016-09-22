@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.domain.SQLView;
+import com.sophia.domain.SQLViewField;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.GridResponse;
@@ -78,15 +79,15 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	@Override
 	@Transactional
-	public List<TmSqlFieldVO> getObtainFieldListBySql(String sql, int sqlIndex) throws Exception {
+	public List<SQLViewField> getObtainFieldListBySql(String sql) throws Exception {
 		
 		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
-		List<TmSqlFieldVO> list = new ArrayList<TmSqlFieldVO>();
+		List<SQLViewField> list = new ArrayList<SQLViewField>();
 		try {
 			//TODO 去掉特殊字符
 			
 			//创建一个临时表
-			String viewSql = "create  table "+tempTableName+" as " + sql;
+			String viewSql = "create table "+tempTableName+" as " + sql;
 			jdbcTemplateService.execute(viewSql);
 
 			//通过临时表 找到对应的字段属性
@@ -107,26 +108,27 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			jdbcTemplateService.execute(dropViewSql);
 
 			//通过sql获取字段的内容
-			SqlRowSet srs = namedParameterJdbcTemplate.queryForRowSet(dropViewSql,new HashMap<String,String>());
+			SqlRowSet srs = namedParameterJdbcTemplate.queryForRowSet(sql,new HashMap<String,String>());
 			SqlRowSetMetaData srsmd = srs.getMetaData();
 			
 			// 列从1开始算
 			for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 				String cn = srsmd.getColumnName(i);
 				String ctn = srsmd.getColumnTypeName(i);
-				TmSqlFieldVO field = new TmSqlFieldVO();
+				
+				SQLViewField field = new SQLViewField();
 				field.setId(GUID.nextId());
 				
 				//字段name
-				field.setName(cn);
+				field.setTitle(cn);
 				String columnLabel = srsmd.getColumnLabel(i);
-				field.setFieldName(columnLabel);
+				field.setField(columnLabel);
 				
 				//设置字段备注    并且 判断jo中是否含有该字段的备注
 				if (jo.containsKey(columnLabel)) {
-					field.setFieldDesc(jo.getString(columnLabel));
+					field.setRemark(jo.getString(columnLabel));
 				} else {
-					field.setFieldDesc(columnLabel);
+					field.setRemark(columnLabel);
 				}
 				
 				//设置字段类型
@@ -134,16 +136,16 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				field.setDataType(dataType);
 				
 				//设置默认属性
-				field.setIsShow(SQLViewConstant.YES);
+				field.setDiaplay(SQLViewConstant.YES);
 				field.setIsSearch(SQLViewConstant.NO);
-				field.setControlType(SQLViewConstant.COMPONENTTYPE_TEXT);
+				field.setComponentType(SQLViewConstant.COMPONENTTYPE_TEXT);
 				
 				//判断是否是日期类型
 				if (dataType.equals(COLUMNTYPE_DATE)) {
-					field.setControlType(SQLViewConstant.COMPONENTTYPE_TEXT);
-					field.setDateFormat("yyyy-MM-dd hh:mm:ss");
+					field.setComponentType(SQLViewConstant.COMPONENTTYPE_TEXT);
+					field.setExpand("yyyy-MM-dd hh:mm:ss");
 				}
-				field.setSn(i + "");
+				field.setIdx(i);
 				list.add(field);
 			}
 			

@@ -18,6 +18,42 @@ public class SQLViewField extends Auditable{
 	private Integer diaplay;
 	private String expand;
 	private Integer isSort;
+	private String remark;
+	private String dataType;
+	private Integer isSearch;
+	private Integer componentType;
+	private Integer idx;
+	
+	public Integer getIdx() {
+		return idx;
+	}
+	public void setIdx(Integer idx) {
+		this.idx = idx;
+	}
+	public Integer getComponentType() {
+		return componentType;
+	}
+	public void setComponentType(Integer componentType) {
+		this.componentType = componentType;
+	}
+	public Integer getIsSearch() {
+		return isSearch;
+	}
+	public void setIsSearch(Integer isSearch) {
+		this.isSearch = isSearch;
+	}
+	public String getDataType() {
+		return dataType;
+	}
+	public void setDataType(String dataType) {
+		this.dataType = dataType;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public String getViewId() {
 		return viewId;
 	}

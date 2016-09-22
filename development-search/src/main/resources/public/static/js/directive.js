@@ -572,8 +572,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						$scope.fieldList = param.modelView.fieldSetting;
 						
 						//生成列表
-						$scope.generateField = function(){
-							
+						$scope.createFieldData = function(){
+							$.confirm({
+							    confirm: function(){
+							    	commonService.ajax({url:"/search/sqlview/createField",data:{sql:"select * from tb_sm_view"},async:false,success:function(data){
+										$scope.fieldList = data.result;
+									}});
+							    } 
+							});
 						}
 					}
 					

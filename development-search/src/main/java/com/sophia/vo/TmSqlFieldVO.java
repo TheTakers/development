@@ -1,10 +1,10 @@
 package com.sophia.vo;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import com.sophia.domain.SQLViewField;
 
 /**
  * 对象功能:自定义SQL字段定义 VO对象
@@ -12,7 +12,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * 开发人员:xianggang
  * 创建时间:2016-01-29 15:33:15
  */
-public class TmSqlFieldVO implements Serializable{
+public class TmSqlFieldVO extends SQLViewField{
 	private static final long serialVersionUID = 1L;
 	// 主键
 	private String id;
