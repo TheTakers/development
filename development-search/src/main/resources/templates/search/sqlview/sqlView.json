@@ -21,9 +21,8 @@ fieldData:[
         {title:"编号",field:"code",required:true,componentType:"uigeneratecode"},
         {title:"别名",field:"name",required:false,componentType:"text"},
         {title:"序号",field:"showRowNum",required:true,componentType:"text"},
+        {title:"SQLID",field:"sqlId",required:true,componentType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
         {title:"选项",field:"multiple",required:false,componentType:"text"},
-        {title:"描述",field:"remark",required:false,componentType:"textarea"},
-        {title:"SQL",field:"mainsql",required:false,componentType:"textarea"},
-        {title:"SQL扩展",field:"sqlexpand",required:false,componentType:"textarea"}
+        {title:"描述",field:"remark",required:false,componentType:"textarea"}
 	]
 }

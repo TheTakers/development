@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.SQLViewConstant;
+import com.sophia.domain.SQLDefine;
 import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
 import com.sophia.repository.SQLViewRepository;
@@ -22,6 +23,7 @@ import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.GridResponse;
 import com.sophia.request.QueryRequest;
 import com.sophia.service.JdbcTemplateService;
+import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLViewService;
 import com.sophia.utils.SQLFilter;
 import com.sophia.vo.TmSqlFieldVO;
@@ -45,6 +47,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	public static final String COLUMNTYPE_TEXT	  = "text";
 	
 	@Autowired JdbcTemplateService jdbcTemplateService;
+	@Autowired SQLDefineService sqlDefineService;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
 
@@ -72,6 +75,10 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	
+	private SQLDefine getSQLDefine(String sqlId){
+		return sqlDefineService.getRepository().findBySqlId(sqlId);
+	}
+	
 	/**
 	 * 通过sql获取其对应的字段列表
 	 * 
@@ -79,19 +86,19 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	@Override
 	@Transactional
-	public List<SQLViewField> getObtainFieldListBySql(String sql) throws Exception {
+	public List<SQLViewField> getObtainFieldListBySql(String sqlId) throws Exception {
 		
 		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
 		try {
-			//TODO 去掉特殊字符
+			SQLDefine sqlDefine = getSQLDefine(sqlId);
 			
 			//创建一个临时表
-			String viewSql = "create table "+tempTableName+" as " + sql;
+			String viewSql = "create table "+tempTableName+" as " + sqlDefine.getSelectSql();
 			jdbcTemplateService.execute(viewSql);
 
 			//通过临时表 找到对应的字段属性
-			String showColumnSql = "show full columns from "+tempTableName;
+			String showColumnSql = "show full columns from "+ tempTableName;
 			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showColumnSql,new HashMap<String,String>());
 			 
 			//将属性存入jo当中 方便下面获取  {"name":"姓名","sex":"性别"}
@@ -104,7 +111,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			}
 			
 			//删除临时表
-			String dropViewSql = "drop table "+tempTableName;
+			String dropViewSql = "drop table "+ tempTableName;
 			jdbcTemplateService.execute(dropViewSql);
 
 			//通过sql获取字段的内容

@@ -13,4 +13,5 @@ public interface SQLDefineRepository  extends JpaRepository<SQLDefine, String>{
 	public Page<SQLDefine> findAll(Pageable pageable);
 	
 	public SQLDefine findBySqlId(String sqlId);
+	
 }
