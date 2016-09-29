@@ -96,7 +96,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			}
 			
 			//创建一个临时表
-			String viewSql = "create table "+tempTableName+" as " + sqlDefine.getSelectSql();
+			String viewSql = "create table " + tempTableName + " as select t.* from (" + sqlDefine.getSelectSql()+") t where 1=2 ";
 			jdbcTemplateService.execute(viewSql);
 
 			//通过临时表 找到对应的字段属性
