@@ -33,7 +33,6 @@ app.directive('pagination', function($http,$log,commonService) {
 	return {
 		restrict:'E',
 		template:function(element,atts){
-
 			return  "<div class='fixed-table-pagination' ng-if='limit.code.length'>"+
 			"<div class='pull-left pagination-stats'>"+
 			"	<div class='pagecount'><span>共{{limit.pageCount}}条 / {{limit.totalPageNum}}页</span></div>"+
@@ -48,7 +47,6 @@ app.directive('pagination', function($http,$log,commonService) {
 			"</ul>"+
 			"</div>"+
 			"</div>";
-
 		},
 		scope:{
 			id:"@",
@@ -58,121 +56,75 @@ app.directive('pagination', function($http,$log,commonService) {
 		},
 		transclude : false,
 		link : function(scope,element,attr){
-
 			//create Pagination
 			function createLimit(limit){
-
-				if(_.isUndefined(limit.pageCount)){
-					$log.error('pageCount not define.');
-					return;
-				}
-
-				if(_.isUndefined(limit.pageSize)){
-					$log.error('pageSize not define.');
-					return;
-				}
-
-				if(_.isUndefined(limit.pageNo)){
-					$log.error('pageNo not define.');
-					return;
-				}
-
-				if(limit.pageCount < 1){
-					return;
-				}
-
 				//计算总页数
 				var totalPageNum = Math.floor((limit.pageCount  +  limit.pageSize - 1) / limit.pageSize);  
 				limit.totalPageNum = totalPageNum;
-
 				//开始页码计算 
 				var startPage = limit.pageNo - 5 < 1 ? 1 : limit.pageNo - 5;
-
 				//结束页码
 				var endPage = (limit.pageNo + 4 < 10 ? 10 : limit.pageNo + 4) > totalPageNum ? totalPageNum : (limit.pageNo + 4 < 10 ? 10 : limit.pageNo + 4);
-
 				//number
 				var code = [];
-
 				//page first
 				code.push({classs:'page-first' + (limit.pageNo == 1 ? ' disabled' :''),value:1,label:'«'});
 				//page pre
 				code.push({classs:'page-pre' + (limit.pageNo == 1 ? ' disabled' :'') ,value:limit.pageNo-1,label:'‹'});
-
 				// class pageno 
 				for(var idx = startPage ; idx <= endPage ; idx++){
-
 					if(idx == limit.pageNo)
 						code.push({classs:'page-number active',value:idx,label:idx});
 					else
 						code.push({classs:'page-number',value:idx,label:idx}); 
 				}
-
 				//page next
 				code.push({classs:'page-next' + (limit.pageNo == totalPageNum ? ' disabled' :''),value:limit.pageNo+1,label:'›'});
 				//page last
 				code.push({classs:'page-last' + (limit.pageNo == totalPageNum ? ' disabled' :''),value:totalPageNum,label:'»'});
 				scope.limit.code = code;
 			}
-
-
 			//default
 			scope.selected = 10;
-
 			//define pagination
 			scope.limit = {pageSize:scope.selected,pageNo:1};
-
 			//get data
 			function post(){
-
-				commonService.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(data){
-
-					if(_.isUndefined(data.result)){
-						$log.error("结果集未包含result");
-						return;
-					}
-					scope.limit.pageCount = data.result.totalElements;
-					scope.data = data.result.content;
-					createLimit(scope.limit);
-				});
+				if(!_.isEmpty(scope.url)){
+					commonService.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(data){
+						if(_.isUndefined(data.result)){
+							$log.error("结果集不包含result");
+							return;
+						}
+						scope.limit.pageCount = data.result.totalElements;
+						scope.data = data.result.content;
+						createLimit(scope.limit);
+					});
+				}
 			}
-
 			//initialize
 			post();
-
 			//catch parent broadcast goto
 			scope.$on(scope.id, function(d,data) {  
 				post();
 			});  
-
 			scope.go = function(v){
-
 				//check data
 				if(v < 1 || v > scope.limit.totalPageNum){
 					return;
 				}
-
 				scope.limit.pageNo = v;
 				post();
 			};
-			
 			//num of page
-			scope.options = [
-			                 {id:10,value:10},
-			                 {id:20,value:20},
-			                 {id:30,value:30},
-			                 {id:40,value:40},
-			                 {id:50,value:50}
-			                 ];
-
+			scope.options = [{id:10,value:10}, {id:20,value:20}, {id:30,value:30},
+			                 {id:40,value:40}, {id:50,value:50} ];
 			scope.setPageSize = function(option){
 				scope.limit.pageSize = option;
 				scope.limit.pageNo = 1;
 				post();
 			};
-
 		}
-
 	};
 }); 
 
@@ -237,29 +189,29 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-					+'<input type="text"  class="form-control input-sm" value="{{data[inputData.dataValue]}}"></input>'
-					+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
+			+'<input type="text"  class="form-control input-sm" value="{{data[inputData.dataValue]}}"></input>'
+			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			
+
 			if(_.isEmpty(scope.expand)){
 				return;
 			}
 			scope.inputData = eval('(' + scope.expand + ')');
-			
+
 			scope.showDialog=function(){
-				
+
 				var modalInstance = $uibModal.open({
 					templateUrl: '/basic/directive/selector',
-					
+
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-						
+
 						$scope.url = param.url;
 						$scope.returndata = {};
-						
+
 						//选择器ok按钮
 						$scope.ok = function() {
 							var item ={}
@@ -271,7 +223,7 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 								$.warning("请选择记录!");
 							}
 						};
-						
+
 						//取消
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
@@ -286,15 +238,15 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 						deps:function($ocLazyLoad,$stateParams,$log){
 
 							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
-								//return $ocLazyLoad.load("templates/"+scope.url+".js");
+							//return $ocLazyLoad.load("templates/"+scope.url+".js");
 						}
 					}
 				});
 
 				modalInstance.result.then(function (checked) { //获取子页返回值
-					
+
 					var expand = scope.inputData;
-					
+
 					var selectedItem = checked.data;
 					//单选
 					if(_.isEqual(1, checked.option)){
@@ -305,7 +257,7 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 						var value = "";
 						var id = "";
 						for(var idx in selectedItem){
-							
+
 							id +=  selectedItem[idx][expand.returnKey] + ',';
 							value += selectedItem[idx][expand.returnValue] + ',';
 						}
@@ -315,7 +267,6 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 						scope.data[expand.dataValue] = value;
 					}
 				}, function () { //子页关闭监听
-
 					$log.info('Modal dismissed at: ' + new Date());
 				});
 			}
@@ -324,7 +275,7 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 }); 
 
 app.directive('uibasebutton', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
-	
+
 });
 
 //page
@@ -342,14 +293,14 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
-					
+
 					//设置树参数
 					function initTree(treeConfig){
-						
+
 						if(_.isUndefined(treeConfig)){
 							return;
 						}
-						
+
 						return {
 							setting:{
 								async:{
@@ -375,18 +326,18 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							}
 						};
 					}
-					
+
 					//工具栏
 					scope.toolbar = {id:$.uuid()};
-					
+
 					//请求参数
 					scope.parameter = $.extend({id:$.uuid()},scope.param);
-					
+
 					function success(data){
 						data = eval('(' + data + ')');
-						
+
 						scope.modelView = data;
-						
+
 						scope.grid = {
 								id:$.uuid(),
 								//table展示的数据
@@ -397,50 +348,50 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 								},
 								url:data.controller + '/list',
 								fieldData:data.fieldData
-							};
+						};
 						scope.treeconfig = initTree(data.treeData);
-						
+
 						//查询参数
 						scope.parameter = {
 								condition:scope.modelView.filterData
 						};
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
-					
+
 					//子窗口 
 					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 
 						//页面数据
 						$scope.data = param.formData;
-						
+
 						//保存操作
 						$scope.save = function() {
 							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
 						};
-						
+
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
-						
+
 						//字段列表
 						$scope.fieldList = param.modelView.fieldSetting;
 					}
-					
+
 					//选中列表
 					var checkedData= [];
 					scope.rowClick = function(item,option){
 						scope.returndata.option = option;
-						
+
 						//单选
 						if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
 							checkedData[0] = item; 
 						}else{
 							updateCheckBox(checkedData,item);
 						}
-						
+
 						scope.returndata.data = checkedData;
 					}
- 					
+
 					scope.crud = function crud(item,func){
 						switch(func.target){
 						case "edit":
@@ -453,13 +404,13 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							break;
 
 						case "view":
-							 
+
 							break;
-							
+
 						default :
 							item = item || {id:""};
 							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
-						break;
+							break;
 						}
 					}
 
@@ -488,14 +439,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
-					
+
 					//设置树参数
 					function initTree(treeConfig){
-						
+
 						if(_.isUndefined(treeConfig)){
 							return;
 						}
-						
+
 						return {
 							setting:{
 								async:{
@@ -521,83 +472,74 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 							}
 						};
 					}
-					
+
 					//工具栏
 					scope.toolbar = {id:$.uuid()};
-					
+
 					//请求参数
 					scope.parameter = $.extend({id:$.uuid()},scope.param);
-					
 					function success(data){
 						data = eval('(' + data + ')');
-						
 						scope.modelView = data;
-						
 						scope.grid = {
 								id:$.uuid(),
-								//table展示的数据
 								dataList:{}, 
-								//查询
 								search:function(){
 									scope.$broadcast(this.id);  
 								},
 								url:data.controller + '/list',
 								fieldData:data.fieldData
-							};
+						};
 						scope.treeconfig = initTree(data.treeData);
-						
+
 						//查询参数
 						scope.parameter = {
 								condition:scope.modelView.filterData
 						};
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
-					
+
 					//子窗口 
 					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 
-						//页面数据
-						$scope.data = param.formData;
-						
 						//保存操作
 						$scope.save = function() {
 							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
 						};
-						
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
-						
+
 						//字段列表
 						$scope.fieldList = param.modelView.fieldSetting;
-						
+						$scope.fieldGrid = {id:$.uuid()};
+
 						//生成列表
 						$scope.createFieldData = function(){
 							$.confirm({
-							    confirm: function(){
-							    	commonService.ajax({url:"/search/sqlview/createField",data:{sql:"select * from tb_sm_view"},async:false,success:function(data){
-										$scope.fieldList = data.result;
+								confirm: function(){
+									commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:false,success:function(data){
+										$scope.fieldGrid.dataList = data.result;
 									}});
-							    } 
+								} 
 							});
 						}
 					}
-					
+
 					//选中列表
 					var checkedData= [];
 					scope.rowClick = function(item,option){
 						scope.returndata.option = option;
-						
+
 						//单选
 						if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
 							checkedData[0] = item; 
 						}else{
 							updateCheckBox(checkedData,item);
 						}
-						
 						scope.returndata.data = checkedData;
 					}
- 					
+
 					scope.crud = function crud(item,func){
 						switch(func.target){
 						case "edit":
@@ -709,7 +651,7 @@ app.directive('uitab', function($http,$log) {
 					if(!_.isEmpty(scope.data)){
 
 						if(_.isEqual(scope.selected, item.id)){
-							
+
 							//直接激活最后一个tab
 							$('#'+scope.id+' a[data-target="#'+_.last(scope.data).id+'"]').tab('show');
 							scope.selected=_.last(scope.data).id;

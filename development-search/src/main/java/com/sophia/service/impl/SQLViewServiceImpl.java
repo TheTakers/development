@@ -26,7 +26,6 @@ import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLViewService;
 import com.sophia.utils.SQLFilter;
-import com.sophia.vo.TmSqlFieldVO;
 import com.sophia.web.util.GUID;
 
 @Service
@@ -87,11 +86,14 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Override
 	@Transactional
 	public List<SQLViewField> getObtainFieldListBySql(String sqlId) throws Exception {
-		
-		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
+		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
 		try {
 			SQLDefine sqlDefine = getSQLDefine(sqlId);
+			if(sqlDefine == null){
+				logger.warn("SQLID:{},未发现",sqlId);
+				return list;
+			}
 			
 			//创建一个临时表
 			String viewSql = "create table "+tempTableName+" as " + sqlDefine.getSelectSql();
@@ -104,7 +106,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//将属性存入jo当中 方便下面获取  {"name":"姓名","sex":"性别"}
 			JSONObject jo = new JSONObject();
 			for (Map<String,Object> map : queryForList) {
-				 
 				if (map.get("Comment") != null) {
 					jo.put((String) map.get("Field"), map.get("Comment"));
 				}
@@ -155,7 +156,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				field.setIdx(i);
 				list.add(field);
 			}
-			
 		} catch (Exception e) {
 			logger.error("获取字段列表异常{}", e);
 			jdbcTemplateService.execute("drop table "+tempTableName);
