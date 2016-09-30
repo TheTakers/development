@@ -85,62 +85,60 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	@Override
 	@Transactional
-	public List<SQLViewField> getObtainFieldListBySql(String sqlId) throws Exception {
+	public List<SQLViewField> showFullColumnsBySql(String sqlId) throws Exception {
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
 		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
 		try {
 			SQLDefine sqlDefine = getSQLDefine(sqlId);
 			if(sqlDefine == null){
-				logger.warn("SQLID:{},未发现",sqlId);
+				logger.error("未知的SQLID:{}",sqlId);
 				return list;
 			}
 			
 			//创建一个临时表
-			String viewSql = "create table " + tempTableName + " as select t.* from (" + sqlDefine.getSelectSql()+") t where 1=2 ";
+			String viewSql = "CREATE TABLE " + tempTableName + " AS SELECT T.* FROM (" + sqlDefine.getSelectSql()+") T WHERE 1=2 ";
 			jdbcTemplateService.execute(viewSql);
 
 			//通过临时表 找到对应的字段属性
-			String showColumnSql = "show full columns from "+ tempTableName;
+			String showColumnSql = "SHOW FULL COLUMNS FROM "+ tempTableName;
 			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showColumnSql,new HashMap<String,String>());
 			 
-			//将属性存入jo当中 方便下面获取  {"name":"姓名","sex":"性别"}
-			JSONObject jo = new JSONObject();
+			//将属性存入JSON方便下面获取  {"name":"姓名","sex":"性别"}
+			JSONObject columsJson = new JSONObject();
 			for (Map<String,Object> map : queryForList) {
 				if (map.get("Comment") != null) {
-					jo.put((String) map.get("Field"), map.get("Comment"));
+					columsJson.put((String) map.get("Field"), map.get("Comment"));
 				}
 			}
 			
 			//删除临时表
-			String dropViewSql = "drop table "+ tempTableName;
+			String dropViewSql = "DROP TABLE "+ tempTableName;
 			jdbcTemplateService.execute(dropViewSql);
 
 			//通过sql获取字段的内容
 			SqlRowSet srs = namedParameterJdbcTemplate.queryForRowSet(sql,new HashMap<String,String>());
 			SqlRowSetMetaData srsmd = srs.getMetaData();
-			
+			SQLViewField field = null;
+			String columnLabel = null;
 			// 列从1开始算
 			for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
-				String cn = srsmd.getColumnName(i);
-				String ctn = srsmd.getColumnTypeName(i);
-				
-				SQLViewField field = new SQLViewField();
+				field = new SQLViewField();
 				field.setId(GUID.nextId());
 				
 				//字段name
-				field.setTitle(cn);
-				String columnLabel = srsmd.getColumnLabel(i);
+				field.setTitle(srsmd.getColumnName(i));
+				columnLabel = srsmd.getColumnLabel(i);
 				field.setField(columnLabel);
 				
 				//设置字段备注    并且 判断jo中是否含有该字段的备注
-				if (jo.containsKey(columnLabel)) {
-					field.setRemark(jo.getString(columnLabel));
+				if (columsJson.containsKey(columnLabel)) {
+					field.setRemark(columsJson.getString(columnLabel));
 				} else {
 					field.setRemark(columnLabel);
 				}
 				
 				//设置字段类型
-				String dataType = getDataType(ctn);
+				String dataType = getDataType(srsmd.getColumnTypeName(i));
 				field.setDataType(dataType);
 				
 				//设置默认属性
@@ -158,7 +156,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			}
 		} catch (Exception e) {
 			logger.error("获取字段列表异常{}", e);
-			jdbcTemplateService.execute("drop table "+tempTableName);
+			jdbcTemplateService.execute("DROP TABLE "+tempTableName);
 		}
 		return list;
 	}
