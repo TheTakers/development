@@ -28,8 +28,8 @@ app.directive('uiSelect', function($http,$log) {
 			required:'='
 		},
 		template:function(element,atts){
-			return  '  <select ng-model="selected" ng-options="item.id for item in data">
-				       '<option value="">请选择</option>
+			return  '  <select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.id for item in data"> '+
+				       '<option value="">请选择</option>'+
 					   '</select>';
 		},
 		replace : true,			
@@ -117,11 +117,11 @@ app.directive('uiPagination', function($http,$log,commonService) {
 		},
 		transclude : false,
 		link : function(scope,element,attr){
-			//default
+			//默认显示
 			scope.selected = 10;
-			//define pagination
+			//分页限制
 			scope.limit = {pageSize:scope.selected,pageNo:1};
-			//initialize
+			//初始化数据
 			remote(scope);
 			//catch parent broadcast goto
 			scope.$on(scope.id, function(d,data) {  

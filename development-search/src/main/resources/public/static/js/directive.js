@@ -303,12 +303,9 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 
 					//请求参数
 					scope.parameter = $.extend({id:$.uuid()},scope.param);
-
 					function success(data){
 						data = eval('(' + data + ')');
-
 						scope.modelView = data;
-
 						scope.grid = {
 								id:$.uuid(),
 								//table展示的数据
