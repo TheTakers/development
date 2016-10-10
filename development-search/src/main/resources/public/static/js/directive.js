@@ -153,30 +153,6 @@ app.directive('uitree', function($http,$log) {
 		}
 	};
 }); 
-
-/*时间*/
-app.directive('uidatetime', function($http,$log) {
-	return {
-		restrict:'E',
-		scope:{
-			value:'='
-		},
-		template:function(element,atts){
-			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="yyyy-mm-dd" ng-model="value"></input>'+
-			'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
-		},
-		replace : false,			
-		transclude : false,
-		link:function(scope,element,attr){
-			$(element.find("input")).datepicker({
-				format: 'yyyy-mm-dd',
-				autoclose: true,
-				language: 'zh-CN'
-			});
-		}
-	};
-}); 
-
 //选择器
 app.directive('uibaseselector', function($http,$log,$uibModal) {
 	return {
@@ -273,11 +249,6 @@ app.directive('uibaseselector', function($http,$log,$uibModal) {
 		} 
 	};
 }); 
-
-app.directive('uibasebutton', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
-
-});
-
 //page
 app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	return {

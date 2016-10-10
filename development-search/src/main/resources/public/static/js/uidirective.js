@@ -182,10 +182,11 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
-			data:"=",
 			url:'@',
+			data:"=",
 			expand:'@', //扩展字段
-			param:'=' //传给子页参数
+			param:'=', //传给子页参数
+			required:'='
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
