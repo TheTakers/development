@@ -108,8 +108,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			JSONObject columsJson = new JSONObject();
 			for (Map<String,Object> map : queryForList) {
 				Object comment = map.get("Comment");
-				if (comment != null && StringUtils.isNotBlank(comment.toString())) {
-					columsJson.put((String) map.get("Field"), map.get("Comment"));
+				if (comment != null) {
+					columsJson.put((String) map.get("Field"), comment);
 				}
 			}
 			
