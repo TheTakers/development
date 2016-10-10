@@ -48,12 +48,12 @@
 									<tr >
 										<th>名称</th>
 										<th>字段</th>
-										<th>是否显示</th>
-										<th>是否排序</th>
 										<th>数据类型</th>
-										<th>是否查询</th>
 										<th>组件类型</th>
 										<th>扩展</th>
+										<th>是否显示</th>
+										<th>是否排序</th>
+										<th>是否查询</th>
 										<th>备注</th>
 									</tr>
 								</thead>
@@ -62,12 +62,12 @@
 									<tr ng-repeat="item in fieldGrid.dataList">
 										 <td>{{item.title}}</td>
 										 <td>{{item.field}}</td>
-										 <td>{{item.diaplay}}</td>
-										 <td>{{item.isSort}}</td>
 										 <td>{{item.dataType}}</td>
-										 <td>{{item.isSearch}}</td>
 										 <td>{{item.componentType}}</td>
 										 <td><input class="form-control input-sm" ng-model="item.expand"></input></td>
+										 <td>{{item.isDiaplay}}</td>
+										 <td>{{item.isSort}}</td>
+										 <td>{{item.isSearch}}</td>
 										 <td><input class="form-control input-sm" ng-model="item.remark"></input></td>
 									</tr>
 								</tbody>

@@ -143,11 +143,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				String dataType = getDataType(srsmd.getColumnTypeName(i));
 				field.setDataType(dataType);
 				
-				//设置默认属性
-				field.setDiaplay(SQLViewConstant.YES);
-				field.setIsSearch(SQLViewConstant.NO);
-				field.setComponentType(SQLViewConstant.COMPONENTTYPE_TEXT);
-				
 				//判断是否是日期类型
 				if (dataType.equals(COLUMNTYPE_DATE)) {
 					field.setComponentType(SQLViewConstant.COMPONENTTYPE_TEXT);

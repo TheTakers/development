@@ -3,6 +3,8 @@ package com.sophia.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.sophia.constant.SQLViewConstant;
+
 @Entity
 @Table(name="TB_SM_VIEW_FIELD")
 public class SQLViewField extends Auditable{
@@ -15,13 +17,13 @@ public class SQLViewField extends Auditable{
 	private String viewId;
 	private String title;
 	private String field;
-	private Integer diaplay;
+	private Integer isDiaplay = SQLViewConstant.YES;
 	private String expand;
-	private Integer isSort;
+	private Integer isSort = SQLViewConstant.NO;
 	private String remark;
 	private String dataType;
-	private Integer isSearch;
-	private Integer componentType;
+	private Integer isSearch = SQLViewConstant.NO;
+	private Integer componentType = SQLViewConstant.COMPONENTTYPE_TEXT;
 	private Integer idx;
 	
 	public Integer getIdx() {
@@ -72,11 +74,11 @@ public class SQLViewField extends Auditable{
 	public void setField(String field) {
 		this.field = field;
 	}
-	public Integer getDiaplay() {
-		return diaplay;
+	public Integer getIsDiaplay() {
+		return isDiaplay;
 	}
-	public void setDiaplay(Integer diaplay) {
-		this.diaplay = diaplay;
+	public void setIsDiaplay(Integer diaplay) {
+		this.isDiaplay = diaplay;
 	}
 	public String getExpand() {
 		return expand;
