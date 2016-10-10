@@ -24,15 +24,25 @@ app.directive('uiSelect', function($http,$log) {
 			url:'=',
 			param:'=',
 			data:'=',
+			selected:'=',
 			required:'='
 		},
 		template:function(element,atts){
-			return  '<ul class="ztree" id="'+$.uuid()+'"></ul>';
+			return  '  <select ng-model="selected" ng-options="item.id for item in data">
+				       '<option value="">请选择</option>
+					   '</select>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-
+			if(_.isEmpty(scope.url)) return;
+			commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
+				if(data.code = '0'){
+					scope.data = data.result;
+				}else{
+					$.error(data.message);
+				}
+			}});
 		}
 	};
 }); 
@@ -281,6 +291,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 		restrict:'E',
 		scope:{
 			url:'=',
+			param:'=',
 			data:"=",
 			required:"@"
 		},
@@ -295,7 +306,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			//生成编码
 			scope.createCode = function(){
 				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
-				commonService.ajax({url:remoteUrl,async:false,success:function(data){
+				commonService.ajax({url:remoteUrl,data:scope.param,async:false,success:function(data){
 					if(data.code = '0'){
 						scope.data = data.result;
 					}else{
