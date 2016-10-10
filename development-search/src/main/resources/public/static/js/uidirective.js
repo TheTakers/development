@@ -156,11 +156,12 @@ app.directive('uiTree', function($http,$log) {
 		}
 	};
 }); 
-app.directive('uiDateime', function($http,$log) {
+app.directive('uiDatetime', function($http,$log) {
 	return {
 		restrict:'E',
 		scope:{
-			value:'='
+			value:'=',
+			required:'='
 		},
 		template:function(element,atts){
 			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="yyyy-mm-dd" ng-model="value"></input>'+
