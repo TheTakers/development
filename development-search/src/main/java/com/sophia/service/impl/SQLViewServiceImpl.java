@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//将属性存入JSON方便下面获取  {"name":"姓名","sex":"性别"}
 			JSONObject columsJson = new JSONObject();
 			for (Map<String,Object> map : queryForList) {
-				if (map.get("Comment") != null) {
+				Object comment = map.get("Comment");
+				if (comment != null && StringUtils.isNotBlank(comment.toString())) {
 					columsJson.put((String) map.get("Field"), map.get("Comment"));
 				}
 			}
