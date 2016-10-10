@@ -28,7 +28,7 @@ app.directive('uiSelect', function($http,$log) {
 			required:'='
 		},
 		template:function(element,atts){
-			return  '  <select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.id for item in data"> '+
+			return  '  <select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.text for item in data"> '+
 				       '<option value="">请选择</option>'+
 					   '</select>';
 		},
@@ -49,7 +49,8 @@ app.directive('uiSelect', function($http,$log) {
 app.directive('uiPagination', function($http,$log,commonService) {
 	
 	//创建分页
-	function createLimit(limit){
+	function createLimit(scope){
+		var limit = scope.limit;
 		//计算总页数
 		var totalPageNum = Math.floor((limit.pageCount  +  limit.pageSize - 1) / limit.pageSize);  
 		limit.totalPageNum = totalPageNum;
@@ -86,7 +87,7 @@ app.directive('uiPagination', function($http,$log,commonService) {
 				}
 				scope.limit.pageCount = data.result.totalElements;
 				scope.data = data.result.content;
-				createLimit(scope.limit);
+				createLimit(scope);
 			});
 		}
 	}

@@ -469,10 +469,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 
 					//子窗口 
 					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-
+						$scope.optionData = [{value:"1",text:"是"},{value:"0",text:"否"}];
+						$scope.formData = param.formData;
 						//保存操作
 						$scope.save = function() {
-							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+							saveOfClose($http,param.modelView.controller + "/save",$scope.formData,$uibModalInstance);
 						};
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');

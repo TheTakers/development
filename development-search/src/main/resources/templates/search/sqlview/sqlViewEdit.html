@@ -29,10 +29,10 @@
              	<div class="form-group" ng-repeat="item in fieldList" >
 					<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
 						<div class="col-sm-6">
-							<uigeneratecode data="data[item.field]"  ng-if="item.componentType=='uigeneratecode'"></uigeneratecode>
-							<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.componentType=='text'" ng-required="item.required"></input>
-							<uibaseselector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="item.componentType=='selector'"></uibaseselector>
-							<textarea class="form-control" ng-model="data[item.field]" ng-if="item.componentType=='textarea'" ng-required="item.required"></textarea>
+							<uigeneratecode data="formData[item.field]"  ng-if="item.componentType=='uigeneratecode'"></uigeneratecode>
+							<input class="form-control input-sm" ng-model="formData[item.field]"  ng-if="item.componentType=='text'" ng-required="item.required"></input>
+							<uibaseselector url="{{item.url}}" data="formData"  expand="{{item.expand}}"  ng-if="item.componentType=='selector'"></uibaseselector>
+							<textarea class="form-control" ng-model="formData[item.field]" ng-if="item.componentType=='textarea'" ng-required="item.required"></textarea>
 	 					</div>
 				</div>
              </div> 
@@ -65,9 +65,9 @@
 										 <td>{{item.dataType}}</td>
 										 <td>{{item.componentType}}</td>
 										 <td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-										 <td>{{item.isDiaplay}}</td>
-										 <td>{{item.isSort}}</td>
-										 <td>{{item.isSearch}}</td>
+										 <td><ui-select selected="item.isDiaplay" data="optionData"></ui-select></td>
+										 <td><ui-select selected="item.isSort" data="optionData"></ui-select></td>
+										 <td><ui-select selected="item.isSearch" data="optionData"></ui-select></td>
 										 <td><input class="form-control input-sm" ng-model="item.remark"></input></td>
 									</tr>
 								</tbody>

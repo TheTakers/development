@@ -11,7 +11,7 @@
 				<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
 					<div class="col-sm-6">
 						
-						<uigeneratecode data="data[item.field]"  ng-if="item.componentType=='uigeneratecode'"></uigeneratecode>
+						<uigeneratecode data="data[item.field]"  ng-if="item.componentType=='uiGenerateCode'"></uigeneratecode>
 						
 						<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="item.componentType=='text'" ng-required="item.required"></input>
 						
