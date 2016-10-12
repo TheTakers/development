@@ -321,9 +321,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			return _.isEqual(type, ctype);
 		}
 		//选中条件
-		$scope.checked = function(item){
+		$scope.addFilter = function(item){
 			var opt = {};
-			opt.tit
+			opt.title=item.title
 			filterList.push(opt);	
 		}
 		
