@@ -1,0 +1,13 @@
+INSERT INTO `tb_basic_menu` VALUES ('70d39ffec3654d24977fa2518a6ab427', '控制台', '0', 'ti-spray', NULL, NULL, '系统信息', NULL, 1, NULL, NULL, 'admin', '2016-8-29 16:52:27');
+INSERT INTO `tb_basic_menu` VALUES ('2ab11cc9846748d8aaa9247e96f730ef', '系统设置', '0', 'ti-light-bulb', NULL, '系统设置', NULL, NULL, 0, 'admin', '2016-7-28 15:13:53', 'admin', '2016-7-28 15:13:53');
+INSERT INTO `tb_basic_menu` VALUES ('ccc32ee4e418491bac0ff184f4a2ed97', '菜单配置', '2ab11cc9846748d8aaa9247e96f730ef', 'ti-spray', '/basic/menu/index', '系统设置,菜单配置', '管理系统菜单', NULL, 0, 'admin', '2016-7-28 15:21:13', 'admin', '2016-7-28 15:21:13');
+INSERT INTO `tb_basic_menu` VALUES ('3f042ab4546740298f1c2d685e097769', '查询配置', '002d69f4dab444f3ad1d18fd8dcf576b', 'ti-pencil-alt', '', NULL, '11', 11, 1, NULL, NULL, 'admin', '2016-8-12 16:57:29');
+INSERT INTO `tb_basic_menu` VALUES ('586f7d6d230b47008a649490af90d195', 'SQL分组', '3f042ab4546740298f1c2d685e097769', 'glyphicon glyphicon-text-width', '/search/sqlgroup/index', NULL, '3', 333, 1, NULL, NULL, 'admin', '2016-8-12 16:58:11');
+INSERT INTO `tb_basic_menu` VALUES ('9a88e1c6f0a14b52a76c00bb8a3adcd3', 'SQL', '3f042ab4546740298f1c2d685e097769', 'glyphicon glyphicon-chevron-left', '/search/sqldefine/index', '系统设置,查询配置,SQL', NULL, NULL, 0, 'admin', '2016-7-28 15:27:38', 'admin', '2016-7-28 15:27:38');
+INSERT INTO `tb_basic_menu` VALUES ('5efa6a06d25c4b1da1fad2138125d37d', '系统上下文', '70d39ffec3654d24977fa2518a6ab427', 'glyphicon glyphicon-bookmark', NULL, '控制台,系统上下文', '系统上下文详情', NULL, 0, 'admin', '2016-7-29 09:14:33', 'admin', '2016-7-29 09:14:33');
+INSERT INTO `tb_basic_menu` VALUES ('0', '菜单管理', '-1', NULL, NULL, NULL, NULL, NULL, 0, NULL, '2016-7-29 09:14:33', NULL, NULL);
+INSERT INTO `tb_basic_menu` VALUES ('6fd42358d4194663ba268ec37a181424', '7777777', '586f7d6d230b47008a649490af90d195', '00000000', '/search/sqld', NULL, '3333', NULL, 5, NULL, NULL, 'admin', '2016-8-31 11:19:09');
+INSERT INTO `tb_basic_menu` VALUES ('8eab212400824f83a50373658ef0b19a', '首页', '0', 'ti-home', '/home', '首页', '系统首页', NULL, 1, NULL, '2016-7-1 09:14:33', 'admin', '2016-7-1 17:15:43');
+INSERT INTO `tb_basic_menu` VALUES ('002d69f4dab444f3ad1d18fd8dcf576b', '开发者中心', '0', 'ti-signal', '', NULL, '444', 1, 1, NULL, NULL, 'admin', '2016-8-12 09:16:17');
+INSERT INTO `tb_basic_menu` VALUES ('dbf610a771bc43bbab89662462fbc228', '数据字典', '002d69f4dab444f3ad1d18fd8dcf576b', 'ti-spray', NULL, NULL, '22222', NULL, 7, NULL, NULL, 'admin', '2016-8-19 16:18:13');
+INSERT INTO `tb_basic_menu` VALUES ('a75f30a215bc43b3bec5bf3abc0157d1', '视图管理', '002d69f4dab444f3ad1d18fd8dcf576b', 'ti-pencil-alt', '/search/sqlview/index', NULL, '2', 1, 2, NULL, NULL, 'admin', '2016-9-12 11:41:44');

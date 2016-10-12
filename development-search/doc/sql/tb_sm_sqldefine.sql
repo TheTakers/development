@@ -1,0 +1,3 @@
+INSERT INTO `tb_sm_sqldefine` VALUES ('a81de8ff7d624c67b6943cbc0f283907', '20160831114541', '2', '74c005535128491294dd3c690f1ad4b9', 'select * from tb_sm_view', '1', '米哦按花素', NULL, NULL, 2, 'admin', '2016-9-1 10:18:48', 3, 2);
+INSERT INTO `tb_sm_sqldefine` VALUES ('1727db4fda61474283f98c1aeedf3091', '20160831114837', '33', '74c005535128491294dd3c690f1ad4b9', NULL, '4', NULL, '2016-8-31 11:49:35', 'admin', 0, 'admin', '2016-8-31 11:49:35', 6, 5);
+INSERT INTO `tb_sm_sqldefine` VALUES ('0f02a4db0c8646068b2f3e45d24cac45', '20160901095609', '菜单目录', '74c005535128491294dd3c690f1ad4b9', NULL, '1', NULL, '2016-9-1 09:58:00', 'admin', 0, 'admin', '2016-9-1 09:58:00', 3, 2);
