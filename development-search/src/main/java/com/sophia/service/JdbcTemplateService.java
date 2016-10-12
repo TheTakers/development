@@ -2,7 +2,7 @@ package com.sophia.service;
 
 import java.util.Map;
 
-import com.sophia.request.GridResponse;
+import com.sophia.response.GridResponse;
 import com.sophia.utils.SQLFilter;
 
 public interface JdbcTemplateService {

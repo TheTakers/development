@@ -17,8 +17,8 @@ var DICT_COMPONENTTYPE =
 
 /*表达式*/
 var DICT_EXPRESSION = [
+    {value:"=",text:"="},
 	{value:"LIKE",text:"LIKE"},
-	{value:"=",text:"="},
 	{value:">",text:">"},
 	{value:">=",text:">="},
 	{value:"<",text:"<"},

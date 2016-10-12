@@ -7,8 +7,8 @@ import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
-import com.sophia.request.GridResponse;
 import com.sophia.request.QueryRequest;
+import com.sophia.response.GridResponse;
 
 public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	

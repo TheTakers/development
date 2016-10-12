@@ -310,21 +310,26 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.ctype = DICT_COMPONENTTYPE;
 		//修改字段
 		$scope.fieldList = param.modelView.fieldSetting;
-		//SQL字段
+		//TODO SQL字段
 		$scope.columnList = [];
-		//过滤条件
+		//TODO 过滤条件
 		$scope.filterList = [];
-		//按钮设置
+		//TODO 按钮设置
 		$scope.buttonList = null;
 		$scope.expr = DICT_EXPRESSION;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
 		}
 		//选中条件
-		$scope.addFilter = function(item){
+		$scope.addFilterItem = function(item){
 			var opt = {};
 			opt.title=item.title
-			filterList.push(opt);	
+			opt.field = item.field;
+			opt.dataType = item.dataType;
+			opt.componentType=DICT_COMPONENTTYPE[0].value;
+			opt.expr = DICT_EXPRESSION[0].value;
+			opt.isSort = item.isSort;
+			$scope.filterList.push(opt);	
 		}
 		
 		//生成列表

@@ -5,8 +5,8 @@ import java.util.Map;
 import com.sophia.domain.SQLDefine;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLDefineRepository;
-import com.sophia.request.GridResponse;
 import com.sophia.request.QueryRequest;
+import com.sophia.response.GridResponse;
 
 public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	

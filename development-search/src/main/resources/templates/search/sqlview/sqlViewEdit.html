@@ -89,7 +89,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in columnList">
+									<tr ng-repeat="item in columnList" ng-click="addFilterItem(item)">
 										 <td>{{item.title}}</td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
@@ -120,6 +120,7 @@
 										<td>{{item.dataType}}</td>
 										<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
+										<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
 									</tr>
 								</tbody>
 							</table>

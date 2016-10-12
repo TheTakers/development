@@ -16,7 +16,7 @@ import com.sophia.constant.DataSourceEnum;
 import com.sophia.constant.SQLDefineConstant;
 import com.sophia.domain.SQLDefine;
 import com.sophia.exception.ServiceException;
-import com.sophia.request.GridResponse;
+import com.sophia.response.GridResponse;
 import com.sophia.service.MultipleDataSouceService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
