@@ -303,6 +303,42 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 
 //page
 app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	
+	//子窗口 
+	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+		$scope.optionData = OPTION_WHETHER;
+		$scope.formData = param.formData;
+		//保存操作
+		$scope.save = function() {
+			saveOfClose($http,param.modelView.controller + "/save",$scope.formData,$uibModalInstance);
+		};
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+		$scope.ctype = DICT_COMPONENTTYPE;
+		//修改字段
+		$scope.fieldList = param.modelView.fieldSetting;
+		//SQL字段
+		$scope.columnList;
+		//过滤条件
+		$scope.filterList = null;
+		
+		$scope.isType = function(type,ctype){
+			return _.isEqual(type, ctype);
+		}
+		
+		//生成列表
+		$scope.createFieldData = function(){
+			$.confirm({
+				confirm: function(){
+					commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:false,success:function(data){
+						$scope.columnList = data.result;
+					}});
+				} 
+			});
+		}
+	}
+	
 	return {
 		restrict:'E',
 		templateUrl:"/basic/directive/index",
@@ -375,38 +411,6 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						};
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
-
-					//子窗口 
-					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-						$scope.optionData = OPTION_WHETHER;
-						$scope.formData = param.formData;
-						//保存操作
-						$scope.save = function() {
-							saveOfClose($http,param.modelView.controller + "/save",$scope.formData,$uibModalInstance);
-						};
-						$scope.cancel = function() {
-							$uibModalInstance.dismiss('cancel');
-						};
-						
-						$scope.ctype = DICT_COMPONENTTYPE;
-						//字段列表
-						$scope.fieldList = param.modelView.fieldSetting;
-						$scope.fieldGrid = {id:$.uuid()};
-						$scope.isType = function(type,ctype){
-							return _.isEqual(type, ctype);
-						}
-						
-						//生成列表
-						$scope.createFieldData = function(){
-							$.confirm({
-								confirm: function(){
-									commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:false,success:function(data){
-										$scope.fieldGrid.dataList = data.result;
-									}});
-								} 
-							});
-						}
-					}
 
 					//选中列表
 					var checkedData= [];

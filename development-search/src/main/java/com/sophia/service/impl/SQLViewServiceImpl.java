@@ -33,23 +33,16 @@ import com.sophia.web.util.GUID;
 public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SQLViewService  {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired SQLDefineService sqlDefineService;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
-
 	public String save(SQLView sqlView){
 
 		//生成GROUP PATH
 		return getRepository().save(sqlView).getId();
 	}
-
 	@Override
 	public Map<String,Object> findById(String id) {
 		SQLFilter sqlFilter = SQLFilter.getInstance();
@@ -57,7 +50,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlFilter.EQ("id", id);
 		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
-
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
@@ -71,7 +63,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	private SQLDefine getSQLDefine(String sqlId){
 		return sqlDefineService.getRepository().findBySqlId(sqlId);
 	}
-	
 	/**
 	 * 通过sql获取其对应的字段列表
 	 * 
@@ -133,11 +124,11 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				}
 				
 				//设置字段类型
-				String dataType = getDataType(srsmd.getColumnTypeName(i));
+				String dataType = srsmd.getColumnTypeName(i);
 				field.setDataType(dataType);
 				
 				//判断是否是日期类型
-				if (dataType.equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+				if (getDataType(dataType).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 					field.setComponentType(ComponentType.DATEPICKER.getValue());
 					field.setExpand("yyyy-MM-dd hh:mm:ss");
 				}

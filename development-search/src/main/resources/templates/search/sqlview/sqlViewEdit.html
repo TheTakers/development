@@ -60,7 +60,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in fieldGrid.dataList">
+									<tr ng-repeat="item in columnList">
 										 <td>{{item.title}}</td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
@@ -75,9 +75,54 @@
 							</table>
 	 					</div>
 				</div>
-             
              </div> 
              <div class="tab-pane" id="conditions">
+					 <div class="form-group">
+ 						<div class="col-sm-12">
+ 							<table class="table table table-hover m-0 table-actions-bar">
+								<thead>
+									<tr >
+										<th>名称</th>
+										<th>字段</th>
+										<th>数据类型</th>
+										<th>扩展</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in columnList">
+										 <td>{{item.title}}</td>
+										 <td>{{item.field}}</td>
+										 <td>{{item.dataType}}</td>
+										 <td>{{item.expand}}</td>
+									</tr>
+								</tbody>
+							</table>
+	 					</div>
+				</div>
+				
+				<div class="form-group">
+ 						<div class="col-sm-12">
+ 							<table class="table table table-hover m-0 table-actions-bar">
+								<thead>
+									<tr >
+										<th>名称</th>
+										<th>字段</th>
+										<th>数据类型</th>
+										<th>组件类型</th>
+										<th>扩展</th>
+										<th>是否显示</th>
+										<th>是否排序</th>
+										<th>是否查询</th>
+										<th>备注</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="item in fieldGrid.dataList">
+									</tr>
+								</tbody>
+							</table>
+	 					</div>
+				</div>
              </div> 
              <div class="tab-pane" id="buttons">
              </div> 
