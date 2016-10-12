@@ -16,7 +16,7 @@ controller:"/basic/menu"
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,filterData:[{label:"名称",field:"name",componentType:"text",value:"",expr:"like",expand:""}]
+,filterData:[{label:"名称",field:"name",componentType:"TEXT",value:"",expr:"like",expand:""}]
 
 ,treeData:{
 	url:"/basic/menu/treeData",
@@ -26,12 +26,12 @@ controller:"/basic/menu"
 	}
 
 ,fieldSetting:[
-		{title:"名称",field:"name",required:true,componentType:"text"},
-		{title:"url",field:"link",required:false,componentType:"text"},
-		{title:"图标",field:"ico",required:true,componentType:"text"},
-		{title:"所属菜单",field:"pid",required:false,componentType:"selector",url:"templates/basic/menu/selector.json",expand:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-		{title:"菜单路径",field:"path",required:false,componentType:"text"},
-		{title:"排序",field:"idx",required:false,componentType:"text"},
-		{title:"描述",field:"remark",required:false,componentType:"textarea"}
+		{title:"名称",field:"name",required:true,componentType:"TEXT"},
+		{title:"url",field:"link",required:false,componentType:"TEXT"},
+		{title:"图标",field:"ico",required:true,componentType:"TEXT"},
+		{title:"所属菜单",field:"pid",required:false,componentType:"SELECTOR",url:"templates/basic/menu/selector.json",expand:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+		{title:"菜单路径",field:"path",required:false,componentType:"TEXT"},
+		{title:"排序",field:"idx",required:false,componentType:"TEXT"},
+		{title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
 		]
 }

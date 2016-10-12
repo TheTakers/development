@@ -17,7 +17,7 @@ app.directive('uiButton', function($http,$log) {
 		}
 	};
 }); 
-app.directive('uiSelect', function($http,$log) {
+app.directive('uiDropdown', function($http,$log) {
 	return {
 		restrict:'E',
 		scope:{
@@ -28,9 +28,9 @@ app.directive('uiSelect', function($http,$log) {
 			required:'='
 		},
 		template:function(element,atts){
-			return  '  <select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.text for item in data"> '+
-				       '<option value="">请选择</option>'+
-					   '</select>';
+			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.value as item.text for item in data"> '+
+				       //'<option value="">请选择</option>'+
+					'</select>';
 		},
 		replace : true,			
 		transclude : false,
@@ -167,7 +167,7 @@ app.directive('uiTree', function($http,$log) {
 		}
 	};
 }); 
-app.directive('uiDatetime', function($http,$log) {
+app.directive('uiDatepicker', function($http,$log) {
 	return {
 		restrict:'E',
 		scope:{

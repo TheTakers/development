@@ -29,10 +29,12 @@
              	<div class="form-group" ng-repeat="item in fieldList" >
 					<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
 						<div class="col-sm-6">
-							<uigeneratecode data="formData[item.field]"  ng-if="item.componentType=='uigeneratecode'"></uigeneratecode>
-							<input class="form-control input-sm" ng-model="formData[item.field]"  ng-if="item.componentType=='text'" ng-required="item.required"></input>
-							<uibaseselector url="{{item.url}}" data="formData"  expand="{{item.expand}}"  ng-if="item.componentType=='selector'"></uibaseselector>
-							<textarea class="form-control" ng-model="formData[item.field]" ng-if="item.componentType=='textarea'" ng-required="item.required"></textarea>
+							<ui-generate-code data="data[item.field]"  ng-if="isType(item.componentType,'GENERATECODE')"></ui-generate-code>
+							<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ng-required="item.required"></input>
+							<ui-selector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')"></ui-selector>
+							<textarea class="form-control" ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ng-required="item.required"></textarea>
+							<ui-datepicker class="form-control" value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
+							<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')"></ui-dropdown>
 	 					</div>
 				</div>
              </div> 
@@ -57,17 +59,16 @@
 										<th>备注</th>
 									</tr>
 								</thead>
-	
 								<tbody>
 									<tr ng-repeat="item in fieldGrid.dataList">
 										 <td>{{item.title}}</td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
-										 <td>{{item.componentType}}</td>
+										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										 <td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-										 <td><ui-select selected="item.isDiaplay" data="optionData"></ui-select></td>
-										 <td><ui-select selected="item.isSort" data="optionData"></ui-select></td>
-										 <td><ui-select selected="item.isSearch" data="optionData"></ui-select></td>
+										 <td><ui-dropdown selected="item.isDiaplay" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>
 										 <td><input class="form-control input-sm" ng-model="item.remark"></input></td>
 									</tr>
 								</tbody>

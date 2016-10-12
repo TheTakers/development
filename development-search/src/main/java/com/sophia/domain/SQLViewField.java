@@ -3,6 +3,7 @@ package com.sophia.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLViewConstant;
 
 @Entity
@@ -23,7 +24,7 @@ public class SQLViewField extends Auditable{
 	private String remark;
 	private String dataType;
 	private Integer isSearch = SQLViewConstant.NO;
-	private Integer componentType = SQLViewConstant.COMPONENTTYPE_TEXT;
+	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
 	
 	public Integer getIdx() {
@@ -32,10 +33,10 @@ public class SQLViewField extends Auditable{
 	public void setIdx(Integer idx) {
 		this.idx = idx;
 	}
-	public Integer getComponentType() {
+	public String getComponentType() {
 		return componentType;
 	}
-	public void setComponentType(Integer componentType) {
+	public void setComponentType(String componentType) {
 		this.componentType = componentType;
 	}
 	public Integer getIsSearch() {

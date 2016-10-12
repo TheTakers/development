@@ -11,10 +11,4 @@ public class SQLViewConstant {
 
 	public static final Integer YES	  = 1;
 	public static final Integer NO	  = 0;
-	
-	/**
-	 * 文本
-	 */
-	public static final Integer COMPONENTTYPE_TEXT	  = 1; 
-	public static final Integer COMPONENTTYPE_DATEPICKER	  = 2; 
 }

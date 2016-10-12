@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.domain.SQLDefine;
 import com.sophia.domain.SQLView;
@@ -38,13 +39,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String COLUMNTYPE_INT	  = "int";
-	public static final String COLUMNTYPE_VARCHAR = "varchar";
-	public static final String COLUMNTYPE_CLOB	  = "clob";
-	public static final String COLUMNTYPE_NUMBER  = "number";
-	public static final String COLUMNTYPE_DATE	  = "date";
-	public static final String COLUMNTYPE_TEXT	  = "text";
-	
 	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired SQLDefineService sqlDefineService;
 
@@ -143,8 +137,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				field.setDataType(dataType);
 				
 				//判断是否是日期类型
-				if (dataType.equals(COLUMNTYPE_DATE)) {
-					field.setComponentType(SQLViewConstant.COMPONENTTYPE_TEXT);
+				if (dataType.equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+					field.setComponentType(ComponentType.DATEPICKER.getValue());
 					field.setExpand("yyyy-MM-dd hh:mm:ss");
 				}
 				field.setIdx(i);
@@ -171,24 +165,23 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		
 		boolean isChar = isSpecType(dbType, varchar);
 		if (isChar) {
-			return COLUMNTYPE_VARCHAR;
+			return SQLViewConstant.COLUMNTYPE_VARCHAR;
 		}
 		
 		boolean isNumber = isSpecType(dbType, number);
 		if (isNumber) {
-			return COLUMNTYPE_NUMBER;
+			return SQLViewConstant.COLUMNTYPE_NUMBER;
 		}
 		
 		boolean isDate = isSpecType(dbType, date);
 		if (isDate) {
-			return COLUMNTYPE_DATE;
+			return SQLViewConstant.COLUMNTYPE_DATE;
 		}
 		
 		boolean isText = isSpecType(dbType, text);
 		if (isText) {
-			return COLUMNTYPE_TEXT;
+			return SQLViewConstant.COLUMNTYPE_TEXT;
 		}
-		
 		return dbType;
 	}
 	

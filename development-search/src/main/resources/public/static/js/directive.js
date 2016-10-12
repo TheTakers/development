@@ -153,104 +153,32 @@ app.directive('uitree', function($http,$log) {
 		}
 	};
 }); 
-//选择器
-app.directive('uibaseselector', function($http,$log,$uibModal) {
-	return {
-		restrict:'E',
-		scope:{
-			data:"=",
-			url:'@',
-			expand:'@', //扩展字段
-			param:'=' //传给子页参数
-		},
-		template:function(element,atts){
-			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" value="{{data[inputData.dataValue]}}"></input>'
-			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
-		},
-		replace : true,			
-		transclude : false,
-		link:function(scope,element,attr){
-
-			if(_.isEmpty(scope.expand)){
-				return;
-			}
-			scope.inputData = eval('(' + scope.expand + ')');
-
-			scope.showDialog=function(){
-
-				var modalInstance = $uibModal.open({
-					templateUrl: '/basic/directive/selector',
-
-					//接收子页传值
-					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-
-						$scope.url = param.url;
-						$scope.returndata = {};
-
-						//选择器ok按钮
-						$scope.ok = function() {
-							var item ={}
-							if(!_.isEmpty($scope.returndata.data)){
-
-								//传值给父页
-								$uibModalInstance.close($scope.returndata);
-							}else{
-								$.warning("请选择记录!");
-							}
-						};
-
-						//取消
-						$scope.cancel = function() {
-							$uibModalInstance.dismiss('cancel');
-						};
-
-					},
-					size:'l',
-					resolve: {
-						param: function () {
-							return scope;
-						},
-						deps:function($ocLazyLoad,$stateParams,$log){
-
-							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
-							//return $ocLazyLoad.load("templates/"+scope.url+".js");
-						}
-					}
-				});
-
-				modalInstance.result.then(function (checked) { //获取子页返回值
-
-					var expand = scope.inputData;
-
-					var selectedItem = checked.data;
-					//单选
-					if(_.isEqual(1, checked.option)){
-						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
-						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
-					}else{
-						//多选
-						var value = "";
-						var id = "";
-						for(var idx in selectedItem){
-
-							id +=  selectedItem[idx][expand.returnKey] + ',';
-							value += selectedItem[idx][expand.returnValue] + ',';
-						}
-						id = id.substring(0,_.lastIndexOf(id,","));
-						value = value.substring(0,_.lastIndexOf(value,","));
-						scope.data[expand.dataKey] = id;
-						scope.data[expand.dataValue] = value;
-					}
-				}, function () { //子页关闭监听
-					$log.info('Modal dismissed at: ' + new Date());
-				});
-			}
-		} 
-	};
-}); 
 //page
 app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	
+	//子窗口 
+	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+
+		//页面数据
+		$scope.data = param.formData;
+
+		//保存操作
+		$scope.save = function() {
+			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+		};
+
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+		
+		$scope.isType = function(type,ctype){
+			return _.isEqual(type, ctype);
+		}
+
+		//字段列表
+		$scope.fieldList = param.modelView.fieldSetting;
+	}
+	
 	return {
 		restrict:'E',
 		templateUrl:"/basic/directive/index",
@@ -325,25 +253,6 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						};
 					}
 					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
-
-					//子窗口 
-					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-
-						//页面数据
-						$scope.data = param.formData;
-
-						//保存操作
-						$scope.save = function() {
-							saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
-						};
-
-						$scope.cancel = function() {
-							$uibModalInstance.dismiss('cancel');
-						};
-
-						//字段列表
-						$scope.fieldList = param.modelView.fieldSetting;
-					}
 
 					//选中列表
 					var checkedData= [];
@@ -469,7 +378,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 
 					//子窗口 
 					var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-						$scope.optionData = [{value:"1",text:"是"},{value:"0",text:"否"}];
+						$scope.optionData = OPTION_WHETHER;
 						$scope.formData = param.formData;
 						//保存操作
 						$scope.save = function() {
@@ -478,11 +387,15 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
-
+						
+						$scope.ctype = DICT_COMPONENTTYPE;
 						//字段列表
 						$scope.fieldList = param.modelView.fieldSetting;
 						$scope.fieldGrid = {id:$.uuid()};
-
+						$scope.isType = function(type,ctype){
+							return _.isEqual(type, ctype);
+						}
+						
 						//生成列表
 						$scope.createFieldData = function(){
 							$.confirm({
@@ -644,37 +557,3 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 		}
 	};
 });
-
-//自动生成编码
-app.directive('uigeneratecode', function($http,$log,commonService) {
-
-	return {
-		restrict:'E',
-		scope:{
-			data:"=",
-			required:"@"
-		},
-		template:function(element,atts){
-			return  '<input class="form-control input-sm" ng-model="data" required="{{required}}"></input>'+
-			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
-		},
-		replace : false,			
-		transclude : false,
-		link:function(scope,element,attr){ 
-
-			//生成编码
-			scope.createCode = function(){
-
-				commonService.ajax({url:"/basic/func/code",async:false,success:function(data){
-
-					if(data.code = '0'){
-						scope.data = data.result;
-					}else{
-						$.error(data.message);
-					}
-
-				}});
-			}
-		}
-	};
-})

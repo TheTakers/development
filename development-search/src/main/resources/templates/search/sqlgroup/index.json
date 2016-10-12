@@ -1,18 +1,18 @@
 {
 controller:"/search/sqlgroup"
 ,fieldData:[
-			            {title:"编号",field:"code",display:true,expand:""},
-			            {title:"别名",field:"name",display:true,expand:""},
-			            {title:"所属分组",field:"pText",display:true,expand:""},
-			            {title:"路径",field:"path",display:true,expand:""},
-			            {title:"备注",field:"remark",display:true,expand:""},
-			            {title:"操作",field:""}
-			            ]     
+        {title:"编号",field:"code",display:true,expand:""},
+        {title:"别名",field:"name",display:true,expand:""},
+        {title:"所属分组",field:"pText",display:true,expand:""},
+        {title:"路径",field:"path",display:true,expand:""},
+        {title:"备注",field:"remark",display:true,expand:""},
+        {title:"操作",field:""}
+ ]     
 ,buttonData:[
-          {title:"查看",icon:"ion-eye",target:"view",type:0},
-          {title:"编辑",icon:"ion-edit",target:"edit",type:0},
-          {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
-          {title:"新增",icon:"",target:"edit",type:1}
+      {title:"查看",icon:"ion-eye",target:"view",type:0},
+      {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+      {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+      {title:"新增",icon:"",target:"edit",type:1}
 ]
                
 ,filterData:[{label:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
@@ -26,10 +26,10 @@ controller:"/search/sqlgroup"
 	}
 	
 ,fieldSetting:[
-					           {title:"SQLID",field:"code",required:true,componentType:"uigeneratecode"},
-					            {title:"别名",field:"name",required:false,componentType:"text"},
-					            {title:"所属分组",field:"parentId",required:true,componentType:"selector",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-					            {title:"状态",field:"status",required:false,componentType:"text"},
-					            {title:"描述",field:"remark",required:false,componentType:"textarea"}
-			]
+       {title:"SQLID",field:"code",required:true,componentType:"GENERATECODE"},
+        {title:"别名",field:"name",required:false,componentType:"TEXT"},
+        {title:"所属分组",field:"parentId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+        {title:"状态",field:"status",required:false,componentType:"TEXT"},
+        {title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
+	]
 }

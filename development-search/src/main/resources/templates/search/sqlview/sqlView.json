@@ -18,11 +18,11 @@ fieldData:[
 ,filterData:[{label:"编码",field:"code",componentType:"",value:"",expr:"like",expand:""},
 			  {label:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 ,fieldSetting:[
-        {title:"编号",field:"code",required:true,componentType:"uigeneratecode"},
-        {title:"别名",field:"name",required:false,componentType:"text"},
-        {title:"序号",field:"showRowNum",required:true,componentType:"text"},
-        {title:"SQLID",field:"sqlId",required:true,componentType:"selector",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
-        {title:"选项",field:"multiple",required:false,componentType:"text"},
-        {title:"描述",field:"remark",required:false,componentType:"textarea"}
+        {title:"编号",field:"code",required:true,componentType:"GENERATECODE"},
+        {title:"别名",field:"name",required:false,componentType:"TEXT"},
+        {title:"序号",field:"showRowNum",required:true,componentType:"TEXT"},
+        {title:"SQLID",field:"sqlId",required:true,componentType:"SELECTOR",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
+        {title:"选项",field:"multiple",required:false,componentType:"TEXT"},
+        {title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
 	]
 }
