@@ -109,15 +109,17 @@
 										<th>字段</th>
 										<th>数据类型</th>
 										<th>组件类型</th>
+										<th>表达式</th>
 										<th>扩展</th>
-										<th>是否显示</th>
-										<th>是否排序</th>
-										<th>是否查询</th>
-										<th>备注</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in fieldGrid.dataList">
+									<tr ng-repeat="item in filterList">
+										<td>{{item.title}}</td>
+										<td>{{item.field}}</td>
+										<td>{{item.dataType}}</td>
+										<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
+										<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
 									</tr>
 								</tbody>
 							</table>

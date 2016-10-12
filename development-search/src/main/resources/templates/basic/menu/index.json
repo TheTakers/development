@@ -16,7 +16,7 @@ controller:"/basic/menu"
                {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
                {title:"新增",icon:"",target:"edit",type:1}
                ]
-,filterData:[{label:"名称",field:"name",componentType:"TEXT",value:"",expr:"like",expand:""}]
+,filterData:[{title:"名称",field:"name",componentType:"TEXT",value:"",expr:"like",expand:""}]
 ,treeData:{
 	url:"/basic/menu/treeData",
 	idKey: "id",

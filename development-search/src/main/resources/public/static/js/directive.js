@@ -158,27 +158,21 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 	
 	//子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
-
 		//页面数据
 		$scope.data = param.formData;
-
 		//保存操作
 		$scope.save = function() {
 			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
 		};
-
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');
 		};
-		
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
 		}
-
 		//字段列表
 		$scope.fieldList = param.modelView.fieldSetting;
 	}
-	
 	return {
 		restrict:'E',
 		templateUrl:"/basic/directive/index",
@@ -300,8 +294,6 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		}
 	};
 });
-
-//page
 app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
 	//子窗口 
@@ -319,12 +311,20 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		//修改字段
 		$scope.fieldList = param.modelView.fieldSetting;
 		//SQL字段
-		$scope.columnList;
+		$scope.columnList = [];
 		//过滤条件
-		$scope.filterList = null;
-		
+		$scope.filterList = [];
+		//按钮设置
+		$scope.buttonList = null;
+		$scope.expr = DICT_EXPRESSION;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
+		}
+		//选中条件
+		$scope.checked = function(item){
+			var opt = {};
+			opt.tit
+			filterList.push(opt);	
 		}
 		
 		//生成列表
@@ -445,7 +445,6 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 							break;
 						}
 					}
-
 					//判断是否显示树
 					scope.findtreeconfig = function(){
 						return _.isUndefined(scope.treeconfig);
