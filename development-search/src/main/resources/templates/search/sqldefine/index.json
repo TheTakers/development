@@ -1,13 +1,13 @@
 {
 controller:"/search/sqldefine",
 fieldData:[
-        {title:"SQLID",field:"sqlId",display:true,expand:""},
-        {title:"别名",field:"sqlName",display:true,expand:""},
-        {title:"SQL组",field:"pText",display:true,expand:""},
-        {title:"数据源",field:"datasource",display:true,expand:""},
-        {title:"缓存",field:"cache",display:true,expand:""},
-        {title:"状态",field:"status",display:true,expand:""},
-        {title:"描述",field:"sqldesc",display:true,expand:""},
+        {title:"SQLID",field:"sqlId",isDisplay:true,expand:""},
+        {title:"别名",field:"sqlName",isDisplay:true,expand:""},
+        {title:"SQL组",field:"pText",isDisplay:true,expand:""},
+        {title:"数据源",field:"datasource",isDisplay:true,expand:""},
+        {title:"缓存",field:"cache",isDisplay:true,expand:""},
+        {title:"状态",field:"status",isDisplay:true,expand:""},
+        {title:"描述",field:"sqldesc",isDisplay:true,expand:""},
         {title:"操作",field:""}
 ]     
 ,buttonData:[

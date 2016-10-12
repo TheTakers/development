@@ -11,4 +11,13 @@ public class SQLViewConstant {
 
 	public static final Integer YES	  = 1;
 	public static final Integer NO	  = 0;
+	
+	/**
+	 * 导航按钮
+	 */
+	public static final Integer BUTTON_NAV	 = 1;
+	/**
+	 * 列表按钮
+	 */
+	public static final Integer BUTTON_TABLE = 0;
 }

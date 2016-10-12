@@ -1,15 +1,15 @@
 {
 controller:"/basic/menu"
 ,fieldData:[
-	            {title:"名称",field:"name",display:true,expand:""},
-	            {title:"url",field:"link",display:true,expand:""},
-	            {title:"图标",field:"ico",display:true,expand:""},
-	            {title:"所属菜单",field:"pText",display:true,expand:""},
-	            {title:"菜单路径",field:"name",display:true,expand:""},
-	            {title:"排序",field:"path",display:true,expand:""},
-	            {title:"描述",field:"remark",display:true,expand:""},
-	            {title:"操作",field:""}
-	            ]
+        {title:"名称",field:"name",isDisplay:true,expand:""},
+        {title:"url",field:"link",isDisplay:true,expand:""},
+        {title:"图标",field:"ico",isDisplay:true,expand:""},
+        {title:"所属菜单",field:"pText",isDisplay:true,expand:""},
+        {title:"菜单路径",field:"name",isDisplay:true,expand:""},
+        {title:"排序",field:"path",isDisplay:true,expand:""},
+        {title:"描述",field:"remark",isDisplay:true,expand:""},
+        {title:"操作",field:""}
+    ]
 ,buttonData:[
                {title:"查看",icon:"ion-eye",target:"view",type:0},
                {title:"编辑",icon:"ion-edit",target:"edit",type:0},
@@ -17,14 +17,12 @@ controller:"/basic/menu"
                {title:"新增",icon:"",target:"edit",type:1}
                ]
 ,filterData:[{label:"名称",field:"name",componentType:"TEXT",value:"",expr:"like",expand:""}]
-
 ,treeData:{
 	url:"/basic/menu/treeData",
 	idKey: "id",
 	pIdKey: "pid",
 	rootPId: 0
 	}
-
 ,fieldSetting:[
 		{title:"名称",field:"name",required:true,componentType:"TEXT"},
 		{title:"url",field:"link",required:false,componentType:"TEXT"},

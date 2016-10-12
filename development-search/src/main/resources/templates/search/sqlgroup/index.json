@@ -1,11 +1,11 @@
 {
 controller:"/search/sqlgroup"
 ,fieldData:[
-        {title:"编号",field:"code",display:true,expand:""},
-        {title:"别名",field:"name",display:true,expand:""},
-        {title:"所属分组",field:"pText",display:true,expand:""},
-        {title:"路径",field:"path",display:true,expand:""},
-        {title:"备注",field:"remark",display:true,expand:""},
+        {title:"编号",field:"code",isDisplay:true,expand:""},
+        {title:"别名",field:"name",isDisplay:true,expand:""},
+        {title:"所属分组",field:"pText",isDisplay:true,expand:""},
+        {title:"路径",field:"path",isDisplay:true,expand:""},
+        {title:"备注",field:"remark",isDisplay:true,expand:""},
         {title:"操作",field:""}
  ]     
 ,buttonData:[
