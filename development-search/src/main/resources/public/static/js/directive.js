@@ -329,6 +329,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			opt.componentType=DICT_COMPONENTTYPE[0].value;
 			opt.expr = DICT_EXPRESSION[0].value;
 			opt.isSort = item.isSort;
+			opt.expand = item.expand;
 			$scope.filterList.push(opt);	
 		}
 		
@@ -336,7 +337,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.createFieldData = function(){
 			$.confirm({
 				confirm: function(){
-					commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:false,success:function(data){
+					commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:true,success:function(data){
 						$scope.columnList = data.result;
 					}});
 				} 
