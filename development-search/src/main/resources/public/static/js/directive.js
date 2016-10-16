@@ -299,10 +299,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	//子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		$scope.optionData = OPTION_WHETHER;
-		$scope.formData = param.formData;
+		$scope.data = param.formData;
 		//保存操作
 		$scope.save = function() {
-			saveOfClose($http,param.modelView.controller + "/save",$scope.formData,$uibModalInstance);
+			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');
@@ -315,7 +315,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		//TODO 过滤条件
 		$scope.filterList = [];
 		//TODO 按钮设置
-		$scope.buttonList = null;
+		$scope.buttonList = [];
 		$scope.expr = DICT_EXPRESSION;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
@@ -332,6 +332,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			opt.expand = item.expand;
 			$scope.filterList.push(opt);	
 		}
+		//移除选项
+		$scope.removeItem=function(item){
+			$scope.filterList.splice(_.findIndex($scope.filterList, item),1);
+		}
 		
 		//生成列表
 		$scope.createFieldData = function(){
@@ -343,6 +347,30 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				} 
 			});
 		}
+		$scope.btype = OPTION_BUTTON;
+		
+		//添加按钮 
+		$scope.createButton = function(){
+			var item = {};
+			item.title="";
+			item.icon="";
+			item.type= 0;
+			item.url="";
+			item.showWin= 0;
+			$scope.buttonList.push(item);	
+		}
+		$scope.removeButton = function(item){
+			$scope.buttonList.splice(_.findIndex($scope.buttonList, item),1);
+		}
+		
+		//功能树形
+		$scope.treeData = {
+			url:"",
+			idKey:"id",
+			pIdKey: "parentId",
+			rootPId: 0,
+			isShow:0
+		};
 	}
 	
 	return {

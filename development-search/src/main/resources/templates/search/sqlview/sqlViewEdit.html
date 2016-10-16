@@ -34,17 +34,19 @@
 							<ui-selector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')"></ui-selector>
 							<textarea class="form-control" ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ng-required="item.required"></textarea>
 							<ui-datepicker class="form-control" value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
-							<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')"></ui-dropdown>
+							<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')" data="item.expand"></ui-dropdown>
 	 					</div>
 				</div>
              </div> 
              <div class="tab-pane" id="fields">
-             	
              	<div class="form-group">
- 						<div class="col-sm-6">
-						 	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="createFieldData()" >生成列表</button>
+ 						<div class="col-sm-12">
+	 						<div class="card-box">
+							 	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="createFieldData()" >生成列表</button>
+		 					</div>
 	 					</div>
  						<div class="col-sm-12">
+ 						<div class="card-box">
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
 									<tr >
@@ -62,7 +64,9 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="item in columnList">
-										 <td>{{item.title}}</td>
+										 <td>
+										 <input class="form-control input-sm" ng-model="item.title" ng-required="true"></input>
+										 </td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
@@ -75,65 +79,132 @@
 									</tr>
 								</tbody>
 							</table>
+							</div>
 	 					</div>
 				</div>
              </div> 
              <div class="tab-pane" id="conditions">
-					 <div class="form-group">
+             <div class="row">
+             		<div class="col-lg-5">
+             			<div class="card-box">
+								<table class="table table table-hover m-0 table-actions-bar">
+									<thead>
+										<tr>
+											<th>名称</th>
+											<th>字段</th>
+											<th>数据类型</th>
+											<th>扩展</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in columnList"
+											ng-click="addFilterItem(item)">
+											<td>{{item.title}}</td>
+											<td>{{item.field}}</td>
+											<td>{{item.dataType}}</td>
+											<td>{{item.expand}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+             		<div class="col-lg-7">
+						<div class="card-box">             	 
+	 							<table class="table table table-hover m-0 table-actions-bar">
+									<thead>
+										<tr >
+											<th>名称</th>
+											<th>字段</th>
+											<th>数据类型</th>
+											<th>组件类型</th>
+											<th>表达式</th>
+											<th>扩展</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="item in filterList">
+											<td>{{item.title}}</td>
+											<td>{{item.field}}</td>
+											<td>{{item.dataType}}</td>
+											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
+											<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
+											<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
+											<td><a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeItem(item)" ><i class="md md-close"></i></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+             		</div>
+             	</div>
+             </div> 
+             <div class="tab-pane" id="buttons">
+             	<div class="form-group">
  						<div class="col-sm-12">
- 							<table class="table table table-hover m-0 table-actions-bar">
-								<thead>
-									<tr >
-										<th>名称</th>
-										<th>字段</th>
-										<th>数据类型</th>
-										<th>扩展</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="item in columnList" ng-click="addFilterItem(item)">
-										 <td>{{item.title}}</td>
-										 <td>{{item.field}}</td>
-										 <td>{{item.dataType}}</td>
-										 <td>{{item.expand}}</td>
-									</tr>
-								</tbody>
-							</table>
+	 						<div class="card-box">
+		 						<button class="btn btn-default" ng-click="createButton()"><i class="fa fa-plus m-r-5"></i>添加</button>
+		 					</div>
 	 					</div>
-				</div>
-				
-				<div class="form-group">
  						<div class="col-sm-12">
+ 						<div class="card-box">
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
 									<tr >
 										<th>名称</th>
-										<th>字段</th>
-										<th>数据类型</th>
-										<th>组件类型</th>
-										<th>表达式</th>
-										<th>扩展</th>
+										<th>图标</th>
+										<th>类型</th>
+										<th>链接</th>
+										<th>是否弹窗</th>
 										<th>操作</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="item in filterList">
-										<td>{{item.title}}</td>
-										<td>{{item.field}}</td>
-										<td>{{item.dataType}}</td>
-										<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
-										<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
-										<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-										<td><a href="javascript:void(0);" class="table-action-btn" title="删除" ng-click="" ><i class="ion-trash-a"></i></a></td>
+									<tr ng-repeat="item in buttonList">
+										<td><input class="form-control input-sm" ng-model="item.title"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.icon"></input></td>
+										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
+										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
+										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
+										<td><a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="md md-close"></i></a></td>
 									</tr>
 								</tbody>
 							</table>
+							</div>
 	 					</div>
 				</div>
-             </div> 
-             <div class="tab-pane" id="buttons">
+             
              </div> 
              <div class="tab-pane" id="treesetting">
+            		 <div class="form-group" >
+						<label class="col-sm-3 control-label">是否显示</label><span class="text-muted"> * </span>
+						<div class="col-sm-6">
+	 						<td><ui-dropdown selected="treeData.isShow" data="optionData"></ui-dropdown></td>
+	 					</div>
+					</div>
+	             	<div class="form-group" >
+						<label class="col-sm-3 control-label">URL</label><span class="text-muted"> * </span>
+						<div class="col-sm-6">
+							<input class="form-control input-sm" ng-model="treeData.url"  ng-required="true"></input>
+	 					</div>
+					</div>
+					<div class="form-group" >
+						<label class="col-sm-3 control-label">IdKey</label><span class="text-muted"> * </span>
+						<div class="col-sm-6">
+							<input class="form-control input-sm" ng-model="treeData.idKey"  ng-required="true"></input>
+	 					</div>
+					</div>
+					<div class="form-group" >
+						<label class="col-sm-3 control-label">pIdKey</label><span class="text-muted"> * </span>
+						<div class="col-sm-6">
+							<input class="form-control input-sm" ng-model="treeData.pIdKey"  ng-required="true"></input>
+	 					</div>
+					</div>
+					<div class="form-group" >
+						<label class="col-sm-3 control-label">rootPId</label><span class="text-muted"> * </span>
+						<div class="col-sm-6">
+							<input class="form-control input-sm" ng-model="treeData.rootPId"  ng-required="true"></input>
+	 					</div>
+					</div>
              </div> 
          </div> 
 	</form>

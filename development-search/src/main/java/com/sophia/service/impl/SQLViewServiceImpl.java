@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			JSONObject columsJson = new JSONObject();
 			for (Map<String,Object> map : queryForList) {
 				Object comment = map.get("Comment");
-				if (comment != null) {
+				if (comment != null && StringUtils.isNoneBlank(comment.toString())) {
 					columsJson.put((String) map.get("Field"), comment);
 				}
 			}
@@ -118,9 +119,9 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				
 				//设置字段备注    并且 判断jo中是否含有该字段的备注
 				if (columsJson.containsKey(columnLabel)) {
-					field.setRemark(columsJson.getString(columnLabel));
+					field.setTitle(columsJson.getString(columnLabel));
 				} else {
-					field.setRemark(columnLabel);
+					field.setTitle(columnLabel);
 				}
 				
 				//设置字段类型

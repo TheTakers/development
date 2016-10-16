@@ -15,7 +15,7 @@
 						<ui-selector url="{{item.url}}" data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')"></ui-selector>
 						<textarea class="form-control" ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ng-required="item.required"></textarea>
 						<ui-datepicker class="form-control" value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
-						<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')"></ui-dropdown>
+						<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')" required="item.required" data="item.expand"></ui-dropdown>
  					</div>
 			</div>
 		</form>		

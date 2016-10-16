@@ -2182,6 +2182,9 @@ body.fixed-left .side-menu.left {
 .modal-xl{
 	width:80%;
 }
+.modal-max{
+	width:100%;
+}
 
 /**radio**/
 .checkbox, .radio {

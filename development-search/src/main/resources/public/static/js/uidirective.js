@@ -262,7 +262,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 
 					var selectedItem = checked.data;
 					//单选
-					if(_.isEqual(1, checked.option)){
+					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
 						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
 						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 					}else{
