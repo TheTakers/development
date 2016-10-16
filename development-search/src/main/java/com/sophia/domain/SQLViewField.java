@@ -18,7 +18,7 @@ public class SQLViewField extends Auditable{
 	private String viewId;
 	private String title;
 	private String field;
-	private Integer isDiaplay = SQLViewConstant.YES;
+	private Integer isDiaplay = SQLViewConstant.NO;
 	private String expand;
 	private Integer isSort = SQLViewConstant.NO;
 	private Integer isUpdate = SQLViewConstant.YES;
@@ -27,7 +27,17 @@ public class SQLViewField extends Auditable{
 	private Integer isSearch = SQLViewConstant.NO;
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
+	/**
+	 * 是否CRUD操作
+	 */
+	private Integer crud = SQLViewConstant.NO;
 	
+	public Integer getCrud() {
+		return crud;
+	}
+	public void setCrud(Integer crud) {
+		this.crud = crud;
+	}
 	public Integer getIsUpdate() {
 		return isUpdate;
 	}
