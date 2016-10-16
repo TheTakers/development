@@ -31,4 +31,4 @@ var DICT_EXPRESSION = [
   ]
 
 /*选项*/
-var OPTION_BUTTON = [{value:"",text:"请选择"},{value:0,text:"单选"},{value:1,text:"多选"}];
+var OPTION_MULTIPLE = [{value:"",text:"请选择"},{value:0,text:"单选"},{value:1,text:"多选"}];
