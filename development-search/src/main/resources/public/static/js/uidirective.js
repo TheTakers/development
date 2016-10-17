@@ -34,16 +34,24 @@ app.directive('uiDropdown', function($http,$log) {
 		},
 		replace : true,			
 		transclude : false,
-		link:function(scope,element,attr){
-			if(_.isEmpty(scope.url)) return;
-			commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
-				if(data.code = '0'){
-					scope.data = data.result;
-				}else{
-					$.error(data.message);
+		compile: function compile(tElement, tAttrs, transclude) {
+			return {
+				pre: function preLink(scope, iElement, iAttrs, controller) {
+						if(!_.isArray(scope.data)){
+							scope.data = eval(scope.data);
+						}
+						if(_.isEmpty(scope.url)) return;
+						commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
+							if(data.code = '0'){
+								scope.data = data.result;
+							}else{
+								$.error(data.message);
+							}
+						}});
+					}
 				}
-			}});
-		}
+		},
+		link:function(scope,element,attr){}
 	};
 }); 
 app.directive('uiPagination', function($http,$log,commonService) {
