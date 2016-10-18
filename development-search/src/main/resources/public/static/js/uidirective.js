@@ -1,3 +1,17 @@
+app.directive('eventChange', function($http,$log) {
+	return {
+		restrict:'A',
+		scope:{
+			method:'@'
+		},
+		replace : true,			
+		transclude : false,
+		link:function(scope,element,attr){
+			alert("aaaaa")
+		}
+	};
+}); 
+
 app.directive('uiButton', function($http,$log) {
 	return {
 		restrict:'E',
@@ -37,7 +51,7 @@ app.directive('uiDropdown', function($http,$log) {
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
-						if(!_.isArray(scope.data)){
+						if(_.isString(scope.data)){
 							scope.data = eval(scope.data);
 						}
 						if(_.isEmpty(scope.url)) return;

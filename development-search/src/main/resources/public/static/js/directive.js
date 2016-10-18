@@ -343,6 +343,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				confirm: function(){
 					commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:true,success:function(data){
 						$scope.columnList = data.result;
+						
+						//消化
+						$scope.$digest();
 					}});
 				} 
 			});
@@ -371,6 +374,15 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			rootPId: 0,
 			isShow:0
 		};
+		
+		//更多设置
+		$scope.moreconfig = {
+			crud:0,
+			insertUrl:"",
+			updateUrl:"",
+			deleteUrl:"",
+			multiple:0
+		}
 	}
 	
 	return {

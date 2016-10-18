@@ -4,8 +4,6 @@ fieldData:[
     {title:"编号",field:"code",isDisplay:true,expand:""},
     {title:"别名",field:"name",isDisplay:true,expand:""},
     {title:"序号",field:"showRowNum",isDisplay:true,expand:""},
-    {title:"选项",field:"multiple",isDisplay:true,expand:""},
-    {title:"CRUD",field:"crud",isDisplay:true,expand:""},
     {title:"创建时间",field:"createTime",isDisplay:true,expand:""},
     {title:"描述",field:"remark",isDisplay:true,expand:""},
     {title:"操作",field:""}
@@ -23,8 +21,6 @@ fieldData:[
         {title:"别名",field:"name",required:false,componentType:"TEXT"},
         {title:"序号",field:"showRowNum",required:true,componentType:"TEXT"},
         {title:"SQLID",field:"sqlId",required:true,componentType:"SELECTOR",url:"templates/search/sqldefine/selector.json",expand:"{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"},
-        {title:"选项",field:"multiple",required:false,componentType:"DROPDOWN",expand:"[{value:0,text:'请选择'},{value:1,text:'是'},{value:2,text:'否'}]"},
-        {title:"CRUD",field:"crud",required:false,componentType:"DROPDOWN",expand:"[{value:1,text:'是'},{value:0,text:'否'}]"},
         {title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
 	]
 }

@@ -26,6 +26,7 @@
          </ul> 
          <div class="tab-content"> 
              <div class="tab-pane active" id="basic"> 
+              <!-- 
              	<div class="form-group" ng-repeat="item in fieldList" >
 					<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
 						<div class="col-sm-6">
@@ -36,6 +37,49 @@
 							<ui-datepicker class="form-control" value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
 							<ui-dropdown selected="data[item.field]" ng-if="isType(item.componentType,'DROPDOWN')" data="item.expand"></ui-dropdown>
 	 					</div>
+				</div>
+				 -->
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">编号</label>
+					<div class="col-sm-6">
+						<ui-generate-code data="data.code" ng-required="true"></ui-generate-code>
+ 					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">别名</label>
+					<div class="col-sm-6">
+						<input class="form-control input-sm" ng-model="data.name" ng-required="true"></input>
+ 					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">SQLID</label>
+					<div class="col-sm-6">
+						<ui-selector url="templates/search/sqldefine/selector.json" data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}"></ui-selector>
+ 					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">显示行号</label>
+					<div class="col-sm-6">
+						<ui-dropdown selected="data.showRowNum" data="[{value:1,text:'是'},{value:0,text:'否'}]" ></ui-dropdown> 
+ 					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">列表选项</label>
+					<div class="col-sm-6">
+						 <ui-dropdown selected="data.multiple" data="[{value:0,text:'请选择'},{value:1,text:'单选'},{value:2,text:'多选'}]" ></ui-dropdown>
+ 					</div>
+				</div>
+				
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">备注</label>
+					<div class="col-sm-6">
+						<textarea class="form-control" ng-model="data.remark"></textarea>
+ 					</div>
 				</div>
              </div> 
              <div class="tab-pane" id="fields">
@@ -124,7 +168,7 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="item in filterList">
-											<td>{{item.title}}</td>
+											 <td><input class="form-control input-sm" ng-model="item.title"></input></td>
 											<td>{{item.field}}</td>
 											<td>{{item.dataType}}</td>
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>

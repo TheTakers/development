@@ -3,6 +3,8 @@ package com.sophia.domain;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.sophia.constant.SQLViewConstant;
+
 @Entity
 @Table(name="TB_SM_VIEW")
 public class SQLView extends Auditable{
@@ -14,12 +16,20 @@ public class SQLView extends Auditable{
 	
 	private String code;
 	private String name;
-	private String showRowNum;
-	private Integer multiple;
+	private Integer showRowNum = SQLViewConstant.NO;
 	private String conditions;
 	private String buttons;
 	private String treedata;
 	private String sqlId;
+	private Integer multiple = SQLViewConstant.NO;
+	
+	public Integer getMultiple() {
+		return multiple;
+	}
+
+	public void setMultiple(Integer multiple) {
+		this.multiple = multiple;
+	}
 
 	public String getSqlId() {
 		return sqlId;
@@ -44,21 +54,13 @@ public class SQLView extends Auditable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getShowRowNum() {
+	
+	public Integer getShowRowNum() {
 		return showRowNum;
 	}
 
-	public void setShowRowNum(String showRowNum) {
+	public void setShowRowNum(Integer showRowNum) {
 		this.showRowNum = showRowNum;
-	}
-	
-	public Integer getMultiple() {
-		return multiple;
-	}
-
-	public void setMultiple(Integer multiple) {
-		this.multiple = multiple;
 	}
 
 	public String getConditions() {
