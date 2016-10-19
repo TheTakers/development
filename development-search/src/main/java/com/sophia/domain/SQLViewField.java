@@ -27,6 +27,14 @@ public class SQLViewField extends Auditable{
 	private Integer isSearch = SQLViewConstant.NO;
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
+	private String length;
+	
+	public String getLength() {
+		return length;
+	}
+	public void setLength(String length) {
+		this.length = length;
+	}
 	/**
 	 * 是否CRUD操作
 	 */

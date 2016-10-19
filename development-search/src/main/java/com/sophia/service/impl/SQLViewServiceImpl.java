@@ -90,57 +90,47 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showColumnSql,new HashMap<String,String>());
 			 
 			//将属性存入JSON方便下面获取  {"name":"姓名","sex":"性别"}
-			JSONObject columsJson = new JSONObject();
-			for (Map<String,Object> map : queryForList) {
-				Object comment = map.get("Comment");
-				if (comment != null && StringUtils.isNoneBlank(comment.toString())) {
-					columsJson.put((String) map.get("Field"), comment);
-				}
+			SQLViewField field = null;
+			for (Map<String,Object> item : queryForList) {
+				field = new SQLViewField();
+				field.setId(GUID.nextId());
+				field.setTitle(setTitle(item.get("Comment"), item.get("Field").toString()));
+				field.setField(item.get("Field").toString());
+				this.setTypeAndLenth(item.get("Type").toString(), field);
+				field.setIdx(queryForList.indexOf(item));
+				list.add(field);
 			}
 			
 			//删除临时表
 			String dropViewSql = "DROP TABLE "+ tempTableName;
 			jdbcTemplateService.execute(dropViewSql);
-
-			//通过sql获取字段的内容
-			SqlRowSet srs = namedParameterJdbcTemplate.queryForRowSet(sql,new HashMap<String,String>());
-			SqlRowSetMetaData srsmd = srs.getMetaData();
-			SQLViewField field = null;
-			String columnLabel = null;
-			// 列从1开始算
-			for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
-				field = new SQLViewField();
-				field.setId(GUID.nextId());
-				
-				//字段name
-				field.setTitle(srsmd.getColumnName(i));
-				columnLabel = srsmd.getColumnLabel(i);
-				field.setField(columnLabel);
-				
-				//设置字段备注    并且 判断jo中是否含有该字段的备注
-				if (columsJson.containsKey(columnLabel)) {
-					field.setTitle(columsJson.getString(columnLabel));
-				} else {
-					field.setTitle(columnLabel);
-				}
-				
-				//设置字段类型
-				String dataType = srsmd.getColumnTypeName(i);
-				field.setDataType(dataType);
-				
-				//判断是否是日期类型
-				if (getDataType(dataType).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
-					field.setComponentType(ComponentType.DATEPICKER.getValue());
-					field.setExpand("yyyy-MM-dd hh:mm:ss");
-				}
-				field.setIdx(i);
-				list.add(field);
-			}
 		} catch (Exception e) {
 			logger.error("获取字段列表异常{}", e);
 			jdbcTemplateService.execute("DROP TABLE "+tempTableName);
 		}
 		return list;
+	}
+	
+	private void setTypeAndLenth(String type,SQLViewField field){
+		 String[] array = type.split("\\(");
+		 String t = array[0];
+		 field.setDataType(t.toUpperCase());
+		 if(array.length > 1){
+			 String length = array[1].replace(")", "");
+			 if(StringUtils.isNoneBlank(length)){
+				 field.setLength(length);
+			 }
+		 }
+		 
+		//判断是否是日期类型
+		if (getDataType(t).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+			field.setComponentType(ComponentType.DATEPICKER.getValue());
+			field.setExpand("yyyy-MM-dd hh:mm:ss");
+		}
+	}
+	
+	private String setTitle(Object value,String field){
+		return value != null && StringUtils.isNoneBlank(value.toString()) ? value.toString() : field;
 	}
 	/**
 	 * 获取字段类型
