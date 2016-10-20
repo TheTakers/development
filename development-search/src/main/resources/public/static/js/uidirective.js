@@ -351,13 +351,15 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			required:"="
 		},
 		template:function(element,atts){
-			return  '<input class="form-control input-sm" ng-model="data" required="{{required}}"></input>'+
+			return  '<input class="form-control input-sm {{clazz}}"  ng-model="data" required="{{required}}" ></input>'+
 			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
 		},
 		replace : false,			
 		transclude : false,
 		link:function(scope,element,attr){ 
-
+			
+			scope.clazz = scope.required ? "ng-required" : ""; 
+			
 			//生成编码
 			scope.createCode = function(){
 				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
