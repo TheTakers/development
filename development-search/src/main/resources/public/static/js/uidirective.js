@@ -1,3 +1,5 @@
+/**========================================================================event directive======================================================================================================**/
+
 app.directive('eventChange', function($http,$log) {
 	return {
 		restrict:'A',
@@ -10,7 +12,37 @@ app.directive('eventChange', function($http,$log) {
 			alert("aaaaa")
 		}
 	};
-}); 
+});
+
+/**========================================================================ui directive======================================================================================================**/
+app.directive('uiLabel', function($http,$log) {
+	return {
+		restrict:'E',
+		scope:{
+			content:"@",
+			clazz:"@",
+			required:"="
+		},
+		replace : true,			
+		transclude : false,
+		template:function(element,atts){
+			return  '<label class="{{clazz}}  control-label" ui-popover="" data-content="{{content}}"  data-trigger="hover">{{fixedValue}}'+
+					'<span class="text-muted"  ng-if="required"> * </span></label>';
+		},
+		link:function(scope,element,attr){
+			scope.fixedValue = scope.content.substring(0,4);
+		}
+	};
+});
+
+app.directive('uiPopover', function($http,$log) {
+	return {
+		restrict:'A',
+		link:function(scope,element,attr){
+			$(element).popover();
+		}
+	};
+});
 
 app.directive('uiButton', function($http,$log) {
 	return {

@@ -8,7 +8,7 @@
 			<input type="hidden" ng-model="data.version"></input>
 			
 			<div class="form-group" ng-repeat="item in fieldList" >
-				<label class="col-sm-3 control-label">{{item.title}}</label><span class="text-muted"  ng-if="item.required"> * </span>
+					<ui-label clazz="col-sm-3" content="{{item.title}}" required="item.required"></ui-label>
 					<div class="col-sm-6">
 						<ui-generate-code data="data[item.field]"  ng-if="isType(item.componentType,'GENERATECODE')"></ui-generate-code>
 						<input class="form-control input-sm" ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ng-required="item.required"></input>
