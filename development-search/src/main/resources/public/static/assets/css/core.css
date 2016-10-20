@@ -2173,16 +2173,25 @@ body.fixed-left .side-menu.left {
 }
 
 /*modal 弹窗自定义宽度zkning*/
-.modal-m{
+.modal-40{
 	width:40%;
 }
-.modal-l{
+.modal-50{
+	width:50%;
+}
+.modal-60{
 	width:60%;
 }
-.modal-xl{
+.modal-70{
+	width:70%;
+}
+.modal-80{
 	width:80%;
 }
-.modal-max{
+.modal-90{
+	width:90%;
+}
+.modal-100{
 	width:100%;
 }
 
@@ -2192,4 +2201,10 @@ body.fixed-left .side-menu.left {
     display: block;
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+/**ng css**/
+.ng-required{
+    border: 1px solid #C71585;
+    border-radius: 3px;
 }

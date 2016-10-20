@@ -351,6 +351,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			});
 		}
 		$scope.btype = OPTION_BUTTON;
+		$scope.winSize=WIN_SIZE;
 		
 		//添加按钮 
 		$scope.createButton = function(){
@@ -360,6 +361,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			item.type= 0;
 			item.url="";
 			item.showWin= 0;
+			item.winSize= "40";
 			$scope.buttonList.push(item);	
 		}
 		$scope.removeButton = function(item){
@@ -476,7 +478,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
+							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,100);
 							break;
 
 						case "remove":

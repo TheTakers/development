@@ -41,7 +41,7 @@
 				 -->
 				
 				<div class="form-group" >
-					<label class="col-sm-3 control-label" ui-popover="" data-content="自动编号"  data-trigger="hover">编号</label>
+					<label class="col-sm-3 control-label">编号</label>
 					<div class="col-sm-6">
 						<ui-generate-code data="data.code" ng-required="true"></ui-generate-code>
  					</div>
@@ -166,7 +166,7 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="item in filterList">
-											 <td><input class="form-control input-sm" ng-model="item.title" data-toggle="popover" data-trigger="focus" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="Dismissible popover"></input></td>
+											<td><input class="form-control input-sm" ng-model="item.title"></input></td>
 											<td>{{item.field}}</td>
 											<td>{{item.dataType}}</td>
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
@@ -197,6 +197,7 @@
 										<th>类型</th>
 										<th>链接</th>
 										<th>是否弹窗</th>
+										<th>弹窗大小</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -207,6 +208,7 @@
 										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
 										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
+										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
 										<td><a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="md md-close"></i></a></td>
 									</tr>
 								</tbody>

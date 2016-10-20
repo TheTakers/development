@@ -256,7 +256,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" value="{{data[inputData.dataValue]}}"></input>'
+			+'<input type="text"  class="form-control input-sm"  value="{{data[inputData.dataValue]}}"></input>'
 			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
@@ -348,7 +348,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			url:'=',
 			param:'=',
 			data:"=",
-			required:"@"
+			required:"="
 		},
 		template:function(element,atts){
 			return  '<input class="form-control input-sm" ng-model="data" required="{{required}}"></input>'+

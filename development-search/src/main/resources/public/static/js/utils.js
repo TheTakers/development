@@ -36,7 +36,7 @@ function saveOfClose($http,url,param,$uibModalInstance){
  * ctrl :编辑页controller
  * callback :回调函数
  */
-function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
+function edit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
 		
 		if(!_.isEmpty(param.id)){
 			
@@ -45,7 +45,7 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 			commonService.post(dataUrl,param,function(data){
 				
 				if(data.code == '0'){
-					commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:data.result,modelView:param.modelView},callback:callback,size:"max"});
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:data.result,modelView:param.modelView},callback:callback,size:(size||40)});
 				}else{
 					$.error(data.message);
 				}
@@ -54,7 +54,7 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback) {
 		}else{
 			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modelView:param.modelView},callback:callback});
 		}
-	};
+};
 	
 function remove(commonService,url,param,callback) {
 		
