@@ -215,8 +215,8 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="item in buttonList">
-										<td><input class="form-control input-sm ng-required" ng-model="item.title"></input></td>
-										<td><input class="form-control input-sm ng-required" ng-model="item.icon"></input></td>
+										<td><input class="form-control input-sm ng-required" ng-model="item.title" ng-required="true"></input></td>
+										<td><input class="form-control input-sm ng-required" ng-model="item.icon" ng-required="true"></input></td>
 										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
 										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
