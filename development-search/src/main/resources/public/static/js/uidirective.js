@@ -256,13 +256,12 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm"  value="{{data[inputData.dataValue]}}"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-class="{\'ng-required\': required}"  value="{{data[inputData.dataValue]}}" readonly="true"></input>'
 			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-
 			if(_.isEmpty(scope.expand)){
 				return;
 			}
@@ -351,14 +350,12 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			required:"="
 		},
 		template:function(element,atts){
-			return  '<input class="form-control input-sm {{clazz}}"  ng-model="data" required="{{required}}" ></input>'+
+			return  '<input class="form-control input-sm" ng-class="{\'ng-required\': required}"  ng-model="data" required="{{required}}" readonly="true"></input>'+
 			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
 		},
 		replace : false,			
 		transclude : false,
 		link:function(scope,element,attr){ 
-			
-			scope.clazz = scope.required ? "ng-required" : ""; 
 			
 			//生成编码
 			scope.createCode = function(){
