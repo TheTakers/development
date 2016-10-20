@@ -110,7 +110,7 @@
 								<tbody>
 									<tr ng-repeat="item in columnList">
 										 <td>
-										 <input class="form-control input-sm" ng-model="item.title" ng-required="true"></input>
+										 <input class="form-control input-sm ng-required" ng-model="item.title" ng-required="true"></input>
 										 </td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
@@ -166,7 +166,7 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="item in filterList">
-											<td><input class="form-control input-sm" ng-model="item.title"></input></td>
+											<td><input class="form-control input-sm ng-required" ng-model="item.title" ng-required="true"></input></td>
 											<td>{{item.field}}</td>
 											<td>{{item.dataType}}</td>
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
@@ -185,7 +185,19 @@
  						<div class="col-sm-12">
 	 						<div class="card-box">
 		 						<button class="btn btn-default" ng-click="createButton()"><i class="fa fa-plus m-r-5"></i>添加</button>
-		 					</div>
+								<div class="checkbox checkbox-primary checkbox-inline" style="padding-left: 35px;">
+									<input type="checkbox" id="insertCheckbox"  ng-click="crudCheck('insert')" ng-checked="isChecked(insert)"></input>
+									<label for="insertCheckbox"> 增加 </label>
+								</div>
+								<div class="checkbox checkbox-success checkbox-inline">
+									<input type="checkbox" id="updateCheckbox" ng-click="crudCheck('update')" ng-checked="isChecked(update)">
+									</input> <label for="updateCheckbox"> 修改 </label>
+								</div>
+								<div class="checkbox checkbox-pink checkbox-inline">
+									<input type="checkbox" id="deleteCheckbox" ng-click="crudCheck('delete')" ng-checked="isChecked(remove)"></input>
+									<label for="deleteCheckbox"> 删除 </label>
+								</div>
+							</div>
 	 					</div>
  						<div class="col-sm-12">
  						<div class="card-box">
@@ -203,8 +215,8 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="item in buttonList">
-										<td><input class="form-control input-sm" ng-model="item.title"></input></td>
-										<td><input class="form-control input-sm" ng-model="item.icon"></input></td>
+										<td><input class="form-control input-sm ng-required" ng-model="item.title"></input></td>
+										<td><input class="form-control input-sm ng-required" ng-model="item.icon"></input></td>
 										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
 										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>

@@ -368,6 +368,24 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.buttonList.splice(_.findIndex($scope.buttonList, item),1);
 		}
 		
+		//增、删、改
+		$scope.insert = {title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"40"};
+		$scope.update = {title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"40"};
+		$scope.remove = {title:"删除",icon:"",type:1,url:"",showWin:0,winSize:""};
+		
+		$scope.crudCheck = function(type){
+			if(_.isEqual("insert", type) ){
+				updateCheckBox($scope.buttonList,$scope.insert);
+			}else if(_.isEqual("update", type) ){
+				updateCheckBox($scope.buttonList,$scope.update);
+			}else{
+				updateCheckBox($scope.buttonList,$scope.remove);
+			}
+		}
+		$scope.isChecked = function(item){
+			return _.findIndex($scope.buttonList, item) > -1;
+		}
+		
 		//功能树形
 		$scope.treeData = {
 			url:"",

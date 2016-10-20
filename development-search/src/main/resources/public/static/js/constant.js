@@ -36,6 +36,7 @@ var OPTION_MULTIPLE = [{value:"",text:"请选择"},{value:0,text:"单选"},{valu
 
 /*表达式*/
 var WIN_SIZE = [
+    {value:"",text:"请选择"},          
     {value:"40",text:"40%"},
     {value:"50",text:"50%"},
     {value:"60",text:"60%"},
