@@ -395,13 +395,15 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			isShow:0
 		};
 		
-		//更多设置
-		$scope.moreconfig = {
-			crud:0,
-			insertUrl:"",
-			updateUrl:"",
-			deleteUrl:"",
-			multiple:0
+		//树功能必填设置
+		$scope.treeRequiredClass = "";
+		$scope.treeRequired = function(){
+			if($scope.treeData.isShow == 0){
+				$scope.treeRequiredClass = "";
+			}else{
+				$scope.treeRequiredClass = "ng-required";
+			}
+			return !_.isEmpty($scope.treeRequiredClass);
 		}
 	}
 	

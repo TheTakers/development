@@ -234,31 +234,31 @@
             		 <div class="form-group" >
 						<label class="col-sm-3 control-label">是否显示</label>
 						<div class="col-sm-6">
-	 						<td><ui-dropdown selected="treeData.isShow" data="optionData"></ui-dropdown></td>
+	 						<td><ui-dropdown selected="treeData.isShow" data="optionData" ng-change="treeRequired()"></ui-dropdown></td>
 	 					</div>
 					</div>
 	             	<div class="form-group" >
 						<label class="col-sm-3 control-label">URL</label><span class="text-muted"> * </span>
 						<div class="col-sm-6">
-							<input class="form-control input-sm" ng-model="treeData.url"  ng-required="true"></input>
+							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.url"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">IdKey</label><span class="text-muted"> * </span>
 						<div class="col-sm-6">
-							<input class="form-control input-sm" ng-model="treeData.idKey"  ng-required="true"></input>
+							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.idKey"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">pIdKey</label><span class="text-muted"> * </span>
 						<div class="col-sm-6">
-							<input class="form-control input-sm" ng-model="treeData.pIdKey"  ng-required="true"></input>
+							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.pIdKey"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">rootPId</label><span class="text-muted"> * </span>
 						<div class="col-sm-6">
-							<input class="form-control input-sm" ng-model="treeData.rootPId"  ng-required="true"></input>
+							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.rootPId"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
              </div> 

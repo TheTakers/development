@@ -69,8 +69,8 @@ app.directive('uiDropdown', function($http,$log) {
 		scope:{
 			url:'=',
 			param:'=',
-			data:'=',
-			selected:'=',
+			data:'=',	//数据
+			selected:'=', //被选中值
 			required:'='
 		},
 		template:function(element,atts){
