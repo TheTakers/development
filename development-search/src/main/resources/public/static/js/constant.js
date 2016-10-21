@@ -43,5 +43,16 @@ var WIN_SIZE = [
     {value:"70",text:"70%"},
 	{value:"80",text:"80%"},
 	{value:"90",text:"90%"},
-	{value:"100",text:"100%"},
+	{value:"100",text:"100%"}
   ]
+
+var RULE_DATA = [
+ {value:"",text:"请选择"},          
+ {value:"1",text:"40%"},
+ {value:"2",text:"50%"},
+ {value:"3",text:"60%"},
+ {value:"4",text:"70%"},
+ {value:"5",text:"80%"},
+ {value:"6",text:"90%"},
+ {value:"7",text:"100%"}             
+]

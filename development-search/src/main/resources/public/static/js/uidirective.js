@@ -1,18 +1,40 @@
 /**========================================================================event directive======================================================================================================**/
-
-app.directive('eventChange', function($http,$log) {
-	return {
-		restrict:'A',
-		scope:{
-			method:'@'
-		},
-		replace : true,			
-		transclude : false,
-		link:function(scope,element,attr){
-			alert("aaaaa")
+app.directive('formValidator', [function () {
+	
+	function regexp(rule,value){
+		
+		switch (rule.code) {
+		
+		    case 1: //email 
+		    	 var emailsRegexp = /^([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*[;；]?)+$/i;
+		    	 return emailsRegexp.test(value);
+		    case 2://最大长度
+		        return value && value.length <= 4
+		    case 3://数字
+		    	
+		    default:
+		        // ...
 		}
 	};
-});
+    return {
+    	scope:{
+    		rule:'='
+    	},
+        require: "ngModel",
+        link: function (scope, element, attr, ngModel) {
+            if (ngModel) {
+            	var customValidator = function (value) {
+            		var validity = ngModel.$isEmpty(value) || regexp(scope.rule,value);
+            		ngModel.$setValidity("formValidator", validity);
+            		return validity ? value : undefined;
+            	};
+            	ngModel.$formatters.push(customValidator);
+            	ngModel.$parsers.push(customValidator);
+            }
+        }
+    };
+}]);
+
 
 /**========================================================================ui directive======================================================================================================**/
 app.directive('uiLabel', function($http,$log) {
