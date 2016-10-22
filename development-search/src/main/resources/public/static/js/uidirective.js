@@ -289,6 +289,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 			data:"=",
 			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
+			size:'@',
 			validator:'='
 		},
 		template:function(element,atts){
@@ -333,7 +334,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 						};
 
 					},
-					size:'l',
+					size:scope.size,
 					resolve: {
 						param: function () {
 							return scope;
