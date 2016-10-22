@@ -26,13 +26,13 @@ fieldData:[
 	}
 	
 ,fieldSetting:[
-    {title:"SQLID",field:"sqlId",required:true,componentType:"GENERATECODE"},
-    {title:"别名",field:"sqlName",required:true,componentType:"TEXT"},
-    {title:"数据源",field:"datasource",required:true,componentType:"TEXT"},
-    {title:"所属分组",field:"groupId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
-    {title:"缓存",field:"cache",required:false,componentType:"DROPDOWN",expand:"[{value:1,text:'是'},{value:0,text:'否'}]"},
+    {title:"SQLID",field:"sqlId",required:true,componentType:"GENERATECODE",rule:"[10001]"},
+    {title:"别名",field:"sqlName",required:true,componentType:"TEXT",rule:"[10001]"},
+    {title:"数据源",field:"datasource",required:true,componentType:"TEXT",rule:"[10001]"},
+    {title:"所属分组",field:"groupId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}" ,rule:"[10001]"},
+    {title:"缓存",field:"cache",required:false,componentType:"DROPDOWN",expand:"[{value:1,text:'是'},{value:0,text:'否'}]",rule:"[10001]"},
     {title:"状态",field:"status",required:false,componentType:"TEXT"},
     {title:"描述",field:"sqldesc",required:false,componentType:"TEXTAREA"},
-    {title:"SQL",field:"selectSql",required:false,componentType:"TEXTAREA"}
+    {title:"SQL",field:"selectSql",required:false,componentType:"TEXTAREA",rule:"[10001]"}
 	]
 }

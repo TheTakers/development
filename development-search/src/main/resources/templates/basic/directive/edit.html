@@ -10,12 +10,12 @@
 			<div class="form-group" ng-repeat="item in fieldList" >
 					<ui-label clazz="col-sm-3" content="{{item.title}}" required="item.required"></ui-label>
 					<div class="col-sm-6">
-						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')" required="item.required"></ui-generate-code>
-						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="[10001]" ng-maxlength="item.length"></input>
-						<ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" required="item.required"></ui-selector>
-						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="[10001]" ng-maxlength="item.length"></textarea>
-						<ui-datepicker class="form-control"  value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
-						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')" required="item.required" data="item.expand"></ui-dropdown>
+						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')"  validator="item.rule" maxlength="item.length"></ui-generate-code>
+						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="{{item.rule}}" maxlength="item.length"></input>
+						<ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" validator="item.rule" maxlength="item.length"></ui-selector>
+						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="{{item.rule}}" maxlength="item.length"></textarea>
+						<ui-datepicker class="form-control"  value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')"></ui-datepicker>
+						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')"  data="item.expand" ui-validator="{{item.rule}}"></ui-dropdown>
  					</div>
 			</div>
 		</form>		

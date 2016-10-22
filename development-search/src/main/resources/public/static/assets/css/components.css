@@ -48,7 +48,7 @@ File: Components
 .btn-white:focus,
 .btn-white:hover,
 .open > .dropdown-toggle.btn-white {
-  border: 1px solid #eaeaea !important;
+  border: 1px solid #eaeaea /*!important*/;
   background-color: #ffffff;
   color: #4c5667;
 }

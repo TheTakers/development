@@ -9,7 +9,11 @@ app.directive('uiValidator', [function () {
 		}
 		switch (rule) {
 		    case "10001":
-		    	return !_.isEmpty(value);
+		    	if(_.isString(value)){
+		    		return !_.isEmpty(value);
+		    	}else{
+		    		return value != null;
+		    	}
 		    default:
 		       return eval(regx.rule).test(value);
 		}
@@ -30,7 +34,7 @@ app.directive('uiValidator', [function () {
             		for(var idx in code){
             				var regx = REGULAR_EXPRESSION[code[idx]];
 //            				var validity = eval(regx.rule).test(value);
-            				var validity = regxResult(regx.rule,value);
+            				var validity = regxResult(regx.rule,value,$(attr).attr("maxlength"));
             				ngModel.$setValidity(regx.rule, validity);
             				if(validity){
             					$(element).removeClass("ng-required");
@@ -284,13 +288,13 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		scope:{
 			url:'@',
 			data:"=",
-			expand:'@', //扩展字段
+			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
-			required:'='
+			validator:'='
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-class="{\'ng-required\': required}"  value="{{data[inputData.dataValue]}}" readonly="true"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
@@ -300,7 +304,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 				return;
 			}
 			scope.inputData = eval('(' + scope.expand + ')');
-
+			scope.maxlength = $(attr)[0].maxlength;
 			scope.showDialog=function(){
 
 				var modalInstance = $uibModal.open({
@@ -381,16 +385,16 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			url:'=',
 			param:'=',
 			data:"=",
-			required:"="
+			validator:"="
 		},
 		template:function(element,atts){
-			return  '<input class="form-control input-sm" ng-class="{\'ng-required\': required}"  ng-model="data" required="{{required}}" readonly="true"></input>'+
+			return  '<input class="form-control input-sm"  ng-model="data"  ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'+
 			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
 		},
 		replace : false,			
 		transclude : false,
 		link:function(scope,element,attr){ 
-			
+			scope.maxlength = $(attr)[0].maxlength;
 			//生成编码
 			scope.createCode = function(){
 				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
