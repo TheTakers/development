@@ -1,32 +1,44 @@
 /**========================================================================event directive======================================================================================================**/
-app.directive('formValidator', [function () {
+app.directive('uiValidator', [function () {
 	
-	function regexp(rule,value){
+	function regxResult(rule,value,length){
 		
-		switch (rule.code) {
-		
-		    case 1: //email 
-		    	 var emailsRegexp = /^([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*[;；]?)+$/i;
-		    	 return emailsRegexp.test(value);
-		    case 2://最大长度
-		        return value && value.length <= 4
-		    case 3://数字
-		    	
+		if(length){
+			if(value.length < length)
+			  return false;
+		}
+		switch (rule) {
+		    case "10001":
+		    	return !_.isEmpty(value);
 		    default:
-		        // ...
+		       return eval(regx.rule).test(value);
 		}
 	};
+	
     return {
-    	scope:{
-    		rule:'='
-    	},
         require: "ngModel",
         link: function (scope, element, attr, ngModel) {
             if (ngModel) {
+            	
+            	//获取规则 
+            	var validatorRule = $(attr).attr("uiValidator");
+            	if(_.isEmpty(validatorRule)){
+            		return;
+            	}
+            	var code = eval(validatorRule);
             	var customValidator = function (value) {
-            		var validity = ngModel.$isEmpty(value) || regexp(scope.rule,value);
-            		ngModel.$setValidity("formValidator", validity);
-            		return validity ? value : undefined;
+            		for(var idx in code){
+            				var regx = REGULAR_EXPRESSION[code[idx]];
+//            				var validity = eval(regx.rule).test(value);
+            				var validity = regxResult(regx.rule,value);
+            				ngModel.$setValidity(regx.rule, validity);
+            				if(validity){
+            					$(element).removeClass("ng-required");
+            				}else{
+            					$(element).addClass("ng-required");
+            				}
+            				return validity ? value : undefined;
+            		}
             	};
             	ngModel.$formatters.push(customValidator);
             	ngModel.$parsers.push(customValidator);

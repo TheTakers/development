@@ -11,9 +11,9 @@
 					<ui-label clazz="col-sm-3" content="{{item.title}}" required="item.required"></ui-label>
 					<div class="col-sm-6">
 						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')" required="item.required"></ui-generate-code>
-						<input class="form-control input-sm" ng-class="{'ng-required': item.required}" ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ng-required="item.required" ng-maxlength="item.length"></input>
+						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="[10001]" ng-maxlength="item.length"></input>
 						<ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" required="item.required"></ui-selector>
-						<textarea class="form-control"  ng-class="{'ng-required': item.required}" ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ng-required="item.required" ng-maxlength="item.length"></textarea>
+						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="[10001]" ng-maxlength="item.length"></textarea>
 						<ui-datepicker class="form-control"  value="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" ng-required="item.required"></ui-datepicker>
 						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')" required="item.required" data="item.expand"></ui-dropdown>
  					</div>
