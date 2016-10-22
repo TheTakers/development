@@ -58,14 +58,13 @@ app.directive('uiLabel', function($http,$log) {
 		restrict:'E',
 		scope:{
 			content:"@",
-			clazz:"@",
-			required:"="
+			clazz:"@"
 		},
 		replace : true,			
 		transclude : false,
 		template:function(element,atts){
 			return  '<label class="{{clazz}}  control-label" ui-popover="" data-content="{{content}}"  data-trigger="hover">{{fixedValue}}'+
-					'<span class="text-muted"  ng-if="required"> * </span></label>';
+					'<span class="text-muted"></span></label>';
 		},
 		link:function(scope,element,attr){
 			scope.fixedValue = scope.content.substring(0,4);

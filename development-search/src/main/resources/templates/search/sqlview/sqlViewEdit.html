@@ -41,23 +41,23 @@
 				 -->
 				
 				<div class="form-group" >
-					<label class="col-sm-3 control-label">编号<span class="text-muted"> * </span></label>
+					<label class="col-sm-3 control-label">编号</label>
 					<div class="col-sm-6">
-						<ui-generate-code data="data.code" required="true"></ui-generate-code>
+						<ui-generate-code data="data.code" validator="[10001]"></ui-generate-code>
  					</div>
 				</div>
 				
 				<div class="form-group" >
-					<label class="col-sm-3 control-label">别名<span class="text-muted"> * </span></label>
+					<label class="col-sm-3 control-label">别名</label>
 					<div class="col-sm-6">
-						<input class="form-control input-sm ng-required" ng-model="data.name" ng-required="true"></input>
+						<input class="form-control input-sm" ng-model="data.name" ui-validator="[10001]"></input>
  					</div>
 				</div>
 				
 				<div class="form-group" >
-					<label class="col-sm-3 control-label">SQLID<span class="text-muted"> * </span></label>
+					<label class="col-sm-3 control-label">SQLID</label>
 					<div class="col-sm-6">
-						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" required="true"></ui-selector>
+						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" validator="[10001]"></ui-selector>
  					</div>
 				</div>
 				
@@ -110,7 +110,7 @@
 								<tbody>
 									<tr ng-repeat="item in columnList">
 										 <td>
-										 <input class="form-control input-sm ng-required" ng-model="item.title" ng-required="true"></input>
+										 <input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input>
 										 </td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
@@ -166,7 +166,7 @@
 									</thead>
 									<tbody>
 										<tr ng-repeat="item in filterList">
-											<td><input class="form-control input-sm ng-required" ng-model="item.title" ng-required="true"></input></td>
+											<td><input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input></td>
 											<td>{{item.field}}</td>
 											<td>{{item.dataType}}</td>
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
@@ -238,25 +238,25 @@
 	 					</div>
 					</div>
 	             	<div class="form-group" >
-						<label class="col-sm-3 control-label">URL<span class="text-muted"> * </span></label>
+						<label class="col-sm-3 control-label">URL</label>
 						<div class="col-sm-6">
 							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.url"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
-						<label class="col-sm-3 control-label">IdKey<span class="text-muted"> * </span></label>
+						<label class="col-sm-3 control-label">IdKey</label>
 						<div class="col-sm-6">
 							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.idKey"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
-						<label class="col-sm-3 control-label">pIdKey<span class="text-muted"> * </span></label>
+						<label class="col-sm-3 control-label">pIdKey</label>
 						<div class="col-sm-6">
 							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.pIdKey"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
 					<div class="form-group" >
-						<label class="col-sm-3 control-label">rootPId<span class="text-muted"> * </span></label>
+						<label class="col-sm-3 control-label">rootPId</label>
 						<div class="col-sm-6">
 							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.rootPId"  ng-required="treeRequired()"></input>
 	 					</div>
