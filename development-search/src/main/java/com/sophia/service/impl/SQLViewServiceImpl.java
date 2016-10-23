@@ -102,7 +102,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Transactional
 	public List<SQLViewField> showFullColumnsBySql(String sqlId) throws Exception {
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
-		String tempTableName  = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
+		String tempTableName = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
 		try {
 			SQLDefine sqlDefine = getSQLDefine(sqlId);
 			if(sqlDefine == null){
@@ -130,8 +130,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				list.add(field);
 			}
 		}finally{
-			//删除临时表
-			jdbcTemplateService.execute("DROP TABLE "+tempTableName);
+			String showTables = "SHOW TABLES  like \"" + tempTableName +"\"";
+			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showTables,new HashMap<String,String>());
+			if(!CollectionUtils.isEmpty(queryForList)){
+				
+				//删除临时表
+				jdbcTemplateService.execute("DROP TABLE "+tempTableName);
+			}
 		}
 		return list;
 	}
