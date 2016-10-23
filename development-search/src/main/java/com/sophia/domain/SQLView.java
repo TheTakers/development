@@ -41,8 +41,7 @@ public class SQLView extends Auditable{
 	/**
 	 * 树设置
 	 */
-	@Transient
-	private String treeData = "{}";
+	private String treeData;
 	
 	public ArrayList<SQLViewField> getColumnList() {
 		return columnList;
