@@ -129,11 +129,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				field.setIdx(queryForList.indexOf(item));
 				list.add(field);
 			}
-			
-			//删除临时表
-			String dropViewSql = "DROP TABLE "+ tempTableName;
-			jdbcTemplateService.execute(dropViewSql);
 		}finally{
+			//删除临时表
 			jdbcTemplateService.execute("DROP TABLE "+tempTableName);
 		}
 		return list;
