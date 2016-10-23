@@ -106,8 +106,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		try {
 			SQLDefine sqlDefine = getSQLDefine(sqlId);
 			if(sqlDefine == null){
-				logger.error("未知的SQLID:{}",sqlId);
-				return list;
+				logger.error("SQLID:{}未定义",sqlId);
+				throw new Exception("SQLID:["+sqlId+"]未定义");
 			}
 			
 			//创建一个临时表
@@ -133,8 +133,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//删除临时表
 			String dropViewSql = "DROP TABLE "+ tempTableName;
 			jdbcTemplateService.execute(dropViewSql);
-		} catch (Exception e) {
-			logger.error("获取字段列表异常{}", e);
+		}finally{
 			jdbcTemplateService.execute("DROP TABLE "+tempTableName);
 		}
 		return list;

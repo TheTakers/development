@@ -15,6 +15,7 @@ public class SQLDefine extends Auditable{
 	private String sqlId;
 	private String sqlName;
 	private String selectSql;
+	private String sqlExpand;
 	private String datasource;
 	/**
 	 * 是否缓存
@@ -36,6 +37,12 @@ public class SQLDefine extends Auditable{
 	 */
 	private String groupId;
 	
+	public String getSqlExpand() {
+		return sqlExpand;
+	}
+	public void setSqlExpand(String sqlExpand) {
+		this.sqlExpand = sqlExpand;
+	}
 	public String getSqldesc() {
 		return sqldesc;
 	}

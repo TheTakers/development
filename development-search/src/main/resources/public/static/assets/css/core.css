@@ -546,6 +546,7 @@ File: Bootstrap-custom
 /* Form components */
 textarea.form-control {
   min-height: 90px;
+  font-size: 12px;
 }
 .form-control {
   background-color: #FFFFFF;
