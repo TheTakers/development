@@ -305,11 +305,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		//修改字段
 		$scope.fieldList = param.modelView.fieldSetting;
 		//TODO SQL字段
-		$scope.columnList = [];
+		$scope.columnList = $scope.data.columnList;
 		//TODO 过滤条件
-		$scope.filterList = [];
+		$scope.filterList = eval($scope.data.conditions);
 		//TODO 按钮设置
-		$scope.buttonList = [];
+		$scope.buttonList = eval($scope.data.buttons);
 		
 		//保存操作
 		$scope.save = function() {
@@ -430,6 +430,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			rootPId: 0,
 			isShow:0
 		};
+		if($scope.data.treeData){
+			$scope.treeData =  JSON.parse($scope.data.treeData);
+		}
 		
 		//树功能必填设置
 		$scope.treeRequiredClass = "";

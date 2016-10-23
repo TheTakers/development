@@ -32,6 +32,7 @@ import com.sophia.utils.SQLFilter;
 import com.sophia.web.util.GUID;
 
 @Service
+@Transactional
 public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SQLViewService  {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
@@ -60,9 +61,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		//保存SQL列表
 		for(SQLViewField field : sqlViewRequest.getColumnList()){
-			if(StringUtils.isBlank(field.getId())){
-				field.setId(sqlView.getId());
-			}
+			field.setId(GUID.nextId());
+			field.setViewId(sqlView.getId());
 		}
 		sqlViewFieldService.getRepository().save(sqlViewRequest.getColumnList());
 		
@@ -70,11 +70,15 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return getRepository().save(sqlView).getId();
 	}
 	@Override
-	public Map<String,Object> findById(String id) {
-		SQLFilter sqlFilter = SQLFilter.getInstance();
-		sqlFilter.setMainSql(sql);
-		sqlFilter.EQ("id", id);
-		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+	public SQLView findById(String id) {
+		
+		//基本信息
+		SQLView sqlView = getRepository().findOne(id);
+		
+		//获取列表
+		 List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		 sqlView.setColumnList(sqlViewFieldList);
+		return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
 		SQLFilter sqlFilter = SQLFilter.getInstance();

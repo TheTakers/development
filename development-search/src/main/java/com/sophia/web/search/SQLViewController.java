@@ -5,8 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -19,13 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
-import com.sophia.domain.SQLView;
 import com.sophia.request.QueryRequest;
 import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
 import com.sophia.service.SQLViewService;
 import com.sophia.web.constant.Constant;
-import com.sophia.web.util.GUID;
 
 @Controller
 @RequestMapping(SQLViewController.module)

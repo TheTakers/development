@@ -1,6 +1,7 @@
 package com.sophia.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -36,19 +37,20 @@ public class SQLView extends Auditable{
 	 * 显示列名
 	 */
 	@Transient
-	private ArrayList<SQLViewField> columnList  = new ArrayList<SQLViewField>();
+	private List<SQLViewField> columnList  = new ArrayList<SQLViewField>();
 	
+	public List<SQLViewField> getColumnList() {
+		return columnList;
+	}
+	public void setColumnList(List<SQLViewField> columnList) {
+		this.columnList = columnList;
+	}
+
 	/**
 	 * 树设置
 	 */
 	private String treeData;
-	
-	public ArrayList<SQLViewField> getColumnList() {
-		return columnList;
-	}
-	public void setColumnList(ArrayList<SQLViewField> columnList) {
-		this.columnList = columnList;
-	}
+	 
 	public String getTreeData() {
 		return treeData;
 	}

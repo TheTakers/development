@@ -3,6 +3,7 @@ package com.sophia.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
@@ -14,7 +15,7 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	
 	public String save(SQLViewRequest sqlViewRequest);
 	
-	public Map<String,Object> findById(String id);
+	public SQLView findById(String id);
 	
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
 	
