@@ -65,7 +65,7 @@ function edit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
 			});
 			
 		}else{
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modelView:param.modelView},callback:callback});
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:{formData:{},modelView:param.modelView},callback:callback,size:(size||40)});
 		}
 };
 	

@@ -296,12 +296,31 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 });
 app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
+	/*新增初始化*/
+	var init = function(data){
+		if(data.id){
+			return data;
+		}
+		return {
+			multiple :0,
+			showRowNum:0,
+			name:"",
+			code:"",
+			remark:"",
+			sqlId:"",
+			fieldList : [],
+			columnList : [],
+			conditions : "[]",
+			buttons : "[]"
+		};
+	};
+	
 	//子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		$scope.optionData = OPTION_WHETHER;
 		
 		//基本信息
-		$scope.data = param.formData;
+		$scope.data = init(param.formData);
 		//修改字段
 		$scope.fieldList = param.modelView.fieldSetting;
 		//TODO SQL字段
