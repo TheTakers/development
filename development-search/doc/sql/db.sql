@@ -68,21 +68,22 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_sm_sqldefine`;
 CREATE TABLE `tb_sm_sqldefine` (
-`id`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-`sqlId`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`sqlName`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`groupId`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`selectSql`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`datasource`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`sqldesc`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`createTime`  datetime NULL DEFAULT NULL ,
-`createUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`version`  decimal(50,0) NULL DEFAULT NULL ,
-`lastUpdateUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`lastUpdateTime`  datetime NULL DEFAULT NULL ,
-`status`  decimal(2,0) NULL DEFAULT NULL ,
-`cache`  decimal(2,0) NULL DEFAULT NULL 
-)
+  `id` varchar(50) NOT NULL,
+  `sqlId` varchar(50) DEFAULT NULL,
+  `sqlName` varchar(50) DEFAULT NULL COMMENT '别名',
+  `groupId` varchar(50) DEFAULT NULL COMMENT '所属分组',
+  `selectSql` text COMMENT '查询SQL',
+  `datasource` varchar(50) DEFAULT NULL COMMENT '数据源',
+  `sqldesc` text COMMENT '排序',
+  `createTime` datetime DEFAULT NULL,
+  `createUser` varchar(50) DEFAULT NULL,
+  `version` decimal(50,0) DEFAULT NULL COMMENT '版本号',
+  `lastUpdateUser` varchar(50) DEFAULT NULL COMMENT '修改人',
+  `lastUpdateTime` datetime DEFAULT NULL COMMENT '修改时间',
+  `status` decimal(2,0) DEFAULT NULL COMMENT '状态',
+  `cache` decimal(2,0) DEFAULT NULL COMMENT '缓存数据',
+  `sqlExpand` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 
