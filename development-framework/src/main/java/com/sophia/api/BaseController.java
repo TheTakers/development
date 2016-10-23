@@ -52,9 +52,12 @@ public class BaseController {
     protected Map<String, Object> responseError(Object obj, Exception e) {
     	Map<String, Object> resultMap = Maps.newHashMap();
         resultMap.put(Constant.KEY_OF_CODE, Constant.STATUS_CODE_FAILURE);
-        resultMap.put(Constant.KEY_OF_MESSAGE, obj);
+//        resultMap.put(Constant.KEY_OF_MESSAGE, obj);
         resultMap.put(Constant.KEY_OF_RESULT, null);
         if (e != null) {
+        	
+        	//开发环境
+        	resultMap.put(Constant.KEY_OF_MESSAGE, e.getMessage());
             logger.error(e.getMessage(), e);
         }
         return resultMap;

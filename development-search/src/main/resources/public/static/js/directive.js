@@ -396,10 +396,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$.confirm({
 				confirm: function(){
 					commonService.ajax({url:"/search/sqlview/createField",data:JSON.stringify({sqlId:$scope.data.sqlId}),success:function(data){
-						$scope.columnList = data.result;
-						
-						//消化
-						$scope.$digest();
+						if(STATUS_CODE.SUCCESS == data.code){
+							$scope.columnList = data.result;
+							
+							//消化
+							$scope.$digest();
+						}else{
+							$.error(data.message);
+						}
 					}});
 				} 
 			});
