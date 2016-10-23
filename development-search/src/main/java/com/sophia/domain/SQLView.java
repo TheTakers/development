@@ -32,13 +32,19 @@ public class SQLView extends Auditable{
 	private String buttons="[]";
 	private String sqlId;
 	private Integer multiple = SQLViewConstant.NO;
-	
+	private String remark;
 	/**
 	 * 显示列名
 	 */
 	@Transient
 	private List<SQLViewField> columnList  = new ArrayList<SQLViewField>();
 	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public List<SQLViewField> getColumnList() {
 		return columnList;
 	}

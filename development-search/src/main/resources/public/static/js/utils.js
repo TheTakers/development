@@ -11,7 +11,19 @@ function updateCheckBox(array,item){
 		array.push(item);	
 	}
 }
-
+/**
+ * 根据ID获取array的下标
+ */
+function getArrayIdxById(array,item){
+	var index = -1;
+	for(var idx in array){
+		index ++;
+		if( array[idx].id == item.id ){
+			return index;
+		}
+	}
+	return -1;
+}
 
 /**
  * 弹窗保存并关闭
