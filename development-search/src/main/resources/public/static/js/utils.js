@@ -3,7 +3,8 @@
  */
 function updateCheckBox(array,item){
 
-	var idx = _.findIndex(array, item);
+//	var idx = _.findIndex(array, item);
+	var idx = array.indexOf(item);
 	if(idx > -1){
 		array.splice(idx,1);
 	}else{

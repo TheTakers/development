@@ -337,6 +337,32 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.filterList.splice(_.findIndex($scope.filterList, item),1);
 		}
 		
+		//验证规则
+		$scope.checkRule = function(item){
+			commonService.show({template:' <div class="modal-header"><h8 class="modal-title">验证规则</h6></div><div class="card-box" style="margin-top:10px;">'+
+				'<div class="checkbox checkbox-primary" ng-repeat="regx in keys">'+
+				'<input type="checkbox" id="{{regx}}"  ng-click="checked(regx)" ng-checked="isChecked(regx)" ></input>'+
+				'<label for="{{regx}}">{{REGULAR_EXPRESSION[regx].tip}}</label></div></div>',
+				/**'<div class="modal-footer"><button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">取消</button>'+
+				'<button type="button" class="btn btn-info waves-effect waves-light" ng-click="ok()">确定</button></div>'**/
+				controller:function($scope,$http,$uibModal,$log,$uibModalInstance,param) {
+					$scope.REGULAR_EXPRESSION = REGULAR_EXPRESSION;
+					$scope.keys = _.keys(REGULAR_EXPRESSION);
+					item.rule = eval(item.rule);
+					$scope.isChecked = function(regx){
+						return item.rule.indexOf(regx) > -1;
+					}
+					$scope.checked = function(regx){
+						updateCheckBox(item.rule,regx);
+					}
+				},
+				param:{item:item},
+				callback:function(){
+					
+				}});
+			
+		}
+		
 		//生成列表
 		$scope.createFieldData = function(){
 			$.confirm({

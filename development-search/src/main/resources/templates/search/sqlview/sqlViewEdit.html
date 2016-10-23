@@ -104,7 +104,7 @@
 										<th>是否排序</th>
 										<th>详情查看</th>
 										<th>是否修改</th>
-										<th>备注</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -121,7 +121,9 @@
 										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
-										 <td><input class="form-control input-sm" ng-model="item.remark"></input></td>
+										 <td>
+										 	  <a href="javascript:void(0);" class="table-action-btn" ui-popover="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
+										 </td>
 									</tr>
 								</tbody>
 							</table>

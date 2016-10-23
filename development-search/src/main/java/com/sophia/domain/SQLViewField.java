@@ -28,7 +28,7 @@ public class SQLViewField extends Auditable{
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
 	private String length;
-	private String rule;
+	private String rule = "[]";
 	
 	public String getRule() {
 		return rule;
