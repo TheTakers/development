@@ -75,13 +75,7 @@ public class SQLViewController extends BaseController{
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> save(@RequestBody @Valid SQLViewRequest request) {
 		try {
-			SQLView target = new SQLView();
-			
-			BeanUtils.copyProperties(request, target);
-			if(StringUtils.isBlank(request.getId())){
-				target.setId(GUID.nextId());
-			}
-			sqlViewService.save(target);
+			sqlViewService.save(request);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

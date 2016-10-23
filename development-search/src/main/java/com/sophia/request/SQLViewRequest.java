@@ -1,27 +1,65 @@
 package com.sophia.request;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.sophia.constant.SQLViewConstant;
+import com.sophia.domain.SQLViewField;
 
 public class SQLViewRequest extends CrudRequest{
-	
+
 	@NotBlank
 	private String code;
 	
 	@NotBlank
 	private String name;
 	
-	private String showRowNum;
-	
-	/**
-	 * 1 单选,2多选
-	 */
-	private Integer multiple;
-	private String conditions;
-	private String buttons;
-	private String treedata;
-	
 	@NotBlank
 	private String sqlId;
+	/**
+	 * 显示列名
+	 */
+	@NotEmpty
+	private	List<SQLViewField> columnList  = new ArrayList();
+	
+	private Integer showRowNum = SQLViewConstant.NO;
+	/**
+	 * 条件过滤
+	 */
+	private JSONArray filterList = new JSONArray();
+	
+	/**
+	 * 按钮列表
+	 */
+	private JSONArray buttonList = new JSONArray();
+	
+	private Integer multiple = SQLViewConstant.NO;
+	/**
+	 * 树设置
+	 */
+	private JSONObject treeData = new JSONObject();
+	
+	
+	public Integer getMultiple() {
+		return multiple;
+	}
+
+	public void setMultiple(Integer multiple) {
+		this.multiple = multiple;
+	}
+
+	public String getSqlId() {
+		return sqlId;
+	}
+
+	public void setSqlId(String sqlId) {
+		this.sqlId = sqlId;
+	}
 
 	public String getCode() {
 		return code;
@@ -38,52 +76,44 @@ public class SQLViewRequest extends CrudRequest{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getShowRowNum() {
+	
+	public Integer getShowRowNum() {
 		return showRowNum;
 	}
 
-	public void setShowRowNum(String showRowNum) {
+	public void setShowRowNum(Integer showRowNum) {
 		this.showRowNum = showRowNum;
 	}
 
-	public Integer getMultiple() {
-		return multiple;
+	public List<SQLViewField> getColumnList() {
+		return columnList;
 	}
 
-	public void setMultiple(Integer multiple) {
-		this.multiple = multiple;
+	public void setColumnList(List<SQLViewField> columnList) {
+		this.columnList = columnList;
 	}
 
-	public String getConditions() {
-		return conditions;
+	public JSONArray getFilterList() {
+		return filterList;
 	}
 
-	public void setConditions(String conditions) {
-		this.conditions = conditions;
+	public void setFilterList(JSONArray filterList) {
+		this.filterList = filterList;
 	}
 
-	public String getButtons() {
-		return buttons;
+	public JSONArray getButtonList() {
+		return buttonList;
 	}
 
-	public void setButtons(String buttons) {
-		this.buttons = buttons;
+	public void setButtonList(JSONArray buttonList) {
+		this.buttonList = buttonList;
 	}
 
-	public String getTreedata() {
-		return treedata;
+	public JSONObject getTreeData() {
+		return treeData;
 	}
 
-	public void setTreedata(String treedata) {
-		this.treedata = treedata;
-	}
-
-	public String getSqlId() {
-		return sqlId;
-	}
-
-	public void setSqlId(String sqlId) {
-		this.sqlId = sqlId;
+	public void setTreeData(JSONObject treeData) {
+		this.treeData = treeData;
 	}
 }

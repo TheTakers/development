@@ -8,13 +8,12 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.domain.SQLDefine;
@@ -23,9 +22,11 @@ import com.sophia.domain.SQLViewField;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
+import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
 import com.sophia.utils.SQLFilter;
 import com.sophia.web.util.GUID;
@@ -37,10 +38,34 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	private static final long serialVersionUID = 1L;
 	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired SQLDefineService sqlDefineService;
+	@Autowired SQLViewFieldService sqlViewFieldService;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
-	public String save(SQLView sqlView){
-
+	public String save(SQLViewRequest sqlViewRequest){
+		
+		//基本信息
+		SQLView sqlView = new SQLView();
+		BeanUtils.copyProperties(sqlViewRequest, sqlView);
+		if(StringUtils.isBlank(sqlViewRequest.getId())){
+			sqlView.setId(GUID.nextId());
+		}
+		sqlView.setButtons(sqlViewRequest.getButtonList().toJSONString());
+		sqlView.setTreeData(sqlViewRequest.getTreeData().toJSONString());
+		sqlView.setConditions(sqlViewRequest.getFilterList().toJSONString());
+		
+		//先删除列表
+		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		if(!CollectionUtils.isEmpty(sqlViewFieldList)){
+			 sqlViewFieldService.getRepository().delete(sqlViewFieldList);
+		}
+		//保存SQL列表
+		for(SQLViewField field : sqlViewRequest.getColumnList()){
+			if(StringUtils.isBlank(field.getId())){
+				field.setId(sqlView.getId());
+			}
+		}
+		sqlViewFieldService.getRepository().save(sqlViewRequest.getColumnList());
+		
 		//生成GROUP PATH
 		return getRepository().save(sqlView).getId();
 	}

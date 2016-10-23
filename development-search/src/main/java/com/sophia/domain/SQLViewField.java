@@ -18,13 +18,12 @@ public class SQLViewField extends Auditable{
 	private String viewId;
 	private String title;
 	private String field;
-	private Integer isDiaplay = SQLViewConstant.NO;
 	private String expand;
+	private Integer isDisplay = SQLViewConstant.NO;
 	private Integer isSort = SQLViewConstant.NO;
 	private Integer isUpdate = SQLViewConstant.YES;
-	private String remark;
-	private String dataType;
 	private Integer isSearch = SQLViewConstant.NO;
+	private String dataType;
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
 	private String length;
@@ -41,17 +40,6 @@ public class SQLViewField extends Auditable{
 	}
 	public void setLength(String length) {
 		this.length = length;
-	}
-	/**
-	 * 是否CRUD操作
-	 */
-	private Integer crud = SQLViewConstant.NO;
-	
-	public Integer getCrud() {
-		return crud;
-	}
-	public void setCrud(Integer crud) {
-		this.crud = crud;
 	}
 	public Integer getIsUpdate() {
 		return isUpdate;
@@ -83,12 +71,6 @@ public class SQLViewField extends Auditable{
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
 	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 	public String getViewId() {
 		return viewId;
 	}
@@ -107,11 +89,12 @@ public class SQLViewField extends Auditable{
 	public void setField(String field) {
 		this.field = field;
 	}
-	public Integer getIsDiaplay() {
-		return isDiaplay;
+	 
+	public Integer getIsDisplay() {
+		return isDisplay;
 	}
-	public void setIsDiaplay(Integer diaplay) {
-		this.isDiaplay = diaplay;
+	public void setIsDisplay(Integer isDisplay) {
+		this.isDisplay = isDisplay;
 	}
 	public String getExpand() {
 		return expand;

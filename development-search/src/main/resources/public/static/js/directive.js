@@ -299,15 +299,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	//子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		$scope.optionData = OPTION_WHETHER;
+		
+		//基本信息
 		$scope.data = param.formData;
-		//保存操作
-		$scope.save = function() {
-			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
-		};
-		$scope.cancel = function() {
-			$uibModalInstance.dismiss('cancel');
-		};
-		$scope.ctype = DICT_COMPONENTTYPE;
 		//修改字段
 		$scope.fieldList = param.modelView.fieldSetting;
 		//TODO SQL字段
@@ -316,6 +310,20 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.filterList = [];
 		//TODO 按钮设置
 		$scope.buttonList = [];
+		
+		//保存操作
+		$scope.save = function() {
+			$scope.data.columnList = $scope.columnList;
+			$scope.data.filterList = $scope.filterList;
+			$scope.data.buttonList = $scope.buttonList;
+			$scope.data.treeData = $scope.treeData;
+			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+		};
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+		/**=======================过滤设置================================================**/
+		$scope.ctype = DICT_COMPONENTTYPE;
 		$scope.expr = DICT_EXPRESSION;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
@@ -336,7 +344,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.removeItem=function(item){
 			$scope.filterList.splice(_.findIndex($scope.filterList, item),1);
 		}
-		
+		/**=======================生成列表================================================**/
 		//验证规则
 		$scope.checkRule = function(item){
 			commonService.show({template:' <div class="modal-header"><h8 class="modal-title">验证规则</h6></div><div class="card-box" style="margin-top:10px;">'+
@@ -348,12 +356,13 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				controller:function($scope,$http,$uibModal,$log,$uibModalInstance,param) {
 					$scope.REGULAR_EXPRESSION = REGULAR_EXPRESSION;
 					$scope.keys = _.keys(REGULAR_EXPRESSION);
-					item.rule = eval(item.rule);
+					var rule = eval(item.rule);
 					$scope.isChecked = function(regx){
-						return item.rule.indexOf(regx) > -1;
+						return rule.indexOf(regx) > -1;
 					}
 					$scope.checked = function(regx){
-						updateCheckBox(item.rule,regx);
+						updateCheckBox(rule,regx);
+						item.rule = JSON.stringify(rule);
 					}
 				},
 				param:{item:item},
@@ -376,6 +385,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				} 
 			});
 		}
+		/**=======================按钮设置================================================**/
 		$scope.btype = OPTION_BUTTON;
 		$scope.winSize=WIN_SIZE;
 		
@@ -411,7 +421,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.isChecked = function(item){
 			return _.findIndex($scope.buttonList, item) > -1;
 		}
-		
+		/**=======================树设置====================================**/
 		//功能树形
 		$scope.treeData = {
 			url:"",

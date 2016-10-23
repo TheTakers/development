@@ -1,7 +1,10 @@
 package com.sophia.domain;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.sophia.constant.SQLViewConstant;
 
@@ -17,11 +20,42 @@ public class SQLView extends Auditable{
 	private String code;
 	private String name;
 	private Integer showRowNum = SQLViewConstant.NO;
-	private String conditions;
-	private String buttons;
-	private String treedata;
+	/**
+	 * 条件过滤
+	 */
+	private String conditions = "[]";
+	
+	/**
+	 * 按钮列表
+	 */
+	private String buttons="[]";
 	private String sqlId;
 	private Integer multiple = SQLViewConstant.NO;
+	
+	/**
+	 * 显示列名
+	 */
+	@Transient
+	private ArrayList<SQLViewField> columnList  = new ArrayList<SQLViewField>();
+	
+	/**
+	 * 树设置
+	 */
+	@Transient
+	private String treeData = "{}";
+	
+	public ArrayList<SQLViewField> getColumnList() {
+		return columnList;
+	}
+	public void setColumnList(ArrayList<SQLViewField> columnList) {
+		this.columnList = columnList;
+	}
+	public String getTreeData() {
+		return treeData;
+	}
+	public void setTreeData(String treeData) {
+		this.treeData = treeData;
+	}
 	
 	public Integer getMultiple() {
 		return multiple;
@@ -77,13 +111,5 @@ public class SQLView extends Auditable{
 
 	public void setButtons(String buttons) {
 		this.buttons = buttons;
-	}
-
-	public String getTreedata() {
-		return treedata;
-	}
-
-	public void setTreedata(String treedata) {
-		this.treedata = treedata;
 	}
 }
