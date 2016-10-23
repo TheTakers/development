@@ -116,26 +116,22 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_sm_view`;
 CREATE TABLE `tb_sm_view` (
-`id`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`version`  decimal(10,0) NULL DEFAULT NULL ,
-`createUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`createTime`  timestamp NULL DEFAULT NULL ,
-`lastUpdateUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`lastUpdateTime`  timestamp NULL DEFAULT NULL ,
-`code`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`name`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`showRowNum`  decimal(10,0) NULL DEFAULT NULL ,
-`multiple`  decimal(10,0) NULL DEFAULT NULL ,
-`conditions`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`buttons`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`treedata`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`sqlexpand`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`mainsql`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-`sqlId`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL 
-)
-ENGINE=InnoDB
-DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-
+  `id` varchar(50) DEFAULT NULL,
+  `version` decimal(10,0) DEFAULT NULL,
+  `createUser` varchar(50) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
+  `lastUpdateUser` varchar(50) DEFAULT NULL,
+  `lastUpdateTime` timestamp NULL DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL COMMENT '视图编码',
+  `name` varchar(50) DEFAULT NULL COMMENT '视图名称',
+  `showRowNum` decimal(10,0) DEFAULT NULL COMMENT '是否显示行号',
+  `multiple` decimal(10,0) DEFAULT NULL COMMENT '选项(单选,多选)',
+  `conditions` text COMMENT '过滤条件',
+  `buttons` text COMMENT '按钮',
+  `treeData` text COMMENT '功能树',
+  `sqlId` varchar(50) DEFAULT NULL COMMENT 'SQLID',
+  `remark` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ;
 
 -- ----------------------------
@@ -143,22 +139,26 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_sm_view_field`;
 CREATE TABLE `tb_sm_view_field` (
-`id`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`version`  decimal(10,0) NULL DEFAULT NULL ,
-`createUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`createTime`  timestamp NULL DEFAULT NULL ,
-`lastUpdateUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`lastUpdateTime`  timestamp NULL DEFAULT NULL ,
-`viewId`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`title`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`field`  decimal(10,0) NULL DEFAULT NULL ,
-`isdisplay`  decimal(10,0) NULL DEFAULT NULL ,
-`expand`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`isSort`  decimal(10,0) NULL DEFAULT NULL 
-)
-ENGINE=InnoDB
-DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-
+  `id` varchar(50) DEFAULT NULL,
+  `version` decimal(10,0) DEFAULT NULL,
+  `createUser` varchar(50) DEFAULT NULL,
+  `createTime` timestamp NULL DEFAULT NULL,
+  `lastUpdateUser` varchar(50) DEFAULT NULL,
+  `lastUpdateTime` timestamp NULL DEFAULT NULL,
+  `viewId` varchar(50) DEFAULT NULL COMMENT '视图标识',
+  `title` varchar(50) DEFAULT NULL COMMENT '视图名称',
+  `field` varchar(50) DEFAULT NULL COMMENT '字段名称',
+  `isDisplay` int(2) DEFAULT NULL COMMENT '是否显示',
+  `expand` varchar(500) DEFAULT NULL COMMENT '扩展字段',
+  `isSort` decimal(10,0) DEFAULT NULL COMMENT '是否排序',
+  `dataType` varchar(50) DEFAULT NULL,
+  `idx` int(2) DEFAULT NULL,
+  `componentType` varchar(20) DEFAULT NULL COMMENT '控件类型',
+  `isSearch` int(2) DEFAULT '0' COMMENT '详情查看',
+  `isUpdate` int(2) DEFAULT '0' COMMENT '是否修改',
+  `length` varchar(10) DEFAULT NULL,
+  `rule` text COMMENT '验证规则'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ;
 
 -- ----------------------------
