@@ -103,9 +103,10 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/createField",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> generateField(@RequestBody String sqlId) {
+	public Map<String, Object> generateField(@RequestBody JSONObject json) {
 		try {
-			return responseOk(sqlViewService.showFullColumnsBySql("20160831114541"));
+//			JSONObject json = new JSONObject().parseObject(jsonParam);
+			return responseOk(sqlViewService.showFullColumnsBySql(json.getString("sqlId")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

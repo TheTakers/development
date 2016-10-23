@@ -376,7 +376,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.createFieldData = function(){
 			$.confirm({
 				confirm: function(){
-					commonService.ajax({url:"/search/sqlview/createField",data:{sql:"20160831114541"},async:true,success:function(data){
+					commonService.ajax({url:"/search/sqlview/createField",data:JSON.stringify({sqlId:$scope.data.sqlId}),success:function(data){
 						$scope.columnList = data.result;
 						
 						//消化

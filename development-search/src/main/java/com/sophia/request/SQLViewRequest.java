@@ -21,6 +21,9 @@ public class SQLViewRequest extends CrudRequest{
 	
 	@NotBlank
 	private String sqlId;
+	
+	
+	private String remark;
 	/**
 	 * 显示列名
 	 */
@@ -116,4 +119,13 @@ public class SQLViewRequest extends CrudRequest{
 	public void setTreeData(JSONObject treeData) {
 		this.treeData = treeData;
 	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 }

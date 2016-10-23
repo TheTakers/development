@@ -45,11 +45,15 @@ app.service('commonService', function($log,$uibModal,$http){
 			success(data);
 		});
 	};
-
+	
+	/*传JSON格式数据需要先转成JSON字符串JSON.stringify*/
 	this.ajax = function ajax(options){
 		var $shade;
 		
 		var param = {type:"post",
+			    accepts: {
+			    	Accept: "application/json, text/plain, */*"
+			    },
 				contentType:'application/json',
 				dataType:'json',
 				async:true,
