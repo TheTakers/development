@@ -126,15 +126,50 @@ public class SQLViewController extends BaseController{
 	}
 	
 	/**
-	 * 保存SQL记录
+	 * 保存SQLVIEW记录
 	 * @param param
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="/persistent/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> createView(@PathVariable JSONObject param) {
+	public Map<String, Object> createView(@PathVariable String code,@RequestBody JSONObject formParam) {
 		try {
-			
+			sqlViewService.persistentByCode(code, formParam);
+			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	
+	/**
+	 * 修改视图的数据
+	 * @param code
+	 * @param formParam
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/modfity/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> modfityView(@PathVariable String code,@RequestBody JSONObject formParam) {
+		try {
+			sqlViewService.modifyByCode(code, formParam);
+			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	/**
+	 * 删除视图的数据
+	 * @param code
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/delete/{code}/{id}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> deleteView(@PathVariable String code,@PathVariable String id) {
+		try {
+			sqlViewService.deleteByCode(code, id);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

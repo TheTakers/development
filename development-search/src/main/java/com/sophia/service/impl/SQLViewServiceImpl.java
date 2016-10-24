@@ -1,7 +1,5 @@
 package com.sophia.service.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -354,7 +350,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 	}
 	
-	public void deleteByCode(String code,JSONObject formParam){
+	public void deleteByCode(String code,String id){
 		
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
@@ -384,7 +380,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put(sqlDefine.getMasterTableId(), formParam.get(sqlDefine.getMasterTableId()));
+		paramMap.put(sqlDefine.getMasterTableId(), id);
 		if(namedParameterJdbcTemplate.update(deleteSql.toString(), paramMap) < 1){
 			throw new ServiceException("数据删除失败");
 		}
