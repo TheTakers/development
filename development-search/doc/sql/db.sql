@@ -161,27 +161,3 @@ CREATE TABLE `tb_sm_view_field` (
   `rule` text COMMENT '验证规则'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ;
-
--- ----------------------------
--- Table structure for tb_sm_view_fieldsetting
--- ----------------------------
-DROP TABLE IF EXISTS `tb_sm_view_fieldsetting`;
-CREATE TABLE `tb_sm_view_fieldsetting` (
-`id`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`version`  decimal(10,0) NULL DEFAULT NULL ,
-`createUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`createTime`  timestamp NULL DEFAULT NULL ,
-`lastUpdateUser`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`lastUpdateTime`  timestamp NULL DEFAULT NULL ,
-`viewId`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`title`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`field`  decimal(10,0) NULL DEFAULT NULL ,
-`expand`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`sort`  decimal(10,0) NULL DEFAULT NULL ,
-`required`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
-`componentType`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL 
-)
-ENGINE=InnoDB
-DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-
-;
