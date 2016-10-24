@@ -381,11 +381,12 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 									search:function(){
 										scope.$broadcast(this.id);  
 									},
-									url:'search/sqldefine/list/'+scope.modelView.sqlId,
-									fieldData:scope.modelView.columnList
+									url:'search/sqldefine/list/'+scope.modelView.sqlId
 							};
+							scope.modelView.fieldData = scope.modelView.columnList;
 							scope.treeconfig = initTree(scope,JSON.parse(scope.modelView.treeData));
-							scope.filterData = eval(scope.modelView.conditions);
+							scope.modelView.filterData = eval(scope.modelView.conditions);
+							scope.modelView.buttonData = JSON.parse(scope.modelView.buttons);
 							//查询参数
 							scope.parameter = {
 									condition:scope.filterData
