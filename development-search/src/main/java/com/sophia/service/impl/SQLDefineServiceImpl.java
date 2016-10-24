@@ -56,4 +56,15 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	public SQLDefine findBySqlId(String sqlId) {
 		return getRepository().findBySqlId(sqlId);
 	}
+	@Override
+	public GridResponse list(String sqlId, QueryRequest queryRequest) {
+		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
+		if(null == sqlDefine){
+			return new GridResponse();
+		}
+		SQLFilter sqlFilter = SQLFilter.getInstance();
+		sqlFilter.addCondition(queryRequest.getCondition());
+		sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+	}
 }

@@ -64,6 +64,17 @@ public class SQLDefineController extends BaseController{
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
+		try {
+			GridResponse data = sqlDefineService.list(sqlId,queryRequest);
+			return responseOk(Constant.SUCCESS_MESSAGE,data);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> save(@RequestBody @Valid SQLDefineRequest request) {
 		try {

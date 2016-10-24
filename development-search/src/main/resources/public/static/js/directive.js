@@ -371,24 +371,26 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					//请求参数
 					scope.parameter = $.extend({id:$.uuid()},scope.param);
 					commonService.ajax({url:scope.point,success:function success(data){
-						scope.modelView = data;
-						scope.grid = {
-								id:$.uuid(),
-								//table展示的数据
-								dataList:{}, 
-								//查询
-								search:function(){
-									scope.$broadcast(this.id);  
-								},
-								url:'search/sqldefine/list',
-								fieldData: eval(data.conditions)
-						};
-						scope.treeconfig = initTree(scope,data.treeData);
-						
-						//查询参数
-						scope.parameter = {
-								condition:scope.modelView.filterData
-						};
+						scope.modelView = data.result;
+						if(data.code == STATUS_CODE.SUCCESS){
+							scope.grid = {
+									id:$.uuid(),
+									//table展示的数据
+									dataList:{}, 
+									//查询
+									search:function(){
+										scope.$broadcast(this.id);  
+									},
+									url:'search/sqldefine/list/'+scope.modelView.sqlId,
+									fieldData:scope.modelView.columnList
+							};
+							scope.treeconfig = initTree(scope,JSON.parse(scope.modelView.treeData));
+							scope.filterData = eval(scope.modelView.conditions);
+							//查询参数
+							scope.parameter = {
+									condition:scope.filterData
+							};
+						}
 					},type:"post",async:false});
 					
 					//选中列表
@@ -428,7 +430,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					
 					//判断是否显示树
 					scope.findtreeconfig = function(){
-						return _.isUndefined(scope.treeconfig);
+						return _.isEmpty(scope.treeconfig.isShow,OPTION_WHETHER[0].value) ;
 					}
 				} 
 			}

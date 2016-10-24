@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.sophia.constant.SQLViewConstant;
 
 /**
  * @author zkning
@@ -43,7 +44,11 @@ public class SQLFilter {
 
 		for(int idx =0;idx<array.size();idx++){
 			JSONObject cond = array.getJSONObject(idx);
-			addCondition(get(cond, alias),get(cond, expr),get(cond, value),get(cond, sort));
+			String sortField = "";
+			if(SQLViewConstant.YES.equals(get(cond, sort))){
+				sortField = get(cond, alias);
+			}
+			addCondition(get(cond, alias),get(cond, expr),get(cond, value),sortField);
 		}
 	}
 
