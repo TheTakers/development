@@ -1,0 +1,101 @@
+<div class="container">
+	
+	<div class="row">
+
+		<!-- tree start-->
+		<div class="col-md-2" ng-if="treeconfig">
+			<uitree class="card-box" setting="treeconfig.setting"></uitree>
+		</div>
+		<!-- tree end -->
+
+
+		<!-- start of search row -->
+
+		<div ng-class="{true: 'col-md-12', false: 'col-md-10'}[findtreeconfig()]">
+			<form class="form-inline">
+				<div class="row">
+					<div class="col-md-12">
+					
+						<div class="panel-group panel-group-joined" >
+							<div class="panel panel-color panel-default">
+
+								<!-- toolbar start -->
+								<div class="panel-heading">
+									<a data-toggle="collapse"  href="#{{toolbar.id}}" aria-expanded="true"></a>
+									
+									<div class="button-list">
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in modelView.buttonData" ng-if="item.type==1">{{item.title}}</button>
+									</div>
+
+								</div>
+								<!-- toolbar end -->
+
+								<!-- search start -->
+								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="!_.isEmpty(modelView.filterData)">
+									<div class="panel-body">
+
+										<div class="row">
+										
+											<div class="form-group" ng-repeat="item in modelView.filterData" >
+												<ui-label  content="{{item.title}}"></ui-label>
+												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
+											</div>
+											
+											<div class="form-group" >
+												<button type="reset" class="btn btn-danger waves-effect waves-light input-sm">重置</button>
+											 	<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="grid.search()">查询</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- search end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- End of search Row -->
+
+
+			<!-- start of datagrid -->
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card-box">
+						<table class="table table table-hover m-0 table-actions-bar">
+							<thead>
+								<tr >
+									<th ng-if="modelView.multiple" >选择</th>
+									<th ng-repeat="item in modelView.fieldData" >{{item.title}}</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr ng-repeat="item in grid.dataList">
+									<td ng-if="modelView.multiple">
+										<div class="radio radio-info" ng-if="modelView.multiple == 1" ng-click="rowClick(item,modelView.multiple)"><input type="radio" name="radio"  ></input><label for="radio"></label></div>
+										<div class="checkbox checkbox-info" ng-if="modelView.multiple == 2" ng-click="rowClick(item,modelView.multiple)"><input type="checkbox" ></input><label for="checkbox"></label></div>
+									</td>
+									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
+									<td ng-if="modelView.buttonData">
+                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in modelView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="16">
+										<div class="text-right">
+											 <ui-pagination id="{{grid.id}}" url="{{grid.url}}" data="grid.dataList" params="parameter"></ui-pagination> 
+										</div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end of datagrid -->
+	</div>
+</div>

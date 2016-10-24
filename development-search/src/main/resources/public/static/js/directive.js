@@ -153,6 +153,9 @@ app.directive('uitree', function($http,$log) {
 		}
 	};
 }); 
+
+
+
 //page
 app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
@@ -294,6 +297,145 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		}
 	};
 });
+
+/**
+ * SQLVIEW统一入口
+ */
+app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	
+	//子窗口 
+	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+		//页面数据
+		$scope.data = param.formData;
+		//保存操作
+		$scope.save = function() {
+			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+		};
+		$scope.cancel = function() {
+			$uibModalInstance.dismiss('cancel');
+		};
+		$scope.isType = function(type,ctype){
+			return _.isEqual(type, ctype);
+		}
+		//字段列表
+		$scope.fieldList = param.modelView.fieldSetting;
+	};
+	
+	//设置树参数
+	var initTree = function(scope,treeConfig){
+		if(_.isUndefined(treeConfig)){
+			return;
+		}
+		return {
+			setting:{
+				async:{
+					url:treeConfig.url,
+					type:"post",
+					contentType: "application/json",
+					enable:true
+				},
+				data:{
+					simpleData:{
+						enable: true, //不需要用户再把数据库中取出的 List 强行转换为复杂的 JSON 嵌套格式
+						idKey: treeConfig.idKey,
+						pIdKey: treeConfig.pIdKey,
+						rootPId: treeConfig.rootPId
+					}
+				},
+				callback: {
+					onClick: function(event,treeId,node,idx){
+						scope.parameter.treeNode=node;
+						scope.$broadcast(scope.grid.id);  
+					}
+				}
+			}
+		};
+	};
+	return {
+		restrict:'E',
+		templateUrl:"/basic/directive/index",
+		replace : false,			
+		transclude : false,
+		scope:{
+			point:"@",
+			param:"=",
+			returndata:"="
+		},
+		compile: function compile(tElement, tAttrs, transclude) {
+			return {
+				pre: function preLink(scope, iElement, iAttrs, controller) {
+					
+					//工具栏
+					scope.toolbar = {id:$.uuid()};
+					
+					//请求参数
+					scope.parameter = $.extend({id:$.uuid()},scope.param);
+					commonService.ajax({url:scope.point,success:function success(data){
+						scope.modelView = data;
+						scope.grid = {
+								id:$.uuid(),
+								//table展示的数据
+								dataList:{}, 
+								//查询
+								search:function(){
+									scope.$broadcast(this.id);  
+								},
+								url:'search/sqldefine/list',
+								fieldData: eval(data.conditions)
+						};
+						scope.treeconfig = initTree(scope,data.treeData);
+						
+						//查询参数
+						scope.parameter = {
+								condition:scope.modelView.filterData
+						};
+					},type:"post",async:false});
+					
+					//选中列表
+					var checkedData= [];
+					scope.rowClick = function(item,option){
+						scope.returndata.option = option;
+						
+						//单选
+						if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
+							checkedData[0] = item; 
+						}else{
+							updateCheckBox(checkedData,item);
+						}
+						scope.returndata.data = checkedData;
+					}
+					
+					scope.crud = function crud(item,func){
+						switch(func.target){
+						case "edit":
+							item = item || {id:""};
+							edit(commonService,scope.modelView.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,60);
+							break;
+							
+						case "remove":
+							remove(commonService,scope.modelView.controller + '/delete',{id:item.id},scope.search);
+							break;
+							
+						case "view":
+							
+							break;
+						default :
+							item = item || {id:""};
+							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
+							break;
+						}
+					}
+					
+					//判断是否显示树
+					scope.findtreeconfig = function(){
+						return _.isUndefined(scope.treeconfig);
+					}
+				} 
+			}
+		}
+	};
+});
+
 app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
 	/*新增初始化*/

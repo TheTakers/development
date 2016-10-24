@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -111,13 +112,25 @@ public class SQLViewController extends BaseController{
 	}
 	
 	/**
+	 * 跳转SQLVIEW页
+	 * @param code
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping("/index/{code}")
+    public ModelAndView viewIndex(@PathVariable String code, ModelMap result) {
+		result.addAttribute("code", code);
+        return new ModelAndView(module +"/sqlViewIndex", result);
+    }
+	
+	/**
 	 * 根据编号获取视图
 	 * @param code
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> createView(@PathVariable String code) {
+	@RequestMapping(value="/{code}",method={RequestMethod.GET,RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> getByCode(@PathVariable String code) {
 		try {
 			return responseOk(sqlViewService.getSqlViewByCode(code));
 		} catch (Exception e) {
