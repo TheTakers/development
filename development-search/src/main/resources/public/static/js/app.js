@@ -64,15 +64,14 @@ function httpInterceptor($q,$log) {
       if(res.status == 200){
   		  
   		  if(!_.isUndefined(res.data.code)){
-  			  
-  			  if(res.data.code == 1)
-  				  $.error(res.data.message);
+  			  if(res.data.code == STATUS_CODE.FAILURE){
+//  				  $.error(res.data.message);
+  			  }
   		  }
   	  }
       return res;
     },
     responseError: function(err){
-      
       $.error(err.statusText);
       return $q.reject(err);
     }

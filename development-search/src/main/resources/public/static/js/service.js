@@ -51,9 +51,6 @@ app.service('commonService', function($log,$uibModal,$http){
 		var $shade;
 		
 		var param = {type:"post",
-			    accepts: {
-			    	Accept: "application/json, text/plain, */*"
-			    },
 				contentType:'application/json',
 				dataType:'json',
 				async:true,
