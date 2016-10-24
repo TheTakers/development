@@ -37,6 +37,28 @@ public class SQLDefine extends Auditable{
 	 */
 	private String groupId;
 	
+	/**
+	 * 主表
+	 */
+	private String masterTable;
+	
+	/**
+	 * 主表对应的ID
+	 */
+	private String masterTableId;
+	
+	public String getMasterTable() {
+		return masterTable;
+	}
+	public void setMasterTable(String masterTable) {
+		this.masterTable = masterTable;
+	}
+	public String getMasterTableId() {
+		return masterTableId;
+	}
+	public void setMasterTableId(String masterTableId) {
+		this.masterTableId = masterTableId;
+	}
 	public String getSqlExpand() {
 		return sqlExpand;
 	}

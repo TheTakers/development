@@ -15,4 +15,6 @@ public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	public GridResponse list(QueryRequest queryRequest);
 	
 	public Map<String,Object> findById(String id);
+	
+	public SQLDefine findBySqlId(String sqlId);
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,10 +81,9 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> delete(@RequestBody String param) {
+	public Map<String, Object> delete(@RequestBody JSONObject param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			sqlViewService.getRepository().delete(json.getString("id"));
+			sqlViewService.getRepository().delete(param.getString("id"));
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
@@ -92,10 +92,9 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody String param) {
+	public Map<String, Object> findById(@RequestBody JSONObject param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(sqlViewService.findById(json.getString("id")));
+			return responseOk(sqlViewService.findById(param.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
@@ -111,4 +110,34 @@ public class SQLViewController extends BaseController{
 		}
 	}
 	
+	/**
+	 * 根据编号获取视图
+	 * @param code
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> createView(@PathVariable String code) {
+		try {
+			return responseOk(sqlViewService.getSqlViewByCode(code));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	/**
+	 * 保存SQL记录
+	 * @param param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/persistent/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> createView(@PathVariable JSONObject param) {
+		try {
+			
+			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
 }

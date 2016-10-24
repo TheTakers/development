@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,10 +81,19 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody String param) {
+	public Map<String, Object> findById(@RequestBody JSONObject param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(sqlDefineService.findById(json.getString("id")));
+			return responseOk(sqlDefineService.findById(param.getString("id")));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findBySqlId(@PathVariable String sqlId) {
+		try {
+			return responseOk(sqlDefineService.findBySqlId(sqlId));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
@@ -91,10 +101,9 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> delete(@RequestBody String param) {
+	public Map<String, Object> delete(@RequestBody JSONObject param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			sqlDefineService.getRepository().delete(json.getString("id"));
+			sqlDefineService.getRepository().delete(param.getString("id"));
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

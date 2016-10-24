@@ -52,4 +52,8 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		sqlFilter.EQ("id", id);
 		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
+	@Override
+	public SQLDefine findBySqlId(String sqlId) {
+		return getRepository().findBySqlId(sqlId);
+	}
 }

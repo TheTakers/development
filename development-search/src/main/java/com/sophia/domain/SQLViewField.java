@@ -23,12 +23,19 @@ public class SQLViewField extends Auditable{
 	private Integer isSort = SQLViewConstant.NO;
 	private Integer isUpdate = SQLViewConstant.YES;
 	private Integer isSearch = SQLViewConstant.NO;
+	private Integer isInsert = SQLViewConstant.YES;
 	private String dataType;
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
 	private String length;
 	private String rule = "[]";
 	
+	public Integer getIsInsert() {
+		return isInsert;
+	}
+	public void setIsInsert(Integer isInsert) {
+		this.isInsert = isInsert;
+	}
 	public String getRule() {
 		return rule;
 	}
