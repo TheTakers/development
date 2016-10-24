@@ -99,7 +99,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param sqlIndex
 	 */
 	@Override
-	@Transactional
 	public List<SQLViewField> showFullColumnsBySql(String sqlId) throws Exception {
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
 		String tempTableName = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
