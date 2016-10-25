@@ -410,9 +410,8 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					
 					scope.crud = function crud(item,func){
 						
-						switch(func.target){
-						
-						case "10001" //增
+						switch(func.id){
+						case "10001": //增
 							item = item || {id:""};
 							edit(commonService,'search/sqldefine/findById/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,func.winSize);
 							break;
