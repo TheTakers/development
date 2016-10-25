@@ -412,22 +412,18 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 						
 						switch(func.id){
 						case "10001": //增
+						case "10002"://修
 							item = item || {id:""};
 							edit(commonService,'search/sqldefine/findById/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,func.winSize);
-							break;
-						case "10002"://修
 						
 							break;
 						case "10003"://删
-							remove(commonService,'search/sqlview/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
+							remove(commonService,'search/sqlview/delete/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
 						case "10004"://查
 							
 							break;
 						default :
-							item = item || {id:""};
-							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search);
-							break;
 						}
 					}
 					
