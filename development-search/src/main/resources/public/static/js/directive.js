@@ -409,17 +409,20 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					}
 					
 					scope.crud = function crud(item,func){
+						
 						switch(func.target){
-						case "edit":
+						
+						case "10001" //增
 							item = item || {id:""};
-							edit(commonService,scope.modelView.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,60);
+							edit(commonService,'search/sqldefine/findById/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,func.winSize);
 							break;
-							
-						case "remove":
-							remove(commonService,scope.modelView.controller + '/delete',{id:item.id},scope.search);
+						case "10002"://修
+						
 							break;
-							
-						case "view":
+						case "10003"://删
+							remove(commonService,'search/sqlview/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
+							break;
+						case "10004"://查
 							
 							break;
 						default :
@@ -574,9 +577,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//增、删、改
-		$scope.insert = {id:'10001',title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"40"};
-		$scope.update = {id:'10002',title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"40"};
+		$scope.insert = {id:'10001',title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"50"};
+		$scope.update = {id:'10002',title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"50"};
 		$scope.remove = {id:'10003',title:"删除",icon:"",type:1,url:"",showWin:0,winSize:""};
+		$scope.search = {id:'10004',title:"查看",icon:"",type:1,url:"",showWin:1,winSize:"50"};
 		
 		$scope.crudCheck = function(item){
 			var idx = getArrayIdxById($scope.buttonList,item);
