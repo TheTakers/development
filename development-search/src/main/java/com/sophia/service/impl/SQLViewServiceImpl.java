@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,41 +107,35 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Override
 	public List<SQLViewField> showFullColumnsBySql(String sqlId) throws Exception {
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
-		String tempTableName = "TEMP_TABLE_VIEW_SQL_"+GUID.nextId();
-		try {
-			SQLDefine sqlDefine = getSQLDefine(sqlId);
-			if(sqlDefine == null){
-				logger.error("SQLID:{}未定义",sqlId);
-				throw new Exception("SQLID:["+sqlId+"]未定义");
-			}
-			
-			//创建一个临时表
-			String viewSql = "CREATE TABLE " + tempTableName + " AS SELECT T.* FROM (" + sqlDefine.getSelectSql()+") T WHERE 1=2 ";
-			jdbcTemplateService.execute(viewSql);
 
-			//通过临时表 找到对应的字段属性
-			String showColumnSql = "SHOW FULL COLUMNS FROM "+ tempTableName;
-			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showColumnSql,new HashMap<String,String>());
-			 
-			//将属性存入JSON方便下面获取  {"name":"姓名","sex":"性别"}
-			SQLViewField field = null;
-			for (Map<String,Object> item : queryForList) {
-				field = new SQLViewField();
-				field.setId(GUID.nextId());
-				field.setTitle(setTitle(item.get("Comment"), item.get("Field").toString()));
-				field.setField(item.get("Field").toString());
-				this.setTypeAndLenth(item.get("Type").toString(), field);
-				field.setIdx(queryForList.indexOf(item));
-				list.add(field);
+		SQLDefine sqlDefine = getSQLDefine(sqlId);
+		if(sqlDefine == null){
+			logger.error("SQLID:{}未定义",sqlId);
+			throw new Exception("SQLID:["+sqlId+"]未定义");
+		}
+
+		//创建一个临时表
+		String viewSql = " SELECT T.* FROM (" + sqlDefine.getSelectSql()+") T WHERE 1=2 ";
+
+		//通过临时表 找到对应的字段属性
+		SqlRowSet resultSet = namedParameterJdbcTemplate.queryForRowSet(viewSql,new HashMap<String,String>());
+		SqlRowSetMetaData srsmd = resultSet.getMetaData();
+		SQLViewField field = null;
+		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
+			field = new SQLViewField();
+			field.setId(GUID.nextId());
+			field.setTitle(srsmd.getColumnLabel(i));
+			field.setField(srsmd.getColumnLabel(i));// as 后的值 ，getColumnName 原始值
+			field.setLength(String.valueOf(srsmd.getPrecision(i)));
+			field.setDataType(srsmd.getColumnTypeName(i));
+			
+			//判断是否是日期类型
+			if (getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+				field.setComponentType(ComponentType.DATEPICKER.getValue());
+				field.setExpand("yyyy-MM-dd hh:mm:ss");
 			}
-		}finally{
-			String showTables = "SHOW TABLES  like \"" + tempTableName +"\"";
-			List<Map<String, Object>> queryForList = namedParameterJdbcTemplate.queryForList(showTables,new HashMap<String,String>());
-			if(!CollectionUtils.isEmpty(queryForList)){
-				
-				//删除临时表
-				jdbcTemplateService.execute("DROP TABLE "+tempTableName);
-			}
+			field.setIdx(i);
+			list.add(field);
 		}
 		return list;
 	}
