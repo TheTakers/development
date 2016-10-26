@@ -90,7 +90,7 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
-	
+ 
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> findById(@RequestBody JSONObject param) {
@@ -110,7 +110,15 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
-	
+	@ResponseBody
+	@RequestMapping(value="/findBySqlId/{sqlId}/{id}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findBySqlId(@PathVariable String sqlId,JSONObject param) {
+		try {
+			return responseOk(sqlViewService.getDataBySqlId(sqlId,null));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
 	/**
 	 * 跳转SQLVIEW页
 	 * @param code
@@ -179,13 +187,13 @@ public class SQLViewController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/delete/{code}/{id}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> deleteView(@PathVariable String code,@PathVariable String id) {
+	@RequestMapping(value="/delete/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> deleteView(@RequestBody JSONObject formParam) {
 		try {
-			if(StringUtils.isEmpty(id)){
+			if(StringUtils.isEmpty("")){
 				throw new Exception("id不能为空");
 			}
-			sqlViewService.deleteByCode(code, id);
+			sqlViewService.deleteByCode(null, null);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

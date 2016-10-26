@@ -7,7 +7,7 @@ var STATUS_CODE = {SUCCESS:0,FAILURE:1}
 var OPTION_WHETHER = [{value:1,text:"是"},{value:0,text:"否"}];
 
 /*按钮(行内，导航按钮)*/
-var OPTION_BUTTON = [{value:1,text:"内部"},{value:0,text:"外部"}];
+var OPTION_BUTTON = [{value:1,text:"外部"},{value:0,text:"内部"}];
 
 /*数据字典控件类型*/
 var DICT_COMPONENTTYPE = 

@@ -101,16 +101,6 @@ public class SQLDefineController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findBySqlId(@PathVariable String sqlId) {
-		try {
-			return responseOk(sqlDefineService.findBySqlId(sqlId));
-		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
-		}
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> delete(@RequestBody JSONObject param) {
 		try {

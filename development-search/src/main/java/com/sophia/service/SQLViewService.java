@@ -49,4 +49,12 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @param param 表单数据
 	 */
 	public void deleteByCode(String code,String id);
+	
+	/**
+	 * 根据SQLID和数据ID获取某条数据
+	 * @param sqlId
+	 * @param id
+	 */
+	public Map<String,Object>  getDataBySqlId(String sqlId,String id);
+	
 }

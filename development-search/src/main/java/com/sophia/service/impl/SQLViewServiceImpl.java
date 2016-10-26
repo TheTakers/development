@@ -77,14 +77,12 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 	@Override
 	public SQLView findById(String id) {
-		
 		//基本信息
 		SQLView sqlView = getRepository().findOne(id);
-		
 		//获取列表
 		 List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		 sqlView.setColumnList(sqlViewFieldList);
-		return  sqlView;
+		 return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
 		SQLFilter sqlFilter = SQLFilter.getInstance();
@@ -382,4 +380,15 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 	}
 	
+	public Map<String,Object> getDataBySqlId(String sqlId,String id){
+		//获取sqlDefine 
+		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
+		if(sqlDefine == null){
+			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+		}
+		String sql = sqlDefine.getSelectSql() + " WHERE " + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put(sqlDefine.getMasterTableId(), id);
+		return namedParameterJdbcTemplate.queryForMap(sql, paramMap);
+	}
 }

@@ -309,7 +309,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		$scope.data = param.formData;
 		//保存操作
 		$scope.save = function() {
-			saveOfClose($http,param.modelView.controller + "/save",$scope.data,$uibModalInstance);
+			saveOfClose($http,param.btn.url + "/save",$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');
@@ -318,7 +318,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 			return _.isEqual(type, ctype);
 		}
 		//字段列表
-		$scope.fieldList = param.modelView.fieldSetting;
+		$scope.fieldList = param.modelView.columnList;
 	};
 	
 	//设置树参数
@@ -408,14 +408,12 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 						scope.returndata.data = checkedData;
 					}
 					
-					scope.crud = function crud(item,func){
+					scope.crud = function crud(item,btn){
 						
-						switch(func.id){
+						switch(btn.id){
 						case "10001": //增
 						case "10002"://修
-							item = item || {id:""};
-							edit(commonService,'search/sqldefine/findById/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,func.winSize);
-						
+							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
 							break;
 						case "10003"://删
 							remove(commonService,'search/sqlview/delete/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
@@ -704,7 +702,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,100);
+							editInfo(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,100);
 							break;
 
 						case "remove":
