@@ -1,54 +1,51 @@
 /**========================================================================event directive======================================================================================================**/
 app.directive('uiValidator', [function () {
-	
 	function regxResult(rule,value,length){
-		
 		if(length){
 			if(value.length < length)
-			  return false;
+				return false;
 		}
 		switch (rule) {
-		    case "10001":
-		    	if(_.isString(value)){
-		    		return !_.isEmpty(value);
-		    	}else{
-		    		return value != null;
-		    	}
-		    default:
-		       return eval(regx.rule).test(value);
+		case "10001":
+			if(_.isString(value)){
+				return !_.isEmpty(value);
+			}else{
+				return value != null;
+			}
+		default:
+			return eval(rule).test(value);
 		}
 	};
-	
-    return {
-        require: "ngModel",
-        link: function (scope, element, attr, ngModel) {
-            if (ngModel) {
-            	
-            	//获取规则 
-            	var validatorRule = $(attr).attr("uiValidator");
-            	if(_.isEmpty(validatorRule)){
-            		return;
-            	}
-            	var code = eval(validatorRule);
-            	var customValidator = function (value) {
-            		for(var idx in code){
-            				var regx = REGULAR_EXPRESSION[code[idx]];
-//            				var validity = eval(regx.rule).test(value);
-            				var validity = regxResult(regx.rule,value,$(attr).attr("maxlength"));
-            				ngModel.$setValidity(regx.rule, validity);
-            				if(validity){
-            					$(element).removeClass("ng-required");
-            				}else{
-            					$(element).addClass("ng-required");
-            				}
-            				return validity ? value : undefined;
-            		}
-            	};
-            	ngModel.$formatters.push(customValidator);
-            	ngModel.$parsers.push(customValidator);
-            }
-        }
-    };
+
+	return {
+		require: "ngModel",
+		link: function (scope, element, attr, ngModel) {
+			if (ngModel) {
+
+				//获取规则 
+				var validatorRule = $(attr).attr("uiValidator");
+				if(_.isEmpty(validatorRule)){
+					return;
+				}
+				var code = eval(validatorRule);
+				var customValidator = function (value) {
+					for(var idx in code){
+						var regx = REGULAR_EXPRESSION[code[idx]];
+						var validity = regxResult(regx.rule,value,$(attr).attr("maxlength"));
+						ngModel.$setValidity(regx.rule, validity);
+						if(validity){
+							$(element).removeClass("ng-required");
+						}else{
+							$(element).addClass("ng-required");
+						}
+						return validity ? value : undefined;
+					}
+				};
+				ngModel.$formatters.push(customValidator);
+				ngModel.$parsers.push(customValidator);
+			}
+		}
+	};
 }]);
 
 
@@ -64,7 +61,7 @@ app.directive('uiLabel', function($http,$log) {
 		transclude : false,
 		template:function(element,atts){
 			return  '<label class="{{clazz}}  control-label" ui-popover="{{content}}" data-placement="top" data-trigger="hover">{{fixedValue}}'+
-					'<span class="text-muted"></span></label>';
+			'<span class="text-muted"></span></label>';
 		},
 		link:function(scope,element,attr){
 			scope.fixedValue = scope.content.substring(0,6);
@@ -113,33 +110,33 @@ app.directive('uiDropdown', function($http,$log) {
 		},
 		template:function(element,atts){
 			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.value as item.text for item in data"> '+
-				       //'<option value="">请选择</option>'+
-					'</select>';
+			//'<option value="">请选择</option>'+
+			'</select>';
 		},
 		replace : true,			
 		transclude : false,
 		compile: function compile(tElement, tAttrs, transclude) {
 			return {
 				pre: function preLink(scope, iElement, iAttrs, controller) {
-						if(_.isString(scope.data)){
-							scope.data = eval(scope.data);
-						}
-						if(_.isEmpty(scope.url)) return;
-						commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
-							if(data.code = '0'){
-								scope.data = data.result;
-							}else{
-								$.error(data.message);
-							}
-						}});
+					if(_.isString(scope.data)){
+						scope.data = eval(scope.data);
 					}
+					if(_.isEmpty(scope.url)) return;
+					commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
+						if(data.code = '0'){
+							scope.data = data.result;
+						}else{
+							$.error(data.message);
+						}
+					}});
 				}
+			}
 		},
 		link:function(scope,element,attr){}
 	};
 }); 
 app.directive('uiPagination', function($http,$log,commonService) {
-	
+
 	//创建分页
 	function createLimit(scope){
 		var limit = scope.limit;

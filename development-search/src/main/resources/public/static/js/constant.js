@@ -3,8 +3,11 @@ var GRID_OPTIONS = {SINGLE:1,MULTIPLE:2}
 
 var STATUS_CODE = {SUCCESS:0,FAILURE:1}
 
+var CHECK_WHETHER_YES = {value:1,text:"是"};
+var CHECK_WHETHER_NO = {value:0,text:"否"};
+
 /*是否*/
-var OPTION_WHETHER = [{value:1,text:"是"},{value:0,text:"否"}];
+var OPTION_WHETHER = [CHECK_WHETHER_YES,CHECK_WHETHER_NO];
 
 /*按钮(行内，导航按钮)*/
 var OPTION_BUTTON = [{value:1,text:"外部"},{value:0,text:"内部"}];

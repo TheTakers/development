@@ -304,18 +304,38 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
 	//子窗口 
-	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+	var editModalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		//页面数据
 		$scope.data = param.formData;
+		
 		//保存操作
 		$scope.save = function() {
 			saveOfClose($http,param.btn.url + "/save",$scope.data,$uibModalInstance);
 		};
-		$scope.cancel = function() {
+		$scope.cancel = function(){
 			$uibModalInstance.dismiss('cancel');
 		};
+		
+		//是否类型
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
+		}
+		//显示需要编辑字段
+		$scope.isShow = function(field){
+			if(param.formData){
+				return   _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
+			}else{
+				return  _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
+			}
+		}
+		
+		//是否查看
+		$scope.isSearch = function(field,ctype){
+			if(param.formData){
+				return _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
+			}else{
+				return _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
+			}
 		}
 		//字段列表
 		$scope.fieldList = param.modelView.columnList;
@@ -409,17 +429,16 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					}
 					
 					scope.crud = function crud(item,btn){
-						
 						switch(btn.id){
 						case "10001": //增
 						case "10002"://修
-							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'/basic/directive/edit',modalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
+							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
 							break;
 						case "10003"://删
 							remove(commonService,'search/sqlview/delete/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
 						case "10004"://查
-							
+							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 						}
@@ -569,11 +588,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.buttonList.splice(getArrayIdxById($scope.buttonList,item),1);
 		}
 		
-		//增、删、改
+		//增、删、改、查
 		$scope.insert = {id:'10001',title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"50"};
 		$scope.update = {id:'10002',title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"50"};
 		$scope.remove = {id:'10003',title:"删除",icon:"",type:1,url:"",showWin:0,winSize:""};
-		$scope.search = {id:'10004',title:"查看",icon:"",type:1,url:"",showWin:1,winSize:"50"};
+		$scope.view   = {id:'10004',title:"查看",icon:"",type:1,url:"",showWin:1,winSize:"50"};
 		
 		$scope.crudCheck = function(item){
 			var idx = getArrayIdxById($scope.buttonList,item);

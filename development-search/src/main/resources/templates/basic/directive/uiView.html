@@ -1,0 +1,22 @@
+ <div class="modal-header">
+	<h6 class="modal-title">详情信息</h6>
+</div>
+ 
+<div class="modal-body">
+		<form class="form-horizontal" name="actionForm" >
+			<input type="hidden" ng-model="data.id"></input>
+			<input type="hidden" ng-model="data.version"></input>
+			
+			<div class="form-group" ng-repeat="item in fieldList" >
+					<ui-label clazz="col-sm-2" content="{{item.title}}"></ui-label>
+					<div class="col-sm-8">
+						<label ng-if="isSearch(item)">{{data[item.field]}}</label>
+						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isShow(item,'TEXTAREA')" ></textarea>
+ 					</div>
+			</div>
+		</form>		
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">关闭</button>
+</div>
