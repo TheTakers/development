@@ -50,7 +50,7 @@ function saveOfClose($http,url,param,$uibModalInstance){
  * callback :回调函数
  */
 function uiEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
-	if(param.item){
+	if(param.rowData){
 		/*根据选中ID获取最新数据*/
 		commonService.post(dataUrl,param,function(data){
 

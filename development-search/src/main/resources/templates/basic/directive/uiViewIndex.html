@@ -24,19 +24,19 @@
 									<a data-toggle="collapse"  href="#{{toolbar.id}}" aria-expanded="true"></a>
 									
 									<div class="button-list">
-										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in modelView.buttonData" ng-if="item.type==1">{{item.title}}</button>
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in sqlView.buttonData" ng-if="item.type==1">{{item.title}}</button>
 									</div>
 
 								</div>
 								<!-- toolbar end -->
 
 								<!-- search start -->
-								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="!_.isEmpty(modelView.filterData)">
+								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="!_.isEmpty(sqlView.filterData)">
 									<div class="panel-body">
 
 										<div class="row">
 										
-											<div class="form-group" ng-repeat="item in modelView.filterData" >
+											<div class="form-group" ng-repeat="item in sqlView.filterData" >
 												<ui-label  content="{{item.title}}"></ui-label>
 												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
 											</div>
@@ -65,20 +65,20 @@
 						<table class="table table table-hover m-0 table-actions-bar">
 							<thead>
 								<tr >
-									<th ng-if="modelView.multiple" >选择</th>
-									<th ng-repeat="item in modelView.fieldData" >{{item.title}}</th>
+									<th ng-if="sqlView.multiple" >选择</th>
+									<th ng-repeat="item in sqlView.fieldData" >{{item.title}}</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr ng-repeat="item in grid.dataList">
-									<td ng-if="modelView.multiple">
-										<div class="radio radio-info" ng-if="modelView.multiple == 1" ng-click="rowClick(item,modelView.multiple)"><input type="radio" name="radio"  ></input><label for="radio"></label></div>
-										<div class="checkbox checkbox-info" ng-if="modelView.multiple == 2" ng-click="rowClick(item,modelView.multiple)"><input type="checkbox" ></input><label for="checkbox"></label></div>
+									<td ng-if="sqlView.multiple">
+										<div class="radio radio-info" ng-if="sqlView.multiple == 1" ng-click="rowClick(item,sqlView.multiple)"><input type="radio" name="radio"  ></input><label for="radio"></label></div>
+										<div class="checkbox checkbox-info" ng-if="sqlView.multiple == 2" ng-click="rowClick(item,sqlView.multiple)"><input type="checkbox" ></input><label for="checkbox"></label></div>
 									</td>
-									<td ng-repeat="field in modelView.fieldData">{{item[field.field]}}</td>
-									<td ng-if="modelView.buttonData">
-                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in modelView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
+									<td ng-repeat="field in sqlView.fieldData">{{item[field.field]}}</td>
+									<td ng-if="sqlView.buttonData">
+                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
 							</tbody>

@@ -110,9 +110,16 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
+	
+	/**
+	 * 根据SQLVIEW编号和数据ID获取指定数据
+	 * @param sqlId
+	 * @param param
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findBySqlId(@PathVariable String sqlId,JSONObject param) {
+	public Map<String, Object> findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject param) {
 		try {
 			return responseOk(sqlViewService.getDataBySqlId(sqlId,null));
 		} catch (Exception e) {
