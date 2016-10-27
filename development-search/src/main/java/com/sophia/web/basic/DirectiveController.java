@@ -36,16 +36,6 @@ public class DirectiveController extends BaseController{
 	
 	public static final String module = "/basic/directive";
 	
-	@RequestMapping("/index")
-    public ModelAndView index(ModelMap result) {
-        return new ModelAndView(module +"/index", result);
-    }
-	
-	@RequestMapping("/edit")
-    public ModelAndView edit(ModelMap result) {
-        return new ModelAndView(module + "/edit", result);
-    }
-	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {

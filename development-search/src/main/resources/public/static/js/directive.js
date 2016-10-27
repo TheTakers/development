@@ -270,7 +270,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.modelView.controller + '/findById','/basic/directive/edit',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,60);
+							edit(commonService,scope.modelView.controller + '/findById','templates/basic/directive/edit.html',modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,60);
 							break;
 
 						case "remove":
@@ -430,15 +430,15 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					
 					scope.crud = function crud(item,btn){
 						switch(btn.id){
-						case "10001": //增
-						case "10002"://修
-							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
+						case CRUD_CODE.INSERT: //增
+						case CRUD_CODE.UPDATE://修
+							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
 							break;
-						case "10003"://删
+						case CRUD_CODE.DELETE://删
 							remove(commonService,'search/sqlview/delete/'+scope.modelView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
-						case "10004"://查
-							editInfo(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
+						case CRUD_CODE.VIEW://查
+							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.modelView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{item:item,modelView:scope.modelView,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 						}
@@ -589,10 +589,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//增、删、改、查
-		$scope.insert = {id:'10001',title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"50"};
-		$scope.update = {id:'10002',title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"50"};
-		$scope.remove = {id:'10003',title:"删除",icon:"",type:1,url:"",showWin:0,winSize:""};
-		$scope.view   = {id:'10004',title:"查看",icon:"",type:1,url:"",showWin:1,winSize:"50"};
+		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"50"};
+		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"",type:1,url:"",showWin:1,winSize:"50"};
+		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"",type:1,url:"",showWin:0,winSize:""};
+		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"",type:1,url:"",showWin:1,winSize:"50"};
 		
 		$scope.crudCheck = function(item){
 			var idx = getArrayIdxById($scope.buttonList,item);
@@ -629,6 +629,26 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			return !_.isEmpty($scope.treeRequiredClass);
 		}
 	}
+	
+	//列表记录弹窗
+	function sqlViewEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+		
+		if(param.id){
+			/*根据选中ID获取最新数据*/
+			commonService.post(dataUrl,param,function(data){
+				
+				if(data.code == STATUS_CODE.SUCCESS){
+					param.formData = data.result;
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+				}else{
+					$.error(data.message);
+				}
+			});
+			
+		}else{
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+		}
+	};
 	
 	return {
 		restrict:'E',
@@ -718,21 +738,17 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 					}
 
 					scope.crud = function crud(item,func){
-						switch(func.target){
-						case "edit":
+						switch(func.id){
+						case CRUD_CODE.INSERT:
+						case CRUD_CODE.UPDATE:
 							item = item || {id:""};
-							editInfo(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,100);
+							sqlViewEdit(commonService,scope.modelView.controller + '/findById',func.url,modalDialog,{id:item.id,modelView:scope.modelView},scope.grid.search,100);
 							break;
-
-						case "remove":
+						case CRUD_CODE.DELETE://删除
 							remove(commonService,scope.modelView.controller + '/delete',{id:item.id},scope.search);
 							break;
 
-						case "view":
-
-							break;
-
-						default :
+						case CRUD_CODE.VIEW: //查
 							break;
 						}
 					}

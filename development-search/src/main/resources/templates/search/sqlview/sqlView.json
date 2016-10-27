@@ -9,10 +9,10 @@ fieldData:[
     {title:"操作",field:""}
     ]     
 ,buttonData:[
-       {title:"查看",icon:"ion-eye",target:"view",type:0},
-       {title:"编辑",icon:"ion-edit",target:"edit",type:0,url:"/search/sqlview/edit"},
-       {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
-       {title:"新增",icon:"",target:"edit",type:1,url:"/search/sqlview/edit"}
+       {id:"10004",title:"查看",icon:"ion-eye",type:0},
+       {id:"10002",title:"编辑",icon:"ion-edit",type:0,url:"/search/sqlview/edit"},
+       {id:"10003",title:"删除",icon:"ion-trash-a",type:0},
+       {id:"10001",title:"新增",icon:"",type:1,url:"/search/sqlview/edit"}
        ]
 ,filterData:[{title:"编码",field:"code",componentType:"",value:"",expr:"like",expand:""},
 			  {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]

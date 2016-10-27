@@ -34,12 +34,12 @@ function getArrayIdxById(array,item){
  */
 function saveOfClose($http,url,param,$uibModalInstance){
 	$http.post(url,param).success(function(data){
-		 if(data.code == '0'){
-	       		$uibModalInstance.close(data.result);
-	       	  }else{
-	       		 $.error(data.message);
-	       	  }
-		});	
+		if(data.code == '0'){
+			$uibModalInstance.close(data.result);
+		}else{
+			$.error(data.message);
+		}
+	});	
 };
 
 
@@ -49,41 +49,38 @@ function saveOfClose($http,url,param,$uibModalInstance){
  * ctrl :编辑页controller
  * callback :回调函数
  */
-function editInfo(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
-		
-		if(param.item){
-			
-			/*根据选中ID获取最新数据*/
-			commonService.post(dataUrl,param,function(data){
-				
-				if(data.code == STATUS_CODE.SUCCESS){
-					param.formData = data.result;
-					commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+function uiEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+	if(param.item){
+		/*根据选中ID获取最新数据*/
+		commonService.post(dataUrl,param,function(data){
+
+			if(data.code == STATUS_CODE.SUCCESS){
+				param.formData = data.result;
+				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+			}else{
+				$.error(data.message);
+			}
+		});
+	}else{
+		commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+	}
+};
+
+function remove(commonService,url,param,callback) {
+
+	$.confirm({
+		confirm: function(){
+			commonService.post(url,param,function(data){
+				if(data.code == '0'){
+					$.info(data.message);
+
+					if(callback){
+						callback(param);
+					}
 				}else{
 					$.error(data.message);
 				}
 			});
-			
-		}else{
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
-		}
-};
-	
-function remove(commonService,url,param,callback) {
-		
-		$.confirm({
-		    confirm: function(){
-		    	commonService.post(url,param,function(data){
-					if(data.code == '0'){
-						$.info(data.message);
-						
-						if(callback){
-							callback(param);
-						}
-					}else{
-						$.error(data.message);
-					}
-				});
-		    } 
-		});
-	}
+		} 
+	});
+}
