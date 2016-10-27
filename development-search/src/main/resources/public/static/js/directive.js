@@ -178,7 +178,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 	}
 	return {
 		restrict:'E',
-		templateUrl:"/basic/directive/index",
+		templateUrl:"templates/basic/directive/index.html",
 		replace : false,			
 		transclude : false,
 		scope:{
@@ -373,7 +373,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 	};
 	return {
 		restrict:'E',
-		templateUrl:"/basic/directive/index",
+		templateUrl:"templates/basic/directive/index.html",
 		replace : false,			
 		transclude : false,
 		scope:{
@@ -652,7 +652,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	
 	return {
 		restrict:'E',
-		templateUrl:"/basic/directive/index",
+		templateUrl:"templates/basic/directive/index.html",
 		replace : false,			
 		transclude : false,
 		scope:{ 

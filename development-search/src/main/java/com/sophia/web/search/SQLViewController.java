@@ -111,7 +111,7 @@ public class SQLViewController extends BaseController{
 		}
 	}
 	@ResponseBody
-	@RequestMapping(value="/findBySqlId/{sqlId}/{id}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> findBySqlId(@PathVariable String sqlId,JSONObject param) {
 		try {
 			return responseOk(sqlViewService.getDataBySqlId(sqlId,null));
