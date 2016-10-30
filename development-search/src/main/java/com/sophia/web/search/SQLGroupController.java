@@ -105,10 +105,10 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody String param) {
+	public Map<String, Object> findById(@RequestBody JSONObject param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(sqlGroupService.findById(json.getString("id")));
+			JSONObject row = param.getJSONObject("row");
+			return responseOk(sqlGroupService.findById(row.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

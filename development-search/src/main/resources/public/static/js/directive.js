@@ -162,7 +162,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 	//子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		//页面数据
-		$scope.data = param.sqlView;
+		$scope.data = param.row;
 		//保存操作
 		$scope.save = function() {
 			saveOfClose($http,param.sqlView.controller + "/save",$scope.data,$uibModalInstance);
@@ -270,7 +270,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							uiEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,60);
+							uiEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',modalDialog,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
 							break;
 
 						case "remove":
