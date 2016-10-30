@@ -40,7 +40,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return npJdbcTemplateService.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){

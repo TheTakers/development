@@ -32,7 +32,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired JdbcTemplateService npJdbcTemplateService;
+	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	
@@ -99,7 +99,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return jdbcTemplateService.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 	
 	@Override
@@ -118,6 +118,6 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 			sqlFilter.EQ("pid", queryRequest.getTreeNode().getString("id"));
 		}
 		
-		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

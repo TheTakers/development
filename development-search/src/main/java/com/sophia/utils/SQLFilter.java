@@ -61,7 +61,7 @@ public class SQLFilter {
 	}
 
 	public void addCondition(String alias,String expr ,String value,String sort){
-		if(StringUtils.isNotBlank(value)){
+		if(null != value){
 			if(StringUtils.isNotBlank(condition))
 				condition.append(" AND ");
 
