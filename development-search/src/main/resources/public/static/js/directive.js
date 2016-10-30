@@ -270,7 +270,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							edit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,60);
+							uiEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,60);
 							break;
 
 						case "remove":
@@ -432,13 +432,13 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
 						case CRUD_CODE.UPDATE://修
-							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{rowData:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
+							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
 							remove(commonService,'search/sqlview/delete/'+scope.sqlView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{rowData:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
+							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{row:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 						}
@@ -480,7 +480,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.optionData = OPTION_WHETHER;
 		
 		//基本信息
-		$scope.data = init(param.rowData);
+		$scope.data = init(param.row);
 		//修改字段
 		$scope.fieldList = param.sqlView.fieldSetting;
 		//TODO SQL字段
@@ -638,7 +638,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			commonService.post(dataUrl,param,function(data){
 				
 				if(data.code == STATUS_CODE.SUCCESS){
-					param.rowData = data.result;
+					param.row = data.result;
 					commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
 				}else{
 					$.error(data.message);
