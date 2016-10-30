@@ -458,7 +458,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	
 	/*新增初始化*/
 	var init = function(data){
-		if(data.id){
+		if(data){
 			return data;
 		}
 		return {
