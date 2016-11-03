@@ -19,7 +19,7 @@ public class SQLViewField extends Auditable{
 	private String title;
 	private String field;
 	private String expand;
-	private Integer isDisplay = SQLViewConstant.NO;
+	private Integer isDisplay = SQLViewConstant.YES;
 	private Integer isSort = SQLViewConstant.NO;
 	private Integer isUpdate = SQLViewConstant.YES;
 	private Integer isSearch = SQLViewConstant.NO;
