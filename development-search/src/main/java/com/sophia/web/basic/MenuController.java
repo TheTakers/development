@@ -79,10 +79,9 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> menuTreeData(@RequestBody String param) {
+	public Map<String, Object> menuTreeData(@RequestBody JSONObject param) {
 		try {
-			JSONObject paramJson = new JSONObject().parseObject(param);
-			return responseOk(menuService.getMenuByName(paramJson.getString("name")));
+			return responseOk(menuService.getMenuByName(param.getString("name")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
@@ -90,9 +89,8 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody JSONObject param) {
+	public Map<String, Object> findById(@RequestBody JSONObject row) {
 		try {
-			JSONObject row = param.getJSONObject("row");
 			return responseOk(menuService.findById(row.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
