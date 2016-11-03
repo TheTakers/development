@@ -119,9 +119,9 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject param) {
+	public Map<String, Object> findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject row) {
 		try {
-			return responseOk(sqlViewService.getDataBySqlId(sqlId,null));
+			return responseOk(sqlViewService.getDataBySqlId(sqlId,row));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

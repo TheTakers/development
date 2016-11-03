@@ -7,10 +7,10 @@
 			<input type="hidden" ng-model="data.id"></input>
 			<input type="hidden" ng-model="data.version"></input>
 			
-			<div class="form-group" ng-repeat="item in fieldList" >
+			<div class="form-group" ng-repeat="item in fieldList" ui-if="isSearch(item)">
 					<ui-label clazz="col-sm-2" content="{{item.title}}"></ui-label>
 					<div class="col-sm-8">
-						<label ng-if="isSearch(item)">{{data[item.field]}}</label>
+						<input class="form-control input-sm" value="{{data[item.field]}}" readonly="readonly"></input>
 						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isShow(item,'TEXTAREA')" ></textarea>
  					</div>
 			</div>

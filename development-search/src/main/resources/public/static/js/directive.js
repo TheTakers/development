@@ -305,8 +305,10 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 	
 	//子窗口 
 	var editModalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+		
 		//页面数据
-		$scope.data = param.formData;
+		$scope.data = param.row;
+		$scope.sqlView = param.sqlView;
 		
 		//保存操作
 		$scope.save = function() {
@@ -320,9 +322,10 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
 		}
+		
 		//显示需要编辑字段
-		$scope.isShow = function(field){
-			if(param.formData){
+		$scope.isEdit = function(field){
+			if(param.row){
 				return   _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
 			}else{
 				return  _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
@@ -331,12 +334,13 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		
 		//是否查看
 		$scope.isSearch = function(field,ctype){
-			if(param.formData){
+			if(param.row){
 				return _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
 			}else{
 				return _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
 			}
 		}
+		
 		//字段列表
 		$scope.fieldList = param.sqlView.columnList;
 	};

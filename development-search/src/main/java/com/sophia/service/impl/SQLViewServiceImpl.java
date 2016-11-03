@@ -380,15 +380,20 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 	}
 	
-	public Map<String,Object> getDataBySqlId(String sqlId,String id){
+	public Map<String,Object> getDataBySqlId(String sqlId,JSONObject row){
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
 		}
-		String sql = sqlDefine.getSelectSql() + " WHERE " + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
+		if(null == row){
+			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
+		}
+		//获取主键值
+		String pkId = row.getString(sqlDefine.getMasterTableId());
+		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
 		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put(sqlDefine.getMasterTableId(), id);
-		return namedParameterJdbcTemplate.queryForMap(sql, paramMap);
+		paramMap.put(sqlDefine.getMasterTableId(), pkId);
+		return jdbcTemplateService.queryForMap(sql, paramMap);
 	}
 }

@@ -53,8 +53,8 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	/**
 	 * 根据SQLID和数据ID获取某条数据
 	 * @param sqlId
-	 * @param id
+	 * @param row 行数据
 	 */
-	public Map<String,Object>  getDataBySqlId(String sqlId,String id);
+	public Map<String,Object>  getDataBySqlId(String sqlId,JSONObject row);
 	
 }

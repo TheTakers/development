@@ -38,8 +38,9 @@ app.directive('uiValidator', [function () {
 						}else{
 							$(element).addClass("ng-required");
 						}
-						return validity ? value : undefined;
+//						return validity ? value : undefined;
 					}
+					return value;
 				};
 				ngModel.$formatters.push(customValidator);
 				ngModel.$parsers.push(customValidator);

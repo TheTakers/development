@@ -92,9 +92,8 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody JSONObject param) {
+	public Map<String, Object> findById(@RequestBody JSONObject row) {
 		try {
-			JSONObject row = param.getJSONObject("row");
 			return responseOk(sqlDefineService.findById(row.getString("id")));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
