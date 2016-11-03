@@ -1,5 +1,6 @@
 package com.sophia.web.search;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -135,10 +136,22 @@ public class SQLViewController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="/findByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
+	@RequestMapping(value="/getSqlViewAndSqlDefineRowDataByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> getSqlViewAndSqlDefineRowDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
 		try {
-			return responseOk(sqlViewService.getDataByCode(code,row));
+			return responseOk(sqlViewService.getSqlViewAndSqlDefineRowDataByCode(code,row));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getSqlViewByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> getSqlViewByCode(@PathVariable String code) {
+		try {
+			Map<String,Object> result = new HashMap<>();
+			result.put("sqlView", sqlViewService.getSqlViewByCode(code));
+			return responseOk(result);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

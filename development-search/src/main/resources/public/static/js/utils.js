@@ -50,23 +50,24 @@ function saveOfClose($http,url,param,$uibModalInstance){
  * callback :回调函数
  */
 function sqlViewEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
-	if(param.row){
-		
-		/*根据选中ID获取最新数据*/
-		commonService.post(dataUrl,param.row,function(data){
+	
+	/*根据选中ID获取最新数据*/
+	commonService.post(dataUrl,param.row,function(data){
 
-			if(data.code == STATUS_CODE.SUCCESS){
+		if(data.code == STATUS_CODE.SUCCESS){
 
-				//获取最新数据到编辑页
-				_.extend(param, data.result);
-				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
-			}else{
-				$.error(data.message);
-			}
-		});
-	}else{
-		commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
-	}
+			//获取最新数据到编辑页
+			_.extend(param, data.result);
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+		}else{
+			$.error(data.message);
+		}
+	});
+	
+//	if(param.row){
+//	}else{
+//		commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+//	}
 };
 
 function remove(commonService,url,param,callback) {

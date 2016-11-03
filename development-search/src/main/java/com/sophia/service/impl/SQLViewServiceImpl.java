@@ -385,7 +385,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return jdbcTemplateService.queryForMap(sql, paramMap);
 	}
 	
-	public Map<String,Object> getDataByCode(String code,JSONObject row){
+	public Map<String,Object> getSqlViewAndSqlDefineRowDataByCode(String code,JSONObject row){
 		Map<String,Object> result = new HashMap<>();
 
 		//查询SQLVIEW

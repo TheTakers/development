@@ -36,7 +36,7 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @param row
 	 * @return
 	 */
-	public Map<String,Object> getDataByCode(String code,JSONObject row);
+	public Map<String,Object> getSqlViewAndSqlDefineRowDataByCode(String code,JSONObject row);
 	
 	/**
 	 * 插入数据
