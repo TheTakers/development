@@ -314,10 +314,10 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		$scope.save = function() {
 			var url = param.btn.url;
 			if(_.isEmpty(url)){
-				if(param.row){
-					url = 'search/sqlview/modfity/';
-				}else{
+				if(_.isEmpty(param.row.id)){
 					url = 'search/sqlview/persistent/';
+				}else{
+					url = 'search/sqlview/modfity/';
 				}
 				url += $scope.sqlView.sqlId;
 			}
@@ -334,20 +334,16 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		
 		//显示需要编辑字段
 		$scope.isEdit = function(field){
-			if(param.row){
+			if(_.isEmpty(param.row.id)){
 				return   _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
 			}else{
-				return  _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
+				return  _.isEqual(field.isUpdate, CHECK_WHETHER_YES.value);
 			}
 		}
 		
 		//是否查看
 		$scope.isSearch = function(field,ctype){
-			if(param.row){
-				return _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
-			}else{
-				return _.isEqual(field.isUpdate, CHECK_WHETHER_NO.value);
-			}
+			return _.isEqual(field.isSearch, CHECK_WHETHER_YES.value);
 		}
 		
 		//字段列表

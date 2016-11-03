@@ -19,10 +19,25 @@ public class SQLViewField extends Auditable{
 	private String title;
 	private String field;
 	private String expand;
+	
+	/**
+	 * 是否显示列表
+	 */
 	private Integer isDisplay = SQLViewConstant.YES;
 	private Integer isSort = SQLViewConstant.NO;
+	
+	/**
+	 * 是否修改
+	 */
 	private Integer isUpdate = SQLViewConstant.YES;
-	private Integer isSearch = SQLViewConstant.NO;
+	
+	/**
+	 * 是否察看详情
+	 */
+	private Integer isSearch = SQLViewConstant.YES;
+	/**
+	 * 是否添加
+	 */
 	private Integer isInsert = SQLViewConstant.YES;
 	private String dataType;
 	private String componentType = ComponentType.TEXT.getValue();

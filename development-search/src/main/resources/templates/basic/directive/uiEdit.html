@@ -7,7 +7,7 @@
 			<input type="hidden" ng-model="data.id"></input>
 			<input type="hidden" ng-model="data.version"></input>
 			
-			<div class="form-group" ng-repeat="item in fieldList"  ui-if="isEdit(item)">
+			<div class="form-group" ng-repeat="item in fieldList"  ng-if="isEdit(item)">
 					<ui-label clazz="col-sm-2" content="{{item.title}}" ></ui-label>
 					<div class="col-sm-8">
 						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')"  validator="item.rule" maxlength="item.length"></ui-generate-code>
