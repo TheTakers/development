@@ -29,6 +29,15 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 */
 	public SQLView getSqlViewByCode(String code);
 	
+	
+	/**
+	 * 根据sqlview编号获取最新SQLview数据和当前sqlview对应的sqldefine的数据
+	 * @param code
+	 * @param row
+	 * @return
+	 */
+	public Map<String,Object> getDataByCode(String code,JSONObject row);
+	
 	/**
 	 * 插入数据
 	 * @param code 视图编号

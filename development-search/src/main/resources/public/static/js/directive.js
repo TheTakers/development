@@ -271,6 +271,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						case "edit":
 							item = item || {id:""};
 							uiEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
+							
 							break;
 
 						case "remove":
@@ -446,13 +447,13 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
 						case CRUD_CODE.UPDATE://修
-							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
+							uiEdit(commonService,'search/sqlview/findByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
 							remove(commonService,'search/sqlview/delete/'+scope.sqlView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							uiEdit(commonService,'search/sqlview/findBySqlId/'+scope.sqlView.sqlId,'templates/basic/directive/uiView.html',editModalDialog,{row:item,sqlView:scope.sqlView,btn},scope.grid.search,btn.winSize);
+							uiEdit(commonService,'search/sqlview/findByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 						}

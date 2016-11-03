@@ -56,9 +56,9 @@ function uiEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
 		commonService.post(dataUrl,param.row,function(data){
 
 			if(data.code == STATUS_CODE.SUCCESS){
-				
+
 				//获取最新数据到编辑页
-				param.row = data.result;
+				_.extend(param, data.result);
 				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
 			}else{
 				$.error(data.message);

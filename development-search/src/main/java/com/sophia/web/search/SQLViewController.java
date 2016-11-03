@@ -126,6 +126,24 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
+	
+	
+	/**
+	 * 根据SQLVIEW CODE查询sqlview 和 当前查询的行数据
+	 * @param code
+	 * @param row
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> getDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
+		try {
+			return responseOk(sqlViewService.getDataByCode(code,row));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
 	/**
 	 * 跳转SQLVIEW页
 	 * @param code

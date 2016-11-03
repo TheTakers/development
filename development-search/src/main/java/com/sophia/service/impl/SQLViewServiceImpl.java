@@ -384,4 +384,34 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
 		return jdbcTemplateService.queryForMap(sql, paramMap);
 	}
+	
+	public Map<String,Object> getDataByCode(String code,JSONObject row){
+		Map<String,Object> result = new HashMap<>();
+
+		//查询SQLVIEW
+		SQLView sqlView = getRepository().getByCode(code);
+		if(sqlView == null){
+			throw new ServiceException("编号:"+code+"视图未定义");
+		}
+		result.put("sqlView", sqlView);
+		
+		//查询设置字段
+		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewId(sqlView.getId()));
+		
+		//获取sqlDefine 
+		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		if(sqlDefine == null){
+			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+		}
+		if(null == row){
+			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
+		}
+		//获取主键值
+		String pkId = row.getString(sqlDefine.getMasterTableId());
+		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put(sqlDefine.getMasterTableId(), pkId);
+		result.put("row", jdbcTemplateService.queryForMap(sql, paramMap));
+		return result;
+	}
 }
