@@ -34,14 +34,14 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @param code 视图编号
 	 * @param param 表单数据
 	 */
-	public void persistentByCode(String code,JSONObject formParam);
+	public void persistentByCode(String code,JSONObject row);
 	
 	/**
 	 * 修改数据
 	 * @param code 视图编号
 	 * @param param 表单数据
 	 */
-	public void modifyByCode(String code,JSONObject formParam);
+	public void modifyByCode(String code,JSONObject row);
 	
 	/**
 	 * 删除数据

@@ -319,7 +319,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 				}else{
 					url = 'search/sqlview/modfity/';
 				}
-				url += $scope.sqlView.sqlId;
+				url += $scope.sqlView.code;
 			}
 			saveOfClose($http,url,$scope.data,$uibModalInstance);
 		};

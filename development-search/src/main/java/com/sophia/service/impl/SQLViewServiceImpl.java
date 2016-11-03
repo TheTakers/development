@@ -49,7 +49,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 	private String sql="select t.* from TB_SM_VIEW t ";
 	public String save(SQLViewRequest sqlViewRequest){
-		
+
 		//基本信息
 		SQLView sqlView = new SQLView();
 		BeanUtils.copyProperties(sqlViewRequest, sqlView);
@@ -59,11 +59,11 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlView.setButtons(sqlViewRequest.getButtonList().toJSONString());
 		sqlView.setTreeData(sqlViewRequest.getTreeData().toJSONString());
 		sqlView.setConditions(sqlViewRequest.getFilterList().toJSONString());
-		
+
 		//先删除列表
 		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(!CollectionUtils.isEmpty(sqlViewFieldList)){
-			 sqlViewFieldService.getRepository().delete(sqlViewFieldList);
+			sqlViewFieldService.getRepository().delete(sqlViewFieldList);
 		}
 		//保存SQL列表
 		for(SQLViewField field : sqlViewRequest.getColumnList()){
@@ -71,7 +71,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			field.setViewId(sqlView.getId());
 		}
 		sqlViewFieldService.getRepository().save(sqlViewRequest.getColumnList());
-		
+
 		//生成GROUP PATH
 		return getRepository().save(sqlView).getId();
 	}
@@ -80,9 +80,9 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//基本信息
 		SQLView sqlView = getRepository().findOne(id);
 		//获取列表
-		 List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
-		 sqlView.setColumnList(sqlViewFieldList);
-		 return  sqlView;
+		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		sqlView.setColumnList(sqlViewFieldList);
+		return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
 		SQLFilter sqlFilter = SQLFilter.getInstance();
@@ -93,7 +93,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
-	
+
 	private SQLDefine getSQLDefine(String sqlId){
 		return sqlDefineService.getRepository().findBySqlId(sqlId);
 	}
@@ -126,7 +126,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			field.setField(srsmd.getColumnLabel(i));// as 后的值 ，getColumnName 原始值
 			field.setLength(String.valueOf(srsmd.getPrecision(i)));
 			field.setDataType(srsmd.getColumnTypeName(i));
-			
+
 			//判断是否是日期类型
 			if (getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
@@ -137,25 +137,25 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		return list;
 	}
-	
+
 	private void setTypeAndLenth(String type,SQLViewField field){
-		 String[] array = type.split("\\(");
-		 String t = array[0];
-		 field.setDataType(t.toUpperCase());
-		 if(array.length > 1){
-			 String length = array[1].replace(")", "");
-			 if(StringUtils.isNoneBlank(length)){
-				 field.setLength(length);
-			 }
-		 }
-		 
+		String[] array = type.split("\\(");
+		String t = array[0];
+		field.setDataType(t.toUpperCase());
+		if(array.length > 1){
+			String length = array[1].replace(")", "");
+			if(StringUtils.isNoneBlank(length)){
+				field.setLength(length);
+			}
+		}
+
 		//判断是否是日期类型
 		if (getDataType(t).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 			field.setComponentType(ComponentType.DATEPICKER.getValue());
 			field.setExpand("yyyy-MM-dd hh:mm:ss");
 		}
 	}
-	
+
 	private String setTitle(Object value,String field){
 		return value != null && StringUtils.isNoneBlank(value.toString()) ? value.toString() : field;
 	}
@@ -166,34 +166,34 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	private String getDataType(String dataType) {
 		String dbType = dataType.toLowerCase();
-		
+
 		String number = "int,double,float,decimal,number,numeric";
 		String date = "date,timestamp,datetime";
 		String text = "clob,text";
 		String varchar = "varchar,varchar2,char";
-		
+
 		boolean isChar = isSpecType(dbType, varchar);
 		if (isChar) {
 			return SQLViewConstant.COLUMNTYPE_VARCHAR;
 		}
-		
+
 		boolean isNumber = isSpecType(dbType, number);
 		if (isNumber) {
 			return SQLViewConstant.COLUMNTYPE_NUMBER;
 		}
-		
+
 		boolean isDate = isSpecType(dbType, date);
 		if (isDate) {
 			return SQLViewConstant.COLUMNTYPE_DATE;
 		}
-		
+
 		boolean isText = isSpecType(dbType, text);
 		if (isText) {
 			return SQLViewConstant.COLUMNTYPE_TEXT;
 		}
 		return dbType;
 	}
-	
+
 	/**
 	 * 是否包含指定的数据类型。
 	 * 
@@ -209,7 +209,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		return false;
 	}
-	
+
 	public SQLView getSqlViewByCode(String code){
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
@@ -219,9 +219,9 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlView.setColumnList(columnList);
 		return sqlView;
 	}
-	
-	public void persistentByCode(String code,JSONObject formParam){
-		
+
+	public void persistentByCode(String code,JSONObject row){
+
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
@@ -236,59 +236,55 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
-		
+
 		//拼装SQL
 		StringBuffer insert = new StringBuffer("INSERT INTO ")
-		.append(sqlDefine.getMasterTable())
-		.append("(");
-		
+				.append(sqlDefine.getMasterTable())
+				.append("(");
+
 		//输入
 		StringBuffer values = new StringBuffer("(");
 
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		
-		//是否包含主键
-		Boolean flag = false; 
 		for(SQLViewField field : sqlViewFields){
 			if(SQLViewConstant.YES.equals(field.getIsInsert())){
-				
-				if(!flag){
-					flag = sqlDefine.getMasterTableId().equalsIgnoreCase(field.getField());
-				}
+
+				 
 				insert.append(field.getField()).append(",");
 				values.append(":").append(field.getField()).append(",");
-				paramMap.put(field.getField(), formParam.get(field.getField()));
+				paramMap.put(field.getField(), row.get(field.getField()));
 			}
 		}
-		
+
 		//自动生成id
-		if(!flag){
+		if(StringUtils.isNotBlank(sqlDefine.getMasterTableId())){
 			insert.append(sqlDefine.getMasterTableId()).append(",");
 			values.append(":").append(sqlDefine.getMasterTableId()).append(",");
-			formParam.put(sqlDefine.getMasterTableId(), GUID.nextId());
+			row.put(sqlDefine.getMasterTableId(), GUID.nextId());
+		}else{
+			throw new ServiceException("SQLID:"+sqlView.getSqlId()+",未设置主键");
 		}
-		
+
 		//补充字段
 		insert.append(SQLViewConstant.CREATE_TIME).append(",")
-			  .append(SQLViewConstant.CREATE_USER).append(")");
-		Date now = new Date();
+		.append(SQLViewConstant.CREATE_USER).append(")");
 		values.append(":").append(SQLViewConstant.CREATE_TIME).append(",")
-			  .append(":").append(SQLViewConstant.CREATE_USER).append(") ");
-		formParam.put(SQLViewConstant.CREATE_TIME, now);
-		formParam.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
-		
+						  .append(":").append(SQLViewConstant.CREATE_USER).append(") ");
+		paramMap.put(SQLViewConstant.CREATE_TIME, new Date());
+		paramMap.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
+
 		final String sql = insert.append(values).toString();
 		if(namedParameterJdbcTemplate.update(sql, paramMap) < 1){
 			throw new ServiceException("数据插入失败");
 		}
 	}
-	
-	public void modifyByCode(String code,JSONObject formParam){
-		
+
+	public void modifyByCode(String code,JSONObject row){
+
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
-			throw new ServiceException("编号:"+ code + "未定义");
+			throw new ServiceException("视图编号:"+ code + "未定义");
 		}
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
@@ -300,52 +296,44 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
-		
+
 		//拼装SQL
-		StringBuffer update = new StringBuffer(" UPDATE ")
-		.append(sqlDefine.getMasterTable())
-		.append(" SET ");
+		StringBuffer modifySQL = new StringBuffer(" UPDATE ")
+				.append(sqlDefine.getMasterTable())
+				.append(" SET ");
 
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		
-		//是否包含主键
-		Boolean flag = false; 
 		for(SQLViewField field : sqlViewFields){
-			if(SQLViewConstant.YES.equals(field.getIsInsert())){
-				
-				if(!flag){
-					flag = sqlDefine.getMasterTableId().equalsIgnoreCase(field.getField());
-				}
-				update.append(field.getField()).append("= :")
+			if(SQLViewConstant.YES.equals(field.getIsUpdate())){
+				modifySQL.append(field.getField()).append("= :")
 				.append(field.getField())
 				.append(",");
-				paramMap.put(field.getField(), formParam.get(field.getField()));
+				paramMap.put(field.getField(), row.get(field.getField()));
 			}
 		}
-		
-		//自动生成id
-		if(!flag){
-			throw new ServiceException("未配置主键");
+
+		//是否包含主键
+		if(StringUtils.isBlank(sqlDefine.getMasterTableId())){
+			throw new ServiceException("SQLID:"+sqlView.getSqlId()+",未设置主键");
 		}
-		
+
 		//补充字段
-		update.append(SQLViewConstant.LAST_UPDATE_TIME).append("= :").append(SQLViewConstant.LAST_UPDATE_TIME).append(",")
-			  .append(SQLViewConstant.LAST_UPDATE_USER).append("= :").append(SQLViewConstant.LAST_UPDATE_USER);
-		Date now = new Date();
-		formParam.put(SQLViewConstant.CREATE_TIME, now);
-		formParam.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
-		update.append(" WHERE ")
-		.append(sqlDefine.getMasterTableId())
-		.append("= :").append(sqlDefine.getMasterTableId());
-		formParam.put(sqlDefine.getMasterTableId(),formParam.get(sqlDefine.getMasterTableId()));
-		if(namedParameterJdbcTemplate.update(update.toString(), paramMap) < 1){
+		modifySQL.append(SQLViewConstant.LAST_UPDATE_TIME).append("= :").append(SQLViewConstant.LAST_UPDATE_TIME).append(",")
+				 .append(SQLViewConstant.LAST_UPDATE_USER).append("= :").append(SQLViewConstant.LAST_UPDATE_USER);
+		paramMap.put(SQLViewConstant.LAST_UPDATE_TIME, new Date());
+		paramMap.put(SQLViewConstant.LAST_UPDATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
+		modifySQL.append(" WHERE ")
+			  .append(sqlDefine.getMasterTableId())
+			  .append("= :").append(sqlDefine.getMasterTableId());
+		paramMap.put(sqlDefine.getMasterTableId(),row.get(sqlDefine.getMasterTableId()));
+		if(namedParameterJdbcTemplate.update(modifySQL.toString(), paramMap) < 1){
 			throw new ServiceException("数据修改失败");
 		}
 	}
-	
+
 	public void deleteByCode(String code,String id){
-		
+
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
@@ -360,18 +348,18 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
-		
+
 		if(StringUtils.isEmpty(sqlDefine.getMasterTableId())){
 			throw new ServiceException("未配置主键");
 		}
-		
+
 		//拼装SQL
 		StringBuffer deleteSql = new StringBuffer(" DELETE  ")
-		.append(sqlDefine.getMasterTable())
-		.append(" WHERE ")
-		.append(sqlDefine.getMasterTableId())
-		.append(" = :").append(sqlDefine.getMasterTableId());
-		
+				.append(sqlDefine.getMasterTable())
+				.append(" WHERE ")
+				.append(sqlDefine.getMasterTableId())
+				.append(" = :").append(sqlDefine.getMasterTableId());
+
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put(sqlDefine.getMasterTableId(), id);
@@ -379,7 +367,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			throw new ServiceException("数据删除失败");
 		}
 	}
-	
+
 	public Map<String,Object> getDataBySqlId(String sqlId,JSONObject row){
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
