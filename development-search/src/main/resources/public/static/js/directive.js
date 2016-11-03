@@ -312,7 +312,16 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		
 		//保存操作
 		$scope.save = function() {
-			saveOfClose($http,param.btn.url + "/save",$scope.data,$uibModalInstance);
+			var url = param.btn.url;
+			if(_.isEmpty(url)){
+				if(param.row){
+					url = 'search/sqlview/modfity/';
+				}else{
+					url = 'search/sqlview/persistent/';
+				}
+				url += $scope.sqlView.sqlId;
+			}
+			saveOfClose($http,url,$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function(){
 			$uibModalInstance.dismiss('cancel');
