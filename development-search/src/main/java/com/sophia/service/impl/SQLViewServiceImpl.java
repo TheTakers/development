@@ -238,7 +238,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 
 		//拼装SQL
-		StringBuffer insert = new StringBuffer("INSERT INTO ")
+		StringBuffer insertSQL = new StringBuffer("INSERT INTO ")
 				.append(sqlDefine.getMasterTable())
 				.append("(");
 
@@ -251,7 +251,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			if(SQLViewConstant.YES.equals(field.getIsInsert())){
 
 				 
-				insert.append(field.getField()).append(",");
+				insertSQL.append(field.getField()).append(",");
 				values.append(":").append(field.getField()).append(",");
 				paramMap.put(field.getField(), row.get(field.getField()));
 			}
@@ -259,7 +259,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 		//自动生成id
 		if(StringUtils.isNotBlank(sqlDefine.getMasterTableId())){
-			insert.append(sqlDefine.getMasterTableId()).append(",");
+			insertSQL.append(sqlDefine.getMasterTableId()).append(",");
 			values.append(":").append(sqlDefine.getMasterTableId()).append(",");
 			row.put(sqlDefine.getMasterTableId(), GUID.nextId());
 		}else{
@@ -267,14 +267,14 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 
 		//补充字段
-		insert.append(SQLViewConstant.CREATE_TIME).append(",")
+		insertSQL.append(SQLViewConstant.CREATE_TIME).append(",")
 		.append(SQLViewConstant.CREATE_USER).append(")");
 		values.append(":").append(SQLViewConstant.CREATE_TIME).append(",")
 						  .append(":").append(SQLViewConstant.CREATE_USER).append(") ");
 		paramMap.put(SQLViewConstant.CREATE_TIME, new Date());
 		paramMap.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
 
-		final String sql = insert.append(values).toString();
+		final String sql = insertSQL.append(values).toString();
 		if(namedParameterJdbcTemplate.update(sql, paramMap) < 1){
 			throw new ServiceException("数据插入失败");
 		}
