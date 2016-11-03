@@ -377,7 +377,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 	};
 	return {
 		restrict:'E',
-		templateUrl:"templates/basic/directive/index.html",
+		templateUrl:"templates/basic/directive/uiViewIndex.html",
 		replace : false,			
 		transclude : false,
 		scope:{
@@ -432,7 +432,12 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 						scope.returndata.data = checkedData;
 					}
 					
-					scope.crud = function crud(item,btn){
+					//是否显示
+					scope.isdisplay = function(field){
+						return _.isEqual(field.isDisplay, CHECK_WHETHER_YES.value);
+					}
+					
+					scope.crud = function(item,btn){
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
 						case CRUD_CODE.UPDATE://修
