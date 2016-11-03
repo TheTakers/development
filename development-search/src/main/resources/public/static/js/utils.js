@@ -49,7 +49,7 @@ function saveOfClose($http,url,param,$uibModalInstance){
  * ctrl :编辑页controller
  * callback :回调函数
  */
-function uiEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+function sqlViewEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
 	if(param.row){
 		
 		/*根据选中ID获取最新数据*/
