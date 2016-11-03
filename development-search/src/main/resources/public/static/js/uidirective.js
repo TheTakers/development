@@ -37,6 +37,7 @@ app.directive('uiValidator', [function () {
 							$(element).removeClass("ng-required");
 						}else{
 							$(element).addClass("ng-required");
+							break;
 						}
 //						return validity ? value : undefined;
 					}
