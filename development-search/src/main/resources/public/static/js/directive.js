@@ -314,7 +314,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		$scope.save = function() {
 			var url = param.btn.url;
 			if(_.isEmpty(url)){
-				if(_.isEmpty(param.row.id)){
+				if(_.isEmpty(param.row)){
 					url = 'search/sqlview/persistent/';
 				}else{
 					url = 'search/sqlview/modfity/';
@@ -334,7 +334,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		
 		//显示需要编辑字段
 		$scope.isEdit = function(field){
-			if(_.isEmpty(param.row.id)){
+			if(_.isEmpty(param.row)){
 				return   _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
 			}else{
 				return  _.isEqual(field.isUpdate, CHECK_WHETHER_YES.value);

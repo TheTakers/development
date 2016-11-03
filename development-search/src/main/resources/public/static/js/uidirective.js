@@ -263,17 +263,17 @@ app.directive('uiDatepicker', function($http,$log) {
 		restrict:'E',
 		scope:{
 			value:'=',
-			required:'='
+			sqlviewfield:'='
 		},
 		template:function(element,atts){
-			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="yyyy-mm-dd" ng-model="value"></input>'+
+			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{sqlviewfield.expand}}" ng-model="value"></input>'+
 			'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
 		},
 		replace : false,			
 		transclude : false,
-		link:function(scope,element,attr){
+		link:function(scope,element,attr,ngModel){
 			$(element.find("input")).datepicker({
-				format: 'yyyy-mm-dd',
+				format: scope.sqlviewfield.expand,
 				autoclose: true,
 				language: 'zh-CN'
 			});
