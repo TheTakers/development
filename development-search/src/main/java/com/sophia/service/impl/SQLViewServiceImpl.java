@@ -291,11 +291,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlView == null){
 			throw new ServiceException("视图编号:"+ code + "未定义");
 		}
+		
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
+		
 		//获取修改列
 		List<SQLViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(CollectionUtils.isEmpty(sqlViewFields)){
@@ -343,11 +345,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
+		
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
+		
 		//获取修改列
 		List<SQLViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(CollectionUtils.isEmpty(sqlViewFields)){
@@ -374,6 +378,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	public Map<String,Object> getDataBySqlId(String sqlId,JSONObject row){
+		
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
 		if(sqlDefine == null){
@@ -382,6 +387,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(null == row){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
 		}
+		
 		//获取主键值
 		String pkId = row.getString(sqlDefine.getMasterTableId());
 		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
@@ -398,6 +404,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlView == null){
 			throw new ServiceException("编号:"+code+"视图未定义");
 		}
+		
 		//查询设置字段
 		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewId(sqlView.getId()));
 		
@@ -410,6 +417,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(null == row){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
 		}
+		
 		//获取主键值
 		String pkId = row.getString(sqlDefine.getMasterTableId());
 		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
