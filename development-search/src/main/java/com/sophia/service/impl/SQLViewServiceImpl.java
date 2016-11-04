@@ -412,6 +412,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
 		result.put("row", jdbcTemplateService.queryForMap(sql, paramMap));
+		result.put("sqlDefine",sqlDefine);
 		return result;
 	}
 }
