@@ -1994,3 +1994,15 @@ button.confirm {
   background-color: #5fbeaa !important;
   box-shadow: none !important;
 }
+
+/*zkning*/
+.uiGenerateCode{
+	max-width: 100%;
+}
+.uiGenerateCode input{
+	float: left !important;
+	width:91%;
+}
+.uiGenerateCode button {
+	width: 9%;
+}

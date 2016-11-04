@@ -388,8 +388,8 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			validator:"="
 		},
 		template:function(element,atts){
-			return  '<input class="form-control input-sm"  ng-model="data"  ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'+
-			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button>';
+			return  '<div class="uiGenerateCode"><input class="form-control input-sm"  ng-model="data"  ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'+
+			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button></div>';
 		},
 		replace : false,			
 		transclude : false,
