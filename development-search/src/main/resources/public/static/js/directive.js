@@ -253,7 +253,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 								dataList:{}, 
 								//查询
 								search:function(){
-									scope.$broadcast(this.id);  
+									scope.$broadcast(scope.grid.id);  
 								},
 								url:data.controller + '/list',
 								fieldData:data.fieldData
@@ -439,7 +439,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 									dataList:{}, 
 									//查询
 									search:function(){
-										scope.$broadcast(this.id);  
+										scope.$broadcast(scope.grid.id);  
 									},
 									url:'search/sqldefine/list/'+scope.sqlView.sqlId
 							};
@@ -756,7 +756,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 								id:$.uuid(),
 								dataList:{}, 
 								search:function(){
-									scope.$broadcast(this.id);  
+									scope.$broadcast(scope.grid.id);  
 								},
 								url:data.controller + '/list',
 								fieldData:data.fieldData
