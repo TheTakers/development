@@ -255,6 +255,18 @@
 							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.rootPId"  ng-required="treeRequired()"></input>
 	 					</div>
 					</div>
+					<div class="form-group" >
+						<label class="col-sm-3 control-label">节点选项</label>
+						<div class="col-sm-6">
+								<td><ui-dropdown class="{{treeRequiredClass}}" selected="treeData.nodeOpts" data="nodeOpts" ng-required="treeRequired()"></ui-dropdown></td>
+	 					</div>
+					</div>
+					<div class="form-group" >
+						<label class="col-sm-3 control-label">宽度</label>
+						<div class="col-sm-6">
+							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.width"  ng-required="treeRequired()"></input>
+	 					</div>
+					</div>
              </div> 
          </div> 
 	</form>

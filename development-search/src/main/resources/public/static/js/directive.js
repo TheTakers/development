@@ -654,13 +654,16 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			return getArrayIdxById($scope.buttonList,item) > -1;
 		}
 		/**=======================树设置====================================**/
+		$scope.nodeOpts = TREE_OPTIONS;
 		//功能树形
 		$scope.treeData = {
 			url:"",
 			idKey:"id",
 			pIdKey: "parentId",
 			rootPId: 0,
-			isShow:0
+			isShow:0,
+			nodeOpts:'ALLNODE',
+			width:'2'
 		};
 		if($scope.data.treeData){
 			$scope.treeData =  JSON.parse($scope.data.treeData);

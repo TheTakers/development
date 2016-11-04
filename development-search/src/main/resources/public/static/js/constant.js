@@ -5,6 +5,13 @@ var CRUD_CODE = {INSERT:"10001",UPDATE:"10002",DELETE:"10003",VIEW:"10004"};
 var CHECK_WHETHER_YES = {value:1,text:"是"};
 var CHECK_WHETHER_NO = {value:0,text:"否"};
 
+/*树控制*/
+var TREE_OPTIONS = [
+     {value:"ALLNODE",text:"全部子节点"},
+	 {value:"SUBNODE",text:"子节点"},
+	 {value:"CHECKEDNODE",text:"当前节点"}
+	];
+
 /*是否*/
 var OPTION_WHETHER = [CHECK_WHETHER_YES,CHECK_WHETHER_NO];
 
