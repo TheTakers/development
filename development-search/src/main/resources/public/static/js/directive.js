@@ -159,6 +159,22 @@ app.directive('uitree', function($http,$log) {
 //page
 app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
 	
+	var basePageEdit = function(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+		
+		/*根据选中ID获取最新数据*/
+		commonService.post(dataUrl,param.row,function(data){
+
+			if(data.code == STATUS_CODE.SUCCESS){
+
+				//获取最新数据到编辑页
+				_.extend(param, data.result);
+				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+			}else{
+				$.error(data.message);
+			}
+		});
+	};
+	
 	//子窗口 
 	var editModal = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		//页面数据
@@ -270,7 +286,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							sqlViewEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
+							basePageEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
 							break;
 						case "remove":
 							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);
@@ -301,6 +317,22 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
  * SQLVIEW统一入口
  */
 app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibModal) {
+	
+	var sqlViewIndexEdit = function(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+		
+		/*根据选中ID获取最新数据*/
+		commonService.post(dataUrl,param.row,function(data){
+
+			if(data.code == STATUS_CODE.SUCCESS){
+
+				//获取最新数据到编辑页
+				_.extend(param, data.result);
+				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+			}else{
+				$.error(data.message);
+			}
+		});
+	};
 	
 	//子窗口 
 	var editModalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
@@ -444,16 +476,16 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					scope.crud = function(item,btn){
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
-							sqlViewEdit(commonService,'search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.UPDATE://修
-							sqlViewEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
 							remove(commonService,'search/sqlview/delete/'+scope.sqlView.sqlId+'/'+item.id ,{id:item.id},scope.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							sqlViewEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 						}
@@ -646,7 +678,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	}
 	
 	//列表记录弹窗
-	function sqlViewEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
+	function baseIndexEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
 		
 		if(param.id){
 			/*根据选中ID获取最新数据*/
@@ -757,7 +789,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						case CRUD_CODE.INSERT:
 						case CRUD_CODE.UPDATE:
 							item = item || {id:""};
-							sqlViewEdit(commonService,scope.sqlView.controller + '/findById',func.url,modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,100);
+							baseIndexEdit(commonService,scope.sqlView.controller + '/findById',func.url,modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,100);
 							break;
 						case CRUD_CODE.DELETE://删除
 							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);

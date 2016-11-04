@@ -41,34 +41,7 @@ function saveOfClose($http,url,param,$uibModalInstance){
 		}
 	});	
 };
-
-
-/**
- * dataUrl :编辑页初始化数据页
- * templateUrl :编辑页url
- * ctrl :编辑页controller
- * callback :回调函数
- */
-function sqlViewEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
-	
-	/*根据选中ID获取最新数据*/
-	commonService.post(dataUrl,param.row,function(data){
-
-		if(data.code == STATUS_CODE.SUCCESS){
-
-			//获取最新数据到编辑页
-			_.extend(param, data.result);
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
-		}else{
-			$.error(data.message);
-		}
-	});
-	
-//	if(param.row){
-//	}else{
-//		commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
-//	}
-};
+ 
 
 function remove(commonService,url,param,callback) {
 
