@@ -66,7 +66,11 @@ app.directive('uiLabel', function($http,$log) {
 			'<span class="text-muted"></span></label>';
 		},
 		link:function(scope,element,attr){
-			scope.fixedValue = scope.content.substring(0,6);
+			if(scope.content.length > 6){
+				scope.fixedValue = scope.content.substring(0,4) + "..";
+			}else{
+				scope.fixedValue = scope.content;
+			}
 		}
 	};
 });
