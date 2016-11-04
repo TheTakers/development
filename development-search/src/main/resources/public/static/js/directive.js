@@ -305,7 +305,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 
 					//判断是否显示树
 					scope.showtree = function(){
-						return _.isUndefined(scope.treeconfig);
+						return !_.isUndefined(scope.treeconfig);
 					}
 				} 
 			}
@@ -387,6 +387,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 			return;
 		}
 		return {
+			isShow:treeConfig.isShow,
 			setting:{
 				async:{
 					url:treeConfig.url,
@@ -493,7 +494,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					
 					//判断是否显示树
 					scope.showtree = function(){
-						return _.isEmpty(scope.treeconfig.isShow,OPTION_WHETHER[0].value) ;
+						return _.isEqual(scope.treeconfig.isShow,CHECK_WHETHER_YES.value);
 					}
 				} 
 			}
@@ -801,7 +802,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 					}
 					//判断是否显示树
 					scope.showtree = function(){
-						return _.isUndefined(scope.treeconfig);
+						return !_.isUndefined(scope.treeconfig);
 					}
 				} 
 			}
