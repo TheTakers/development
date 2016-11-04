@@ -340,7 +340,6 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 		//页面数据
 		$scope.data = param.row;
 		$scope.sqlView = param.sqlView;
-		$scope.sqlDefine = param.sqlDefine;
 		
 		//保存操作
 		$scope.save = function() {

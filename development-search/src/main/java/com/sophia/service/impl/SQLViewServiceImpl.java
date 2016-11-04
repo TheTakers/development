@@ -216,6 +216,11 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
 		List<SQLViewField> columnList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		if(sqlDefine == null){
+			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+		}
+		sqlView.setSqlDefine(sqlDefine);
 		sqlView.setColumnList(columnList);
 		return sqlView;
 	}
@@ -393,8 +398,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlView == null){
 			throw new ServiceException("编号:"+code+"视图未定义");
 		}
-		result.put("sqlView", sqlView);
-		
 		//查询设置字段
 		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewId(sqlView.getId()));
 		
@@ -403,6 +406,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
 		}
+		sqlView.setSqlDefine(sqlDefine);
 		if(null == row){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
 		}
@@ -412,7 +416,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
 		result.put("row", jdbcTemplateService.queryForMap(sql, paramMap));
-		result.put("sqlDefine",sqlDefine);
+		result.put("sqlView", sqlView);
 		return result;
 	}
 }

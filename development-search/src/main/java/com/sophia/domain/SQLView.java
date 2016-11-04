@@ -39,6 +39,15 @@ public class SQLView extends Auditable{
 	@Transient
 	private List<SQLViewField> columnList  = new ArrayList<SQLViewField>();
 	
+	@Transient
+	private SQLDefine sqlDefine;
+	
+	public SQLDefine getSqlDefine() {
+		return sqlDefine;
+	}
+	public void setSqlDefine(SQLDefine sqlDefine) {
+		this.sqlDefine = sqlDefine;
+	}
 	public String getRemark() {
 		return remark;
 	}
