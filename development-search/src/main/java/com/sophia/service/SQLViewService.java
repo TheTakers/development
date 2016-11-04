@@ -57,7 +57,7 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @param code 视图编号
 	 * @param param 表单数据
 	 */
-	public void deleteByCode(String code,String id);
+	public void deleteByCode(String code,JSONObject row);
 	
 	/**
 	 * 根据SQLID和数据ID获取某条数据

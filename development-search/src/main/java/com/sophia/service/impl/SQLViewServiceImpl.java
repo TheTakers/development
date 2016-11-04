@@ -339,7 +339,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 	}
 
-	public void deleteByCode(String code,String id){
+	public void deleteByCode(String code,JSONObject row){
 
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
@@ -371,7 +371,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		paramMap.put(sqlDefine.getMasterTableId(), id);
+		paramMap.put(sqlDefine.getMasterTableId(),row.get(sqlDefine.getMasterTableId()));
 		if(namedParameterJdbcTemplate.update(deleteSql.toString(), paramMap) < 1){
 			throw new ServiceException("数据删除失败");
 		}

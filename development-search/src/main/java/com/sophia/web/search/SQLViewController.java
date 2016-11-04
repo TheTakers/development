@@ -226,12 +226,9 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> deleteView(@RequestBody JSONObject formParam) {
+	public Map<String, Object> deleteView(@PathVariable String code,@RequestBody JSONObject row) {
 		try {
-			if(StringUtils.isEmpty("")){
-				throw new Exception("id不能为空");
-			}
-			sqlViewService.deleteByCode(null, null);
+			sqlViewService.deleteByCode(code, row);
 			return responseOk(Constant.SUCCESS_MESSAGE);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);

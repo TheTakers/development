@@ -483,7 +483,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiEdit.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
-							remove(commonService,'search/sqlview/delete/'+scope.sqlView.sqlId+'/'+item.id ,{id:item.id},scope.search);
+							remove(commonService,'search/sqlview/delete/'+scope.sqlView.code ,{row:item},scope.search);
 							break;
 						case CRUD_CODE.VIEW://查
 							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
