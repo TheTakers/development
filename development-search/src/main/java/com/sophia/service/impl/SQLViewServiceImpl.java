@@ -122,7 +122,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 			field = new SQLViewField();
 			field.setId(GUID.nextId());
-			field.setTitle(srsmd.getColumnLabel(i));
+			this.setFieldTitle(field, srsmd.getColumnLabel(i));
 			field.setField(srsmd.getColumnLabel(i));// as 后的值 ，getColumnName 原始值
 			field.setLength(String.valueOf(srsmd.getPrecision(i)));
 			field.setDataType(srsmd.getColumnTypeName(i));
@@ -136,6 +136,34 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			list.add(field);
 		}
 		return list;
+	}
+	
+	/**
+	 * 设置名称
+	 * @param sqlViewField
+	 * @param field
+	 */
+	private void setFieldTitle(SQLViewField sqlViewField,String field){
+		switch (field.toUpperCase()) {
+		case SQLViewConstant.LAST_UPDATE_TIME:
+			sqlViewField.setTitle("更新时间");
+			break;
+		case SQLViewConstant.LAST_UPDATE_USER:
+			sqlViewField.setTitle("更新者");
+			break;
+		case SQLViewConstant.CREATE_TIME:
+			sqlViewField.setTitle("创建时间");
+			break;
+		case SQLViewConstant.CREATE_USER:
+			sqlViewField.setTitle("创建者");
+			break;
+		case SQLViewConstant.VERSION:
+			sqlViewField.setTitle("版本号");
+			break;
+		default:
+			sqlViewField.setTitle(field);
+			break;
+		}
 	}
 
 	private void setTypeAndLenth(String type,SQLViewField field){

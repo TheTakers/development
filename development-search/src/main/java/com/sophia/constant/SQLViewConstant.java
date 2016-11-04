@@ -21,7 +21,7 @@ public class SQLViewConstant {
 	 */
 	public static final Integer BUTTON_TABLE = 0;
 	
-	
+	public static final String VERSION	  = "VERSION";
 	public static final String CREATE_TIME	  = "CREATETIME";
 	public static final String CREATE_USER	  = "CREATEUSER";
 	public static final String LAST_UPDATE_TIME	  = "LASTUPDATETIME";
