@@ -26,4 +26,15 @@ public class SQLViewConstant {
 	public static final String CREATE_USER	  = "CREATEUSER";
 	public static final String LAST_UPDATE_TIME	  = "LASTUPDATETIME";
 	public static final String LAST_UPDATE_USER	  = "LASTUPDATEUSER";
+	
+	/**
+	 * 所有root节点统一上级为0
+	 */
+	public static final String TREE_ROOT = "0";
+	
+	/**
+	 * SQL IN 空默认值
+	 * 000000
+	 */
+	public static final String IN_NONE_CODE = "000000";
 }

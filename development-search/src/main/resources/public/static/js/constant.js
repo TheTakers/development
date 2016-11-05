@@ -7,9 +7,9 @@ var CHECK_WHETHER_NO = {value:0,text:"否"};
 
 /*树控制*/
 var TREE_OPTIONS = [
-     {value:"ALLNODE",text:"全部子节点"},
-	 {value:"SUBNODE",text:"子节点"},
-	 {value:"CHECKEDNODE",text:"当前节点"}
+     {value:"ALL",text:"全部子节点"},
+	 {value:"CHILD",text:"子节点"},
+	 {value:"SELF",text:"当前节点"}
 	];
 
 /*是否*/

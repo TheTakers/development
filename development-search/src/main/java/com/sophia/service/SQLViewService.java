@@ -9,6 +9,7 @@ import com.sophia.domain.SQLViewField;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLViewQueryRquest;
 import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
 
@@ -66,4 +67,11 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 */
 	public Map<String,Object>  getDataBySqlId(String sqlId,JSONObject row);
 	
+	/**
+	 * 查询视图列表
+	 * @param code
+	 * @param queryRequest
+	 * @return
+	 */
+	public GridResponse<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryRquest queryRequest);
 }

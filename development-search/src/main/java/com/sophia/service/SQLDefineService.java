@@ -1,5 +1,6 @@
 package com.sophia.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.sophia.domain.SQLDefine;
@@ -24,4 +25,11 @@ public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	public Map<String,Object> findById(String id);
 	
 	public SQLDefine findBySqlId(String sqlId);
+	
+	/**
+	 * 根据SQLID获取SQL对应的所有数据
+	 * @param sqlId
+	 * @return
+	 */
+	public List<Map<String,Object>> findAllBySqlId(String sqlId);
 }

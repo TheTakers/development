@@ -63,12 +63,28 @@ public class SQLDefineController extends BaseController{
 		}
 	}
 	
+	/**
+	 * 根据SQLID获取数据
+	 * @param sqlId
+	 * @param queryRequest
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse data = sqlDefineService.list(sqlId,queryRequest);
 			return responseOk(Constant.SUCCESS_MESSAGE,data);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/listAll/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Object getListAllBySqlId(@PathVariable String sqlId) {
+		try {
+			return sqlDefineService.findAllBySqlId(sqlId);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

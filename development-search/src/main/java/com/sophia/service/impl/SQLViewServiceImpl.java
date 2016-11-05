@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,7 +21,9 @@ import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.ComponentType;
+import com.sophia.constant.SQLExpression;
 import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.TreeNodeHandleType;
 import com.sophia.domain.SQLDefine;
 import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
@@ -28,13 +31,17 @@ import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLViewQueryRquest;
 import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
+import com.sophia.utils.CrudeUtils;
 import com.sophia.utils.SQLFilter;
+import com.sophia.vo.ConditionVo;
+import com.sophia.vo.TreeVo;
 import com.sophia.web.util.GUID;
 
 @Service
@@ -46,6 +53,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired SQLDefineService sqlDefineService;
 	@Autowired SQLViewFieldService sqlViewFieldService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
 	public String save(SQLViewRequest sqlViewRequest){
@@ -85,8 +93,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
-		SQLFilter sqlFilter = SQLFilter.getInstance();
-		sqlFilter.addCondition(queryRequest.getCondition());
+		SQLFilter sqlFilter = new SQLFilter(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
@@ -453,6 +460,102 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
 		result.put("row", jdbcTemplateService.queryForMap(sql, paramMap));
 		result.put("sqlView", sqlView);
+		return result;
+	}
+	@Override
+	public GridResponse<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryRquest queryRequest){
+		SQLView sqlView = getRepository().getByCode(code);
+		ConditionVo conditionVo = getTreeNode(sqlView.getTreeData(),queryRequest.getTreeNode());
+		SQLFilter sqlFilter = new SQLFilter(queryRequest.getCondition());
+		if(null != conditionVo){
+			sqlFilter.addCondition(conditionVo);
+		}
+		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlView.getSqlId());
+		sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+	}
+	
+	/**
+	 * 获取树节点条件
+	 * @param treeConfig
+	 * @return
+	 */
+	private ConditionVo getTreeNode(String treeConfig,JSONObject treeNode){
+		TreeVo treeVo = JSONObject.parseObject(treeConfig, TreeVo.class);
+		if(!CrudeUtils.isTrue(treeVo.getIsShow())){
+			return null;
+		}
+		//获取sqlDefine 
+		SQLDefine sqlDefine = sqlDefineService.findBySqlId(treeVo.getSqlId());
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		
+		String idValue = SQLViewConstant.TREE_ROOT;
+		
+		//第一次默认为加载ROOT节点
+		if(null != treeNode){
+			idValue = treeNode.getString(treeVo.getIdKey());
+		}
+		List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+		switch (treeVo.getNodeOpts()) {
+		case TreeNodeHandleType.TREEHANDLETYPE_ALL:
+			result = findAllNode(warpTreeSql(sqlDefine.getSelectSql(), treeVo.getpIdKey()), idValue, treeVo);
+			break;
+		case TreeNodeHandleType.TREEHANDLETYPE_CHILD:
+			paramMap.put(treeVo.getpIdKey(), idValue);
+			result = namedParameterJdbcTemplate.queryForList(warpTreeSql(sqlDefine.getSelectSql(), treeVo.getpIdKey()), paramMap);
+			break;
+		case TreeNodeHandleType.TREEHANDLETYPE_SELF:
+			paramMap.put(treeVo.getIdKey(), idValue);
+			result.add(jdbcTemplateService.queryForMap(warpTreeSql(sqlDefine.getSelectSql(), treeVo.getIdKey()), paramMap));
+			break;
+		}
+		ConditionVo conditionVo = new ConditionVo();
+		conditionVo.setField(treeVo.getRelationField());
+		conditionVo.setExpr(SQLExpression.IN);
+		//TODO 换成in语句
+		conditionVo.setValue(appendIds(result,treeVo.getIdKey()));
+		return conditionVo;
+	}
+	
+	/**
+	 * 拼接in字符
+	 * @param mapList
+	 * @param key
+	 * @return
+	 */
+	private String appendIds(List<Map<String,Object>> mapList,String key){
+		StringBuffer sb = new StringBuffer();
+		for(Map<String,Object> item : mapList){
+			sb.append(item.get(key)).append(",");
+		}
+		return StringUtils.isBlank(sb) ? SQLViewConstant.IN_NONE_CODE : sb.deleteCharAt(sb.lastIndexOf(",")).toString();
+	}
+	
+	/**
+	 * 拼装树查询SQL
+	 * @param sql
+	 * @param field
+	 * @return
+	 */
+	private String warpTreeSql(String sql,String field){
+		return  new StringBuffer("select t.* from (")
+					.append(sql).append(") t WHERE T.").append(field).append(" =:").append(field).toString();
+	}
+	
+	/**
+	 * 根据nodeId获取所有子节点
+	 * @param sql
+	 * @param pId
+	 * @param treeVo
+	 * @return
+	 */
+	private List<Map<String, Object>> findAllNode(String sql,Object pId,TreeVo treeVo){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put(treeVo.getpIdKey(), pId);
+		List<Map<String, Object>> result = namedParameterJdbcTemplate.queryForList(sql, paramMap);
+		for(Map<String, Object> subMap : result){
+			result.addAll(findAllNode(sql, subMap.get(treeVo.getIdKey()), treeVo));
+		}
 		return result;
 	}
 }

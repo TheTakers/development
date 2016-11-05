@@ -1,13 +1,17 @@
 package com.sophia.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.SQLDefine;
+import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.QueryRequest;
@@ -27,6 +31,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired JdbcTemplateService npJdbcTemplateService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	
 	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
@@ -66,5 +71,13 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sqlDefine.getSelectSql());
 		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+	}
+	@Override
+	public List<Map<String, Object>> findAllBySqlId(String sqlId) {
+		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
+		if(null == sqlDefine){
+			throw new ServiceException("SQLID:"+sqlId+"未定义");
+		}
+		return namedParameterJdbcTemplate.queryForList(sqlDefine.getSelectSql(), new HashMap<String, Object>());
 	}
 }

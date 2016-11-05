@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.request.QueryRequest;
+import com.sophia.request.SQLViewQueryRquest;
 import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
 import com.sophia.service.SQLViewService;
@@ -233,4 +234,22 @@ public class SQLViewController extends BaseController{
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
+	
+	/**
+	 * 根据SQLVIEW CODE查询列表
+	 * @param code
+	 * @param queryRequest
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
+		try {
+			;
+			return responseOk(Constant.SUCCESS_MESSAGE,sqlViewService.findSqlViewGrid(code, queryRequest));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	 
 }

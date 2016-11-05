@@ -7,11 +7,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.vo.ConditionVo;
 
 /**
- * 查询grid
+ * 视图查询
  * @author zkning
+ *
  */
-public class QueryRequest implements Serializable{
-	
+public class SQLViewQueryRquest implements Serializable {
 	
 	/**
 	 * 
@@ -38,6 +38,9 @@ public class QueryRequest implements Serializable{
 	 */
 	private List<ConditionVo> condition;
 	
+	/**
+	 * 选中节点
+	 */
 	private JSONObject treeNode;
 
 	public JSONObject getTreeNode() {
@@ -79,5 +82,4 @@ public class QueryRequest implements Serializable{
 	public void setSqlId(String sqlId) {
 		this.sqlId = sqlId;
 	}
-	
 }

@@ -1,15 +1,18 @@
 package com.sophia.utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sophia.constant.SQLViewConstant;
+import com.google.common.collect.Lists;
+import com.sophia.constant.SQLExpression;
+import com.sophia.vo.ConditionVo;
 
 /**
+ * SQL过滤	
  * @author zkning
  */
 public class SQLFilter {
@@ -18,59 +21,71 @@ public class SQLFilter {
 
 	private StringBuffer condition = new StringBuffer();
 	private StringBuffer orderBy = new StringBuffer();
-
-	private static String alias = "field";
-	private static String expr ="expr";
-	private static String value ="value";
-	private static String sort ="isSort";
-
-	private static String LIKE ="like";
-	private static String WHERE =" where ";
+	
+	private static String WHERE =" WHERE ";
 
 	private Map<String,Object> params = new HashMap<>();
-
+	
 	public SQLFilter(String conditon){
-		addCondition(JSONObject.parseArray(conditon));
+		List<ConditionVo> conditionVoList = JSONObject.parseArray(conditon, ConditionVo.class);
+		addCondition(conditionVoList);
 	}
 
-	public SQLFilter(JSONArray conditon){
-		addCondition(conditon);
+	public SQLFilter(List<ConditionVo> conditionVoList){
+		addCondition(conditionVoList);
 	}
+	
 	public SQLFilter(){}
 
-	public void addCondition(JSONArray array){
-		if(array == null)
+	public void addCondition(List<ConditionVo> conditionVoList){
+		if(conditionVoList == null)
 			return;
 
-		for(int idx =0;idx<array.size();idx++){
-			JSONObject cond = array.getJSONObject(idx);
+		for(ConditionVo cond : conditionVoList){
+			
+			//排序字段
 			String sortField = "";
-			if(SQLViewConstant.YES.equals(get(cond, sort))){
-				sortField = get(cond, alias);
+			if(CrudeUtils.isTrue(cond.getIsSort())){
+				sortField = cond.getField();
 			}
-			addCondition(get(cond, alias),get(cond, expr),get(cond, value),sortField);
+			addCondition(cond.getField(),cond.getExpr(),cond.getValue(),sortField);
 		}
 	}
 
-	public String get(JSONObject cond,String key){
-		return cond.getString(key);
-	}
+	public void addCondition(ConditionVo cond){
+		addCondition(cond.getField(),cond.getExpr(),cond.getValue(),null);
+	} 
 
 	public void EQ(String alias,String value){
-		addCondition(alias,"=",value,null);
+		addCondition(alias,SQLExpression.EQ,value,null);
 	}
 
 	public void addCondition(String alias,String expr ,String value,String sort){
-		if(null != value){
+		if(StringUtils.isNotBlank(value)){
 			if(StringUtils.isNotBlank(condition))
 				condition.append(" AND ");
 
-			condition.append(alias)
-			.append(" " + expr +" ")
-			.append(":").append(alias);
-
-			if(LIKE.equals(expr)){
+			condition.append(" t.").append(alias);
+			
+			//拼装条件表达式
+			if(SQLExpression.IN.equals(expr) || 
+					SQLExpression.NOT_IN.equals(expr)){
+				condition.append(" " + expr +" (").append(":").append(alias).append(") ");
+			}else if(SQLExpression.NULL.equals(expr) || 
+					SQLExpression.NOT_NULL.equals(expr)){
+				condition.append(expr);
+			}else{
+				condition.append(" " + expr +" ").append(":").append(alias);
+			}
+			
+			//输入值
+			if(SQLExpression.LIKE.equals(expr)){
 				params.put(alias, "%"+value+"%");
+			}else if(SQLExpression.NULL.equals(expr) || 
+					SQLExpression.NOT_NULL.equals(expr)){
+			}else if(SQLExpression.IN.equals(expr) || 
+					SQLExpression.NOT_IN.equals(expr)){
+				params.put(alias, Lists.newArrayList(value.split(",")));
 			}else{
 				params.put(alias, value);
 			}
@@ -115,7 +130,7 @@ public class SQLFilter {
 	 */
 	public String getSql(){
 		StringBuffer storeSql = new StringBuffer();
-		storeSql.append("select * from (")
+		storeSql.append("select t.* from (")
 		.append(mainSql)
 		.append(") t ");
 		if(StringUtils.isNotBlank(condition)){
@@ -132,7 +147,7 @@ public class SQLFilter {
 	 */
 	public String getLimitSql(Integer pageNo,Integer pageSize){
 		StringBuffer storeSql = new StringBuffer();
-		storeSql.append("select * from (")
+		storeSql.append("select t.* from (")
 		.append(mainSql)
 		.append(") t ");
 

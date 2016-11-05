@@ -19,8 +19,8 @@ import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.request.QueryRequest;
 import com.sophia.response.GridResponse;
-import com.sophia.service.MenuService;
 import com.sophia.service.JdbcTemplateService;
+import com.sophia.service.MenuService;
 import com.sophia.utils.SQLFilter;
 
 @Service
@@ -110,8 +110,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	@Override
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest) {
 
-		SQLFilter sqlFilter = SQLFilter.getInstance();
-		sqlFilter.addCondition(queryRequest.getCondition());
+		SQLFilter sqlFilter = new SQLFilter(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		
 		if(queryRequest.getTreeNode()!=null){
