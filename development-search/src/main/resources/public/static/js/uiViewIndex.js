@@ -138,7 +138,7 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 							scope.sqlView.buttonData = JSON.parse(scope.sqlView.buttons);
 							//查询参数
 							scope.parameter = {
-									condition:scope.filterData
+									condition:scope.sqlView.filterData
 							};
 						}
 					},type:"post",async:false});
