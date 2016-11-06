@@ -262,6 +262,35 @@ app.directive('uiTree', function($http,$log) {
 		}
 	};
 }); 
+
+app.directive('uiRangSliders', function($http,$log) {
+	return {
+		restrict:'E',
+		scope:{
+			from:'='
+		},
+		template:function(element,atts){
+			return '<input id="'+$.uuid()+'"></input>';
+		},
+		replace : true,			
+		transclude : false,
+		link:function(scope,element,attr){
+			$(element).ionRangeSlider({
+//			        type: "double",
+			        grid: true,
+			        min: 0,
+			        max: 12,
+			        from: scope.from,
+			        onChange:function (data) {
+	                	scope.from = data.from;
+	            	}
+//			        to: 800,
+//			        prefix: "%"
+			    });
+		}
+	};
+}); 
+
 app.directive('uiDatepicker', function($http,$log) {
 	return {
 		restrict:'E',

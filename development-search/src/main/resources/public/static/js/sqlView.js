@@ -161,7 +161,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			rootPId: 0,
 			isShow:0,
 			nodeOpts:'ALL',
-			width:'2',
+			width:2,
 			sqlId:'',
 			relationField:''
 		};
