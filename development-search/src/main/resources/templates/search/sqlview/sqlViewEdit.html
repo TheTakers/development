@@ -21,7 +21,7 @@
                   <a href="#buttons" data-toggle="tab" aria-expanded="true">按钮列表</a> 
              </li> 
              <li class=""> 
-                  <a href="#treesetting" data-toggle="tab" aria-expanded="true">树设置</a> 
+                  <a href="#treesetting" data-toggle="tab" aria-expanded="true">功能树</a> 
              </li> 
          </ul> 
          <div class="tab-content"> 
@@ -277,7 +277,7 @@
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">宽度</label>
 						<div class="col-sm-6">
-							<ui-rang-sliders from="treeData.width"></ui-rang-sliders>
+							<ui-rang-sliders options="treeData" from="width" max="12" ></ui-rang-sliders>
 							<!-- <input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.width"  ng-required="treeRequired()"></input> -->
 	 					</div>
 					</div>

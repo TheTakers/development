@@ -184,6 +184,15 @@ app.directive('uiviewindex', function($http,$log,$ocLazyLoad,commonService,$uibM
 					scope.showtree = function(){
 						return _.isEqual(scope.treeconfig.isShow,CHECK_WHETHER_YES.value);
 					}
+					
+					//功能树宽度
+					var treeData = JSON.parse(scope.sqlView.treeData);
+					if(_.isEqual(treeData.isShow, CHECK_WHETHER_YES.value)){
+						scope.treeWidth = treeData.width;
+						scope.gridWidth = 12 - scope.treeWidth;
+					}else{
+						scope.gridWidth = 12;
+					}
 				} 
 			}
 		}

@@ -3,7 +3,7 @@
 	<div class="row">
 
 		<!-- tree start-->
-		<div class="col-md-2" ng-if="showtree()">
+		<div class="col-md-{{treeWidth}}" ng-if="showtree()">
 			<uitree class="card-box" setting="treeconfig.setting"></uitree>
 		</div>
 		<!-- tree end -->
@@ -11,7 +11,7 @@
 
 		<!-- start of search row -->
 
-		<div ng-class="{true: 'col-md-10', false: 'col-md-12'}[showtree()]">
+		<div class="col-md-{{gridWidth}}">
 			<form class="form-inline">
 				<div class="row">
 					<div class="col-md-12">

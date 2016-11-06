@@ -267,26 +267,43 @@ app.directive('uiRangSliders', function($http,$log) {
 	return {
 		restrict:'E',
 		scope:{
-			from:'='
+			options:'='
 		},
 		template:function(element,atts){
 			return '<input id="'+$.uuid()+'"></input>';
 		},
 		replace : true,			
 		transclude : false,
-		link:function(scope,element,attr){
-			$(element).ionRangeSlider({
-//			        type: "double",
-			        grid: true,
-			        min: 0,
-			        max: 12,
-			        from: scope.from,
-			        onChange:function (data) {
-	                	scope.from = data.from;
-	            	}
-//			        to: 800,
-//			        prefix: "%"
-			    });
+		compile: function compile(tElement, tAttrs, transclude) {
+			return {
+				pre: function preLink(scope, element, iAttrs, controller) {
+					var from = $(element).attr("from");
+					var fromValue = 0;
+					if(from){
+						fromValue = scope.options[from];
+					}
+					$(element).ionRangeSlider({
+//					        type: "double",
+					        grid: true,
+					        min: $(element).attr("min") || 0,
+					        max: $(element).attr("max"),
+					        from: fromValue,
+					        onFinish:function (data) {
+					        	var from = $(element).attr("from");
+					        	if(from){
+					        		scope.options[from] = data.from;
+					        	}
+					        	var to = $(element).attr("to");
+					        	if(to){
+					        		scope.options[to] = data.to;
+					        	}
+			            	}
+//							onChange,
+//					        to: 800,
+//					        prefix: "%"
+					    });
+				}
+			}
 		}
 	};
 }); 
