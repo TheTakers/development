@@ -552,10 +552,17 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	private List<Map<String, Object>> findAllNode(String sql,Object pId,TreeVo treeVo){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(treeVo.getpIdKey(), pId);
+		List<Map<String, Object>> queryResult = new ArrayList<Map<String,Object>>(); 
 		List<Map<String, Object>> result = namedParameterJdbcTemplate.queryForList(sql, paramMap);
-		for(Map<String, Object> subMap : result){
-			result.addAll(findAllNode(sql, subMap.get(treeVo.getIdKey()), treeVo));
+		if(!CollectionUtils.isEmpty(result)){
+			List<Map<String, Object>> subResult = null;
+			for(Map<String, Object> subMap : result){
+				subResult = findAllNode(sql, subMap.get(treeVo.getIdKey()), treeVo);
+				if(!CollectionUtils.isEmpty(subResult))
+					queryResult.addAll(subResult);
+			}
+			queryResult.addAll(result);
 		}
-		return result;
+		return queryResult;
 	}
 }
