@@ -44,6 +44,10 @@ import com.sophia.vo.ConditionVo;
 import com.sophia.vo.TreeVo;
 import com.sophia.web.util.GUID;
 
+/**
+ * SQLVIEW服务
+ * @author zkning
+ */
 @Service
 @Transactional
 public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SQLViewService  {
@@ -191,9 +195,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 	}
 
-	private String setTitle(Object value,String field){
-		return value != null && StringUtils.isNoneBlank(value.toString()) ? value.toString() : field;
-	}
 	/**
 	 * 获取字段类型
 	 * @param dataType
@@ -253,7 +254,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		List<SQLViewField> columnList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
-			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
 		sqlView.setSqlDefine(sqlDefine);
 		sqlView.setColumnList(columnList);
@@ -417,7 +418,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
 		if(sqlDefine == null){
-			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+			throw new ServiceException("SQLID:"+ sqlId + "未定义");
 		}
 		if(null == row){
 			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + ",行数据未获取");
@@ -446,7 +447,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
-			throw new ServiceException("SQLID:"+ sqlDefine.getSqlId() + "未定义");
+			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
 		sqlView.setSqlDefine(sqlDefine);
 		if(null == row){
