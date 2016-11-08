@@ -164,9 +164,9 @@ public class SQLViewController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/index/{code}")
-    public ModelAndView viewIndex(@PathVariable String code, ModelMap result) {
+    public ModelAndView uiStandardIndex(@PathVariable String code, ModelMap result) {
 		result.addAttribute("code", code);
-        return new ModelAndView(module +"/sqlViewIndex", result);
+        return new ModelAndView(module +"/uiStandardIndex", result);
     }
 	
 	/**
