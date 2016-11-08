@@ -198,7 +198,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		replace : false,			
 		transclude : false,
 		scope:{
-			point:"@",
+			url:"@",
 			param:"=",
 			returndata:"="
 		},
@@ -265,7 +265,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 								condition:scope.sqlView.filterData
 						};
 					}
-					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
+					commonService.ajax({url:scope.url,success:success,type:"get",dataType:"text",async:false});
 
 					//选中列表
 					var checkedData= [];

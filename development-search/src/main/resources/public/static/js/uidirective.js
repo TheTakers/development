@@ -345,7 +345,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
 			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
-			+'<a ng-click="showDialog()" ><i class="fa fa-search selector-hover"></i></a></div>';
+			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
@@ -355,7 +355,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 			}
 			scope.inputData = eval('(' + scope.expand + ')');
 			scope.maxlength = $(attr)[0].maxlength;
-			scope.showDialog=function(){
+			scope.open=function(){
 
 				var modalInstance = $uibModal.open({
 					templateUrl: '/basic/directive/selector',

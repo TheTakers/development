@@ -106,7 +106,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 		replace : false,			
 		transclude : false,
 		scope:{
-			point:"@",
+			url:"@",
 			param:"=",
 			returndata:"="
 		},
@@ -119,14 +119,16 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 					
 					//请求参数
 					scope.parameter = $.extend({id:$.uuid()},scope.param);
-					commonService.ajax({url:scope.point,success:function success(data){
+					commonService.ajax({url:scope.url,success:function success(data){
 						scope.sqlView = data.result;
 						if(data.code == STATUS_CODE.SUCCESS){
 							scope.grid = {
 									id:$.uuid(),
+									
 									//table展示的数据
 									dataList:{}, 
-									//查询
+									
+									//条件查询
 									search:function(){
 										scope.$broadcast(scope.grid.id);  
 									},
