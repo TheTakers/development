@@ -50,6 +50,48 @@ app.directive('uiValidator', [function () {
 	};
 }]);
 
+//上下移动
+app.directive('uiFloat', [function () {
+	
+	return {
+		scope:{
+			item:"="
+		},
+		link: function (scope, element, attr) {
+			
+			var course = $(attr).attr("course");
+			var idxkey = $(attr).attr("idxkey");
+			//上移
+			var up  = function() { 
+		        var $tr = $(this).parents("tr"); 
+		        if ($tr.index() != 0) { 
+		            $tr.fadeOut().fadeIn(); 
+		            $tr.prev().before($tr); 
+		            scope.item[idxkey] = $tr.index();
+		        } 
+		    }
+			
+			//下移
+			var down = function() { 
+		        var $tr = $(this).parents("tr");
+		        var length = $(this).parent().parent().parent().find("tr").length;
+		        if ($tr.index() != length - 1) { 
+		            $tr.fadeOut().fadeIn(); 
+		            $tr.next().after($tr); 
+		            scope.item[idxkey] = $tr.index();
+		        } 
+		    }
+			
+			if("up" == course){
+				$(element).click(up);
+			}else{
+				$(element).click(down);
+			}
+			
+		}
+	};
+}]);
+
 
 /**========================================================================ui directive======================================================================================================**/
 app.directive('uiLabel', function($http,$log) {

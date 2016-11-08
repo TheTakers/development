@@ -92,7 +92,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//基本信息
 		SQLView sqlView = getRepository().findOne(id);
 		//获取列表
-		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 		sqlView.setColumnList(sqlViewFieldList);
 		return  sqlView;
 	}
