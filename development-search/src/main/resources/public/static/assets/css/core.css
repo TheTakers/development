@@ -2209,3 +2209,7 @@ body.fixed-left .side-menu.left {
     border: 1px solid #C71585 !important;
     border-radius: 3px;
 }
+/**mt20**/
+.mt20{
+  margin-top: 8px;
+}

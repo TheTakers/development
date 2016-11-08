@@ -207,7 +207,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		replace : false,			
 		transclude : false,
 		scope:{ 
-			point:"@",
+			url:"@",
 			param:"=",
 			returndata:"="
 		},
@@ -272,7 +272,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 								condition:scope.sqlView.filterData
 						};
 					}
-					commonService.ajax({url:scope.point,success:success,type:"get",dataType:"text",async:false});
+					commonService.ajax({url:scope.url,success:success,type:"get",dataType:"text",async:false});
 
 					//选中列表
 					var checkedData= [];
