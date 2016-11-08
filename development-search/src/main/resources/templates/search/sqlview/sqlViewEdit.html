@@ -110,6 +110,8 @@
 										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isInsert" data="optionData"></ui-dropdown></td>
 										 <td>
+										 	   <a href="javascript:void(0);" class="table-action-btn" ui-popover="上移" data-trigger="hover" data-placement="top"  ng-click="up(item)" ><i class="ion-arrow-up-a"></i></a>
+										 	   <a href="javascript:void(0);" class="table-action-btn" ui-popover="下移" data-trigger="hover" data-placement="top"  ng-click="down(item)" ><i class="ion-arrow-down-a"></i></a>
 										 	  <a href="javascript:void(0);" class="table-action-btn" ui-popover="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
 										 </td>
 									</tr>
@@ -162,7 +164,11 @@
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 											<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
 											<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-											<td><a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeItem(item)" ><i class="md md-close"></i></a></td>
+											<td>
+												<a href="javascript:void(0);" class="table-action-btn" ui-popover="上移" data-trigger="hover" data-placement="top"  ng-click="up(item)" ><i class="ion-arrow-up-a"></i></a>
+											 	<a href="javascript:void(0);" class="table-action-btn" ui-popover="下移" data-trigger="hover" data-placement="top"  ng-click="down(item)" ><i class="ion-arrow-down-a"></i></a>
+												<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeItem(item)" ><i class="md md-close"></i></a>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -215,7 +221,11 @@
 										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
-										<td><a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="md md-close"></i></a></td>
+										<td>
+											<a href="javascript:void(0);" class="table-action-btn" ui-popover="上移" data-trigger="hover" data-placement="top"  ng-click="up(item)" ><i class="ion-arrow-up-a"></i></a>
+										 	<a href="javascript:void(0);" class="table-action-btn" ui-popover="下移" data-trigger="hover" data-placement="top"  ng-click="down(item)" ><i class="ion-arrow-down-a"></i></a>
+											<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="md md-close"></i></a>
+										</td>
 									</tr>
 								</tbody>
 							</table>

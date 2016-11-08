@@ -46,6 +46,16 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');
 		};
+		
+		//上移、下移
+		$scope.up = function(item){
+			alert(1)
+		}
+		
+		$scope.down = function(item){
+			alert(1)
+		}
+		
 		/**=======================过滤设置================================================**/
 		$scope.ctype = DICT_COMPONENTTYPE;
 		$scope.expr = DICT_EXPRESSION;
