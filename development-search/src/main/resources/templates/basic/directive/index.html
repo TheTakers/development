@@ -34,18 +34,17 @@
 								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="!_.isEmpty(sqlView.filterData)">
 									<div class="panel-body">
 
-										<div class="row">
+										<form class="form-inline">
 										
-											<div class="form-group" ng-repeat="item in sqlView.filterData" >
-												<ui-label  content="{{item.title}}"></ui-label>
-												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
-											</div>
+											<div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3 mt20 row" ng-repeat="item in sqlView.filterData" >
+												<ui-label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" content="{{item.title}}({{item.expr}})"></ui-label>
+												<input class="form-control col-xs-9 col-sm-9 col-md-9 col-lg-9 wd200 input-sm" type="text"  ng-model="item.value"/>
+											</div>  
 											
-											<div class="form-group" >
-												<button type="reset" class="btn btn-danger waves-effect waves-light input-sm">重置</button>
-											 	<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="grid.search()">查询</button>
-											</div>
-										</div>
+											<button type="button" class="btn btn-info waves-effect waves-light input-sm mt20" ng-click="grid.search()">查询</button>
+											<button type="reset" class="btn btn-default waves-effect waves-light input-sm mt20">重置</button>
+											
+										</form>
 									</div>
 								</div>
 								<!-- search end -->
