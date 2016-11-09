@@ -399,7 +399,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 
 		//拼装SQL
-		StringBuffer deleteSql = new StringBuffer(" DELETE  ")
+		StringBuffer deleteSql = new StringBuffer(" DELETE FROM ")
 				.append(sqlDefine.getMasterTable())
 				.append(" WHERE ")
 				.append(sqlDefine.getMasterTableId())
