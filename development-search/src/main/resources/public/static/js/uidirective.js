@@ -55,7 +55,7 @@ app.directive('uiFloat', [function () {
 	
 	return {
 		scope:{
-			item:"="
+			list:"="
 		},
 		link: function (scope, element, attr) {
 			
@@ -64,10 +64,16 @@ app.directive('uiFloat', [function () {
 			//上移
 			var up  = function() { 
 		        var $tr = $(this).parents("tr"); 
-		        if ($tr.index() != 0) { 
+		        var trIdx = $tr.index();
+		        if (trIdx != 0) { 
 		            $tr.fadeOut().fadeIn(); 
 		            $tr.prev().before($tr); 
-		            scope.item[idxkey] = $tr.index();
+		            
+		            //取上一行
+		            scope.list[trIdx - 1][idxkey] = trIdx;
+		            
+		            //设置当前列对象索引 - 1
+		            scope.list[trIdx][idxkey] = trIdx - 1;
 		        } 
 		    }
 			
@@ -75,10 +81,16 @@ app.directive('uiFloat', [function () {
 			var down = function() { 
 		        var $tr = $(this).parents("tr");
 		        var length = $(this).parent().parent().parent().find("tr").length;
+		        var trIdx = $tr.index();
 		        if ($tr.index() != length - 1) { 
 		            $tr.fadeOut().fadeIn(); 
 		            $tr.next().after($tr); 
-		            scope.item[idxkey] = $tr.index();
+		            
+		            //取出下一行
+		            scope.list[trIdx + 1][idxkey] = trIdx;
+		            
+		            //当前行对象索引 + 1
+		            scope.list[trIdx][idxkey] = trIdx + 1;
 		        } 
 		    }
 			
