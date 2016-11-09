@@ -449,7 +449,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			scope.createCode = function(){
 				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
 				commonService.ajax({url:remoteUrl,data:scope.param,async:false,success:function(data){
-					if(data.code = '0'){
+					if(data.code == STATUS_CODE.SUCCESS){
 						scope.data = data.result;
 					}else{
 						$.error(data.message);
