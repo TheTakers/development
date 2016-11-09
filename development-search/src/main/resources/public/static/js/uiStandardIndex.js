@@ -179,6 +179,16 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
 							break;
 						default :
+							
+							//弹窗页面
+							if(btn.showWin == CHECK_WHETHER_YES.value){
+								
+								//自定义弹窗
+								
+								
+							}else{
+								action(commonService,btn.url,{row:item},scope.search);
+							}
 						}
 					}
 					
