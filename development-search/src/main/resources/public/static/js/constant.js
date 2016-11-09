@@ -26,7 +26,8 @@ var DICT_COMPONENTTYPE =
  {value:"TEXTAREA",text:"文本域"},
  {value:"GENERATECODE",text:"自动编码"},
  {value:"CHECKBOX",text:"单选框"},
- {value:"DATEPICKER",text:"日期"}
+ {value:"DATEPICKER",text:"日期"},
+ {value:"SQLSELECTOR",text:"列表选择器"}
 ];
 
 /*表达式*/

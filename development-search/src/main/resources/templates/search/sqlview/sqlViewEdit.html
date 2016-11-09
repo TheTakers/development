@@ -103,7 +103,10 @@
 										 <td>{{item.dataType}}</td>
 										 <td>{{item.length}}</td>
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
-										 <td><input class="form-control input-sm" ng-model="item.expand"></input></td>
+										 <td>
+										 	<input class="form-control input-sm" ng-model="item.expand"></input>
+										 	<!-- <ui-code-selector code=""> </ui-code-selector> -->
+										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>

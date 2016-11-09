@@ -113,6 +113,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				} 
 			});
 		}
+		
 		/**=======================按钮设置================================================**/
 		$scope.btype = OPTION_BUTTON;
 		$scope.winSize=WIN_SIZE;
@@ -134,10 +135,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//增、删、改、查
-		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"",type:0,url:"",showWin:1,winSize:"50"};
-		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"ion-edit",type:1,url:"",showWin:1,winSize:"50"};
-		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"ion-trash-a",type:1,url:"",showWin:0,winSize:""};
-		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"ion-eye",type:1,url:"",showWin:1,winSize:"50"};
+		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"ion-add",type:1,url:"",showWin:1,winSize:"50"};
+		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"ion-edit",type:0,url:"",showWin:1,winSize:"50"};
+		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"ion-trash-a",type:0,url:"",showWin:0,winSize:""};
+		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"ion-eye",type:0,url:"",showWin:1,winSize:"50"};
 		
 		$scope.crudCheck = function(item){
 			var idx = getArrayIdxById($scope.buttonList,item);
