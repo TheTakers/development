@@ -251,7 +251,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
-		List<SQLViewField> columnList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SQLViewField> columnList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
@@ -442,7 +442,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		
 		//查询设置字段
-		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewId(sqlView.getId()));
+		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId()));
 		
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
