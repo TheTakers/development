@@ -42,13 +42,43 @@ function saveOfClose($http,url,param,$uibModalInstance){
 	});	
 };
  
+/**
+ * 直接调用远程接口
+ * @param commonService
+ * @param url  接口url
+ * @param param {item:row}
+ * @param callback
+ */
+function action(commonService,url,param,callback){
+	$.confirm({
+		confirm: function(){
+			commonService.post(url,param,function(data){
+				if(data.code == STATUS_CODE.SUCCESS){
+					$.info(data.message);
 
+					if(callback){
+						callback(param);
+					}
+				}else{
+					$.error(data.message);
+				}
+			});
+		} 
+	});
+}
+/**
+ * 列删除
+ * @param commonService
+ * @param url
+ * @param param
+ * @param callback
+ */
 function remove(commonService,url,param,callback) {
 
 	$.confirm({
 		confirm: function(){
 			commonService.post(url,param,function(data){
-				if(data.code == '0'){
+				if(data.code == STATUS_CODE.SUCCESS){
 					$.info(data.message);
 
 					if(callback){
