@@ -459,4 +459,165 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 			}
 		}
 	};
-})
+});
+
+//根据SqlView编号生成的选择器
+app.directive('uiCodeSelector', function($http,$log,$uibModal) {
+	return {
+		restrict:'E',
+		scope:{
+			data:"=",
+			code:"=",
+			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			param:'=', //传给子页参数
+			size:'@',
+			validator:'='
+		},
+		template:function(element,atts){
+			return  '<div class="app-search-sm">'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
+		},
+		replace : true,			
+		transclude : false,
+		link:function(scope,element,attr){
+			if(_.isEmpty(scope.expand)){
+				return;
+			}
+			scope.inputData = eval('(' + scope.expand + ')');
+			scope.maxlength = $(attr)[0].maxlength;
+			scope.open=function(){
+
+				var modalInstance = $uibModal.open({
+					templateUrl: '/basic/directive/uiCodeSelectorTpl.html',
+
+					//接收子页传值
+					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
+
+						//工具栏
+						$scope.toolbar = {id:$.uuid()};
+						
+						//请求参数
+						$scope.parameter = $.extend({id:$.uuid()},{});
+						commonService.ajax({url:'search/sqlview/'+param.code,success:function success(data){
+							$scope.sqlView = data.result;
+							if(data.code == STATUS_CODE.SUCCESS){
+								$scope.grid = {
+										id:$.uuid(),
+										
+										//table展示的数据
+										dataList:{}, 
+										
+										//条件查询
+										search:function(){
+											$scope.$broadcast($scope.grid.id);  
+										},
+										url:'search/sqlview/findAll/'+$scope.sqlView.code
+								};
+								$scope.sqlView.fieldData = $scope.sqlView.columnList;
+								$scope.treeconfig = initTree($scope,JSON.parse($scope.sqlView.treeData));
+								$scope.sqlView.filterData = eval($scope.sqlView.conditions);
+								$scope.sqlView.buttonData = JSON.parse($scope.sqlView.buttons);
+								//查询参数
+								$scope.parameter = {
+										condition:$scope.sqlView.filterData
+								};
+							}
+						},type:"post",async:false});
+						
+						//选中列表
+						var checkedData= [];
+						$scope.rowClick = function(item,option){
+							$scope.returndata.option = option;
+							
+							//单选
+							if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
+								checkedData[0] = item; 
+							}else{
+								updateCheckBox(checkedData,item);
+							}
+							
+							//返回参数
+							$scope.returndata = checkedData;
+						}
+						
+						//是否显示
+						$scope.isdisplay = function(field){
+							return _.isEqual(field.isDisplay, CHECK_WHETHER_YES.value);
+						}
+						
+						//判断是否显示树
+						$scope.showtree = function(){
+							return _.isEqual($scope.treeconfig.isShow,CHECK_WHETHER_YES.value);
+						}
+						
+						//功能树宽度
+						var treeData = JSON.parse($scope.sqlView.treeData);
+						if(_.isEqual(treeData.isShow, CHECK_WHETHER_YES.value)){
+							$scope.treeWidth = treeData.width;
+							$scope.gridWidth = 12 - $scope.treeWidth;
+						}else{
+							$scope.gridWidth = 12;
+						}
+						
+						//选择器ok按钮
+						$scope.ok = function() {
+							var item ={}
+							if(!_.isEmpty($scope.returndata.data)){
+
+								//传值给父页
+								$uibModalInstance.close($scope.returndata);
+							}else{
+								$.warning("请选择记录!");
+							}
+						};
+
+						//取消
+						$scope.cancel = function() {
+							$uibModalInstance.dismiss('cancel');
+						};
+
+					},
+					size:scope.size,
+					resolve: {
+						param: function () {
+							return scope;
+						},
+						deps:function($ocLazyLoad,$stateParams,$log){
+
+							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
+							//return $ocLazyLoad.load("templates/"+scope.url+".js");
+						}
+					}
+				});
+
+				modalInstance.result.then(function (checked) { //获取子页返回值
+
+					var expand = scope.inputData;
+
+					var selectedItem = checked.data;
+					//单选
+					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
+						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
+						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
+					}else{
+						//多选
+						var value = "";
+						var id = "";
+						for(var idx in selectedItem){
+
+							id +=  selectedItem[idx][expand.returnKey] + ',';
+							value += selectedItem[idx][expand.returnValue] + ',';
+						}
+						id = id.substring(0,_.lastIndexOf(id,","));
+						value = value.substring(0,_.lastIndexOf(value,","));
+						scope.data[expand.dataKey] = id;
+						scope.data[expand.dataValue] = value;
+					}
+				}, function () { //子页关闭监听
+					$log.info('Modal dismissed at: ' + new Date());
+				});
+			}
+		} 
+	};
+}); 
