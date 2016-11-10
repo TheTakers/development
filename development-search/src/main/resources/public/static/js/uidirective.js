@@ -384,6 +384,84 @@ app.directive('uiDatepicker', function($http,$log) {
 		}
 	};
 }); 
+
+//用户自定义编辑器
+app.directive('uiUdEditor', function($http,$log,$uibModal) {
+	return {
+		restrict:'E',
+		scope:{
+//			url:'@',
+//			data:"=",
+//			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+//			param:'=', //传给子页参数
+//			size:'@',
+			options:'=',
+			validator:'='
+		},
+		template:function(element,atts){
+			return  '<div class="app-search-sm">'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
+		},
+		replace : true,			
+		transclude : false,
+		link:function(scope,element,attr){
+			if(_.isEmpty(scope.expand)){
+				return;
+			}
+			scope.inputData = eval('(' + scope.expand + ')');
+			scope.maxlength = $(attr)[0].maxlength;
+			scope.open=function(){
+
+				var modalInstance = $uibModal.open({
+					templateUrl: '/basic/directive/selector',
+
+					//接收子页传值
+					controller: options.ctrl,
+					size:options.size,
+					resolve: {
+						param: function () {
+							return scope;
+						},
+						deps:function($ocLazyLoad,$stateParams,$log){
+							if(!_.isUndefined(scope.loadjs))
+							return $ocLazyLoad.load("templates/"+scope.url+".js");
+						}
+					}
+				});
+
+				modalInstance.result.then(function (checked) { //获取子页返回值
+
+					var expand = scope.inputData;
+
+					var selectedItem = checked.data;
+					//单选
+					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
+						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
+						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
+					}else{
+						//多选
+						var value = "";
+						var id = "";
+						for(var idx in selectedItem){
+
+							id +=  selectedItem[idx][expand.returnKey] + ',';
+							value += selectedItem[idx][expand.returnValue] + ',';
+						}
+						id = id.substring(0,_.lastIndexOf(id,","));
+						value = value.substring(0,_.lastIndexOf(value,","));
+						scope.data[expand.dataKey] = id;
+						scope.data[expand.dataValue] = value;
+					}
+				}, function () { //子页关闭监听
+					$log.info('Modal dismissed at: ' + new Date());
+				});
+			}
+		} 
+	};
+}); 
+
+
 //选择器
 app.directive('uiSelector', function($http,$log,$uibModal) {
 	return {

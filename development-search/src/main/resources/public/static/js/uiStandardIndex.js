@@ -180,14 +180,12 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							break;
 						default :
 							
-							//弹窗页面
+							//自定义弹窗页面
 							if(btn.showWin == CHECK_WHETHER_YES.value){
-								
-								//自定义弹窗
-								
-								
+								var options = {templateUrl:btn.url,controller:ctrl,{row:item},callback:scope.grid.search,size:btn.winSize,loadjs:btn.loadjs};
+								commonService.show(options);
 							}else{
-								action(commonService,btn.url,{row:item},scope.search);
+								action(commonService,btn.url,{row:item},scope.grid.search);
 							}
 						}
 					}

@@ -5,7 +5,7 @@ app.service('commonService', function($log,$uibModal,$http){
 	 * ctrl 实例controller
 	 * param 传递给子页参数
 	 * callback 回调参数
-	 * loadScript 加载弹出窗对应js脚本
+	 * loadjs 加载弹出窗对应js脚本
 	 */
 	this.show = function(options){
 		 
@@ -16,8 +16,10 @@ app.service('commonService', function($log,$uibModal,$http){
 				},
 				deps:function($ocLazyLoad,$stateParams,$log){
 
-					if(!_.isUndefined(options.loadScript))
-						return $ocLazyLoad.load("templates/"+options.templateUrl+".js");
+					if(!_.isUndefined(options.loadjs)){
+//						return $ocLazyLoad.load("templates/"+options.templateUrl+".js");
+						return $ocLazyLoad.load(options.loadjs);
+					}
 				}
 			}
 		},options));

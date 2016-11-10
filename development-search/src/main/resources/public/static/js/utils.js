@@ -34,7 +34,7 @@ function getArrayIdxById(array,item){
  */
 function saveOfClose($http,url,param,$uibModalInstance){
 	$http.post(url,param).success(function(data){
-		if(data.code == '0'){
+		if(data.code == STATUS_CODE.SUCCESS){
 			$uibModalInstance.close(data.result);
 		}else{
 			$.error(data.message);
@@ -55,6 +55,7 @@ function action(commonService,url,param,callback){
 			commonService.post(url,param,function(data){
 				if(data.code == STATUS_CODE.SUCCESS){
 					$.info(data.message);
+					
 
 					if(callback){
 						callback(param);
