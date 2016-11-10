@@ -182,7 +182,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							
 							//自定义弹窗页面
 							if(btn.showWin == CHECK_WHETHER_YES.value){
-								var options = {templateUrl:btn.url,controller:btn.ctrl,param:item,callback:scope.grid.search,size:btn.winSize,loadjs:btn.loadjs};
+								var options = {templateUrl:btn.url,controller:btn.ctrl,param:item,callback:scope.grid.search,size:btn.winSize};
 								commonService.show(options);
 							}else{
 								action(commonService,btn.url,{row:item},scope.grid.search);
