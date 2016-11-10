@@ -128,6 +128,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			item.url="";
 			item.showWin= 0;
 			item.winSize= 40;
+			item.idx = $scope.buttonList.length + 1;
 			$scope.buttonList.push(item);	
 		}
 		$scope.removeButton = function(item){
