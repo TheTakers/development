@@ -662,7 +662,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (checked) { //获取子页返回值
 
-					var expand = scope.kv.expand;
+					var expand = scope.kv.outputKV;
 
 					var selectedItem = checked.data;
 					//单选
