@@ -625,72 +625,9 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-
-						//工具栏
-						$scope.toolbar = {id:$.uuid()};
-						
-						//请求参数
-						$scope.parameter = $.extend({id:$.uuid()},{});
-						commonService.ajax({url:'search/sqlview/'+param.code,success:function success(data){
-							$scope.sqlView = data.result;
-							if(data.code == STATUS_CODE.SUCCESS){
-								$scope.grid = {
-										id:$.uuid(),
-										
-										//table展示的数据
-										dataList:{}, 
-										
-										//条件查询
-										search:function(){
-											$scope.$broadcast($scope.grid.id);  
-										},
-										url:'search/sqlview/findAll/'+$scope.sqlView.code
-								};
-								$scope.sqlView.fieldData = $scope.sqlView.columnList;
-								$scope.treeconfig = initTree($scope,JSON.parse($scope.sqlView.treeData));
-								$scope.sqlView.filterData = eval($scope.sqlView.conditions);
-								$scope.sqlView.buttonData = JSON.parse($scope.sqlView.buttons);
-								//查询参数
-								$scope.parameter = {
-										condition:$scope.sqlView.filterData
-								};
-							}
-						},type:"post",async:false});
-						
-						//选中列表
-						var checkedData= [];
-						$scope.rowClick = function(item,option){
-							$scope.returndata.option = option;
-							
-							//单选
-							if(_.isEqual(GRID_OPTIONS.SINGLE, option)){
-								checkedData[0] = item; 
-							}else{
-								updateCheckBox(checkedData,item);
-							}
-							
-							//返回参数
-							$scope.returndata = checkedData;
-						}
-						
-						//是否显示
-						$scope.isdisplay = function(field){
-							return _.isEqual(field.isDisplay, CHECK_WHETHER_YES.value);
-						}
-						
-						//判断是否显示树
-						$scope.showtree = function(){
-							return _.isEqual($scope.treeconfig.isShow,CHECK_WHETHER_YES.value);
-						}
-						
-						//功能树宽度
-						var treeData = JSON.parse($scope.sqlView.treeData);
-						if(_.isEqual(treeData.isShow, CHECK_WHETHER_YES.value)){
-							$scope.treeWidth = treeData.width;
-							$scope.gridWidth = 12 - $scope.treeWidth;
-						}else{
-							$scope.gridWidth = 12;
-						}
+						$scope.code = param.code;
+						$scope.returndata = {};
+						$scop.param = param.param;
 						
 						//选择器ok按钮
 						$scope.ok = function() {
@@ -729,7 +666,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 					var selectedItem = checked.data;
 					//单选
-					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
+					if(selectedItem.length == 1){
 						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
 						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 					}else{
