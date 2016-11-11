@@ -390,12 +390,12 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
-//			url:'@',
-//			data:"=",
-//			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
-//			param:'=', //传给子页参数
-//			size:'@',
-			options:'=',
+			data:'=',//需要被修改的数据
+			tplurl:'=', //模板url
+			ctrl:'=',//控制器
+			size:'=',//窗体大小
+			loadjs:='=',//指令js
+			expand:'=',//{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			validator:'='
 		},
 		template:function(element,atts){
@@ -414,18 +414,19 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 			scope.open=function(){
 
 				var modalInstance = $uibModal.open({
-					templateUrl: '/basic/directive/selector',
+					templateUrl: scope.tplurl,
 
 					//接收子页传值
-					controller: options.ctrl,
-					size:options.size,
+					controller: scope.ctrl,
+					size:scope.size,
 					resolve: {
 						param: function () {
 							return scope;
 						},
 						deps:function($ocLazyLoad,$stateParams,$log){
 							if(!_.isUndefined(scope.loadjs))
-							return $ocLazyLoad.load("templates/"+scope.url+".js");
+//							return $ocLazyLoad.load("templates/"+scope.loadjs+".js");
+							return $ocLazyLoad.load(scope.loadjs);
 						}
 					}
 				});
@@ -436,7 +437,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 
 					var selectedItem = checked.data;
 					//单选
-					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
+					if(selectedItem.length == 1){
 						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
 						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 					}else{
@@ -467,11 +468,11 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
-			url:'@',
+			url:'=',
 			data:"=",
-			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			expand:'=', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
-			size:'@',
+			size:'=',
 			validator:'='
 		},
 		template:function(element,atts){
@@ -599,10 +600,9 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			data:"=",
-			code:"=",
-			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			kv:'=', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
-			size:'@',
+			size:'=',
 			validator:'='
 		},
 		template:function(element,atts){
@@ -616,7 +616,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 			if(_.isEmpty(scope.expand)){
 				return;
 			}
-			scope.inputData = eval('(' + scope.expand + ')');
+			scope.kv = eval('(' + scope.kv + ')');
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 
@@ -625,7 +625,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-						$scope.code = param.code;
+						$scope.code = param.kv.code;
 						$scope.returndata = {};
 						$scop.param = param.param;
 						
@@ -662,7 +662,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (checked) { //获取子页返回值
 
-					var expand = scope.inputData;
+					var expand = scope.kv.expand;
 
 					var selectedItem = checked.data;
 					//单选
