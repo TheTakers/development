@@ -638,7 +638,7 @@ File: Components
 ============= */
 .panel {
   border: none;
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 .panel .panel-body {
   padding: 20px;
