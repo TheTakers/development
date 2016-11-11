@@ -394,7 +394,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 			tplurl:'=', //模板url
 			ctrl:'=',//控制器
 			size:'=',//窗体大小
-			loadjs:='=',//指令js
+			loadjs:'=',//指令js
 			expand:'=',//{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			validator:'='
 		},
@@ -468,11 +468,11 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
-			url:'=',
+			url:'@',
 			data:"=",
-			expand:'=', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
-			size:'=',
+			size:'@',
 			validator:'='
 		},
 		template:function(element,atts){
