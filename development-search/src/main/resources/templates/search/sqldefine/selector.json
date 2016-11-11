@@ -13,5 +13,4 @@ fieldData:[
     ], 
 filterData:[{title:"SQLID",field:"sqlid",componentType:"",value:"",expr:"like",expand:""},
 			   {title:"别名",field:"sqlname",componentType:"",value:"",expr:"like",expand:""}]
- 
 }

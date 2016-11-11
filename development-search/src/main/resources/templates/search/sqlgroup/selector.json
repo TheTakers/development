@@ -1,13 +1,13 @@
 {
-		multiple:1
-		,controller:"/search/sqlgroup"
-		,fieldData:[
-		            	{title:"编号",field:"code",display:true,expand:""},
-			            {title:"别名",field:"name",display:true,expand:""},
-			            {title:"所属分组",field:"pText",display:true,expand:""},
-			            {title:"路径",field:"path",display:true,expand:""},
-			            {title:"备注",field:"remark",display:true,expand:""}
-		            ]
-	, filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
-			           {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
+multiple:1
+,controller:"/search/sqlgroup"
+,fieldData:[
+	{title:"编号",field:"code",display:true,expand:""},
+    {title:"别名",field:"name",display:true,expand:""},
+    {title:"所属分组",field:"pText",display:true,expand:""},
+    {title:"路径",field:"path",display:true,expand:""},
+    {title:"备注",field:"remark",display:true,expand:""}
+]
+, filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
+   {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
 }
