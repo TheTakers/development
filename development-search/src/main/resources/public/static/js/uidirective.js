@@ -166,10 +166,11 @@ app.directive('uiDropdown', function($http,$log) {
 			param:'=',
 			data:'=',	//数据
 			selected:'=', //被选中值
+			changeopt:'&',
 			required:'='
 		},
 		template:function(element,atts){
-			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item.value as item.text for item in data"> '+
+			return  '<select ng-model="selected" ng-change="changeopt(item)"  class="btn dropdown-toggle btn-white" ng-options="item.value as item.text for item in data"> '+
 			//'<option value="">请选择</option>'+
 			'</select>';
 		},
@@ -391,7 +392,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			data:'=',//需要被修改的数据
-			tplurl:'=', //模板url
+			tplurl:'@', //模板url
 			ctrl:'=',//控制器
 			size:'=',//窗体大小
 			loadjs:'=',//指令js
@@ -409,7 +410,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 			if(_.isEmpty(scope.expand)){
 				return;
 			}
-			scope.inputData = eval('(' + scope.expand + ')');
+			scope.inputData = eval( scope.expand );
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 
@@ -430,7 +431,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 						}
 					}
 				});
-
+/**
 				modalInstance.result.then(function (checked) { //获取子页返回值
 
 					var expand = scope.inputData;
@@ -456,7 +457,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 					}
 				}, function () { //子页关闭监听
 					$log.info('Modal dismissed at: ' + new Date());
-				});
+				});**/
 			}
 		} 
 	};
@@ -595,7 +596,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 });
 
 //根据SqlView编号生成的选择器
-app.directive('uiCodeSelector', function($http,$log,$uibModal) {
+app.directive('uiViewSelector', function($http,$log,$uibModal) {
 	return {
 		restrict:'E',
 		scope:{
@@ -607,27 +608,32 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[expandKV.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			if(_.isEmpty(scope.expand)){
+			if(_.isEmpty(scope.kv)){
 				return;
 			}
-			scope.kv = eval('(' + scope.kv + ')');
+			scope.expand = eval('(' + scope.kv + ')'); 
+			
+			//返回键值
+			scope.expandKV = scope.expand.kv;
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 
 				var modalInstance = $uibModal.open({
-					templateUrl: '/basic/directive/uiCodeSelectorTpl.html',
+					templateUrl: '/templates/basic/directive/uiCodeSelectorTpl.html',
 
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-						$scope.code = param.kv.code;
+						
+						//获取视图编号
+						$scope.code = param.expand.code;
 						$scope.returndata = {};
-						$scop.param = param.param;
+						//$scop.param = param.param;
 						
 						//选择器ok按钮
 						$scope.ok = function() {
@@ -662,7 +668,7 @@ app.directive('uiCodeSelector', function($http,$log,$uibModal) {
 
 				modalInstance.result.then(function (checked) { //获取子页返回值
 
-					var expand = scope.kv.outputKV;
+					var expand = scope.expandKV;
 
 					var selectedItem = checked.data;
 					//单选

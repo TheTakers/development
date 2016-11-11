@@ -114,6 +114,40 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			});
 		}
 		
+		//是否显示文本编辑器
+		$scope.turnon = function(item){
+			return item.componentType == 'VIEWSELECTOR';
+		}
+		
+		//参数设置弹出框
+		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
+	 
+			if(param.data.expand){
+				$scope.expand = JSON.parse(param.data.expand);
+			}else{
+				$scope.expand={
+					code:"",
+					kv:{
+						dataKey:"",
+						dataValue:"",
+						returnKey:"",
+						returnValue:""
+					}
+				};
+			}
+			
+			//选择器ok按钮
+			$scope.ok = function() {
+				param.data.expand = JSON.stringify($scope.expand);
+				$uibModalInstance.close($scope.expand);
+			};
+
+			//取消
+			$scope.cancel = function() {
+				$uibModalInstance.dismiss('cancel');
+			};
+		}
+		
 		/**=======================按钮设置================================================**/
 		$scope.btype = OPTION_BUTTON;
 		$scope.winSize=WIN_SIZE;

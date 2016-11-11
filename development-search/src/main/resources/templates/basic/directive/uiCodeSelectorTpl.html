@@ -1,1 +1,10 @@
-<ui-standard-index  url='search/sqlview/{code}' param="param" returndata="returndata"></ui-standard-index>
+ <div class="modal-header">
+	<h6 class="modal-title">参数设置</h6>
+</div>
+<div class="modal-body">
+<ui-standard-index  url='search/sqlview/{{code}}' param="param" returndata="returndata"></ui-standard-index>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">取消</button>
+	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="ok()" ng-disabled="actionForm.$invalid">确定</button>
+</div>

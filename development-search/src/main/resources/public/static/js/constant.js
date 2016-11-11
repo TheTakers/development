@@ -27,7 +27,7 @@ var DICT_COMPONENTTYPE =
  {value:"GENERATECODE",text:"自动编码"},
  {value:"CHECKBOX",text:"单选框"},
  {value:"DATEPICKER",text:"日期"},
- {value:"SQLSELECTOR",text:"列表选择器"}
+ {value:"VIEWSELECTOR",text:"视图选择器"}
 ];
 
 /*表达式*/
