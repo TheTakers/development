@@ -31,9 +31,13 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 			//把data当成一个数组处理,它支持使用类似于下标形式的方法来把属性和属性值赋给对象
 			$scope.data = [];
 			
+			var columnList = $scope.sqlView.columnList;
+			
 			//初始化数据
-			for(var idx in $scope.sqlView.columnList){
-				$scope.data[$scope.sqlView.columnList[idx].field] = null;
+			for(var idx in columnList){
+				 
+				if(columnList[idx].isInsert == CHECK_WHETHER_YES.value)
+				$scope.data[columnList[idx].field] = null;
 			}
 		}
 		
