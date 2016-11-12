@@ -34,7 +34,6 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 			
 			//初始化数据
 			for(var idx in columnList){
-				 
 				if(columnList[idx].isInsert == CHECK_WHETHER_YES.value)
 				$scope.data[columnList[idx].field] = null;
 			}
