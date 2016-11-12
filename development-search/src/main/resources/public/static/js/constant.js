@@ -16,7 +16,7 @@ var TREE_OPTIONS = [
 var OPTION_WHETHER = [CHECK_WHETHER_YES,CHECK_WHETHER_NO];
 
 /*按钮(行内，导航按钮)*/
-var OPTION_BUTTON = [{value:1,text:"外部"},{value:0,text:"内部"}];
+var OPTION_BUTTON = [{value:1,text:"行外"},{value:0,text:"行内"}];
 
 /*数据字典控件类型*/
 var DICT_COMPONENTTYPE = 

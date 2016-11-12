@@ -418,3 +418,23 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 		}
 	};
 });
+
+//命中图标
+app.directive('iconhit', function () {
+	return {
+		restrict: 'A',
+		scope:{
+			data : "=" 
+		},
+		link: function(scope, element, attr) {
+			var clas = $(attr).attr("class");
+			
+			//点击事件
+			$(element).click = function(){
+				scope.data.icon = clas;
+				
+			}
+			
+		}
+	};
+});

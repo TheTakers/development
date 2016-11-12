@@ -1,3 +1,6 @@
+/**
+ * UI指令 ningzuokun
+ */
 /**========================================================================event directive======================================================================================================**/
 app.directive('uiValidator', [function () {
 	function regxResult(rule,value,length){
@@ -399,7 +402,7 @@ app.directive('uiDatepicker', function($http,$log) {
 //用户自定义编辑器
 app.directive('uiUdEditor', function($http,$log,$uibModal) {
 	return {
-		restrict:'E',
+		restrict:'EA',
 		scope:{
 			data:'=',//需要被修改的数据
 			param:'=', //传到子页面参数

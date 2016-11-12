@@ -155,7 +155,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			};
 		}
 		
-		/**=======================按钮设置================================================**/
+		/**=======================按钮设置=======================================================================================================================**/
 		$scope.btype = OPTION_BUTTON;
 		$scope.winSize=WIN_SIZE;
 		
@@ -164,9 +164,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			var item = {};
 			item.id = $.uuid();
 			item.title="";
-			item.icon="";
+			item.icon="md-add";
 			item.type= 0;
-			item.url="";
+			item.lazyurl = "";
+			item.url = "";
+			item.ctrl = "";
 			item.showWin= 0;
 			item.winSize= 40;
 			item.idx = $scope.buttonList.length + 1;
@@ -177,7 +179,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//增、删、改、查
-		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"ion-add",type:1,url:"",showWin:1,winSize:50};
+		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"md-add",type:1,url:"",showWin:1,winSize:50};
 		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"ion-edit",type:0,url:"",showWin:1,winSize:50};
 		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"ion-trash-a",type:0,url:"",showWin:0,winSize:""};
 		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"ion-eye",type:0,url:"",showWin:1,winSize:50};
@@ -192,6 +194,24 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		$scope.isChecked = function(item){
 			return getArrayIdxById($scope.buttonList,item) > -1;
+		}
+		
+		//图标选择控制器
+		var checkedIcon = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
+			$scope.ok=function($event){
+				param.icon = $($event.target).attr("class");
+				
+				//关闭图标
+				$uibModalInstance.close();
+			}
+		}
+		
+		//选择图标
+		$scope.checkedIcon = function(item){
+			var options = {templateUrl:"/templates/search/sqlview/iconSelector.html",controller:checkedIcon,
+					param:item,
+					size:80};
+			commonService.show(options);
 		}
 		/**=======================树设置====================================**/
 		$scope.nodeOpts = TREE_OPTIONS;

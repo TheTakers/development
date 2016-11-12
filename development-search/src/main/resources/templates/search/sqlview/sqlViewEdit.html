@@ -208,10 +208,12 @@
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
 									<tr >
-										<th>名称</th>
 										<th>图标</th>
+										<th>名称</th>
 										<th>类型</th>
-										<th>链接</th>
+										<th>模板/URL</th>
+										<th>控制器</th>
+										<th>懒加载</th>
 										<th>是否弹窗</th>
 										<th>弹窗大小</th>
 										<th>操作</th>
@@ -219,10 +221,15 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="item in buttonList">
+										<td>
+										<button ng-if="item.type == 1" class="btn btn-info" ng-click="checkedIcon(item)"><i class="{{item.icon}} m-r-5"></i>{{item.title}}</button>
+										<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
+										</td>
 										<td><input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input></td>
-										<td><input class="form-control input-sm" ng-model="item.icon"  ui-validator="[10001]"></input></td>
 										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
 										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.ctrl"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.lazyurl"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
 										<td>
