@@ -21,10 +21,21 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 	
 	//子窗口 
 	var editModalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
+		$scope.sqlView = param.sqlView;
 		
 		//页面数据
-		$scope.data = param.row;
-		$scope.sqlView = param.sqlView;
+		if(param.row){
+			$scope.data = param.row;
+		}else{
+			
+			//把data当成一个数组处理,它支持使用类似于下标形式的方法来把属性和属性值赋给对象
+			$scope.data = [];
+			
+			//初始化数据
+			for(var idx in $scope.sqlView.columnList){
+				$scope.data[$scope.sqlView.columnList[idx].field] = null;
+			}
+		}
 		
 		//保存操作
 		$scope.save = function() {
