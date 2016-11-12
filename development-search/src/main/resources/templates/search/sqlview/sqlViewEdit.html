@@ -105,7 +105,7 @@
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										 <td>
 										 	<input class="form-control input-sm" ng-model="item.expand" ng-if="!turnon(item)"></input>
-										 	<ui-ud-editor data="item" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
+										 	<ui-ud-editor data="item" param = "columnList" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
@@ -298,7 +298,9 @@
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">关联字段</label>
 						<div class="col-sm-6">
-							<input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.relationField"  ng-required="treeRequired()"></input>
+							<!-- <input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.relationField"  ng-required="treeRequired()"></input> -->
+							<!-- <ui-ud-editor  data="treeData" tplurl="" ctrl="" size="40" expand="{dataKey:'relationField',dataValue:'relationField',returnKey:'field',returnValue:'field'}"></ui-ud-editor> -->
+							<ui-dropdown selected="treeData.relationField" data="columnList" valuekey = "field" textkey="field"  ng-change="treeRequired()"></ui-dropdown>
 	 					</div>
 					</div>
              </div> 

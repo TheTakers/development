@@ -167,10 +167,12 @@ app.directive('uiDropdown', function($http,$log) {
 			data:'=',	//数据
 			selected:'=', //被选中值
 			changeopt:'&',
+			valuekey:'@',
+			textkey:'@',
 			required:'='
 		},
 		template:function(element,atts){
-			return  '<select ng-model="selected" ng-change="changeopt(item)"  class="btn dropdown-toggle btn-white" ng-options="item.value as item.text for item in data"> '+
+			return  '<select ng-model="selected" ng-change="changeopt(item)"  class="btn dropdown-toggle btn-white" ng-options="item[vk] as item[tk] for item in data"> '+
 			//'<option value="">请选择</option>'+
 			'</select>';
 		},
@@ -182,9 +184,18 @@ app.directive('uiDropdown', function($http,$log) {
 					if(_.isString(scope.data)){
 						scope.data = eval(scope.data);
 					}
+					scope.tk = "text";
+					scope.vk = "value";
+					if(!_.isUndefined(scope.valuekey)){
+						scope.vk = scope.valuekey;
+					}
+					if(!_.isUndefined(scope.textkey)){
+						scope.tk = scope.textkey;
+					}
+					
 					if(_.isEmpty(scope.url)) return;
 					commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
-						if(data.code = '0'){
+						if(data.code = STATUS_CODE.SUCCESS){
 							scope.data = data.result;
 						}else{
 							$.error(data.message);
@@ -392,8 +403,9 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			data:'=',//需要被修改的数据
+			param:'=', //传到子页面参数
 			tplurl:'@', //模板url
-			ctrl:'=',//控制器
+			ctrl:'=',//弹窗控制器
 			size:'=',//窗体大小
 			loadjs:'=',//指令js
 			expand:'=',//{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
@@ -401,7 +413,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<input type="text" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			

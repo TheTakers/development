@@ -126,7 +126,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		
 		//参数设置弹出框
 		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
-	 
+			
+			//视图所有列
+			$scope.columnList =  param.param;
 			if(param.data.expand){
 				$scope.expand = JSON.parse(param.data.expand);
 			}else{
