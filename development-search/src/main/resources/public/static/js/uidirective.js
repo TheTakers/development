@@ -710,3 +710,40 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 		} 
 	};
 }); 
+
+
+app.directive('uiIcon', function($http,$log) {
+	return {
+		restrict:'E',
+		scope:{
+			prop:'='
+		},
+		template:function(element,atts){
+//<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
+			return 
+			'<a href="javascript:void(0);" class="table-action-btn" ng-click="checkedIcon()"><i class="{{icon}}"></i></a>';
+		},
+		link:function(scope,element,attr){
+			scope.icon = "ion-eye";
+			if(scope.prop){
+				scope.icon = scope.prop;
+			}
+			var checkedIcon = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
+				$scope.ok=function($event){
+					param.prop = $($event.target).attr("class");
+					
+					//关闭图标
+					$uibModalInstance.close();
+				}
+			}
+			
+			//选择图标
+			$scope.checkedIcon = function(){
+				var options = {templateUrl:"/templates/search/sqlview/iconSelector.html",controller:checkedIcon,
+						param:$scope,
+						size:80};
+				commonService.show(options);
+			}
+		}
+	};
+});
