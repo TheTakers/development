@@ -2120,8 +2120,8 @@ body.fixed-left .side-menu.left {
 
 .spinner {
   /*margin: 100px auto;*/
-  width: 32px;
-  height: 32px;
+  width: 12px;
+  height: 12px;
   position: relative;
   left:50%;
   top:40%;
@@ -2129,8 +2129,8 @@ body.fixed-left .side-menu.left {
 
 .cube1, .cube2 {
   background-color: #94A6B0;
-  width: 30px;
-  height: 30px;
+  width: 18px;
+  height: 18px;
   position: absolute;
   /*
   top: 0;
