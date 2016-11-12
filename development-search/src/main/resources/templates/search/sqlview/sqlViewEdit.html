@@ -300,7 +300,7 @@
 						<div class="col-sm-6">
 							<!-- <input class="form-control input-sm {{treeRequiredClass}}" ng-model="treeData.relationField"  ng-required="treeRequired()"></input> -->
 							<!-- <ui-ud-editor  data="treeData" tplurl="" ctrl="" size="40" expand="{dataKey:'relationField',dataValue:'relationField',returnKey:'field',returnValue:'field'}"></ui-ud-editor> -->
-							<ui-dropdown selected="treeData.relationField" data="columnList" valuekey = "field" textkey="field"  ng-change="treeRequired()"></ui-dropdown>
+							<ui-dropdown class="{{treeRequiredClass}}" selected="treeData.relationField" data="columnList" valuekey = "field" textkey="field"  ng-change="treeRequired()"></ui-dropdown>
 	 					</div>
 					</div>
              </div> 
