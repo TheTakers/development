@@ -175,7 +175,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.buttonList.push(item);	
 		}
 		$scope.removeButton = function(item){
-			$scope.buttonList.splice(getArrayIdxById($scope.buttonList,item),1);
+			$scope.buttonList.splice(item,1);
 		}
 		
 		//增、删、改、查
@@ -253,14 +253,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				
 				if(data.code == STATUS_CODE.SUCCESS){
 					param.row = data.result;
-					commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+					commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback,size:(size||40)});
 				}else{
 					$.error(data.message);
 				}
 			});
 			
 		}else{
-			commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+			commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback,size:(size||40)});
 		}
 	};
 	

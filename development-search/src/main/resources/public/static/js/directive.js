@@ -168,7 +168,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 
 				//获取最新数据到编辑页
 				_.extend(param, data.result);
-				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+				commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback,size:(size||40)});
 			}else{
 				$.error(data.message);
 			}

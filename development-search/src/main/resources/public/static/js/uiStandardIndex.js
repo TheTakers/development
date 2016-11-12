@@ -12,7 +12,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 
 				//获取最新数据到编辑页
 				_.extend(param, data.result);
-				commonService.show({templateUrl:templateUrl,controller:ctrl,param,callback:callback,size:(size||40)});
+				commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback,size:(size||40)});
 			}else{
 				$.error(data.message);
 			}
@@ -180,16 +180,16 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 					scope.crud = function(item,btn){
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.UPDATE://修
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
 							remove(commonService,'search/sqlview/delete/'+scope.sqlView.code ,item,scope.grid.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 							
