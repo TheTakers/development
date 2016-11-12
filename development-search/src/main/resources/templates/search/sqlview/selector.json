@@ -6,8 +6,7 @@ fieldData:[
     {title:"别名",field:"name",isDisplay:true,expand:""},
     {title:"序号",field:"showRowNum",isDisplay:true,expand:""},
     {title:"创建时间",field:"createTime",isDisplay:true,expand:""},
-    {title:"描述",field:"remark",isDisplay:true,expand:""},
-    {title:"操作",field:""}
+    {title:"描述",field:"remark",isDisplay:true,expand:""}
     ]     
 ,filterData:[{title:"编码",field:"code",componentType:"",value:"",expr:"like",expand:""},
 			  {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]

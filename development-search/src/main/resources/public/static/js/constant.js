@@ -22,7 +22,7 @@ var OPTION_BUTTON = [{value:1,text:"外部"},{value:0,text:"内部"}];
 var DICT_COMPONENTTYPE = 
 [{value:"TEXT",text:"文本框"},
  {value:"DROPDOWN",text:"下拉框"},
- {value:"SELECTOR",text:"选择器"},
+// {value:"SELECTOR",text:"选择器"},
  {value:"TEXTAREA",text:"文本域"},
  {value:"GENERATECODE",text:"自动编码"},
  {value:"CHECKBOX",text:"单选框"},

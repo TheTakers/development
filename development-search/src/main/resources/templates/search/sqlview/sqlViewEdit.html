@@ -113,9 +113,10 @@
 										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isInsert" data="optionData"></ui-dropdown></td>
 										 <td>
-										 	   <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
-										 	   <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
-										 	  <a href="javascript:void(0);" class="table-action-btn" ui-popover="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
+										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
+										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
+										 		<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeField(item)" ><i class="ion-close"></i></a>
+										 	  	<a href="javascript:void(0);" class="table-action-btn" ui-popover="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
 										 </td>
 									</tr>
 								</tbody>

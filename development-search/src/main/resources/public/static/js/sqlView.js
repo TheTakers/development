@@ -114,6 +114,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			});
 		}
 		
+		//移除选项
+		$scope.removeField=function(item){
+			$scope.columnList.splice(_.findIndex($scope.columnList, item),1);
+		}
+		
 		//是否显示文本编辑器
 		$scope.turnon = function(item){
 			return item.componentType == 'VIEWSELECTOR';
