@@ -166,13 +166,12 @@ app.directive('uiDropdown', function($http,$log) {
 			param:'=',
 			data:'=',	//数据
 			selected:'=', //被选中值
-			changeopt:'&',
 			valuekey:'@',
 			textkey:'@',
 			required:'='
 		},
 		template:function(element,atts){
-			return  '<select ng-model="selected" ng-change="changeopt(item)"  class="btn dropdown-toggle btn-white" ng-options="item[vk] as item[tk] for item in data"> '+
+			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item[vk] as item[tk] for item in data"> '+
 			//'<option value="">请选择</option>'+
 			'</select>';
 		},
