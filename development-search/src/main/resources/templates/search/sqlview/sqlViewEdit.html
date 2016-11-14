@@ -116,7 +116,7 @@
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 										 		<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeField(item)" ><i class="ion-close"></i></a>
-										 	  	<a href="javascript:void(0);" class="table-action-btn" ui-popover="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
+										 	  	<a href="javascript:void(0);" class="table-action-btn" ui-popover="" data-content="验证规则" data-trigger="hover" data-placement="top"  ng-click="checkRule(item)" ><i class="md md-filter-list"></i></a>
 										 </td>
 									</tr>
 								</tbody>
@@ -224,7 +224,7 @@
 										<td>
 										
 										<button ng-if="item.type == 1" class="btn btn-info" ng-click="checkedIcon(item)"><i class="{{item.icon}} m-r-5"></i>{{item.title}}</button>
-										<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
+										<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
 										
 										</td>
 										<td><input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input></td>

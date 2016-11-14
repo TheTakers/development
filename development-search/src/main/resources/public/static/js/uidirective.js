@@ -119,7 +119,7 @@ app.directive('uiLabel', function($http,$log) {
 		replace : true,			
 		transclude : false,
 		template:function(element,atts){
-			return  '<label class="{{clazz}}  control-label" ui-popover="{{content}}" data-placement="top" data-trigger="hover">{{fixedValue}}'+
+			return  '<label class="{{clazz}}  control-label" ui-popover="" data-content="{{content}}" data-placement="top" data-trigger="hover">{{fixedValue}}'+
 			'<span class="text-muted"></span></label>';
 		},
 		link:function(scope,element,attr){
@@ -136,8 +136,7 @@ app.directive('uiPopover', function($http,$log) {
 	return {
 		restrict:'A',
 		link:function(scope,element,attr){
-			var content =  $(attr).attr("uiPopover");
-			$(element).popover({content:content||""});
+			$(element).popover();
 		}
 	};
 });

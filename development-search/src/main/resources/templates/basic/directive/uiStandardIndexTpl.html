@@ -76,7 +76,7 @@
 									</td>
 									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)">{{item[field.field]}}</td>
 									<td ng-if="sqlView.buttonData">
-                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
+                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
 							</tbody>
