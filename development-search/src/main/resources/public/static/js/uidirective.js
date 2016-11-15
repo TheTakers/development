@@ -621,7 +621,7 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="data[expandKV.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[firstMapp.valueKey]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
@@ -633,7 +633,7 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 			scope.expand = eval('(' + scope.kv + ')'); 
 			
 			//返回键值
-			scope.expandKV = scope.expand.kv;
+			scope.firstMapp = scope.expand.mappingList[0];
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 
@@ -680,27 +680,32 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 				});
 
 				modalInstance.result.then(function (checked) { //获取子页返回值
-
-					var expand = scope.expandKV;
-
+					var mappingList = scope.expand.mappingList;
 					var selectedItem = checked.data;
+					
 					//单选
 					if(selectedItem.length == 1){
-						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
-						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
-					}else{
-						//多选
-						var value = "";
-						var id = "";
-						for(var idx in selectedItem){
-
-							id +=  selectedItem[idx][expand.returnKey] + ',';
-							value += selectedItem[idx][expand.returnValue] + ',';
+						var sitem = selectedItem[0];
+						
+						//遍历
+						for(var midx in mappingList){
+							var mapping = mappingList[midx];
+							scope.data[mapping.valueKey] = sitem[mapping.textValue];
 						}
-						id = id.substring(0,_.lastIndexOf(id,","));
-						value = value.substring(0,_.lastIndexOf(value,","));
-						scope.data[expand.dataKey] = id;
-						scope.data[expand.dataValue] = value;
+					}else{
+						
+						//多选
+						var textValue = "";
+						
+						//遍历
+						for(var midx in mappingList){
+							var mapping = mappingList[midx];
+							for(var idx in selectedItem){
+								textValue += selectedItem[idx][mapping.textValue] + ',';
+							}
+							textValue = textValue.substring(0,_.lastIndexOf(textValue,","));
+							scope.data[mapping.valueKey] = textValue;
+						}
 					}
 				}, function () { //子页关闭监听
 					$log.info('Modal dismissed at: ' + new Date());

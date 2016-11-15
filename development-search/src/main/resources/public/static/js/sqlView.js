@@ -134,14 +134,31 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			}else{
 				$scope.expand={
 					code:"",
-					kv:{
-						dataKey:"",
-						dataValue:"",
-						returnKey:"",
-						returnValue:""
-					}
+					mappingList:[{
+						valueKey:param.data.field, //数据键值
+						textValue:"",//对应返回文本值
+						icon:"md-add"
+					}]
 				};
 			}
+			
+			$scope.adRecord = function(idx){
+				
+				//最后一条增加数据
+				if($scope.expand.mappingList.length - 1 == idx){
+					
+					//往第一行插入数据
+					$scope.expand.mappingList.splice(0,0,{
+							valueKey:"",
+							textValue:"",
+							icon:"md-remove"});
+				}else{
+					
+					//减去
+					$scope.expand.mappingList.splice(idx,1);
+				}
+			}
+			
 			
 			//选择器ok按钮
 			$scope.ok = function() {
