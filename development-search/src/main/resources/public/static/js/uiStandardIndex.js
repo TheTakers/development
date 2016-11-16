@@ -189,7 +189,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							remove(commonService,'search/sqlview/delete/'+scope.sqlView.code ,item,scope.grid.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiView.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardViewTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 							
