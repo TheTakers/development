@@ -308,8 +308,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		Map<String,Object> paramMap = new HashMap<>();
 		for(SQLViewField field : sqlViewFields){
 			if(SQLViewConstant.YES.equals(field.getIsInsert())){
-
-				 
 				insertSQL.append(field.getField()).append(",");
 				values.append(":").append(field.getField()).append(",");
 				paramMap.put(field.getField(), row.get(field.getField()));
