@@ -1,5 +1,6 @@
 app.service('commonService', function($log,$uibModal,$http){
 	
+	//TODO 应该要放util.js
 	/**
 	 * url 目标链接
 	 * ctrl 实例controller
@@ -21,13 +22,13 @@ app.service('commonService', function($log,$uibModal,$http){
 				}
 			}
 		},options));
-		
+
 		modalInstance.result.then(function (selectedItem) { //获取子页返回值
 			if(options.callback){
 				options.callback(selectedItem);
 			}
 		}, function () { //子页关闭监听
-		//	$log.info('Modal dismissed at: ' + new Date());
+			//	$log.info('Modal dismissed at: ' + new Date());
 		});
 		return modalInstance;
 	};
@@ -70,10 +71,10 @@ app.service('commonService', function($log,$uibModal,$http){
 					param.success(data);
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {
-			   $log.info(errorThrown);
-		       if(!_.isEmpty($shade))
-		    	    $.trash($shade);
-		    }
+				$log.info(errorThrown);
+				if(!_.isEmpty($shade))
+					$.trash($shade);
+			}
 		});
 	};
 	

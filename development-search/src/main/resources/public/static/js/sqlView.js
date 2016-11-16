@@ -20,7 +20,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		};
 	};
 	
-	//子窗口 
+	//SQL编辑子窗口 
 	var modalDialog = function($scope,$http,$uibModal,$log,$uibModalInstance,param) { //接收子页传值
 		$scope.optionData = OPTION_WHETHER;
 		
@@ -286,11 +286,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	
 	//列表记录弹窗
 	function baseIndexEdit(commonService,dataUrl,templateUrl,ctrl,param,callback,size) {
-		
 		if(param.id){
+			
 			/*根据选中ID获取最新数据*/
 			commonService.post(dataUrl,param,function(data){
-				
 				if(data.code == STATUS_CODE.SUCCESS){
 					param.row = data.result;
 					commonService.show({templateUrl:templateUrl,controller:ctrl,param:param,callback:callback,size:(size||40)});
