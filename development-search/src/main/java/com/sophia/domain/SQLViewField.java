@@ -29,7 +29,7 @@ public class SQLViewField extends Auditable{
 	/**
 	 * 是否修改
 	 */
-	private Integer isUpdate = SQLViewConstant.YES;
+	private Integer isUpdate = SQLViewConstant.NO;
 	
 	/**
 	 * 是否察看详情
@@ -38,7 +38,7 @@ public class SQLViewField extends Auditable{
 	/**
 	 * 是否添加
 	 */
-	private Integer isInsert = SQLViewConstant.YES;
+	private Integer isInsert = SQLViewConstant.NO;
 	private String dataType;
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;

@@ -1,5 +1,6 @@
 package com.sophia.service.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -122,13 +123,22 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			logger.error("SQLID:{}未定义",sqlId);
 			throw new Exception("SQLID:["+sqlId+"]未定义");
 		}
-
-		//创建一个临时表
+		
+		//获取主表实际列用来过滤
+		String masterSql = "SELECT * FROM " + sqlDefine.getMasterTable() + " T WHERE 1=2 " ;
+		SqlRowSet resultSet = namedParameterJdbcTemplate.queryForRowSet(masterSql,new HashMap<String,String>());
+		SqlRowSetMetaData srsmd = resultSet.getMetaData();
+		Map<String,Object> masterFieldMap = new HashMap<>();
+		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
+			masterFieldMap.put(srsmd.getColumnLabel(i), srsmd.getColumnLabel(i));
+		}
+		
+		//获取查询所有列
 		String viewSql = " SELECT T.* FROM (" + sqlDefine.getSelectSql()+") T WHERE 1=2 ";
 
 		//通过临时表 找到对应的字段属性
-		SqlRowSet resultSet = namedParameterJdbcTemplate.queryForRowSet(viewSql,new HashMap<String,String>());
-		SqlRowSetMetaData srsmd = resultSet.getMetaData();
+		resultSet = namedParameterJdbcTemplate.queryForRowSet(viewSql,new HashMap<String,String>());
+		srsmd = resultSet.getMetaData();
 		SQLViewField field = null;
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 			field = new SQLViewField();
@@ -144,6 +154,14 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				field.setExpand("yyyy-MM-dd hh:mm:ss");
 			}
 			field.setIdx(i);
+			if(masterFieldMap.containsKey(field.getField())){
+
+				//是否修改
+				field.setIsUpdate(SQLViewConstant.YES);
+
+				//是否增加
+				field.setIsInsert(SQLViewConstant.YES);
+			}
 			list.add(field);
 		}
 		return list;
@@ -307,13 +325,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			throw new ServiceException("SQLID:"+sqlView.getSqlId()+",未设置主键");
 		}
 
-		//补充字段
+		/*补充字段
 		insertSQL.append(SQLViewConstant.CREATE_TIME).append(",")
 		.append(SQLViewConstant.CREATE_USER).append(")");
 		values.append(":").append(SQLViewConstant.CREATE_TIME).append(",")
 						  .append(":").append(SQLViewConstant.CREATE_USER).append(") ");
 		paramMap.put(SQLViewConstant.CREATE_TIME, new Date());
-		paramMap.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
+		paramMap.put(SQLViewConstant.CREATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());*/
 
 		final String sql = insertSQL.append(values).toString();
 		if(namedParameterJdbcTemplate.update(sql, paramMap) < 1){
@@ -355,17 +373,19 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 				paramMap.put(field.getField(), row.get(field.getField()));
 			}
 		}
+		modifySQL.deleteCharAt(modifySQL.lastIndexOf(","));
 
 		//是否包含主键
 		if(StringUtils.isBlank(sqlDefine.getMasterTableId())){
 			throw new ServiceException("SQLID:"+sqlView.getSqlId()+",未设置主键");
 		}
 
-		//补充字段
+		/*补充字段
 		modifySQL.append(SQLViewConstant.LAST_UPDATE_TIME).append("= :").append(SQLViewConstant.LAST_UPDATE_TIME).append(",")
 				 .append(SQLViewConstant.LAST_UPDATE_USER).append("= :").append(SQLViewConstant.LAST_UPDATE_USER);
 		paramMap.put(SQLViewConstant.LAST_UPDATE_TIME, new Date());
-		paramMap.put(SQLViewConstant.LAST_UPDATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());
+		paramMap.put(SQLViewConstant.LAST_UPDATE_USER, SecurityContextHolder.getContext().getAuthentication().getName());*/
+		
 		modifySQL.append(" WHERE ")
 			  .append(sqlDefine.getMasterTableId())
 			  .append("= :").append(sqlDefine.getMasterTableId());
