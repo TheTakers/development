@@ -125,7 +125,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//参数设置弹出框
-		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
+		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,commonService,param){
 			
 			//视图所有列
 			$scope.columnList =  param.param;
@@ -141,7 +141,8 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 					}]
 				};
 			}
-			
+		
+		//增减参数
 		$scope.adRecord = function(idx){
 				
 				//最后一条增加数据
@@ -169,6 +170,21 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.cancel = function() {
 				$uibModalInstance.dismiss('cancel');
 			};
+			
+			//监控SQLID变化
+			var listenr = $scope.$watch('expand.code',function(newValue,oldValue, scope){
+				if(newValue){
+					var options = {url:'/search/sqlview/createField',data:JSON.stringify({sqlId:newValue}),success:function(response){
+						if(response.code == STATUS_CODE.SUCCESS){
+							$scope.responseList = response.result;
+							
+							//消化
+							$scope.$digest();
+						}
+					}};
+					commonService.ajax(options);
+				}
+			});
 		}
 		
 		/**=======================按钮设置=======================================================================================================================**/
