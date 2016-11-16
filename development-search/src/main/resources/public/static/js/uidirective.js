@@ -25,20 +25,33 @@ app.directive('uiValidator', [function () {
 		link: function (scope, element, attr, ngModel) {
 			if (ngModel) {
 
-				//获取规则 
-				var validatorRule = $(attr).attr("uiValidator");
-				if(_.isEmpty(validatorRule)){
-					return;
-				}
-				var code = eval(validatorRule);
+				//元素绑定提示信息
 				var customValidator = function (value) {
-					for(var idx in code){
-						var regx = REGULAR_EXPRESSION[code[idx]];
+
+					var verifyRule = $(attr).attr("uiValidator");
+					var ruleList = eval(verifyRule);
+					
+					if(_.isEmpty(ruleList)){
+						$(element).removeClass("ng-required");
+						$(element).popover('destroy');
+						return value;
+					}
+					
+					for(var idx in ruleList){
+						var regx = REGULAR_EXPRESSION[ruleList[idx]];
 						var validity = regxResult(regx.rule,value,$(attr).attr("maxlength"));
 						ngModel.$setValidity(regx.rule, validity);
+						
 						if(validity){
 							$(element).removeClass("ng-required");
+							$(element).popover('destroy');
 						}else{
+							/**
+							$(element).attr("data-content",regx.tip);
+							$(element).popover('show');
+							**/
+							$(element).popover({trigger:"hover|focus ",placement:"right",content:regx.tip})
+							$(element).popover('show');
 							$(element).addClass("ng-required");
 							break;
 						}
@@ -169,8 +182,7 @@ app.directive('uiDropdown', function($http,$log) {
 			data:'=',	//数据
 			selected:'=', //被选中值
 			valuekey:'@',
-			textkey:'@',
-			required:'='
+			textkey:'@'
 		},
 		template:function(element,atts){
 			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item[vk] as item[tk] for item in data"> '+

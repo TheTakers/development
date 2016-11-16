@@ -232,16 +232,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.treeData =  JSON.parse($scope.data.treeData);
 		}
 		
-		//树功能必填设置
-		$scope.treeRequiredClass = "";
+		//初始化
+		$scope.verifyRule = $scope.treeData.isShow == 1 ? "[10001]" : "[]"; 
+		
+		//校验必填
 		$scope.treeRequired = function(){
-			if($scope.treeData.isShow == 0){
-				$scope.treeRequiredClass = "";
-			}else{
-				$scope.treeRequiredClass = "ng-required";
-			}
-			return !_.isEmpty($scope.treeRequiredClass);
+			$scope.verifyRule = $scope.treeData.isShow == 0 ? "[10001]" : "[]"; 
 		}
+		 
 	}
 	
 	//列表记录弹窗
