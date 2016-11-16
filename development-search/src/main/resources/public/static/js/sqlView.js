@@ -142,7 +142,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				};
 			}
 			
-			$scope.adRecord = function(idx){
+		$scope.adRecord = function(idx){
 				
 				//最后一条增加数据
 				if($scope.expand.mappingList.length - 1 == idx){
@@ -158,7 +158,6 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 					$scope.expand.mappingList.splice(idx,1);
 				}
 			}
-			
 			
 			//选择器ok按钮
 			$scope.ok = function() {
