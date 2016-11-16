@@ -185,7 +185,7 @@ app.directive('uiDropdown', function($http,$log) {
 			textkey:'@'
 		},
 		template:function(element,atts){
-			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white" ng-options="item[vk] as item[tk] for item in data"> '+
+			return  '<select ng-model="selected" class="btn dropdown-toggle btn-white select2" ng-options="item[vk] as item[tk] for item in data"> '+
 			//'<option value="">请选择</option>'+
 			'</select>';
 		},

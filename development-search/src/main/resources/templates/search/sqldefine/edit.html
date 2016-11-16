@@ -1,0 +1,58 @@
+ <div class="modal-header">
+	<h6 class="modal-title">SQL定义编辑</h6>
+</div>
+ 
+<div class="modal-body">
+		<form class="form-horizontal" name="actionForm" >
+			<input type="hidden" ng-model="data.version"></input>
+			
+			<div class="form-group" ng-repeat="item in fieldList"  ng-if="isEdit(item)">
+					<ui-label clazz="col-sm-2" content="SQLID"></ui-label>
+					<div class="col-sm-8">
+						<ui-generate-code data="data.sqlId"  validator="[10001]"></ui-generate-code>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="别名"></ui-label>
+					<div class="col-sm-8">
+						<input class="form-control input-sm"  ng-model="data.sqlName"  ui-validator="[10001]" maxlength="50"></input>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="所属分组"></ui-label>
+					<div class="col-sm-8">
+						<ui-selector url="/search/sqlgroup/selector"  data="data"  expand="{dataKey:'groupId',dataValue:'id',returnKey:'pText',returnValue:'name'}" validator="[10001]" ></ui-selector>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="SQL主表"></ui-label>
+					<div class="col-sm-8">
+						<input class="form-control input-sm"  ng-model="data.masterTable"  ui-validator="[10001]" maxlength="50" readonly="readonly"></input>
+						
+						<div class="select2-container form-control select2" id="s2id_autogen1">
+						<a href="javascript:void(0)" class="select2-choice" tabindex="-1">   
+						<span class="select2-chosen" id="select2-chosen-2">Alaska</span><abbr class="select2-search-choice-close"></abbr>   
+						<span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a>
+						<label for="s2id_autogen2" class="select2-offscreen"></label>
+						<input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2">
+						</div>
+						
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="主表ID"></ui-label>
+					<div class="col-sm-8">
+						<input class="form-control input-sm"  ng-model="data.masterTableId"  ui-validator="[10001]" maxlength="50" readonly="readonly"></input>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="SQL"></ui-label>
+					<div class="col-sm-8">
+						<textarea class="form-control"  ng-model="data.selectSql" ui-validator="[10001]" ></textarea>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="sql扩展"></ui-label>
+					<div class="col-sm-8">
+							<textarea class="form-control"  ng-model="data.sqlExpand" ui-validator="[10001]" ></textarea>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="备注"></ui-label>
+					<div class="col-sm-8">
+						<textarea class="form-control"  ng-model="data.sqldesc" ui-validator="[10001]"   maxlength="500"></textarea>
+ 					</div>
+			</div>
+		</form>		
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">取消</button>
+	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="save()" ng-disabled="actionForm.$invalid">保存</button>
+</div>
