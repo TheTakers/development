@@ -88,4 +88,12 @@ app.service('commonService', function($log,$uibModal,$http){
 		    }
 		});
 	};
+	
+	//根据SQLID获取字段集合
+	this.getFieldListBySqlId = function(newValue,sucess){
+		if(newValue){
+			var options = {url:'/search/sqlview/createField',data:JSON.stringify({sqlId:newValue}),success:sucess};
+			this.ajax(options);
+		}
+	}
 });

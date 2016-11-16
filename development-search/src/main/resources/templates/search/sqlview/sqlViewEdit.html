@@ -268,29 +268,33 @@
 	 					</div>
 					</div>
 					<div class="form-group" >
-						<label class="col-sm-3 control-label">节点键值</label>
+						<label class="col-sm-3 control-label">键值</label>
 						<div class="col-sm-6">
-							<input class="form-control input-sm " ng-model="treeData.idKey" ui-validator="{{verifyRule}}"  placeholder="idKey"></input>
+							<ui-dropdown selected="treeData.idKey" data="treeFieldList" valuekey = "field"  textkey="field"  ui-validator="{{verifyRule}}"></ui-dropdown>
+							<!-- <input class="form-control input-sm " ng-model="treeData.idKey" ui-validator="{{verifyRule}}"  placeholder="idKey"></input> -->
 	 					</div>
 					</div>
 					<div class="form-group" >
-						<label class="col-sm-3 control-label">节点值</label>
+						<label class="col-sm-3 control-label">文本值</label>
 						<div class="col-sm-6">
-							<input class="form-control input-sm " ng-model="treeData.name" ui-validator="{{verifyRule}}"  placeholder="name"></input>
+							<ui-dropdown selected="treeData.name" data="treeFieldList" valuekey = "field"  textkey="field"  ui-validator="{{verifyRule}}"></ui-dropdown>
+							<!--  <input class="form-control input-sm " ng-model="treeData.name" ui-validator="{{verifyRule}}"  placeholder="name"></input>-->
 	 					</div>
 					</div>
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">父节点键值</label>
 						<div class="col-sm-6">
-							<input class="form-control input-sm " ng-model="treeData.pIdKey" ui-validator="{{verifyRule}}"  placeholder="pIdKey"></input>
+							<ui-dropdown selected="treeData.pIdKey" data="treeFieldList" valuekey = "field"  textkey="field"  ui-validator="{{verifyRule}}"></ui-dropdown>
+							<!--<input class="form-control input-sm " ng-model="treeData.pIdKey" ui-validator="{{verifyRule}}"  placeholder="pIdKey"></input>  -->
 	 					</div>
 					</div>
+					<!-- 
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">根节点</label>
 						<div class="col-sm-6">
 							<input class="form-control input-sm " ng-model="treeData.rootPId"  ui-validator="{{verifyRule}}" placeholder="rootPId"></input>
 	 					</div>
-					</div>
+					</div> -->
 					<div class="form-group" >
 						<label class="col-sm-3 control-label">作用范围</label>
 						<div class="col-sm-6">

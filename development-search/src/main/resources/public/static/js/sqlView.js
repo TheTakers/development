@@ -172,18 +172,15 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			};
 			
 			//监控SQLID变化
-			var listenr = $scope.$watch('expand.code',function(newValue,oldValue, scope){
-				if(newValue){
-					var options = {url:'/search/sqlview/createField',data:JSON.stringify({sqlId:newValue}),success:function(response){
-						if(response.code == STATUS_CODE.SUCCESS){
-							$scope.responseList = response.result;
-							
-							//消化
-							$scope.$digest();
-						}
-					}};
-					commonService.ajax(options);
-				}
+			$scope.$watch('expand.code',function(newValue,oldValue, scope){
+				commonService.getFieldListBySqlId(newValue,function(response){
+					if(response.code == STATUS_CODE.SUCCESS){
+						$scope.responseList = response.result;
+						
+						//消化
+						$scope.$digest();
+					}
+				});
 			});
 		}
 		
@@ -247,13 +244,14 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		/**=======================树设置====================================**/
 		$scope.nodeOpts = TREE_OPTIONS;
+		
 		//功能树形
 		$scope.treeData = {
 			url:"", //默认树形统一接口
-			idKey:"id",
-			name:"name",
-			pIdKey: "parentId",
-			rootPId: 0,
+			idKey:"",
+			name:"",
+			pIdKey: "",
+			rootPId: null, //TODO 跟节点默认为null是否有问题?
 			isShow:0,
 			nodeOpts:'ALL',
 			width:2,
@@ -271,6 +269,18 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.treeRequired = function(){
 			$scope.verifyRule = $scope.treeData.isShow == 0 ? "[10001]" : "[]"; 
 		}
+		
+		//监控SQLID变化
+		$scope.$watch('treeData.sqlId',function(newValue,oldValue, scope){
+			commonService.getFieldListBySqlId(newValue,function(response){
+				if(response.code == STATUS_CODE.SUCCESS){
+					$scope.treeFieldList = response.result;
+					
+					//消化
+					$scope.$digest();
+				}
+			});
+		});
 		 
 	}
 	
