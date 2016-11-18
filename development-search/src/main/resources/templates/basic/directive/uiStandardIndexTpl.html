@@ -38,9 +38,9 @@
 										 
 										<form class="form-inline">
 											 
-											<div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3 mt20 row" ng-repeat="item in sqlView.filterData" >
+											<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap" ng-repeat="item in sqlView.filterData" >
 												<ui-label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" content="{{item.title}}({{item.expr}})"></ui-label>
-												<input class="form-control col-xs-9 col-sm-9 col-md-9 col-lg-9 wd200 input-sm" type="text"  ng-model="item.value"/>
+												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
 											</div>  
 											
 											<button type="button" class="btn btn-info waves-effect waves-light input-sm mt20" ng-click="grid.search()"><i class="md-search m-r-5"></i>查询</button>
@@ -76,7 +76,7 @@
 										<div class="radio radio-info" ng-if="sqlView.multiple == 1" ><input type="radio" name="radio"  ng-click="rowClick(item,sqlView.multiple)"></input><label for="radio"></label></div>
 										<div class="checkbox checkbox-info" ng-if="sqlView.multiple == 2" ><input type="checkbox" ng-click="rowClick(item,sqlView.multiple)"></input><label for="checkbox"></label></div>
 									</td>
-									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)">{{item[field.field]}}</td>
+									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)"  class="nowrap">{{item[field.field]}}</td>
 									<td ng-if="sqlView.buttonData" class="nowrap">
                                         <a href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
