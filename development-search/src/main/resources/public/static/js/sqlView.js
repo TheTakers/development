@@ -395,7 +395,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 						case CRUD_CODE.INSERT:
 						case CRUD_CODE.UPDATE:
 							item = item || {id:""};
-							baseIndexEdit(commonService,scope.sqlView.controller + '/findById',func.url,modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,80);
+							baseIndexEdit(commonService,scope.sqlView.controller + '/findById',func.url,modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,90);
 							break;
 						case CRUD_CODE.DELETE://删除
 							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);

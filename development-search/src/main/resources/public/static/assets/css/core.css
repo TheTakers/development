@@ -2218,3 +2218,6 @@ body.fixed-left .side-menu.left {
 .nowrap{
 	white-space:nowrap; 
 }
+.trnowrap th{
+	white-space:nowrap; 
+}

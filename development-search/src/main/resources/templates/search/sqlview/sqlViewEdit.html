@@ -79,7 +79,7 @@
  						<div class="card-box">
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
-									<tr >
+									<tr class="trnowrap">
 										<th>名称</th>
 										<th>字段</th>
 										<th>数据类型</th>
@@ -112,7 +112,7 @@
 										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isInsert" data="optionData"></ui-dropdown></td>
-										 <td>
+										 <td class="nowrap">
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 										 		<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeField(item)" ><i class="ion-close"></i></a>
@@ -168,7 +168,7 @@
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 											<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
 											<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-											<td>
+											<td  class="nowrap">
 												<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="filterList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="filterList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 												<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeItem(item)" ><i class="ion-close"></i></a>
@@ -234,7 +234,7 @@
 										<td><input class="form-control input-sm" ng-model="item.lazyurl"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
-										<td>
+										<td  class="nowrap">
 											<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="buttonList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="buttonList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 											<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="ion-close"></i></a>
