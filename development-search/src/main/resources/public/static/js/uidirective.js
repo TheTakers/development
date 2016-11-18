@@ -387,25 +387,33 @@ app.directive('uiRangSliders', function($http,$log) {
 	};
 }); 
 
-app.directive('uiDatepicker', function($http,$log) {
+app.directive('uiDatetimepicker', function($http,$log) {
 	return {
 		restrict:'E',
 		scope:{
-			value:'=',
-			sqlviewfield:'='
+			data:'=',
+			format:'@'//格式化
 		},
 		template:function(element,atts){
-			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{sqlviewfield.expand}}" ng-model="value"></input>'+
-			'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
+			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{format}}" ng-model="data"></input>'+
+					'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
 		},
 		replace : false,			
-		transclude : false,
 		link:function(scope,element,attr,ngModel){
-			$(element.find("input")).datepicker({
-				format: scope.sqlviewfield.expand,
-				autoclose: true,
-				language: 'zh-CN'
+			
+			//中文支持
+			$.datetimepicker.setLocale('zh');
+			var timepickerFlag = _.isEqual(scope.format, 'H:i');
+			var datetimepicker = element.find("input");
+			$(datetimepicker).datetimepicker({
+					timepicker:timepickerFlag,    //不显示时间选项
+					format:scope.format  //scope.sqlviewfield.expand //Y-m-d H:i:s
 			});
+			
+			//监控值改变
+			$(datetimepicker).change(function(){
+				scope.data = $(datetimepicker).val();
+			})
 		}
 	};
 }); 
