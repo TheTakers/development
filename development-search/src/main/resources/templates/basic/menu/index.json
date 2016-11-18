@@ -27,7 +27,7 @@ controller:"/basic/menu"
 		{title:"名称",field:"name",required:true,componentType:"TEXT"},
 		{title:"url",field:"link",required:false,componentType:"TEXT"},
 		{title:"图标",field:"ico",required:true,componentType:"TEXT"},
-		{title:"所属菜单",field:"pid",required:true,componentType:"SELECTOR",url:"templates/basic/menu/selector.json",expand:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+		{title:"所属菜单",field:"pid",required:true,componentType:"SELECTOR",url:"/templates/basic/menu/selector.json",expand:"{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
 		{title:"菜单路径",field:"path",required:false,componentType:"TEXT"},
 		{title:"排序",field:"idx",required:false,componentType:"TEXT"},
 		{title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}

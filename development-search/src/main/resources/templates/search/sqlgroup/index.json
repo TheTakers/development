@@ -28,7 +28,7 @@ controller:"/search/sqlgroup"
 ,fieldSetting:[
        {title:"SQLID",field:"code",required:true,componentType:"GENERATECODE"},
         {title:"别名",field:"name",required:false,componentType:"TEXT"},
-        {title:"所属分组",field:"parentId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+        {title:"所属分组",field:"parentId",required:true,componentType:"SELECTOR",url:"/templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
         {title:"状态",field:"status",required:false,componentType:"TEXT"},
         {title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
 	]
