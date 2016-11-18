@@ -1,1 +1,11 @@
-<uisqlview url="templates/search/sqlView/sqlView.json"></uisqlview>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      layout:decorator="layout" ng-app="app">
+<body class="fixed-left"  >
+<div layout:fragment="content">
+<uisqlview url="/templates/search/sqlView/sqlView.json"></uisqlview>
+</div>
+</body>
+</html>

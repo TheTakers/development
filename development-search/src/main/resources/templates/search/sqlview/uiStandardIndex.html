@@ -1,1 +1,11 @@
-<ui-standard-index  th:attr="url='search/sqlview/'+${code}"></ui-standard-index>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.thymeleaf.org/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      layout:decorator="layout" ng-app="app">
+<body class="fixed-left"  >
+<div layout:fragment="content">
+<ui-standard-index  th:attr="url='/search/sqlview/'+${code}"></ui-standard-index>
+</div>
+</body>
+</html>

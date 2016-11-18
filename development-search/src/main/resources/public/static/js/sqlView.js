@@ -305,7 +305,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 	
 	return {
 		restrict:'E',
-		templateUrl:"templates/basic/directive/index.html",
+		templateUrl:"/templates/basic/directive/index.html",
 		replace : false,			
 		transclude : false,
 		scope:{ 

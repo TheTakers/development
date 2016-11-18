@@ -44,9 +44,9 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 			var url = param.btn.url;
 			if(_.isEmpty(url)){
 				if(_.isEmpty(param.row)){
-					url = 'search/sqlview/persistent/';
+					url = '/search/sqlview/persistent/';
 				}else{
-					url = 'search/sqlview/modfity/';
+					url = '/search/sqlview/modfity/';
 				}
 				url += $scope.sqlView.code;
 			}
@@ -88,7 +88,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 			isShow:treeConfig.isShow,
 			setting:{
 				async:{
-					url:"search/sqldefine/listAll/" + treeConfig.sqlId,
+					url:"/search/sqldefine/listAll/" + treeConfig.sqlId,
 					type:"post",
 					contentType: "application/json",
 					enable:true
@@ -115,7 +115,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 	};
 	return {
 		restrict:'E',
-		templateUrl:"templates/basic/directive/uiStandardIndexTpl.html",
+		templateUrl:"/templates/basic/directive/uiStandardIndexTpl.html",
 		replace : false,			
 		transclude : false,
 		scope:{
@@ -145,7 +145,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 									search:function(){
 										scope.$broadcast(scope.grid.id);  
 									},
-									url:'search/sqlview/findAll/'+scope.sqlView.code
+									url:'/search/sqlview/findAll/'+scope.sqlView.code
 							};
 							scope.sqlView.fieldData = scope.sqlView.columnList;
 							scope.treeconfig = initTree(scope,JSON.parse(scope.sqlView.treeData));
@@ -180,16 +180,16 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 					scope.crud = function(item,btn){
 						switch(btn.id){
 						case CRUD_CODE.INSERT: //增
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'/search/sqlview/getSqlViewByCode/'+scope.sqlView.code,'/templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.UPDATE://修
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'/search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'/templates/basic/directive/uiStandardEditTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						case CRUD_CODE.DELETE://删
-							remove(commonService,'search/sqlview/delete/'+scope.sqlView.code ,item,scope.grid.search);
+							remove(commonService,'/search/sqlview/delete/'+scope.sqlView.code ,item,scope.grid.search);
 							break;
 						case CRUD_CODE.VIEW://查
-							sqlViewIndexEdit(commonService,'search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'templates/basic/directive/uiStandardViewTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
+							sqlViewIndexEdit(commonService,'/search/sqlview/getSqlViewAndSqlDefineRowDataByCode/'+scope.sqlView.code,'/templates/basic/directive/uiStandardViewTpl.html',editModalDialog,{row:item,btn:btn},scope.grid.search,btn.winSize);
 							break;
 						default :
 							
