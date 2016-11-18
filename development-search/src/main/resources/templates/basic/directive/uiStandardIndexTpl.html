@@ -66,7 +66,7 @@
 							<thead>
 								<tr >
 									<th ng-if="sqlView.multiple" >选择</th>
-									<th ng-repeat="item in sqlView.fieldData" ng-if="isdisplay(item)">{{item.title}}</th>
+									<th class="nowrap" ng-repeat="item in sqlView.fieldData" ng-if="isdisplay(item)">{{item.title}}</th>
 								</tr>
 							</thead>
 
@@ -77,7 +77,7 @@
 										<div class="checkbox checkbox-info" ng-if="sqlView.multiple == 2" ><input type="checkbox" ng-click="rowClick(item,sqlView.multiple)"></input><label for="checkbox"></label></div>
 									</td>
 									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)">{{item[field.field]}}</td>
-									<td ng-if="sqlView.buttonData">
+									<td ng-if="sqlView.buttonData" class="nowrap">
                                         <a href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
