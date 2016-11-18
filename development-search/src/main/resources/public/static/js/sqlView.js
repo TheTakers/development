@@ -49,6 +49,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		/**=======================过滤设置================================================**/
 		$scope.ctype = DICT_COMPONENTTYPE;
 		$scope.expr = DICT_EXPRESSION;
+		$scope.formatList = DATETIME_FORMAT;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
 		}
@@ -120,8 +121,9 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//是否显示文本编辑器
-		$scope.turnon = function(item){
-			return item.componentType == 'VIEWSELECTOR';
+		$scope.isExpandComponentTypeText = function(item){
+			return item.componentType != 'VIEWSELECTOR' &&
+				   item.componentType != 'DATEPICKER';
 		}
 		
 		//参数设置弹出框

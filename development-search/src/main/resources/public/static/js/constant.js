@@ -77,3 +77,11 @@ var REGULAR_EXPRESSION = {
   10015:{rule:'/^((20|21|22|23|[0-1]\d)\:[0-5][0-9])(\:[0-5][0-9])?$/',tip:'hh:mm:ss'}
  // 10000:{rule:'',tip:''}
 };
+
+var DATETIME_FORMAT = [
+                      {value:"Y-m-d H:i:s",text:"yyyy-MM-dd hh:mm:ss"},          
+                      {value:"Y-m-d H:i",text:"yyyy-MM-dd hh:mm"},          
+                      {value:"Y-m-d",text:"yyyy-MM-dd"},          
+                      {value:"Y-m",text:"yyyy-MM"},          
+                      {value:"Y",text:"yyyy"}      
+                      ];

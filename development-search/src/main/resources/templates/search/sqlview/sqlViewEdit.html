@@ -104,8 +104,9 @@
 										 <td>{{item.length}}</td>
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										 <td>
-										 	<input class="form-control input-sm" ng-model="item.expand" ng-if="!turnon(item)"></input>
-										 	<ui-ud-editor data="item" param = "columnList" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
+										 	<input class="form-control input-sm" ng-model="item.expand" ng-if="isExpandComponentTypeText(item)"></input>
+										 	<ui-ud-editor data="item" param = "columnList" size="60" ng-if="item.componentType == 'VIEWSELECTOR'" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}"  validator="[10001]"> </ui-ud-editor> 
+										 	<ui-dropdown selected="item.expand"  ng-if="item.componentType == 'DATEPICKER'"  data="formatList" ui-validator="{{item.rule}}"></ui-dropdown>
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
