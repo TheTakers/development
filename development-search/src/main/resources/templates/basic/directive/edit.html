@@ -14,7 +14,7 @@
 						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="{{item.rule}}" maxlength="item.length"></input>
 						<ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" validator="item.rule" maxlength="item.length"></ui-selector>
 						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="{{item.rule}}" maxlength="item.length"></textarea>
-						<ui-datetimepicker  data="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" format="{{item.expand}}"></ui-datetimepicker>
+						<ui-datetimepicker  data="data[item.field]" ng-if="isType(item.componentType,'DATEPICKER')" format="{{item.expand}}" validator="item.rule"></ui-datetimepicker>
 						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')"  data="item.expand" ui-validator="{{item.rule}}"></ui-dropdown>
  					</div>
 			</div>

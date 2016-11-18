@@ -392,10 +392,11 @@ app.directive('uiDatetimepicker', function($http,$log) {
 		restrict:'E',
 		scope:{
 			data:'=',
-			format:'@'//格式化
+			format:'@',//格式化
+			validator:'='
 		},
 		template:function(element,atts){
-			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{format}}" ng-model="data"></input>'+
+			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{format}}" ng-model="data" ui-validator="{{validator}}"></input>'+
 					'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
 		},
 		replace : false,			
