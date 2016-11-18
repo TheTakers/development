@@ -81,6 +81,9 @@ a:focus {
   padding-right: 0px;
   padding-left: 0px;
 }
+.container .row{
+	background: #ffffff;
+}
 .container-alt {
   margin-left: auto;
   margin-right: auto;

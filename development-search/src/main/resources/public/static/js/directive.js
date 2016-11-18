@@ -194,7 +194,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 	}
 	return {
 		restrict:'E',
-		templateUrl:"templates/basic/directive/index.html",
+		templateUrl:"/templates/basic/directive/index.html",
 		replace : false,			
 		transclude : false,
 		scope:{
@@ -286,7 +286,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 						switch(func.target){
 						case "edit":
 							item = item || {id:""};
-							basePageEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
+							basePageEdit(commonService,scope.sqlView.controller + '/findById','/templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
 							break;
 						case "remove":
 							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);
@@ -369,6 +369,99 @@ app.directive('uitab', function($http,$log) {
 
 				//激活选中tab
 				$('#'+scope.id+' a[data-target="#'+id+'"]').tab('show');
+			}
+
+			//点击事件更新selected
+			scope.click = function(id){
+				scope.selected = id;
+			}
+
+			scope.$watch('selected',function(newValue,oldeValue){
+
+				//TODO 解耦
+				$.shadeId = newValue;
+
+				//监听选中tab变更,清除所有激活样式避免激活多个tab -> 这里会重新触发ng-class isSelected方法
+				$('li[role = "presentation"].active').removeClass('active'); 
+				$('div[role = "tabpanel"].active').removeClass('active');
+			})
+
+			scope.closed = function(item){
+				scope.mouseleave();
+				var idx = _.findIndex(scope.data, item);
+				if(idx > -1){
+					scope.data.splice(idx,1);
+					if(!_.isEmpty(scope.data)){
+
+						if(_.isEqual(scope.selected, item.id)){
+
+							//直接激活最后一个tab
+							$('#'+scope.id+' a[data-target="#'+_.last(scope.data).id+'"]').tab('show');
+							scope.selected=_.last(scope.data).id;
+						}
+					}
+				}
+			}
+		}
+	};
+})
+
+//tabs
+app.directive('uitabIframe', function($http,$log) {
+
+	return {
+		restrict:'E',
+		scope:{
+			data:"=",//tab数据
+			selected:"="//选中tab
+		},
+		template:function(element,atts){
+			return  '<div  ng-if="data.length > 0">'+
+			' <ul class="nav nav-tabs" id="{{id}}">'+
+
+			' 	<li class="dropdown pull-right tabdrop">'+
+			' 	<a class="dropdown-toggle" data-toggle="dropdown" href="#" >'+
+			'    <i class="glyphicon glyphicon-align-justify"></i><b=class="caret"></b></a>'+
+			'    <ul class="dropdown-menu">'+
+			'    <li ><a href="javascript:void(0);" ng-repeat="item in data" ng-click="setSelected(item)"  >{{item.name}}</a></li></ul></li>'+
+
+			'<li role="presentation" ng-class="{true: \'active\', false: \'\'}[isSelected(item.id)]" ng-repeat="item in data" ng-mouseover="mouseover(item.id)" ng-mouseleave="mouseleave(item.id)" ng-click="click(item.id)" >'+
+			'<a  href="javascript:void(0);" data-target="#{{item.id}}"  data-toggle="tab">'+
+			'<span class="hidden-xs">{{item.name}}</span>'+
+			'</a>'+
+			'<i class="close-tab glyphicon glyphicon-remove" ng-if="item.id == focusId" ng-click="closed(item)"></i>'+
+			'</li>       '+             
+			'</ul>'+
+			'<div class="tab-content">'+
+			'<div role="tabpanel" ng-class="{true: \'tab-pane active\', false: \'tab-pane\'}[isSelected(item.id)]"  ng-repeat="item in data" id="{{item.id}}" ><div class="shade" id="shade{{item.id}}"><div class="spinner"><div class="cube1"></div><div class="cube2"></div></div></div> <iframe height="1000px" width="1088px" frameborder="0"  marginheight="0" marginwidth="0" ng-src="{{item.link}}"></iframe></div>   '+                 
+			'</div>'+
+			'</div>	';
+		},
+		replace : false,			
+		transclude : false,
+		link:function(scope,element,attr){
+
+			scope.id = 'tab_'+$.uuid();
+
+			//tabs焦点
+			scope.focusId;
+
+			scope.isSelected = function(id){
+				return _.isEqual(scope.selected, id);
+			}
+
+			scope.mouseover = function(itemId){
+				scope.focusId = itemId;
+			}
+
+			scope.mouseleave = function(itemId){
+				scope.focusId = '';
+			}
+
+			scope.setSelected = function(item){
+				
+				//激活选中tab
+				$('#'+scope.id+' a[data-target="#'+item.id+'"]').tab('show');
 			}
 
 			//点击事件更新selected
