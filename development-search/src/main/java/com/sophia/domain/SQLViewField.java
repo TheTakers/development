@@ -34,7 +34,7 @@ public class SQLViewField extends Auditable{
 	 * 操作类型
 	 * 0 不显示,1,可操作,2 disable
 	 */
-	private Integer modiftyType = SQLViewConstant.MODIFTY_NORMAL;
+	private Integer modiftyType = SQLViewConstant.MODIFTY_HIDE;
 	
 	/**
 	 * 是否察看详情
