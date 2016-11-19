@@ -12,6 +12,20 @@ var TREE_OPTIONS = [
 	 {value:"SELF",text:"当前节点"}
 	];
 
+/*修改类型*/
+var MODIFTY_TYPES = [
+     {value:0,text:"隐藏"},
+	 {value:1,text:"显示"},
+	 {value:2,text:"DISABLE"}
+	];
+
+/*排序类型*/
+var SORT_TYPES = [
+	 {value:'',text:""},
+     {value:'ASC',text:"ASC"},
+	 {value:'DESC',text:"DESC"}
+	];
+
 /*是否*/
 var OPTION_WHETHER = [CHECK_WHETHER_YES,CHECK_WHETHER_NO];
 

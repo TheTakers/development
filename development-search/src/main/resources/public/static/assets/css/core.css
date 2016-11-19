@@ -323,9 +323,10 @@ File: Helper clasess
   background-clip: padding-box;
   margin-bottom: 20px;
   background-color: #ffffff;
-  overflow: auto;
 }
-
+.overflow {
+	overflow: auto;
+}
 /*nzk*/
 .panel-collapse {
 	  border: 1px solid rgba(54, 64, 74, 0.1);

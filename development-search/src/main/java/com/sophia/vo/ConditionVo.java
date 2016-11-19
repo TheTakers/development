@@ -40,13 +40,34 @@ public class ConditionVo implements Serializable{
 	private String expr;
 	
 	/**
-	 * 是否排序
+	 * 排序类型 (ASC,DESC)
 	 */
-	private Integer isSort;
+	private String idx;
+	
+	/**
+	 * 排序规则
+	 */
+	private String sort;
 	/**
 	 * 值
 	 */
 	private String value;
+	
+	public String getIdx() {
+		return idx;
+	}
+
+	public void setIdx(String idx) {
+		this.idx = idx;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 
 	public String getValue() {
 		return value;
@@ -94,13 +115,5 @@ public class ConditionVo implements Serializable{
 
 	public void setExpr(String expr) {
 		this.expr = expr;
-	}
-
-	public Integer getIsSort() {
-		return isSort;
-	}
-
-	public void setIsSort(Integer isSort) {
-		this.isSort = isSort;
 	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.SQLViewConstant;
 
 @Entity
@@ -42,6 +43,24 @@ public class SQLView extends Auditable{
 	@Transient
 	private SQLDefine sqlDefine;
 	
+	@Transient
+	private List<JSONObject> conditionList;
+	
+	@Transient
+	private List<JSONObject> buttonList;
+	
+	public List<JSONObject> getConditionList() {
+		return conditionList;
+	}
+	public void setConditionList(List<JSONObject> conditionList) {
+		this.conditionList = conditionList;
+	}
+	public List<JSONObject> getButtonList() {
+		return buttonList;
+	}
+	public void setButtonList(List<JSONObject> buttonList) {
+		this.buttonList = buttonList;
+	}
 	public SQLDefine getSqlDefine() {
 		return sqlDefine;
 	}

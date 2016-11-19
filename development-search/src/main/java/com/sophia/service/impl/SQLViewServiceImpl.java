@@ -1,8 +1,8 @@
 package com.sophia.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLExpression;
@@ -95,6 +95,10 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//获取列表
 		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 		sqlView.setColumnList(sqlViewFieldList);
+		
+		//排序conditions，buttons
+		sqlView.setConditionList(JsonArraySort(sqlView.getConditions(), "idx"));
+		sqlView.setButtonList(JsonArraySort(sqlView.getButtons(), "idx"));
 		return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
@@ -156,8 +160,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			field.setIdx(i);
 			if(masterFieldMap.containsKey(field.getField())){
 
-				//是否修改
-				field.setIsUpdate(SQLViewConstant.YES);
+				//修改类型
+				field.setModiftyType(SQLViewConstant.MODIFTY_NORMAL);
 
 				//是否增加
 				field.setIsInsert(SQLViewConstant.YES);
@@ -263,7 +267,29 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		return false;
 	}
+	
+	/**
+	 * JsonArray排序
+	 * @param jsonArray
+	 * @param sortKey
+	 * @return
+	 */
+	private  List<JSONObject> JsonArraySort(String jsonArray,final String sortKey){
+		if(StringUtils.isNotBlank(jsonArray)){
+		    List<JSONObject> condList = JSONObject.parseArray(jsonArray, JSONObject.class);
+			Collections.sort(condList,new Comparator<JSONObject>() {
 
+				@Override
+				public int compare(JSONObject o1, JSONObject o2) {
+					return (o1.getInteger(sortKey) != null ?  o1.getInteger(sortKey) : 0) - ( o2.getInteger(sortKey) != null ? o2.getInteger(sortKey) : 0);
+					
+				}
+			});
+			return condList;
+		}
+		return new ArrayList<JSONObject>();
+	}
+	
 	public SQLView getSqlViewByCode(String code){
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
@@ -276,9 +302,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		sqlView.setSqlDefine(sqlDefine);
 		sqlView.setColumnList(columnList);
+		
+		//排序conditions，buttons
+		sqlView.setConditionList(JsonArraySort(sqlView.getConditions(), "idx"));
+		sqlView.setButtonList(JsonArraySort(sqlView.getButtons(), "idx"));
 		return sqlView;
 	}
-
+		
 	public void persistentByCode(String code,JSONObject row){
 
 		SQLView sqlView = getRepository().getByCode(code);
@@ -364,7 +394,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
 		for(SQLViewField field : sqlViewFields){
-			if(SQLViewConstant.YES.equals(field.getIsUpdate())){
+			if(SQLViewConstant.MODIFTY_NORMAL.equals(field.getModiftyType())){
 				modifySQL.append(field.getField()).append("= :")
 				.append(field.getField())
 				.append(",");

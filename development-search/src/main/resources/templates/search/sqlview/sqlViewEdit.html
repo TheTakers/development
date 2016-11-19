@@ -87,9 +87,9 @@
 										<th>组件类型</th>
 										<th>扩展</th>
 										<th>是否显示</th>
-										<th>是否排序</th>
+										<th>排序</th>
 										<th>详情查看</th>
-										<th>是否修改</th>
+										<th>修改操作</th>
 										<th>是否添加</th>
 										<th>操作</th>
 									</tr>
@@ -108,9 +108,9 @@
 										 	<ui-ud-editor data="item" param = "columnList" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.sort" data="sortTypes"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.isView" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.modiftyType" data="modiftyTypes"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isInsert" data="optionData"></ui-dropdown></td>
 										 <td class="nowrap">
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>

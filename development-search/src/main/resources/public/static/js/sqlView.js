@@ -15,8 +15,8 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			sqlId:"",
 			fieldList : [],
 			columnList : [],
-			conditions : "[]",
-			buttons : "[]"
+			conditionList : [],
+			buttonList : []
 		};
 	};
 	
@@ -31,9 +31,11 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		//TODO SQL字段
 		$scope.columnList = $scope.data.columnList;
 		//TODO 过滤条件
-		$scope.filterList = eval($scope.data.conditions);
+//		$scope.filterList = eval($scope.data.conditions);
+		$scope.filterList = $scope.data.conditionList;
 		//TODO 按钮设置
-		$scope.buttonList = eval($scope.data.buttons);
+//		$scope.buttonList = eval($scope.data.buttons);
+		$scope.buttonList = $scope.data.buttonList;
 		
 		//保存操作
 		$scope.save = function() {
@@ -49,6 +51,8 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		/**=======================过滤设置================================================**/
 		$scope.ctype = DICT_COMPONENTTYPE;
 		$scope.expr = DICT_EXPRESSION;
+		$scope.sortTypes = SORT_TYPES;
+		$scope.modiftyTypes = MODIFTY_TYPES;
 		$scope.isType = function(type,ctype){
 			return _.isEqual(type, ctype);
 		}
@@ -60,7 +64,12 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			opt.dataType = item.dataType;
 			opt.componentType=DICT_COMPONENTTYPE[0].value;
 			opt.expr = DICT_EXPRESSION[0].value;
-			opt.isSort = item.isSort;
+			
+			//排序
+			opt.idx = $scope.filterList.length; 
+			
+			//asc desc默认为空
+			opt.sort = item.sort;
 			opt.expand = item.expand;
 			$scope.filterList.push(opt);	
 		}
@@ -208,10 +217,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		}
 		
 		//增、删、改、查
-		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"md-add",type:1,url:"",showWin:1,winSize:50};
-		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"ion-edit",type:0,url:"",showWin:1,winSize:50};
-		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"ion-trash-a",type:0,url:"",showWin:0,winSize:""};
-		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"ion-eye",type:0,url:"",showWin:1,winSize:50};
+		$scope.insert = {id:CRUD_CODE.INSERT,title:"增加",icon:"md-add",type:1,url:"",showWin:1,winSize:50,idx:1};
+		$scope.update = {id:CRUD_CODE.UPDATE,title:"修改",icon:"ion-edit",type:0,url:"",showWin:1,winSize:50,idx:2};
+		$scope.remove = {id:CRUD_CODE.DELETE,title:"删除",icon:"ion-trash-a",type:0,url:"",showWin:0,winSize:"",idx:3};
+		$scope.view   = {id:CRUD_CODE.VIEW,title:"查看",icon:"ion-eye",type:0,url:"",showWin:1,winSize:50,idx:0};
 		
 		$scope.crudCheck = function(item){
 			var idx = getArrayIdxById($scope.buttonList,item);

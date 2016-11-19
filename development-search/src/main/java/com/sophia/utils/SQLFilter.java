@@ -44,11 +44,7 @@ public class SQLFilter {
 		for(ConditionVo cond : conditionVoList){
 			
 			//排序字段
-			String sortField = "";
-			if(CrudeUtils.isTrue(cond.getIsSort())){
-				sortField = cond.getField();
-			}
-			addCondition(cond.getField(),cond.getExpr(),cond.getValue(),sortField);
+			addCondition(cond.getField(),cond.getExpr(),cond.getValue(),cond.getSort());
 		}
 	}
 
