@@ -30,6 +30,24 @@ public class SQLDefineRequest extends CrudRequest{
 	@NotBlank
 	private String groupId;
 	
+	@NotBlank
+	private String masterTableId;
+	
+	@NotBlank
+	private String masterTable;
+	
+	public String getMasterTableId() {
+		return masterTableId;
+	}
+	public void setMasterTableId(String masterTableId) {
+		this.masterTableId = masterTableId;
+	}
+	public String getMasterTable() {
+		return masterTable;
+	}
+	public void setMasterTable(String masterTable) {
+		this.masterTable = masterTable;
+	}
 	public String getSqldesc() {
 		return sqldesc;
 	}
