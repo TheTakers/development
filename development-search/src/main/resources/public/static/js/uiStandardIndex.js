@@ -153,6 +153,10 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							scope.sqlView.filterData = scope.sqlView.conditionList;
 //							scope.sqlView.buttonData = JSON.parse(scope.sqlView.buttons);
 							scope.sqlView.buttonData = scope.sqlView.buttonList;
+							
+							//是否存在导航条按钮
+							scope.buttonNavFlag = !_.isUndefined(_.findWhere(scope.sqlView.buttonList, {type:1}));
+							
 							//查询参数
 							scope.parameter = {
 									condition:scope.sqlView.filterData
