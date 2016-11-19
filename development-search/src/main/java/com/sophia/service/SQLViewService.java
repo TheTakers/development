@@ -74,4 +74,11 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @return
 	 */
 	public GridResponse<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryRquest queryRequest);
+	
+	/**
+	 * 根据视图编码获取字段
+	 * @param viewCode
+	 * @return
+	 */
+	public List<SQLViewField> findFieldListByViewCode(String viewCode);
 }

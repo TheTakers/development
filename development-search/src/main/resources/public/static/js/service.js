@@ -85,4 +85,11 @@ app.service('commonService', function($log,$uibModal,$http){
 			this.ajax(options);
 		}
 	}
+	//根据视图编号获取字段集合
+	this.findFieldListByCode = function(newValue,sucess){
+		if(newValue){
+			var options = {url:'/search/sqlview/findFieldListByCode/' + newValue,data:{},success:sucess};
+			this.ajax(options);
+		}
+	}
 });

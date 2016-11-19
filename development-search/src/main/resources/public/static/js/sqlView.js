@@ -180,14 +180,16 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 				$uibModalInstance.dismiss('cancel');
 			};
 			
-			//监控SQLID变化
+			//监控视图编号变化
 			$scope.$watch('expand.code',function(newValue,oldValue, scope){
-				commonService.getFieldListBySqlId(newValue,function(response){
+				commonService.findFieldListByCode(newValue,function(response){
 					if(response.code == STATUS_CODE.SUCCESS){
 						$scope.responseList = response.result;
 						
 						//消化
 						$scope.$digest();
+					}else{
+						$.error(response.message);
 					}
 				});
 			});

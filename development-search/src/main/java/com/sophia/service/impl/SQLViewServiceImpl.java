@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLExpression;
@@ -155,9 +154,9 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//判断是否是日期类型
 			if (getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
-				field.setExpand("yyyy-MM-dd hh:mm:ss");
+				field.setExpand("Y-m-d H:i:s");
 			}
-			field.setIdx(i);
+			field.setIdx(i-1);
 			if(masterFieldMap.containsKey(field.getField())){
 
 				//修改类型
@@ -613,5 +612,11 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			queryResult.addAll(result);
 		}
 		return queryResult;
+	}
+	
+	@Override
+	public List<SQLViewField> findFieldListByViewCode(String viewCode) {
+		SQLView sqlView = getRepository().getByCode(viewCode);
+		return sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 	}
 }
