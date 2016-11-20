@@ -1,5 +1,6 @@
 package com.sophia.web.search;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -122,6 +123,22 @@ public class SQLDefineController extends BaseController{
 		try {
 			sqlDefineService.getRepository().delete(param.getString("id"));
 			return responseOk(Constant.SUCCESS_MESSAGE);
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
+	
+	/**
+	 * 获取所有table 
+	 * @param param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findAllTable",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findAllTable() {
+		try {
+			List<Map<String,Object>> list = sqlDefineService.findAllTable();
+			return responseOk(Constant.SUCCESS_MESSAGE,list);
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}

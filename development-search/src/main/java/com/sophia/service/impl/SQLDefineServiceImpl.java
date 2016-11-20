@@ -1,5 +1,6 @@
 package com.sophia.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().save(sqlDefine).getId();
 	}
 	@Override
-	public GridResponse list(QueryRequest queryRequest) {
+	public GridResponse<?> list(QueryRequest queryRequest) {
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
@@ -62,7 +63,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().findBySqlId(sqlId);
 	}
 	@Override
-	public GridResponse list(String sqlId, QueryRequest queryRequest) {
+	public GridResponse<?> list(String sqlId, QueryRequest queryRequest) {
 		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
 		if(null == sqlDefine){
 			return new GridResponse();
@@ -79,5 +80,17 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 			throw new ServiceException("SQLID:"+sqlId+"未定义");
 		}
 		return namedParameterJdbcTemplate.queryForList(sqlDefine.getSelectSql(), new HashMap<String, Object>());
+	}
+	@Override
+	public List<Map<String, Object>> findAllTable() {
+		List<String> result = namedParameterJdbcTemplate.queryForList("show tables ", new HashMap<String, Object>(),String.class);
+		List<Map<String, Object>> resultMap = new ArrayList<Map<String,Object>>();
+		Map<String,Object> tableMap;
+		for(String table : result){
+			tableMap = new HashMap<String, Object>();
+			tableMap.put("table", table);
+			resultMap.add(tableMap);
+		}
+		return resultMap;
 	}
 }

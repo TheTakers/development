@@ -13,14 +13,14 @@ public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	
 	public String save(SQLDefine sqlDefine);
 	
-	public GridResponse list(QueryRequest queryRequest);
+	public GridResponse<?> list(QueryRequest queryRequest);
 	
 	/**
 	 * 根据SQLCODE
 	 * @param queryRequest
 	 * @return
 	 */
-	public GridResponse list(String code,QueryRequest queryRequest);
+	public GridResponse<?> list(String code,QueryRequest queryRequest);
 	
 	public Map<String,Object> findById(String id);
 	
@@ -32,4 +32,10 @@ public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	 * @return
 	 */
 	public List<Map<String,Object>> findAllBySqlId(String sqlId);
+	
+	/**
+	 * 查询全部表
+	 * @return
+	 */
+	public List<Map<String,Object>> findAllTable();
 }

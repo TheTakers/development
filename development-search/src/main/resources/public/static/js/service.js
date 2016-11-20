@@ -15,9 +15,9 @@ app.service('commonService', function($log,$uibModal,$http){
 					return options.param;
 				},
 				deps:function($ocLazyLoad,$stateParams,$log){
-					if(!_.isUndefined(options.loadjs)){
+					if(!_.isUndefined(options.lazyurl)){
 //						return $ocLazyLoad.load("templates/"+options.templateUrl+".js");
-						return $ocLazyLoad.load(options.loadjs);
+						return $ocLazyLoad.load(options.lazyurl);
 					}
 				}
 			}
