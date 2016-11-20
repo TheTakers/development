@@ -518,8 +518,42 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(null != conditionVo){
 			sqlFilter.addCondition(conditionVo);
 		}
+		
+		//获取显示字段
+		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlView.getSqlId());
-		sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		if(CollectionUtils.isEmpty(sqlViewFieldList)){
+			sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		}else{
+
+			//拼装sql显示列表
+			StringBuffer sb = new StringBuffer("SELECT ");
+
+			ConditionVo sortCond;
+			for(SQLViewField field : sqlViewFieldList){
+				if(SQLViewConstant.YES == field.getIsDisplay()){
+
+					if(SQLViewConstant.COLUMNTYPE_DATE.equals(this.getDataType(field.getDataType())) &&
+							StringUtils.isNotBlank(field.getExpand())){
+						sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getExpand()).append("') AS ").append(field.getField());
+					}else{
+						sb.append(field.getField());
+					}
+					sb.append(",");
+
+					//排序
+					if(StringUtils.isNotBlank(field.getSort())){
+						sortCond = new ConditionVo();
+						sortCond.setField(field.getField());
+						sortCond.setSort(field.getSort());
+						sqlFilter.addCondition(sortCond);
+					}
+				}
+			}
+			sb.deleteCharAt(sb.lastIndexOf(",")).append(" from ( ")
+			.append(sqlDefine.getSelectSql()).append(") t ");
+			sqlFilter.setMainSql(sb.toString());
+		}
 		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	

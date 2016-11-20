@@ -21,7 +21,7 @@ var MODIFTY_TYPES = [
 
 /*排序类型*/
 var SORT_TYPES = [
-	 {value:'',text:""},
+	 {value:null,text:""},
      {value:'ASC',text:"ASC"},
 	 {value:'DESC',text:"DESC"}
 	];

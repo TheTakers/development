@@ -49,7 +49,7 @@ public class SQLFilter {
 	}
 
 	public void addCondition(ConditionVo cond){
-		addCondition(cond.getField(),cond.getExpr(),cond.getValue(),null);
+		addCondition(cond.getField(),cond.getExpr(),cond.getValue(),cond.getSort());
 	} 
 
 	public void EQ(String alias,String value){

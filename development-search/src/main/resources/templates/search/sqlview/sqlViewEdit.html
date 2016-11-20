@@ -43,7 +43,7 @@
 				<div class="form-group" >
 					<label class="col-sm-3 control-label">SQLID</label>
 					<div class="col-sm-6">
-						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" validator="[10001]" size="60"></ui-selector>
+						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" validator="[10001]" size="80"></ui-selector>
  					</div>
 				</div>
 				
@@ -76,7 +76,7 @@
 		 					</div>
 	 					</div>
  						<div class="col-sm-12">
- 						<div class="card-box">
+ 						<div class="card-box overflow">
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
 									<tr class="trnowrap">
@@ -97,15 +97,15 @@
 								<tbody>
 									<tr ng-repeat="item in columnList">
 										 <td>
-										 <input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input>
+										 <input class="form-control input-sm tdwidth" ng-model="item.title" ui-validator="[10001]"></input>
 										 </td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
 										 <td>{{item.length}}</td>
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										 <td>
-										 	<input class="form-control input-sm" ng-model="item.expand" ng-if="!turnon(item)"></input>
-										 	<ui-ud-editor data="item" param = "columnList" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
+										 	<input class="form-control input-sm tdwidth" ng-model="item.expand" ng-if="!turnon(item)"></input>
+										 	<ui-ud-editor class="tdwidth" data="item" param = "columnList" size="60" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  expand = "{dataKey:'expand',dataValue:'expand',returnKey:'id',returnValue:'name'}" ng-if="turnon(item)" validator="[10001]"> </ui-ud-editor> 
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.sort" data="sortTypes"></ui-dropdown></td>
