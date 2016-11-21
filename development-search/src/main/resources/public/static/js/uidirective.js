@@ -420,14 +420,20 @@ app.directive('uiDatetimepicker', function($http,$log) {
 		},
 		replace : false,			
 		link:function(scope,element,attr,ngModel){
+			var foramt = 'Y-m-d H:i:s';
+			if(scope.format){
+
+				//去掉%
+			    foramt = scope.format.replace(/%/g,'');
+			}
 			
 			//中文支持
 			$.datetimepicker.setLocale('zh');
-			var timepickerFlag = _.isEqual(scope.format.replace(/%/g,''), 'H:i');
+			var timepickerFlag = _.isEqual(foramt, 'H:i');
 			var datetimepicker = element.find("input");
 			$(datetimepicker).datetimepicker({
 					timepicker:timepickerFlag,    //不显示时间选项
-					format:scope.format.replace(/%/g,'')  //scope.sqlviewfield.expand //Y-m-d H:i:s
+					format:foramt  //scope.sqlviewfield.expand //Y-m-d H:i:s
 			});
 			
 			//监控值改变
