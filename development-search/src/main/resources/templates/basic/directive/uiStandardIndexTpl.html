@@ -16,15 +16,15 @@
 				<div class="row">
 					<div class="col-md-12">
 					
-						<div class="panel-group panel-group-joined" >
-							<div class="panel panel-color panel-default">
+						<div class="panel-group panel-group-joined" ng-if="sqlView.filterData.length > 0 || buttonNavFlag">
+							<div class="panel panel-color panel-default" >
 
 								<!-- toolbar start -->
-								<div class="panel-heading">
-									<a data-toggle="collapse"  href="#{{toolbar.id}}" aria-expanded="true"></a>
+								<div class="panel-heading" >
+									<a data-toggle="collapse"  href="#{{toolbar.id}}" aria-expanded="true" ng-if="sqlView.filterData.length > 0"></a>
 									
 									<div class="button-list">
-										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in sqlView.buttonData" ng-if="item.type==1">
+										<button type="button" class="btn btn-info waves-effect waves-light" ng-click="crud(null,item)" ng-repeat="item in sqlView.buttonData | filter:{type:1}">
 										<i class="{{item.icon}} m-r-5"></i>{{item.title}}
 										</button>
 									</div>
@@ -33,14 +33,14 @@
 								<!-- toolbar end -->
 
 								<!-- search start -->
-								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="!_.isEmpty(sqlView.filterData)">
+								<div id="{{toolbar.id}}" class="panel-collapse collapse in" aria-expanded="true" ng-if="sqlView.filterData.length > 0">
 									<div class="panel-body">
 										 
 										<form class="form-inline">
 											 
-											<div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3 mt20 row" ng-repeat="item in sqlView.filterData" >
+											<div class="form-group col-xs-4 col-sm-4 col-md-4 col-lg-4 mt20 row nowrap" ng-repeat="item in sqlView.filterData" >
 												<ui-label class="col-xs-3 col-sm-3 col-md-3 col-lg-3 overflow-eps pt5" content="{{item.title}}({{item.expr}})"></ui-label>
-												<input class="form-control col-xs-9 col-sm-9 col-md-9 col-lg-9 wd200 input-sm" type="text"  ng-model="item.value"/>
+												<input class="form-control input-sm" type="text"  ng-model="item.value"/>
 											</div>  
 											
 											<button type="button" class="btn btn-info waves-effect waves-light input-sm mt20" ng-click="grid.search()"><i class="md-search m-r-5"></i>查询</button>
@@ -61,12 +61,12 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<div class="card-box">
+					<div class="card-box overflow">
 						<table class="table table table-hover m-0 table-actions-bar">
 							<thead>
 								<tr >
 									<th ng-if="sqlView.multiple" >选择</th>
-									<th ng-repeat="item in sqlView.fieldData" ng-if="isdisplay(item)">{{item.title}}</th>
+									<th class="nowrap" ng-repeat="item in sqlView.fieldData" ng-if="isdisplay(item)">{{item.title}}</th>
 								</tr>
 							</thead>
 
@@ -76,9 +76,9 @@
 										<div class="radio radio-info" ng-if="sqlView.multiple == 1" ><input type="radio" name="radio"  ng-click="rowClick(item,sqlView.multiple)"></input><label for="radio"></label></div>
 										<div class="checkbox checkbox-info" ng-if="sqlView.multiple == 2" ><input type="checkbox" ng-click="rowClick(item,sqlView.multiple)"></input><label for="checkbox"></label></div>
 									</td>
-									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)">{{item[field.field]}}</td>
-									<td ng-if="sqlView.buttonData">
-                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData" ng-if="func.type == 0"><i class="{{func.icon}}"></i></a>
+									<td ng-repeat="field in sqlView.fieldData" ng-if="isdisplay(field)"  class="nowrap">{{item[field.field]}}</td>
+									<td ng-if="sqlView.buttonData" class="nowrap">
+                                        <a href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{func.title}}" data-trigger="hover" data-placement="top" ng-click="crud(item,func)"  ng-repeat="func in sqlView.buttonData | filter:{type:0}" ><i class="{{func.icon}}"></i></a>
 									</td>
 								</tr>
 							</tbody>

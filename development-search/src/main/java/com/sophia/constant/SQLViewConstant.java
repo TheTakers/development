@@ -12,6 +12,16 @@ public class SQLViewConstant {
 	public static final Integer YES	  = 1;
 	public static final Integer NO	  = 0;
 	
+	public static final Integer ASC	  = 0;
+	public static final Integer DESC  = 1;
+	
+	/**
+	 * 修改类型
+	 */
+	public static final Integer MODIFTY_HIDE = 0;
+	public static final Integer MODIFTY_NORMAL = 1;
+	public static final Integer MODIFTY_DISABLE = 2;
+	
 	/**
 	 * 导航按钮
 	 */

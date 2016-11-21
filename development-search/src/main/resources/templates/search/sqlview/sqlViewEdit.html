@@ -43,7 +43,7 @@
 				<div class="form-group" >
 					<label class="col-sm-3 control-label">SQLID</label>
 					<div class="col-sm-6">
-						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" validator="[10001]" size="60"></ui-selector>
+						<ui-selector url="templates/search/sqldefine/selector.json"  data="data"  expand="{dataKey:'sqlId',dataValue:'sqlId',returnKey:'sqlId',returnValue:'sqlId'}" validator="[10001]" size="80"></ui-selector>
  					</div>
 				</div>
 				
@@ -76,10 +76,10 @@
 		 					</div>
 	 					</div>
  						<div class="col-sm-12">
- 						<div class="card-box">
+ 						<div class="card-box overflow">
  							<table class="table table table-hover m-0 table-actions-bar">
 								<thead>
-									<tr >
+									<tr class="trnowrap">
 										<th>名称</th>
 										<th>字段</th>
 										<th>数据类型</th>
@@ -87,9 +87,9 @@
 										<th>组件类型</th>
 										<th>扩展</th>
 										<th>是否显示</th>
-										<th>是否排序</th>
+										<th>排序</th>
 										<th>详情查看</th>
-										<th>是否修改</th>
+										<th>修改操作</th>
 										<th>是否添加</th>
 										<th>操作</th>
 									</tr>
@@ -97,7 +97,7 @@
 								<tbody>
 									<tr ng-repeat="item in columnList">
 										 <td>
-										 <input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input>
+										 <input class="form-control input-sm tdwidth" ng-model="item.title" ui-validator="[10001]"></input>
 										 </td>
 										 <td>{{item.field}}</td>
 										 <td>{{item.dataType}}</td>
@@ -109,11 +109,11 @@
 										 	<ui-dropdown selected="item.expand"  ng-if="item.componentType == 'DATEPICKER'"  data="formatList" ui-validator="{{item.rule}}"></ui-dropdown>
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isSort" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isSearch" data="optionData"></ui-dropdown></td>
-										 <td><ui-dropdown selected="item.isUpdate" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.sort" data="sortTypes"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.isView" data="optionData"></ui-dropdown></td>
+										 <td><ui-dropdown selected="item.modiftyType" data="modiftyTypes"></ui-dropdown></td>
 										 <td><ui-dropdown selected="item.isInsert" data="optionData"></ui-dropdown></td>
-										 <td>
+										 <td class="nowrap">
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="columnList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 										 		<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeField(item)" ><i class="ion-close"></i></a>
@@ -169,7 +169,7 @@
 											<td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 											<td><ui-dropdown selected="item.expr" data="expr"></ui-dropdown></td>
 											<td><input class="form-control input-sm" ng-model="item.expand"></input></td>
-											<td>
+											<td  class="nowrap">
 												<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="filterList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	    <a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="filterList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 												<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeItem(item)" ><i class="ion-close"></i></a>
@@ -235,7 +235,7 @@
 										<td><input class="form-control input-sm" ng-model="item.lazyurl"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
-										<td>
+										<td  class="nowrap">
 											<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="buttonList" idxkey="idx" course="up"><i class="ion-arrow-up-a"></i></a>
 										 	<a href="javascript:void(0);" class="table-action-btn"  data-trigger="hover" data-placement="top"  ui-float="" list="buttonList" idxkey="idx" course="down" ><i class="ion-arrow-down-a"></i></a>
 											<a href="javascript:void(0);" class="table-action-btn" title="移除" ng-click="removeButton(item)" ><i class="ion-close"></i></a>

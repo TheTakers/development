@@ -15,9 +15,9 @@ app.service('commonService', function($log,$uibModal,$http){
 					return options.param;
 				},
 				deps:function($ocLazyLoad,$stateParams,$log){
-					if(!_.isUndefined(options.loadjs)){
+					if(!_.isUndefined(options.lazyurl)){
 //						return $ocLazyLoad.load("templates/"+options.templateUrl+".js");
-						return $ocLazyLoad.load(options.loadjs);
+						return $ocLazyLoad.load(options.lazyurl);
 					}
 				}
 			}
@@ -82,6 +82,13 @@ app.service('commonService', function($log,$uibModal,$http){
 	this.getFieldListBySqlId = function(newValue,sucess){
 		if(newValue){
 			var options = {url:'/search/sqlview/createField',data:JSON.stringify({sqlId:newValue}),success:sucess};
+			this.ajax(options);
+		}
+	}
+	//根据视图编号获取字段集合
+	this.findFieldListByCode = function(newValue,sucess){
+		if(newValue){
+			var options = {url:'/search/sqlview/findFieldListByCode/' + newValue,data:{},success:sucess};
 			this.ajax(options);
 		}
 	}

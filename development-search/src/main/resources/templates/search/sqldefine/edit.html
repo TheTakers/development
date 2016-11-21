@@ -6,49 +6,61 @@
 		<form class="form-horizontal" name="actionForm" >
 			<input type="hidden" ng-model="data.version"></input>
 			
-			<div class="form-group" ng-repeat="item in fieldList"  ng-if="isEdit(item)">
+			<div class="form-group">
 					<ui-label clazz="col-sm-2" content="SQLID"></ui-label>
 					<div class="col-sm-8">
 						<ui-generate-code data="data.sqlId"  validator="[10001]"></ui-generate-code>
  					</div>
+ 			</div>
+ 			<div class="form-group">
  					<ui-label clazz="col-sm-2" content="别名"></ui-label>
 					<div class="col-sm-8">
 						<input class="form-control input-sm"  ng-model="data.sqlName"  ui-validator="[10001]" maxlength="50"></input>
  					</div>
+ 			</div>
+ 			
+ 			<div class="form-group">
  					<ui-label clazz="col-sm-2" content="所属分组"></ui-label>
 					<div class="col-sm-8">
-						<ui-selector url="/search/sqlgroup/selector"  data="data"  expand="{dataKey:'groupId',dataValue:'id',returnKey:'pText',returnValue:'name'}" validator="[10001]" ></ui-selector>
+						<ui-selector url="/search/sqlgroup/selector"  data="data"  expand="{dataKey:'groupId',dataValue:'id',returnKey:'pText',returnValue:'name'}" validator="[10001]" size="70"></ui-selector>
  					</div>
+			</div>
+ 			<div class="form-group">
+ 				<ui-label clazz="col-sm-2" content="数据库表"></ui-label>
+					<div class="col-sm-8">
+					  <ui-select url="search/sqldefine/findAllTable"  valuekey="table" textkey="table" data-placeholder="Tables ..."></ui-select>  
+ 					</div>
+			</div>
+ 				<div class="form-group">
  					<ui-label clazz="col-sm-2" content="SQL主表"></ui-label>
 					<div class="col-sm-8">
 						<input class="form-control input-sm"  ng-model="data.masterTable"  ui-validator="[10001]" maxlength="50" readonly="readonly"></input>
-						
-						<div class="select2-container form-control select2" id="s2id_autogen1">
-						<a href="javascript:void(0)" class="select2-choice" tabindex="-1">   
-						<span class="select2-chosen" id="select2-chosen-2">Alaska</span><abbr class="select2-search-choice-close"></abbr>   
-						<span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a>
-						<label for="s2id_autogen2" class="select2-offscreen"></label>
-						<input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-2" id="s2id_autogen2">
-						</div>
-						
  					</div>
+				</div>
+ 				<div class="form-group">
  					<ui-label clazz="col-sm-2" content="主表ID"></ui-label>
 					<div class="col-sm-8">
 						<input class="form-control input-sm"  ng-model="data.masterTableId"  ui-validator="[10001]" maxlength="50" readonly="readonly"></input>
  					</div>
+ 				</div>
+ 				<div class="form-group">
  					<ui-label clazz="col-sm-2" content="SQL"></ui-label>
 					<div class="col-sm-8">
 						<textarea class="form-control"  ng-model="data.selectSql" ui-validator="[10001]" ></textarea>
  					</div>
+ 				</div>
+ 				<div class="form-group">
  					<ui-label clazz="col-sm-2" content="sql扩展"></ui-label>
 					<div class="col-sm-8">
 							<textarea class="form-control"  ng-model="data.sqlExpand" ui-validator="[10001]" ></textarea>
  					</div>
+ 				</div>
+ 				<div class="form-group">
  					<ui-label clazz="col-sm-2" content="备注"></ui-label>
 					<div class="col-sm-8">
 						<textarea class="form-control"  ng-model="data.sqldesc" ui-validator="[10001]"   maxlength="500"></textarea>
  					</div>
-			</div>
+				</div>
 		</form>		
 </div>
 

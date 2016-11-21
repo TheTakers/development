@@ -289,11 +289,10 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 							basePageEdit(commonService,scope.sqlView.controller + '/findById','templates/basic/directive/edit.html',editModal,{row:item,sqlView:scope.sqlView},scope.grid.search,60);
 							break;
 						case "remove":
-							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);
+							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.grid.search);
 							break;
 
 						case "view":
-
 							break;
 
 						default :

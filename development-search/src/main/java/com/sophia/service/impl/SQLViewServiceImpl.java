@@ -1,8 +1,8 @@
 package com.sophia.service.impl;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -95,6 +94,10 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//获取列表
 		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 		sqlView.setColumnList(sqlViewFieldList);
+		
+		//排序conditions，buttons
+		sqlView.setConditionList(JsonArraySort(sqlView.getConditions(), "idx"));
+		sqlView.setButtonList(JsonArraySort(sqlView.getButtons(), "idx"));
 		return  sqlView;
 	}
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
@@ -151,13 +154,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//判断是否是日期类型
 			if (getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
-				field.setExpand("yyyy-MM-dd hh:mm:ss");
+				field.setExpand("Y-m-d H:i:s");
 			}
-			field.setIdx(i);
+			field.setIdx(i-1);
 			if(masterFieldMap.containsKey(field.getField())){
 
-				//是否修改
-				field.setIsUpdate(SQLViewConstant.YES);
+				//修改类型
+				field.setModiftyType(SQLViewConstant.MODIFTY_NORMAL);
 
 				//是否增加
 				field.setIsInsert(SQLViewConstant.YES);
@@ -263,7 +266,29 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		return false;
 	}
+	
+	/**
+	 * JsonArray排序
+	 * @param jsonArray
+	 * @param sortKey
+	 * @return
+	 */
+	private  List<JSONObject> JsonArraySort(String jsonArray,final String sortKey){
+		if(StringUtils.isNotBlank(jsonArray)){
+		    List<JSONObject> condList = JSONObject.parseArray(jsonArray, JSONObject.class);
+			Collections.sort(condList,new Comparator<JSONObject>() {
 
+				@Override
+				public int compare(JSONObject o1, JSONObject o2) {
+					return (o1.getInteger(sortKey) != null ?  o1.getInteger(sortKey) : 0) - ( o2.getInteger(sortKey) != null ? o2.getInteger(sortKey) : 0);
+					
+				}
+			});
+			return condList;
+		}
+		return new ArrayList<JSONObject>();
+	}
+	
 	public SQLView getSqlViewByCode(String code){
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
@@ -276,9 +301,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		sqlView.setSqlDefine(sqlDefine);
 		sqlView.setColumnList(columnList);
+		
+		//排序conditions，buttons
+		sqlView.setConditionList(JsonArraySort(sqlView.getConditions(), "idx"));
+		sqlView.setButtonList(JsonArraySort(sqlView.getButtons(), "idx"));
 		return sqlView;
 	}
-
+		
 	public void persistentByCode(String code,JSONObject row){
 
 		SQLView sqlView = getRepository().getByCode(code);
@@ -364,7 +393,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
 		for(SQLViewField field : sqlViewFields){
-			if(SQLViewConstant.YES.equals(field.getIsUpdate())){
+			if(SQLViewConstant.MODIFTY_NORMAL.equals(field.getModiftyType())){
 				modifySQL.append(field.getField()).append("= :")
 				.append(field.getField())
 				.append(",");
@@ -489,8 +518,42 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(null != conditionVo){
 			sqlFilter.addCondition(conditionVo);
 		}
+		
+		//获取显示字段
+		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlView.getSqlId());
-		sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		if(CollectionUtils.isEmpty(sqlViewFieldList)){
+			sqlFilter.setMainSql(sqlDefine.getSelectSql());
+		}else{
+
+			//拼装sql显示列表
+			StringBuffer sb = new StringBuffer("SELECT ");
+
+			ConditionVo sortCond;
+			for(SQLViewField field : sqlViewFieldList){
+				if(SQLViewConstant.YES == field.getIsDisplay()){
+
+					if(SQLViewConstant.COLUMNTYPE_DATE.equals(this.getDataType(field.getDataType())) &&
+							StringUtils.isNotBlank(field.getExpand())){
+						sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getExpand()).append("') AS ").append(field.getField());
+					}else{
+						sb.append(field.getField());
+					}
+					sb.append(",");
+
+					//排序
+					if(StringUtils.isNotBlank(field.getSort())){
+						sortCond = new ConditionVo();
+						sortCond.setField(field.getField());
+						sortCond.setSort(field.getSort());
+						sqlFilter.addCondition(sortCond);
+					}
+				}
+			}
+			sb.deleteCharAt(sb.lastIndexOf(",")).append(" from ( ")
+			.append(sqlDefine.getSelectSql()).append(") t ");
+			sqlFilter.setMainSql(sb.toString());
+		}
 		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	
@@ -583,5 +646,11 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			queryResult.addAll(result);
 		}
 		return queryResult;
+	}
+	
+	@Override
+	public List<SQLViewField> findFieldListByViewCode(String viewCode) {
+		SQLView sqlView = getRepository().getByCode(viewCode);
+		return sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 	}
 }

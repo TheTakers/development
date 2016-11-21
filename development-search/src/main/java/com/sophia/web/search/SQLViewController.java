@@ -145,6 +145,11 @@ public class SQLViewController extends BaseController{
 		}
 	}
 	
+	/**
+	 * 根据编号获取视图
+	 * @param code
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/getSqlViewByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> getSqlViewByCode(@PathVariable String code) {
@@ -245,11 +250,24 @@ public class SQLViewController extends BaseController{
 	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
 		try {
-			;
 			return responseOk(Constant.SUCCESS_MESSAGE,sqlViewService.findSqlViewGrid(code, queryRequest));
 		} catch (Exception e) {
 			return responseError(Constant.FAILURE_MESSAGE, e);
 		}
 	}
-	 
+	
+	/**
+	 * 根据视图编号获取字段列表
+	 * @param code
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/findFieldListByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> findFieldListByViewCode(@PathVariable String code) {
+		try {
+			return responseOk(Constant.SUCCESS_MESSAGE,sqlViewService.findFieldListByViewCode(code));
+		} catch (Exception e) {
+			return responseError(Constant.FAILURE_MESSAGE, e);
+		}
+	}
 }

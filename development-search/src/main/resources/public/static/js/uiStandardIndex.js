@@ -66,13 +66,13 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 			if(_.isEmpty(param.row)){
 				return   _.isEqual(field.isInsert, CHECK_WHETHER_YES.value);
 			}else{
-				return  _.isEqual(field.isUpdate, CHECK_WHETHER_YES.value);
+				return  _.isEqual(field.modiftyType, CHECK_WHETHER_YES.value);
 			}
 		}
 		
 		//是否查看
 		$scope.isSearch = function(field,ctype){
-			return _.isEqual(field.isSearch, CHECK_WHETHER_YES.value);
+			return _.isEqual(field.isView, CHECK_WHETHER_YES.value);
 		}
 		
 		//字段列表
@@ -149,8 +149,14 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							};
 							scope.sqlView.fieldData = scope.sqlView.columnList;
 							scope.treeconfig = initTree(scope,JSON.parse(scope.sqlView.treeData));
-							scope.sqlView.filterData = eval(scope.sqlView.conditions);
-							scope.sqlView.buttonData = JSON.parse(scope.sqlView.buttons);
+//							scope.sqlView.filterData = eval(scope.sqlView.conditions);
+							scope.sqlView.filterData = scope.sqlView.conditionList;
+//							scope.sqlView.buttonData = JSON.parse(scope.sqlView.buttons);
+							scope.sqlView.buttonData = scope.sqlView.buttonList;
+							
+							//是否存在导航条按钮
+							scope.buttonNavFlag = !_.isUndefined(_.findWhere(scope.sqlView.buttonList, {type:1}));
+							
 							//查询参数
 							scope.parameter = {
 									condition:scope.sqlView.filterData
@@ -195,7 +201,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 							
 							//自定义弹窗页面
 							if(btn.showWin == CHECK_WHETHER_YES.value){
-								var options = {templateUrl:btn.url,controller:btn.ctrl,param:item,callback:scope.grid.search,size:btn.winSize,loadjs:btn.loadjs};
+								var options = {templateUrl:btn.url,controller:btn.ctrl,param:{row:item,btn:btn},callback:scope.grid.search,size:btn.winSize,lazyurl:btn.lazyurl};
 								commonService.show(options);
 							}else{
 								action(commonService,btn.url,{row:item},scope.grid.search);

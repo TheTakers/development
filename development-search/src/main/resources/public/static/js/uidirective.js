@@ -84,12 +84,16 @@ app.directive('uiFloat', [function () {
 		        if (trIdx != 0) { 
 		            $tr.fadeOut().fadeIn(); 
 		            $tr.prev().before($tr); 
+		            var cidx = findIdx(idxkey,trIdx);
+		            
+		            //前一行实际索引
+		            var pidx = findIdx(idxkey,trIdx - 1);
 		            
 		            //取上一行
-		            scope.list[trIdx - 1][idxkey] = trIdx;
+		            scope.list[pidx][idxkey] = trIdx;
 		            
 		            //设置当前列对象索引 - 1
-		            scope.list[trIdx][idxkey] = trIdx - 1;
+		            scope.list[cidx][idxkey] = trIdx - 1;
 		        } 
 		    }
 			
@@ -102,13 +106,28 @@ app.directive('uiFloat', [function () {
 		            $tr.fadeOut().fadeIn(); 
 		            $tr.next().after($tr); 
 		            
-		            //取出下一行
-		            scope.list[trIdx + 1][idxkey] = trIdx;
+		            //当前对象索引
+		            var cidx = findIdx(idxkey,trIdx);
 		            
-		            //当前行对象索引 + 1
-		            scope.list[trIdx][idxkey] = trIdx + 1;
+		            //下一行对象索引
+		            var nidx = findIdx(idxkey,trIdx + 1);
+		            
+		          // + 1
+		          scope.list[cidx][idxkey] = trIdx + 1;
+		            
+		         //原下一行索引更新
+		         scope.list[nidx][idxkey] = trIdx;
 		        } 
 		    }
+			
+			//找出指定对象
+			var findIdx = function(idkey,trIdx){
+				for(var idx in scope.list){
+					if(scope.list[idx][idkey] == trIdx)
+						return idx;
+				}
+				return -1;
+			}
 			
 			if("up" == course){
 				$(element).click(up);
@@ -254,13 +273,13 @@ app.directive('uiPagination', function($http,$log,commonService) {
 	//查询数据
 	function remote(scope){
 		if(!_.isEmpty(scope.url)){
-			commonService.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(data){
-				if(_.isUndefined(data.result)){
-					$log.error("分页响应数据异常");
+			commonService.post(scope.url,_.extend({pageSize:scope.limit.pageSize,pageNo:scope.limit.pageNo},scope.params),function(response){
+				if(STATUS_CODE.FAILURE == response.code){
+					$.error(response.message);
 					return;
 				}
-				scope.limit.pageCount = data.result.totalElements;
-				scope.data = data.result.content;
+				scope.limit.pageCount = response.result.totalElements;
+				scope.data = response.result.content;
 				createLimit(scope);
 			});
 		}
@@ -404,11 +423,11 @@ app.directive('uiDatetimepicker', function($http,$log) {
 			
 			//中文支持
 			$.datetimepicker.setLocale('zh');
-			var timepickerFlag = _.isEqual(scope.format, 'H:i');
+			var timepickerFlag = _.isEqual(scope.format.replace(/%/g,''), 'H:i');
 			var datetimepicker = element.find("input");
 			$(datetimepicker).datetimepicker({
 					timepicker:timepickerFlag,    //不显示时间选项
-					format:scope.format  //scope.sqlviewfield.expand //Y-m-d H:i:s
+					format:scope.format.replace(/%/g,'')  //scope.sqlviewfield.expand //Y-m-d H:i:s
 			});
 			
 			//监控值改变

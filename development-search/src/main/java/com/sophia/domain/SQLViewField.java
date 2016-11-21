@@ -24,17 +24,22 @@ public class SQLViewField extends Auditable{
 	 * 是否显示列表
 	 */
 	private Integer isDisplay = SQLViewConstant.YES;
-	private Integer isSort = SQLViewConstant.NO;
 	
 	/**
-	 * 是否修改
+	 * 排序规则  asc ,desc
 	 */
-	private Integer isUpdate = SQLViewConstant.NO;
+	private String sort;
+	
+	/**
+	 * 操作类型
+	 * 0 不显示,1,可操作,2 disable
+	 */
+	private Integer modiftyType = SQLViewConstant.MODIFTY_HIDE;
 	
 	/**
 	 * 是否察看详情
 	 */
-	private Integer isSearch = SQLViewConstant.YES;
+	private Integer isView = SQLViewConstant.YES;
 	/**
 	 * 是否添加
 	 */
@@ -63,12 +68,6 @@ public class SQLViewField extends Auditable{
 	public void setLength(String length) {
 		this.length = length;
 	}
-	public Integer getIsUpdate() {
-		return isUpdate;
-	}
-	public void setIsUpdate(Integer isUpdate) {
-		this.isUpdate = isUpdate;
-	}
 	public Integer getIdx() {
 		return idx;
 	}
@@ -80,12 +79,6 @@ public class SQLViewField extends Auditable{
 	}
 	public void setComponentType(String componentType) {
 		this.componentType = componentType;
-	}
-	public Integer getIsSearch() {
-		return isSearch;
-	}
-	public void setIsSearch(Integer isSearch) {
-		this.isSearch = isSearch;
 	}
 	public String getDataType() {
 		return dataType;
@@ -124,10 +117,23 @@ public class SQLViewField extends Auditable{
 	public void setExpand(String expand) {
 		this.expand = expand;
 	}
-	public Integer getIsSort() {
-		return isSort;
+	public String getSort() {
+		return sort;
 	}
-	public void setIsSort(Integer isSort) {
-		this.isSort = isSort;
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	 
+	public Integer getModiftyType() {
+		return modiftyType;
+	}
+	public void setModiftyType(Integer modiftyType) {
+		this.modiftyType = modiftyType;
+	}
+	public Integer getIsView() {
+		return isView;
+	}
+	public void setIsView(Integer isView) {
+		this.isView = isView;
 	}
 }

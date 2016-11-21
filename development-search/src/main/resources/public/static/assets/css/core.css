@@ -324,7 +324,9 @@ File: Helper clasess
   margin-bottom: 20px;
   background-color: #ffffff;
 }
-
+.overflow {
+	overflow: auto;
+}
 /*nzk*/
 .panel-collapse {
 	  border: 1px solid rgba(54, 64, 74, 0.1);
@@ -1069,6 +1071,7 @@ textarea.form-control {
   border-radius: 3px;
   -moz-border-radius: 3px;
   background-clip: padding-box;
+  font-size: 12px;
 }
 .popover .popover-title {
   background-color: transparent;
@@ -2212,4 +2215,10 @@ body.fixed-left .side-menu.left {
 /**mt20**/
 .mt20{
   margin-top: 8px;
+}
+.nowrap{
+	white-space:nowrap; 
+}
+.trnowrap th{
+	white-space:nowrap; 
 }
