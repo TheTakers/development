@@ -22,13 +22,13 @@ public class CommonUtils {
 	 * @param bean
 	 * @return
 	 */
-	public static <T> Response verify(T bean) {
+	public static <T> Response<?> verify(T bean) {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		javax.validation.Validator validator = factory.getValidator();
 		Set<ConstraintViolation<T>> violations = validator.validate(bean);
 		StringBuilder sb = new StringBuilder();
 		if (!CollectionUtils.isEmpty(violations)) {
-			for (ConstraintViolation violation : violations) {
+			for (ConstraintViolation<T> violation : violations) {
 				String message = violation.getMessage();
 				sb.append(violation.getPropertyPath().toString() + ":" + message + "; ");
 				break;
