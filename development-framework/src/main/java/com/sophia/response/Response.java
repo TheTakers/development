@@ -1,5 +1,7 @@
 package com.sophia.response;
 
+import java.io.Serializable;
+
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.web.constant.StatusCodeConstant;
 
@@ -7,8 +9,12 @@ import com.sophia.web.constant.StatusCodeConstant;
  * 响应
  * @author zkning
  */
-public class Response<T> {
+public class Response<T> implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer code;
 	private String message;
 	private T result;
@@ -58,34 +64,42 @@ public class Response<T> {
 		return JSONObject.toJSONString(this);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response getInstance(Integer code,String message,Object result){
 		return new Response(code, message, result);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response getInstance(Integer code,String message){
 		return new Response(code, message, null);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SUCCESS(){
 		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), null);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SUCCESS(Object result){
 		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), result);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(){
 		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), null);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(Object result){
 		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), result);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(Integer code ,String message){
 		return new Response(code, message, null);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SYSTEMEXCEPTION(Exception ex){
 		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), ex);
 	}

@@ -51,7 +51,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> list(@RequestBody @Valid QueryRequest queryRequest) {
+	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
 			return Response.SUCCESS(data);
@@ -77,7 +77,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> save(@RequestBody @Valid SQLGroupRequest request) {
+	public Object save(@RequestBody @Valid SQLGroupRequest request) {
 		try {
 			SQLGroup target = new SQLGroup();
 			
@@ -94,7 +94,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public  Response<Object>  delete(@RequestBody String param) {
+	public  Object  delete(@RequestBody String param) {
 		try {
 			JSONObject json = JSON.parseObject(param);
 			sqlGroupService.getRepository().delete(json.getString("id"));
@@ -106,7 +106,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object>  findById(@RequestBody JSONObject row) {
+	public Object  findById(@RequestBody JSONObject row) {
 		try {
 			return Response.SUCCESS(sqlGroupService.findById(row.getString("id")));
 		} catch (Exception e) {

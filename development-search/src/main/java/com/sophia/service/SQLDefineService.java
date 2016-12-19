@@ -13,14 +13,14 @@ public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	
 	public String save(SQLDefine sqlDefine);
 	
-	public GridResponse<?> list(QueryRequest queryRequest);
+	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
 	
 	/**
 	 * 根据SQLCODE
 	 * @param queryRequest
 	 * @return
 	 */
-	public GridResponse<?> list(String code,QueryRequest queryRequest);
+	public GridResponse<Map<String, Object>> list(String code,QueryRequest queryRequest);
 	
 	public Map<String,Object> findById(String id);
 	

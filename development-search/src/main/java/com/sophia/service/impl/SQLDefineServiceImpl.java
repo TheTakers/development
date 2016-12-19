@@ -42,7 +42,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().save(sqlDefine).getId();
 	}
 	@Override
-	public GridResponse<?> list(QueryRequest queryRequest) {
+	public GridResponse<Map<String, Object>> list(QueryRequest queryRequest) {
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
@@ -63,10 +63,10 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().findBySqlId(sqlId);
 	}
 	@Override
-	public GridResponse<?> list(String sqlId, QueryRequest queryRequest) {
+	public GridResponse<Map<String, Object>> list(String sqlId, QueryRequest queryRequest) {
 		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
 		if(null == sqlDefine){
-			return new GridResponse();
+			return new GridResponse<Map<String, Object>>();
 		}
 		SQLFilter sqlFilter = SQLFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());

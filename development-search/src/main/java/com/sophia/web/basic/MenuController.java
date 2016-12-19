@@ -54,7 +54,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> list(@RequestBody @Valid QueryRequest queryRequest) {
+	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse<Map<String,Object>> data = menuService.list(queryRequest);
 			return Response.SUCCESS(data);
@@ -80,7 +80,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> menuTreeData(@RequestBody JSONObject param) {
+	public Object menuTreeData(@RequestBody JSONObject param) {
 		try {
 			return Response.SUCCESS(menuService.getMenuByName(param.getString("name")));
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> findById(@RequestBody JSONObject row) {
+	public Object findById(@RequestBody JSONObject row) {
 		try {
 			return Response.SUCCESS(menuService.findById(row.getString("id")));
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> delete(@RequestBody String param) {
+	public Object delete(@RequestBody String param) {
 		try {
 			JSONObject json = JSON.parseObject(param);
 			menuService.delete(json.getString("id"));
@@ -112,7 +112,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> save(@RequestBody @Valid MenuRequest request) {
+	public Object save(@RequestBody @Valid MenuRequest request) {
 		try {
 			Menu target = new Menu();
 			BeanUtils.copyProperties(request, target);

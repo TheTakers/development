@@ -32,13 +32,13 @@ public class BaseController {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public Response<Object> catchRuntimeExp(RuntimeException ex,HttpServletRequest request){
+    public Object catchRuntimeExp(RuntimeException ex,HttpServletRequest request){
         logger.error(request.getRequestURL()+"拦截运行时异常",ex);
         return Response.FAILURE(StatusCodeConstant.SERVICE_UNACCESSABLE.getCode(),StatusCodeConstant.SERVICE_UNACCESSABLE.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
-    public Response<Object> catchExp(Exception ex,HttpServletRequest request) {
+    public Object catchExp(Exception ex,HttpServletRequest request) {
         logger.error(request.getRequestURL()+"拦截异常",ex);
         return Response.FAILURE(StatusCodeConstant.SYSTEM_ERROR.getCode(),StatusCodeConstant.SYSTEM_ERROR.getMessage());
     }

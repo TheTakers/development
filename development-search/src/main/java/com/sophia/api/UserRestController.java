@@ -24,7 +24,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/permit/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Response<Object> permituser(@RequestBody @Valid UserRequest userParam) {
+    public Object permituser(@RequestBody @Valid UserRequest userParam) {
         try {
         	return Response.SUCCESS();
         } catch (Exception e) {
@@ -38,8 +38,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Response<Object> user(@RequestBody @Valid UserRequest userLuckParam) {
-     
+    public Object user(@RequestBody @Valid UserRequest userLuckParam) {
     	 try {
          	return Response.SUCCESS();
          } catch (Exception e) {
@@ -53,7 +52,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/permit/verify", method = RequestMethod.POST ,consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> verify(@RequestBody @Valid String order) {
+	public Object verify(@RequestBody @Valid String order) {
 		try{
 			logger.info("请求参数:{}",order);
 			return Response.SUCCESS(JSON.parseObject(order));

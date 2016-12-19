@@ -55,9 +55,9 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> list(@RequestBody @Valid QueryRequest queryRequest) {
+	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			GridResponse data = sqlDefineService.list(queryRequest);
+			GridResponse<Map<String,Object>> data = sqlDefineService.list(queryRequest);
 			return Response.SUCCESS(data);
 		} catch (Exception e) {
 			return Response.FAILURE(e);
@@ -72,9 +72,9 @@ public class SQLDefineController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
+	public Object list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
 		try {
-			GridResponse data = sqlDefineService.list(sqlId,queryRequest);
+			GridResponse<Map<String,Object>> data = sqlDefineService.list(sqlId,queryRequest);
 			return Response.SUCCESS(data);
 		} catch (Exception e) {
 			return Response.FAILURE(e);
@@ -93,7 +93,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> save(@RequestBody @Valid SQLDefineRequest request) {
+	public Object save(@RequestBody @Valid SQLDefineRequest request) {
 		try {
 			SQLDefine target = new SQLDefine();
 			BeanUtils.copyProperties(request, target);
@@ -109,7 +109,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> findById(@RequestBody JSONObject row) {
+	public Object findById(@RequestBody JSONObject row) {
 		try {
 			return Response.SUCCESS(sqlDefineService.findById(row.getString("id")));
 		} catch (Exception e) {
@@ -119,7 +119,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> delete(@RequestBody JSONObject param) {
+	public Object delete(@RequestBody JSONObject param) {
 		try {
 			sqlDefineService.getRepository().delete(param.getString("id"));
 			return Response.SUCCESS();
@@ -135,7 +135,7 @@ public class SQLDefineController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAllTable",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Response<Object> findAllTable() {
+	public Object findAllTable() {
 		try {
 			List<Map<String,Object>> list = sqlDefineService.findAllTable();
 			return Response.SUCCESS(list);
