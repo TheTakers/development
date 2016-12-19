@@ -23,8 +23,8 @@ import com.sophia.request.QueryRequest;
 import com.sophia.request.SQLViewQueryRquest;
 import com.sophia.request.SQLViewRequest;
 import com.sophia.response.GridResponse;
+import com.sophia.response.Response;
 import com.sophia.service.SQLViewService;
-import com.sophia.web.constant.Constant;
 
 @Controller
 @RequestMapping(SQLViewController.module)
@@ -46,12 +46,12 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
+	public Response<Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse<Map<String,Object>> data = sqlViewService.list(queryRequest);
-			return responseOk(Constant.SUCCESS_MESSAGE,data);
+			return Response.SUCCESS(data);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -66,49 +66,49 @@ public class SQLViewController extends BaseController{
 		try {
 			return JSONObject.toJSONString(sqlViewService.getRepository().findAll());
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLViewRequest request) {
+	public Response<Object> save(@RequestBody @Valid SQLViewRequest request) {
 		try {
 			sqlViewService.save(request);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> delete(@RequestBody JSONObject param) {
+	public Response<Object> delete(@RequestBody JSONObject param) {
 		try {
 			sqlViewService.getRepository().delete(param.getString("id"));
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
  
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody JSONObject param) {
+	public Response<Object> findById(@RequestBody JSONObject param) {
 		try {
-			return responseOk(sqlViewService.findById(param.getString("id")));
+			return Response.SUCCESS(sqlViewService.findById(param.getString("id")));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/createField",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> generateField(@RequestBody JSONObject json) {
+	public Response<Object> generateField(@RequestBody JSONObject json) {
 		try {
-			return responseOk(sqlViewService.showFullColumnsBySql(json.getString("sqlId")));
+			return Response.SUCCESS(sqlViewService.showFullColumnsBySql(json.getString("sqlId")));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -120,11 +120,11 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject row) {
+	public Response<Object> findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject row) {
 		try {
-			return responseOk(sqlViewService.getDataBySqlId(sqlId,row));
+			return Response.SUCCESS(sqlViewService.getDataBySqlId(sqlId,row));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -137,11 +137,11 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getSqlViewAndSqlDefineRowDataByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getSqlViewAndSqlDefineRowDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
+	public Response<Object> getSqlViewAndSqlDefineRowDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
 		try {
-			return responseOk(sqlViewService.getSqlViewAndSqlDefineRowDataByCode(code,row));
+			return Response.SUCCESS(sqlViewService.getSqlViewAndSqlDefineRowDataByCode(code,row));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -152,13 +152,13 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/getSqlViewByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getSqlViewByCode(@PathVariable String code) {
+	public  Response<Object> getSqlViewByCode(@PathVariable String code) {
 		try {
 			Map<String,Object> result = new HashMap<>();
 			result.put("sqlView", sqlViewService.getSqlViewByCode(code));
-			return responseOk(result);
+			return Response.SUCCESS(result);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -181,11 +181,11 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/{code}",method={RequestMethod.GET,RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getByCode(@PathVariable String code) {
+	public Response<Object> getByCode(@PathVariable String code) {
 		try {
-			return responseOk(sqlViewService.getSqlViewByCode(code));
+			return Response.SUCCESS(sqlViewService.getSqlViewByCode(code));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -196,12 +196,12 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/persistent/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> createView(@PathVariable String code,@RequestBody JSONObject formParam) {
+	public Response<Object> createView(@PathVariable String code,@RequestBody JSONObject formParam) {
 		try {
 			sqlViewService.persistentByCode(code, formParam);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -214,12 +214,12 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/modfity/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> modfityView(@PathVariable String code,@RequestBody JSONObject formParam) {
+	public Response<Object> modfityView(@PathVariable String code,@RequestBody JSONObject formParam) {
 		try {
 			sqlViewService.modifyByCode(code, formParam);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -231,12 +231,12 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/delete/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> deleteView(@PathVariable String code,@RequestBody JSONObject row) {
+	public  Response<Object> deleteView(@PathVariable String code,@RequestBody JSONObject row) {
 		try {
 			sqlViewService.deleteByCode(code, row);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -248,11 +248,11 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
+	public  Response<Object> findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
 		try {
-			return responseOk(Constant.SUCCESS_MESSAGE,sqlViewService.findSqlViewGrid(code, queryRequest));
+			return Response.SUCCESS(sqlViewService.findSqlViewGrid(code, queryRequest));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -263,11 +263,11 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findFieldListByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findFieldListByViewCode(@PathVariable String code) {
+	public Response<Object> findFieldListByViewCode(@PathVariable String code) {
 		try {
-			return responseOk(Constant.SUCCESS_MESSAGE,sqlViewService.findFieldListByViewCode(code));
+			return Response.SUCCESS(sqlViewService.findFieldListByViewCode(code));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 }

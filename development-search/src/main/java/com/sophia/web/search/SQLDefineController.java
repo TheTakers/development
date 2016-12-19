@@ -25,8 +25,8 @@ import com.sophia.domain.SQLDefine;
 import com.sophia.request.QueryRequest;
 import com.sophia.request.SQLDefineRequest;
 import com.sophia.response.GridResponse;
+import com.sophia.response.Response;
 import com.sophia.service.SQLDefineService;
-import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
 /**
@@ -55,12 +55,12 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryRequest) {
+	public Response<Object> list(@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse data = sqlDefineService.list(queryRequest);
-			return responseOk(Constant.SUCCESS_MESSAGE,data);
+			return Response.SUCCESS(data);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -72,12 +72,12 @@ public class SQLDefineController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
+	public Response<Object> list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
 		try {
 			GridResponse data = sqlDefineService.list(sqlId,queryRequest);
-			return responseOk(Constant.SUCCESS_MESSAGE,data);
+			return Response.SUCCESS(data);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -87,13 +87,13 @@ public class SQLDefineController extends BaseController{
 		try {
 			return sqlDefineService.findAllBySqlId(sqlId);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid SQLDefineRequest request) {
+	public Response<Object> save(@RequestBody @Valid SQLDefineRequest request) {
 		try {
 			SQLDefine target = new SQLDefine();
 			BeanUtils.copyProperties(request, target);
@@ -101,30 +101,30 @@ public class SQLDefineController extends BaseController{
 				target.setId(GUID.nextId());
 			}
 			sqlDefineService.save(target);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody JSONObject row) {
+	public Response<Object> findById(@RequestBody JSONObject row) {
 		try {
-			return responseOk(sqlDefineService.findById(row.getString("id")));
+			return Response.SUCCESS(sqlDefineService.findById(row.getString("id")));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> delete(@RequestBody JSONObject param) {
+	public Response<Object> delete(@RequestBody JSONObject param) {
 		try {
 			sqlDefineService.getRepository().delete(param.getString("id"));
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -135,12 +135,12 @@ public class SQLDefineController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAllTable",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findAllTable() {
+	public Response<Object> findAllTable() {
 		try {
 			List<Map<String,Object>> list = sqlDefineService.findAllTable();
-			return responseOk(Constant.SUCCESS_MESSAGE,list);
+			return Response.SUCCESS(list);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 }

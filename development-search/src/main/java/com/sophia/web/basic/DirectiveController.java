@@ -1,7 +1,5 @@
 package com.sophia.web.basic;
 
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,32 +16,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Menu;
 import com.sophia.request.MenuRequest;
 import com.sophia.request.QueryRequest;
+import com.sophia.response.Response;
 import com.sophia.service.MenuService;
-import com.sophia.web.constant.Constant;
 import com.sophia.web.util.GUID;
 
 
 @Controller
 @RequestMapping(DirectiveController.module)
 public class DirectiveController extends BaseController{
-	
 	@Autowired MenuService menuService;
-	
 	public static final String module = "/basic/directive";
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {
+	public Response<Object> list(@RequestBody @Valid QueryRequest queryGridRequest) {
 		try {
 			Page<Menu> data = menuService.getRepository().findAll(new PageRequest(queryGridRequest.getPageNo(), queryGridRequest.getPageSize()));
-			return responseOk(Constant.SUCCESS_MESSAGE,data);
+			return Response.SUCCESS(data);
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
@@ -58,47 +55,47 @@ public class DirectiveController extends BaseController{
 		try {
 			return JSONObject.toJSONString(menuService.getRepository().findAll());
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> menuTreeData(@RequestBody String param) {
+	public Response<Object> menuTreeData(@RequestBody String param) {
 		try {
-			JSONObject paramJson = new JSONObject().parseObject(param);
-			return responseOk(menuService.getMenuByName(paramJson.getString("name")));
+			JSONObject paramJson = JSON.parseObject(param);
+			return Response.SUCCESS(menuService.getMenuByName(paramJson.getString("name")));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> findById(@RequestBody String param) {
+	public Response<Object> findById(@RequestBody String param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
-			return responseOk(menuService.findById(json.getString("id")));
+			JSONObject json = JSON.parseObject(param);
+			return Response.SUCCESS(menuService.findById(json.getString("id")));
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> delete(@RequestBody String param) {
+	public Response<Object> delete(@RequestBody String param) {
 		try {
-			JSONObject json = new JSONObject().parseObject(param);
+			JSONObject json = JSON.parseObject(param);
 			menuService.delete(json.getString("id"));
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> save(@RequestBody @Valid MenuRequest request) {
+	public Response<Object> save(@RequestBody @Valid MenuRequest request) {
 		try {
 			Menu target = new Menu();
 			BeanUtils.copyProperties(request, target);
@@ -106,20 +103,9 @@ public class DirectiveController extends BaseController{
 				target.setId(GUID.nextId());
 			}
 			menuService.save(target);
-			return responseOk(Constant.SUCCESS_MESSAGE);
+			return Response.SUCCESS();
 		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
-		}
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/breadcrumb",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> getPath(@RequestBody String action) {
-		try {
-			JSONObject json = new JSONObject().parseObject(action);
-			return responseOk(menuService.getMenuPath(json.getString("action")));
-		} catch (Exception e) {
-			return responseError(Constant.FAILURE_MESSAGE, e);
+			return Response.FAILURE(e);
 		}
 	}
 }
