@@ -26,14 +26,13 @@ public class CommonUtils {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		javax.validation.Validator validator = factory.getValidator();
 		Set<ConstraintViolation<T>> violations = validator.validate(bean);
-		StringBuilder sb = new StringBuilder();
+		StringBuilder msgBuffer = new StringBuilder();
 		if (!CollectionUtils.isEmpty(violations)) {
 			for (ConstraintViolation<T> violation : violations) {
-				String message = violation.getMessage();
-				sb.append(violation.getPropertyPath().toString() + ":" + message + "; ");
+				msgBuffer.append(violation.getPropertyPath().toString() + ":" + violation.getMessage() + "; ");
 				break;
 			}
-			return Response.FAILURE(StatusCodeConstant.INVALID_ARGS.getCode(),sb.toString());
+			return Response.FAILURE(StatusCodeConstant.INVALID_ARGS.getCode(),msgBuffer.toString());
 		} else {
 			return Response.SUCCESS();
 		}
