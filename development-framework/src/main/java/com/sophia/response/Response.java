@@ -58,35 +58,35 @@ public class Response<T> {
 		return JSONObject.toJSONString(this);
 	}
 	
-	public static Response<Object> getInstance(Integer code,String message,Object result){
-		return new Response<Object>(code, message, result);
+	public static Response getInstance(Integer code,String message,Object result){
+		return new Response(code, message, result);
 	}
 	
-	public static Response<Object> getInstance(Integer code,String message){
-		return new Response<Object>(code, message, null);
+	public static Response getInstance(Integer code,String message){
+		return new Response(code, message, null);
 	}
 	
-	public static Response<Object> SUCCESS(){
-		return new Response<Object>(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), null);
+	public static Response SUCCESS(){
+		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), null);
 	}
 	
-	public static Response<Object> SUCCESS(Object result){
-		return new Response<Object>(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), result);
+	public static Response SUCCESS(Object result){
+		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), result);
 	}
 	
-	public static Response<Object> FAILURE(){
-		return new Response<Object>(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), null);
+	public static Response FAILURE(){
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), null);
 	}
 	
-	public static Response<Object> FAILURE(Object result){
-		return new Response<Object>(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), result);
+	public static Response FAILURE(Object result){
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), result);
 	}
 	
-	public static Response<Object> FAILURE(Integer code ,String message){
-		return new Response<Object>(code, message, null);
+	public static Response FAILURE(Integer code ,String message){
+		return new Response(code, message, null);
 	}
 	
-	public static Response<Object> SYSTEMEXCEPTION(Exception ex){
-		return new Response<Object>(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), ex);
+	public static Response SYSTEMEXCEPTION(Exception ex){
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), ex);
 	}
 }
