@@ -412,7 +412,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 							baseIndexEdit(commonService,scope.sqlView.controller + '/findById',func.url,modalDialog,{id:item.id,sqlView:scope.sqlView},scope.grid.search,90);
 							break;
 						case CRUD_CODE.DELETE://删除
-							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.search);
+							remove(commonService,scope.sqlView.controller + '/delete',{id:item.id},scope.grid.search);
 							break;
 
 						case CRUD_CODE.VIEW: //查
