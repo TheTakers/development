@@ -11,11 +11,11 @@ controller:"/basic/menu"
         {title:"操作",field:""}
     ]
 ,buttonData:[
-               {title:"查看",icon:"ion-eye",target:"view",type:0},
-               {title:"编辑",icon:"ion-edit",target:"edit",type:0},
-               {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
-               {title:"新增",icon:"",target:"edit",type:1}
-               ]
+       {title:"查看",icon:"ion-eye",target:"view",type:0},
+       {title:"编辑",icon:"ion-edit",target:"edit",type:0},
+       {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
+       {title:"新增",icon:"",target:"edit",type:1}
+   ]
 ,filterData:[{title:"名称",field:"name",componentType:"TEXT",value:"",expr:"like",expand:""}]
 ,treeData:{
 	url:"/basic/menu/treeData",
