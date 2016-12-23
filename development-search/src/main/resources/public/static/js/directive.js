@@ -324,7 +324,6 @@ app.directive('uitab', function($http,$log) {
 		template:function(element,atts){
 			return  '<div  ng-if="data.length > 0">'+
 			' <ul class="nav nav-tabs" id="{{id}}">'+
-
 			' 	<li class="dropdown pull-right tabdrop">'+
 			' 	<a class="dropdown-toggle" data-toggle="dropdown" href="#" >'+
 			'    <i class="glyphicon glyphicon-align-justify"></i><b=class="caret"></b></a>'+

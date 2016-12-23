@@ -10,5 +10,5 @@ controller:"/basic/menu"
 		            {title:"排序",field:"path",display:true,expand:""},
 		            {title:"描述",field:"remark",display:true,expand:""}
 		            ]
-,filterData:[{label:"名称",field:"name",componentType:"text",value:"",expr:"like",expand:""}]
+,filterData:[{title:"名称",field:"name",componentType:"text",value:"",expr:"like",expand:""}]
 }

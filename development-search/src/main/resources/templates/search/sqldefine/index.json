@@ -18,15 +18,14 @@ fieldData:[
        {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
        {title:"新增",icon:"",target:"edit",type:1}
    ]
-,filterData:[{title:"SQLID",field:"sqlid",componentType:"",value:"",expr:"like",expand:""},
-	   {title:"别名",field:"sqlname",componentType:"",value:"",expr:"like",expand:""}]
+,filterData:[{title:"SQLID",field:"sqlid",componentType:"TEXT",value:"",expr:"like",expand:""},
+	   {title:"别名",field:"sqlname",componentType:"TEXT",value:"",expr:"like",expand:""}]
 ,treeData:{
 	url:"/search/sqlgroup/treeData",
 	idKey: "id",
 	pIdKey: "parentId",
 	rootPId: 0
 	}
-	
 ,fieldSetting:[
     {title:"SQLID",field:"sqlId",required:true,componentType:"GENERATECODE",rule:"[10001]"},
     {title:"别名",field:"sqlName",required:true,componentType:"TEXT",rule:"[10001]"},
