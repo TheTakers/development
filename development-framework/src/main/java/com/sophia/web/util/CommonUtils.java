@@ -32,7 +32,7 @@ public class CommonUtils {
 				msgBuffer.append(violation.getPropertyPath().toString() + ":" + violation.getMessage() + "; ");
 				break;
 			}
-			return Response.FAILURE(StatusCodeConstant.INVALID_ARGS.getCode(),msgBuffer.toString());
+			return Response.FAILURE(StatusCodeConstant.INVALID_ARGS.code,msgBuffer.toString());
 		} else {
 			return Response.SUCCESS();
 		}

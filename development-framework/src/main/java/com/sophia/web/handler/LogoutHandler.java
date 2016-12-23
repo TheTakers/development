@@ -18,7 +18,7 @@ import com.sophia.web.constant.StatusCodeConstant;
 public class LogoutHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        Response<String> response = new Response<String>(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage());
+        Response<String> response = new Response<String>(StatusCodeConstant.SUCCESS.code, StatusCodeConstant.SUCCESS.message);
         httpServletResponse.getWriter().write(new String(response.toJsonString().getBytes(),"UTF-8"));
     }
 }

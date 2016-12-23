@@ -76,22 +76,22 @@ public class Response<T> implements Serializable{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SUCCESS(){
-		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), null);
+		return new Response(StatusCodeConstant.SUCCESS.code, StatusCodeConstant.SUCCESS.message, null);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SUCCESS(Object result){
-		return new Response(StatusCodeConstant.SUCCESS.getCode(), StatusCodeConstant.SUCCESS.getMessage(), result);
+		return new Response(StatusCodeConstant.SUCCESS.code, StatusCodeConstant.SUCCESS.message, result);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(){
-		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), null);
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, StatusCodeConstant.SYSTEM_ERROR.message, null);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(Object result){
-		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), result);
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, StatusCodeConstant.SYSTEM_ERROR.message, result);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -101,6 +101,6 @@ public class Response<T> implements Serializable{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response SYSTEMEXCEPTION(Exception ex){
-		return new Response(StatusCodeConstant.SYSTEM_ERROR.getCode(), StatusCodeConstant.SYSTEM_ERROR.getMessage(), ex);
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, StatusCodeConstant.SYSTEM_ERROR.message, ex);
 	}
 }
