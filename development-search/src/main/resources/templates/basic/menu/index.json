@@ -31,5 +31,5 @@ controller:"/basic/menu"
 		{title:"菜单路径",field:"path",required:false,componentType:"TEXT"},
 		{title:"排序",field:"idx",required:false,componentType:"TEXT"},
 		{title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
-		]
+	]
 }
