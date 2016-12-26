@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -52,7 +54,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	
 	@Override
 	public List<Menu> getTreeData() {
-		List<Menu> data = getRepository().findAll();
+		List<Menu> data = getRepository().findAll(new Sort("idx"));
 		List<Menu> menuData = new ArrayList<>();
 		for(Menu menu : data){
 			if(menu.getPid() .equals( "0" )){
