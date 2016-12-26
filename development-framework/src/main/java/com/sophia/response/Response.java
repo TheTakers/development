@@ -2,6 +2,9 @@ package com.sophia.response;
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.web.constant.StatusCodeConstant;
 
@@ -10,7 +13,7 @@ import com.sophia.web.constant.StatusCodeConstant;
  * @author zkning
  */
 public class Response<T> implements Serializable{
-	
+	private static final Logger logger = LoggerFactory.getLogger(Response.class);
 	/**
 	 * 
 	 */
@@ -92,6 +95,12 @@ public class Response<T> implements Serializable{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(Object result){
 		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, StatusCodeConstant.SYSTEM_ERROR.message, result);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Response FAILURE(Exception ex){
+		logger.error("系统异常",ex);
+		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, ex.getMessage(), null);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
