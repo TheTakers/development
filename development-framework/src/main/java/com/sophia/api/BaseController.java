@@ -5,12 +5,13 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.sophia.response.Response;
-import com.sophia.web.constant.StatusCodeConstant;
 
 /**
  * @author zkning
@@ -22,7 +23,9 @@ public class BaseController {
         HttpSession session = null;
         try {
             session = getRequest().getSession();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        	logger.error("session获取异常",e);
+        }
         return session;
     }
 
@@ -32,15 +35,15 @@ public class BaseController {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public Object catchRuntimeExp(RuntimeException ex,HttpServletRequest request){
-        logger.error(request.getRequestURL()+"拦截运行时异常",ex);
-        return Response.FAILURE(StatusCodeConstant.SERVICE_UNACCESSABLE.code,StatusCodeConstant.SERVICE_UNACCESSABLE.message);
+    public ResponseEntity<Response<Object>> catchRuntimeException(RuntimeException ex,HttpServletRequest request){
+        logger.error("拦截运行时异常:"+request.getRequestURL(),ex);
+        return new ResponseEntity<Response<Object>>(Response.FAILURE(ex), HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)
-    public Object catchExp(Exception ex,HttpServletRequest request) {
-        logger.error(request.getRequestURL()+"拦截异常",ex);
-        return Response.FAILURE(StatusCodeConstant.SYSTEM_ERROR.code,StatusCodeConstant.SYSTEM_ERROR.message);
+    public ResponseEntity<Response<Object>> catchException(Exception ex,HttpServletRequest request) {
+        logger.error("拦截异常:"+request.getRequestURL(),ex);
+        return new ResponseEntity<Response<Object>>(Response.FAILURE(ex), HttpStatus.OK);
     }
 
 }

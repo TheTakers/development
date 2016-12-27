@@ -27,6 +27,6 @@ public class GUID {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(GUID.nextId());
+		System.out.println(createCode());
 	}
 }

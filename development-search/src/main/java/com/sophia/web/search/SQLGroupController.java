@@ -33,10 +33,8 @@ import com.sophia.web.util.GUID;
 @Controller
 @RequestMapping(SQLGroupController.module)
 public class SQLGroupController extends BaseController{
-	
 	@Autowired SQLGroupService sqlGroupService;
 	@Autowired SQLIDService sqlidService;
-	
 	public static final String module = "/search/sqlgroup";
 	
 	@RequestMapping("/index")
@@ -52,12 +50,8 @@ public class SQLGroupController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		try {
-			GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
-			return Response.SUCCESS(data);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
+		return Response.SUCCESS(data);
 	}
 	
 	@RequestMapping("/selector")
@@ -68,49 +62,32 @@ public class SQLGroupController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {
-		try {
-			return JSONObject.toJSONString(sqlGroupService.getRepository().findAll());
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return JSONObject.toJSONString(sqlGroupService.getRepository().findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid SQLGroupRequest request) {
-		try {
-			SQLGroup target = new SQLGroup();
-			
-			BeanUtils.copyProperties(request, target);
-			if(StringUtils.isBlank(request.getId())){
-				target.setId(GUID.nextId());
-			}
-			sqlGroupService.save(target);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
+		SQLGroup target = new SQLGroup();
+		BeanUtils.copyProperties(request, target);
+		if(StringUtils.isBlank(request.getId())){
+			target.setId(GUID.nextId());
 		}
+		sqlGroupService.save(target);
+		return Response.SUCCESS();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  Object  delete(@RequestBody String param) {
-		try {
-			JSONObject json = JSON.parseObject(param);
-			sqlGroupService.getRepository().delete(json.getString("id"));
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		JSONObject json = JSON.parseObject(param);
+		sqlGroupService.getRepository().delete(json.getString("id"));
+		return Response.SUCCESS();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object  findById(@RequestBody JSONObject row) {
-		try {
-			return Response.SUCCESS(sqlGroupService.findById(row.getString("id")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+	public Object findById(@RequestBody JSONObject row) {
+		return Response.SUCCESS(sqlGroupService.findById(row.getString("id")));
 	}
 }

@@ -22,12 +22,8 @@ public class CommonController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/code",method=RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-	public Object code() {
-		try {
-			return Response.SUCCESS(GUID.createCode());
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+	public Object createCode() {
+		return Response.SUCCESS(GUID.createCode());
 	}
 	
 }

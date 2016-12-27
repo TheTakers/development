@@ -118,13 +118,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param sqlIndex
 	 */
 	@Override
-	public List<SQLViewField> showFullColumnsBySql(String sqlId) throws Exception {
+	public List<SQLViewField> showFullColumnsBySql(String sqlId) {
 		List<SQLViewField> list = new ArrayList<SQLViewField>();
 
 		SQLDefine sqlDefine = getSQLDefine(sqlId);
 		if(sqlDefine == null){
 			logger.error("SQLID:{}未定义",sqlId);
-			throw new Exception("SQLID:["+sqlId+"]未定义");
+			throw new ServiceException("SQLID:["+sqlId+"]未定义");
 		}
 		
 		//获取主表实际列用来过滤

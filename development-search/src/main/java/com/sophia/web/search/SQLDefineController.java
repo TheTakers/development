@@ -52,12 +52,8 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		try {
-			GridResponse<Map<String,Object>> data = sqlDefineService.list(queryRequest);
-			return Response.SUCCESS(data);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		GridResponse<Map<String,Object>> data = sqlDefineService.list(queryRequest);
+		return Response.SUCCESS(data);
 	}
 	
 	/**
@@ -69,12 +65,8 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
-		try {
-			GridResponse<Map<String,Object>> data = sqlDefineService.list(sqlId,queryRequest);
-			return Response.SUCCESS(data);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		GridResponse<Map<String,Object>> data = sqlDefineService.list(sqlId,queryRequest);
+		return Response.SUCCESS(data);
 	}
 	
 	@ResponseBody
@@ -90,17 +82,13 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid SQLDefineRequest request) {
-		try {
-			SQLDefine target = new SQLDefine();
-			BeanUtils.copyProperties(request, target);
-			if(StringUtils.isBlank(request.getId())){
-				target.setId(GUID.nextId());
-			}
-			sqlDefineService.save(target);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
+		SQLDefine target = new SQLDefine();
+		BeanUtils.copyProperties(request, target);
+		if(StringUtils.isBlank(request.getId())){
+			target.setId(GUID.nextId());
 		}
+		sqlDefineService.save(target);
+		return Response.SUCCESS();
 	}
 	
 	@ResponseBody
@@ -116,12 +104,8 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object delete(@RequestBody JSONObject param) {
-		try {
-			sqlDefineService.getRepository().delete(param.getString("id"));
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		sqlDefineService.getRepository().delete(param.getString("id"));
+		return Response.SUCCESS();
 	}
 	
 	/**
@@ -132,11 +116,7 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/findAllTable",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findAllTable() {
-		try {
-			List<Map<String,Object>> list = sqlDefineService.findAllTable();
-			return Response.SUCCESS(list);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		List<Map<String,Object>> list = sqlDefineService.findAllTable();
+		return Response.SUCCESS(list);
 	}
 }

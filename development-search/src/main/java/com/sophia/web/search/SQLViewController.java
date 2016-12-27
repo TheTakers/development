@@ -47,12 +47,8 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		try {
-			GridResponse<Map<String,Object>> data = sqlViewService.list(queryRequest);
-			return Response.SUCCESS(data);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		GridResponse<Map<String,Object>> data = sqlViewService.list(queryRequest);
+		return Response.SUCCESS(data);
 	}
 	
 	@RequestMapping("/selector")
@@ -62,12 +58,8 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object treeData() {
-		try {
-			return JSONObject.toJSONString(sqlViewService.getRepository().findAll());
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+	public Object tree() {
+		return JSONObject.toJSONString(sqlViewService.getRepository().findAll());
 	}
 	
 	@ResponseBody
@@ -84,32 +76,20 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object delete(@RequestBody JSONObject param) {
-		try {
-			sqlViewService.getRepository().delete(param.getString("id"));
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		sqlViewService.getRepository().delete(param.getString("id"));
+		return Response.SUCCESS();
 	}
  
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findById(@RequestBody JSONObject param) {
-		try {
-			return Response.SUCCESS(sqlViewService.findById(param.getString("id")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.findById(param.getString("id")));
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/createField",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object generateField(@RequestBody JSONObject json) {
-		try {
-			return Response.SUCCESS(sqlViewService.showFullColumnsBySql(json.getString("sqlId")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.showFullColumnsBySql(json.getString("sqlId")));
 	}
 	
 	/**
@@ -121,11 +101,7 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/findBySqlId/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findBySqlId(@PathVariable String sqlId,@RequestBody JSONObject row) {
-		try {
-			return Response.SUCCESS(sqlViewService.getDataBySqlId(sqlId,row));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.getDataBySqlId(sqlId,row));
 	}
 	
 	
@@ -138,11 +114,7 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/getSqlViewAndSqlDefineRowDataByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object getSqlViewAndSqlDefineRowDataByCode(@PathVariable String code,@RequestBody JSONObject row) {
-		try {
-			return Response.SUCCESS(sqlViewService.getSqlViewAndSqlDefineRowDataByCode(code,row));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.getSqlViewAndSqlDefineRowDataByCode(code,row));
 	}
 	
 	/**
@@ -153,13 +125,9 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/getSqlViewByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  Object getSqlViewByCode(@PathVariable String code) {
-		try {
-			Map<String,Object> result = new HashMap<>();
-			result.put("sqlView", sqlViewService.getSqlViewByCode(code));
-			return Response.SUCCESS(result);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		Map<String,Object> result = new HashMap<>();
+		result.put("sqlView", sqlViewService.getSqlViewByCode(code));
+		return Response.SUCCESS(result);
 	}
 	
 	/**
@@ -182,11 +150,7 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/{code}",method={RequestMethod.GET,RequestMethod.POST}, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object getByCode(@PathVariable String code) {
-		try {
-			return Response.SUCCESS(sqlViewService.getSqlViewByCode(code));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.getSqlViewByCode(code));
 	}
 	
 	/**
@@ -197,12 +161,8 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/persistent/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object createView(@PathVariable String code,@RequestBody JSONObject formParam) {
-		try {
-			sqlViewService.persistentByCode(code, formParam);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		sqlViewService.persistentByCode(code, formParam);
+		return Response.SUCCESS();
 	}
 	
 	
@@ -215,12 +175,8 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/modfity/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object modfityView(@PathVariable String code,@RequestBody JSONObject formParam) {
-		try {
-			sqlViewService.modifyByCode(code, formParam);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		sqlViewService.modifyByCode(code, formParam);
+		return Response.SUCCESS();
 	}
 	
 	/**
@@ -232,12 +188,8 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/delete/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  Object deleteView(@PathVariable String code,@RequestBody JSONObject row) {
-		try {
-			sqlViewService.deleteByCode(code, row);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		sqlViewService.deleteByCode(code, row);
+		return Response.SUCCESS();
 	}
 	
 	/**
@@ -249,11 +201,7 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public  Object findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
-		try {
-			return Response.SUCCESS(sqlViewService.findSqlViewGrid(code, queryRequest));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.findSqlViewGrid(code, queryRequest));
 	}
 	
 	/**
@@ -264,10 +212,6 @@ public class SQLViewController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/findFieldListByCode/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findFieldListByViewCode(@PathVariable String code) {
-		try {
-			return Response.SUCCESS(sqlViewService.findFieldListByViewCode(code));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(sqlViewService.findFieldListByViewCode(code));
 	}
 }

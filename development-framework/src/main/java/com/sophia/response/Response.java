@@ -99,7 +99,6 @@ public class Response<T> implements Serializable{
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static Response FAILURE(Exception ex){
-		logger.error("系统异常",ex);
 		return new Response(StatusCodeConstant.SYSTEM_ERROR.code, ex.getMessage(), null);
 	}
 	

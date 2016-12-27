@@ -21,7 +21,7 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	
 	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
 	
-	public List<SQLViewField> showFullColumnsBySql(String sql) throws Exception;
+	public List<SQLViewField> showFullColumnsBySql(String sql);
 	
 	/**
 	 * 根据编号获取视图

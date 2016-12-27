@@ -55,12 +55,8 @@ public class MenuController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		try {
-			GridResponse<Map<String,Object>> data = menuService.list(queryRequest);
-			return Response.SUCCESS(data);
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		GridResponse<Map<String,Object>> data = menuService.list(queryRequest);
+		return Response.SUCCESS(data);
 	}
 	
 	@RequestMapping("/selector")
@@ -71,58 +67,38 @@ public class MenuController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {
-		try {
-			return JSONObject.toJSONString(menuService.getRepository().findAll());
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return JSONObject.toJSONString(menuService.getRepository().findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findByNameLike",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findByNameLike(@RequestBody JSONObject param) {
-		try {
-			return Response.SUCCESS(menuService.findByNameLike(param.getString("name")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(menuService.findByNameLike(param.getString("name")));
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findById(@RequestBody JSONObject row) {
-		try {
-			return Response.SUCCESS(menuService.findById(row.getString("id")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		return Response.SUCCESS(menuService.findById(row.getString("id")));
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object delete(@RequestBody String param) {
-		try {
-			JSONObject json = JSON.parseObject(param);
-			menuService.delete(json.getString("id"));
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
+		JSONObject json = JSON.parseObject(param);
+		menuService.delete(json.getString("id"));
+		return Response.SUCCESS();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid MenuRequest request) {
-		try {
-			Menu target = new Menu();
-			BeanUtils.copyProperties(request, target);
-			if(StringUtils.isBlank(request.getId())){
-				target.setId(GUID.nextId());
-			}
-			menuService.save(target);
-			return Response.SUCCESS();
-		} catch (Exception e) {
-			return Response.FAILURE(e);
+		Menu target = new Menu();
+		BeanUtils.copyProperties(request, target);
+		if(StringUtils.isBlank(request.getId())){
+			target.setId(GUID.nextId());
 		}
+		menuService.save(target);
+		return Response.SUCCESS();
 	}
 }
