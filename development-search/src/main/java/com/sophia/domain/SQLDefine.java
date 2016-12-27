@@ -1,5 +1,6 @@
 package com.sophia.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,9 +13,16 @@ public class SQLDefine extends Auditable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name="SQLID")
 	private String sqlId;
+	
+	@Column(name="SQLNAME")
 	private String sqlName;
+	
+	@Column(name="SELECTSQL")
 	private String selectSql;
+	
+	@Column(name="SQLEXPAND")
 	private String sqlExpand;
 	private String datasource;
 	/**
@@ -35,16 +43,19 @@ public class SQLDefine extends Auditable{
 	/**
 	 * 所属功能组
 	 */
+	@Column(name="GROUPID")
 	private String groupId;
 	
 	/**
 	 * 主表
 	 */
+	@Column(name="MASTERTABLE")
 	private String masterTable;
 	
 	/**
 	 * 主表对应的ID
 	 */
+	@Column(name="MASTERTABLEID")
 	private String masterTableId;
 	
 	public String getMasterTable() {

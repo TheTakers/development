@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @MappedSuperclass
 public class Auditable implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -25,13 +24,9 @@ public class Auditable implements Serializable {
 
     @Version
     private long version;
-    
     private String createUser;
-
     private Date createTime;
-    
     private String lastUpdateUser;
-    
     private Date lastUpdateTime;
 
     public Date getLastUpdateTime() {

@@ -25,21 +25,21 @@ public class User implements Serializable {
 	
 	/** 用户ID */
 	@Id
-	@Column(name="USER_ID")
+	@Column(name="user_id")
 	private Integer userId;
 	/** 用户帐户 */
-	@Column(name="ACCOUNT")
+	@Column(name="account")
 	private String account;
 	/** 用户姓名 */
-	@Column(name="USERNAME")
+	@Column(name="username")
 	private String username;
 
 	/** 用户密码 */
-	@Column(name="PWD")
+	@Column(name="pwd")
 	private String pwd;
 
 	/** 用户是否有效 */
-	@Column(name="ISENABLED")
+	@Column(name="isenabled")
 	private Integer isenabled;
 	
 	/** 说明 */
@@ -47,7 +47,7 @@ public class User implements Serializable {
 	private String udesc;
 
 	/** 员工ID */
-	@Column(name="EMPLOYEE_ID")
+	@Column(name="employee_id")
 	private Integer empId;
 	
 	@Transient

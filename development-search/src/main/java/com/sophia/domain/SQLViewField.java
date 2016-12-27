@@ -1,5 +1,6 @@
 package com.sophia.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -15,7 +16,9 @@ public class SQLViewField extends Auditable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Column(name="VIEWID")
 	private String viewId;
+	
 	private String title;
 	private String field;
 	private String expand;
@@ -23,6 +26,7 @@ public class SQLViewField extends Auditable{
 	/**
 	 * 是否显示列表
 	 */
+	@Column(name="ISDISPLAY")
 	private Integer isDisplay = SQLViewConstant.YES;
 	
 	/**
@@ -34,17 +38,24 @@ public class SQLViewField extends Auditable{
 	 * 操作类型
 	 * 0 不显示,1,可操作,2 disable
 	 */
+	@Column(name="MODIFTYTYPE")
 	private Integer modiftyType = SQLViewConstant.MODIFTY_HIDE;
 	
 	/**
 	 * 是否察看详情
 	 */
+	@Column(name="ISVIEW")
 	private Integer isView = SQLViewConstant.YES;
 	/**
 	 * 是否添加
 	 */
+	@Column(name="ISINSERT")
 	private Integer isInsert = SQLViewConstant.NO;
+	
+	@Column(name="DATATYPE")
 	private String dataType;
+	
+	@Column(name="COMPONENTTYPE")
 	private String componentType = ComponentType.TEXT.getValue();
 	private Integer idx;
 	private String length;

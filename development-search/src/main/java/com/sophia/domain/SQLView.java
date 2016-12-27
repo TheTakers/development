@@ -3,6 +3,7 @@ package com.sophia.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -18,10 +19,12 @@ public class SQLView extends Auditable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
 	private String code;
 	private String name;
+	
+	@Column(name="SHOWROWNUM")
 	private Integer showRowNum = SQLViewConstant.NO;
+	
 	/**
 	 * 条件过滤
 	 */
@@ -31,7 +34,18 @@ public class SQLView extends Auditable{
 	 * 按钮列表
 	 */
 	private String buttons="[]";
+	
+	@Column(name="sqlid")
 	private String sqlId;
+	
+	/**
+	 * 树设置
+	 */
+	@Column(name="TREEDATA")
+	private String treeData;
+	/**
+	 * 是否多选
+	 */
 	private Integer multiple = SQLViewConstant.NO;
 	private String remark;
 	/**
@@ -79,11 +93,6 @@ public class SQLView extends Auditable{
 	public void setColumnList(List<SQLViewField> columnList) {
 		this.columnList = columnList;
 	}
-
-	/**
-	 * 树设置
-	 */
-	private String treeData;
 	 
 	public String getTreeData() {
 		return treeData;
