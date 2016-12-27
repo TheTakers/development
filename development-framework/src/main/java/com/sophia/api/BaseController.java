@@ -35,13 +35,13 @@ public class BaseController {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Response<Object>> catchRuntimeException(RuntimeException ex,HttpServletRequest request){
+    public ResponseEntity<Response<Object>> handleRuntimeException(RuntimeException ex,HttpServletRequest request){
         logger.error("拦截运行时异常:"+request.getRequestURL(),ex);
         return new ResponseEntity<Response<Object>>(Response.FAILURE(ex), HttpStatus.OK);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Response<Object>> catchException(Exception ex,HttpServletRequest request) {
+    public ResponseEntity<Response<Object>> handleException(Exception ex,HttpServletRequest request) {
         logger.error("拦截异常:"+request.getRequestURL(),ex);
         return new ResponseEntity<Response<Object>>(Response.FAILURE(ex), HttpStatus.OK);
     }
