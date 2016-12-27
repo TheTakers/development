@@ -62,7 +62,7 @@ app.controller('menuCtrl', function($scope,$http,$ocLazyLoad,$log) {
 
 		$.ajax({  
 	         type : "post",  
-	         url : "/basic/menu/menuTreeData",  
+	         url : "/basic/menu/findByNameLike",  
 	         contentType:'application/json',
 	         dataType:'json',
 	         async:false,

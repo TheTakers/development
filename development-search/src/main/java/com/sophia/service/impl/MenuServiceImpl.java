@@ -1,7 +1,6 @@
 package com.sophia.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,8 +33,11 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		return getRepository().save(menu).getId();
 	}
 	
-	@Override
-	public List<Menu> getTreeData() {
+	/**
+	 * 获取树数据
+	 * @return
+	 */
+	private List<Menu> findAllOrderByIdx() {
 		List<Menu> data = getRepository().findAll(new Sort("idx"));
 		List<Menu> menuData = new ArrayList<>();
 		for(Menu menu : data){
@@ -48,15 +50,11 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	@Override
-	public List getMenuByName(String name) {
+	public List<Menu> findByNameLike(String name) {
 		if(StringUtils.isEmpty(name)){
-			return getTreeData();
+			return this.findAllOrderByIdx();
 		}else{
-			String sql  = "SELECT * FROM TB_BASIC_MENU T WHERE NAME LIKE :NAME ";
-			Map<String,Object> paramMap = new HashMap<>();
-			paramMap.put("NAME", "%"+name+"%");
-			List<Map<String, Object>> menuList = namedParameterJdbcTemplate.queryForList(sql, paramMap);
-			return menuList;
+			return this.getRepository().findByNameLike(name);
 		}
 	}
 	
@@ -83,7 +81,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	
 	@Override
 	public void delete(String id) {
-		getRepository().delete(id);
+		this.getRepository().delete(id);
 	}
 	
 	@Override

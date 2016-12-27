@@ -60,17 +60,6 @@ public class DirectiveController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object menuTreeData(@RequestBody String param) {
-		try {
-			JSONObject paramJson = JSON.parseObject(param);
-			return Response.SUCCESS(menuService.getMenuByName(paramJson.getString("name")));
-		} catch (Exception e) {
-			return Response.FAILURE(e);
-		}
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findById(@RequestBody String param) {
 		try {

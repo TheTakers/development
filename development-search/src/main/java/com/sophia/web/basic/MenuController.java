@@ -79,10 +79,10 @@ public class MenuController extends BaseController{
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/menuTreeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object menuTreeData(@RequestBody JSONObject param) {
+	@RequestMapping(value="/findByNameLike",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Object findByNameLike(@RequestBody JSONObject param) {
 		try {
-			return Response.SUCCESS(menuService.getMenuByName(param.getString("name")));
+			return Response.SUCCESS(menuService.findByNameLike(param.getString("name")));
 		} catch (Exception e) {
 			return Response.FAILURE(e);
 		}
