@@ -17,13 +17,11 @@ import com.sophia.web.util.GUID;
 @Controller
 @RequestMapping(CommonController.module)
 public class CommonController extends BaseController{
-	
 	public static final String module = "/basic/func";
-	
 	@ResponseBody
 	@RequestMapping(value="/code",method=RequestMethod.POST, consumes = MediaType.ALL_VALUE)
 	public Object createCode() {
-		return Response.SUCCESS(GUID.createCode());
+		return Response.SUCCESS(GUID.createCode(null));
 	}
 	
 }

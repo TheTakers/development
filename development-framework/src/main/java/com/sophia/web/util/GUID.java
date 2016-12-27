@@ -21,12 +21,13 @@ public class GUID {
 	 * 生成编码
 	 * @return
 	 */
-	public static synchronized String createCode(){
+	public static synchronized String createCode(String prefix){
 		SimpleDateFormat sdf  = new SimpleDateFormat("yyyyMMddhhmmss");
-		return sdf.format(new Date());
+		int random = (int)(Math.random()*(9999-1000+1))+1000;//产生1000-9999的随机数
+		return ( null != prefix ? prefix : "" ) + sdf.format(new Date()) + random;
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(createCode());
+		System.out.println(createCode("SG"));
 	}
 }
