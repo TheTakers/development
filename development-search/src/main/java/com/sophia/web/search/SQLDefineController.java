@@ -36,11 +36,7 @@ import com.sophia.web.util.GUID;
 @Controller
 @RequestMapping(SQLDefineController.module)
 public class SQLDefineController extends BaseController{
-	
-	
 	@Autowired SQLDefineService sqlDefineService;
-	
-	
 	public static final String module = "search/sqldefine";
 	
 	@RequestMapping("/index")
