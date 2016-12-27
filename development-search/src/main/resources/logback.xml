@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <jmxConfigurator/>
-
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <property name="USER_HOME" value="logs" />
+    <property name="APP_NAME" value="sophia" />
+    
+    <!-- ch.qos.logback.core.ConsoleAppender 控制台输出 -->
+    <appender name="_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>[%d{yyyyMMdd HH:mm:ss.SSS}] {%thread} &lt;%-5level> %logger %line [%X{TRACE_ID}]: %msg%n
+            </pattern>
         </encoder>
     </appender>
 
-    <appender name="sophiaLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/sophia-%d{yyyy-MM-dd_HH}.%i.log</fileNamePattern>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <logger name="org.springframework" level="INFO"/>
-    <logger name="com.sophia" level="INFO"/>
-
-    <root level="WARN">
-        <appender-ref ref="console"/>
-        <appender-ref ref="sophiaLogFile"/>
+	<!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 -->
+	<appender name="_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	 <!--  <encoding>UTF-8</encoding> -->
+	  <File>${USER_HOME}/${APP_NAME}.log</File>
+	  <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	    <!-- daily rollover -->
+	    <FileNamePattern>${USER_HOME}/${APP_NAME}.%d{yyyy-MM-dd}.log</FileNamePattern>
+	    <!-- keep 30 days' worth of history -->
+	    <maxHistory>30</maxHistory>         
+	  </rollingPolicy>
+	  <encoder>
+	    <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} %line [%X{TRACE_ID}] - %msg %n</Pattern>
+	  </encoder>        
+	</appender>
+	
+    <!-- 日志级别 -->
+    <root>
+        <!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 -->
+        <level value="INFO" />
+        <appender-ref ref="_FILE" />
+        <appender-ref ref="_CONSOLE" />
     </root>
+    <logger name="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor" level="INFO"/>
 </configuration>
