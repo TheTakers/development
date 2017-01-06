@@ -21,17 +21,11 @@ public class Menu extends Auditable {
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
-	
 	private String ico;
-	
 	private String link;
-	
 	private String pid;
-	
 	private String remark;
-	
 	private String path;
-	
 	private Long idx;
 	
 	@Transient

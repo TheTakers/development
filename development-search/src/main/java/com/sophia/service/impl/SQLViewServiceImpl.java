@@ -38,7 +38,7 @@ import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
-import com.sophia.utils.CrudeUtils;
+import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SQLFilter;
 import com.sophia.vo.ConditionVo;
 import com.sophia.vo.TreeVo;
@@ -152,7 +152,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			field.setDataType(srsmd.getColumnTypeName(i));
 
 			//判断是否是日期类型
-			if (getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+			if (SimpleUtils.getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
 				field.setExpand("Y-m-d H:i:s");
 			}
@@ -210,63 +210,12 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 
 		//判断是否是日期类型
-		if (getDataType(t).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+		if (SimpleUtils.getDataType(t).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 			field.setComponentType(ComponentType.DATEPICKER.getValue());
 			field.setExpand("yyyy-MM-dd hh:mm:ss");
 		}
 	}
 
-	/**
-	 * 获取字段类型
-	 * @param dataType
-	 * @return String
-	 */
-	private String getDataType(String dataType) {
-		String dbType = dataType.toLowerCase();
-
-		String number = "int,double,float,decimal,number,numeric";
-		String date = "date,timestamp,datetime";
-		String text = "clob,text";
-		String varchar = "varchar,varchar2,char";
-
-		boolean isChar = isSpecType(dbType, varchar);
-		if (isChar) {
-			return SQLViewConstant.COLUMNTYPE_VARCHAR;
-		}
-
-		boolean isNumber = isSpecType(dbType, number);
-		if (isNumber) {
-			return SQLViewConstant.COLUMNTYPE_NUMBER;
-		}
-
-		boolean isDate = isSpecType(dbType, date);
-		if (isDate) {
-			return SQLViewConstant.COLUMNTYPE_DATE;
-		}
-
-		boolean isText = isSpecType(dbType, text);
-		if (isText) {
-			return SQLViewConstant.COLUMNTYPE_TEXT;
-		}
-		return dbType;
-	}
-
-	/**
-	 * 是否包含指定的数据类型。
-	 * 
-	 * @param dbType
-	 * @param dataType
-	 */
-	private boolean isSpecType(String dbType, String dataType) {
-		String[] aryType = dataType.split(",");
-		for (String str : aryType) {
-			if (dbType.equals(str) || dbType.indexOf(str) > -1) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	/**
 	 * JsonArray排序
 	 * @param jsonArray
@@ -530,7 +479,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			StringBuffer sb = new StringBuffer("SELECT ");
 			ConditionVo sortCond;
 			for(SQLViewField field : sqlViewFieldList){
-				if(SQLViewConstant.COLUMNTYPE_DATE.equals(this.getDataType(field.getDataType())) &&
+				if(SQLViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
 						StringUtils.isNotBlank(field.getExpand())){
 					sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getExpand()).append("') AS ").append(field.getField());
 				}else{
@@ -559,7 +508,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	private ConditionVo getTreeNode(String treeConfig,JSONObject treeNode){
 		TreeVo treeVo = JSONObject.parseObject(treeConfig, TreeVo.class);
-		if(!CrudeUtils.isTrue(treeVo.getIsShow())){
+		if(!SimpleUtils.isTrue(treeVo.getIsShow())){
 			return null;
 		}
 		//获取sqlDefine 
