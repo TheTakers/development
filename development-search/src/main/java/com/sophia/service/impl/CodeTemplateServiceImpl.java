@@ -26,6 +26,8 @@ import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.CodeTemplateService;
 import com.sophia.utils.SimpleUtils;
 
+import freemarker.cache.StringTemplateLoader;
+import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -81,12 +83,18 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 			for(CodeTemplate codeTemplate : codeTemplateList){
 				json.put("remark", codeTemplate.getRemark());
 				
+				//配置模板
+				Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
+				StringTemplateLoader stl = new StringTemplateLoader();
+				stl.putTemplate("code_tpl", codeTemplate.getTemplate());
+				stl.putTemplate("file_tpl", codeTemplate.getFilepath());
+				cfg.setTemplateLoader(stl);
+				
 				//模板内容
-				template = new Template(codeTemplate.getName(), new StringReader(codeTemplate.getTemplate()));
 				StringWriter pathWriter = new StringWriter();
 				
 				//替换文件名
-				fileTemplate = new Template(codeTemplate.getName(), new StringReader(codeTemplate.getFilepath()));
+				fileTemplate = cfg.getTemplate("file_tpl");
 				fileTemplate.process(json, pathWriter);
 				String filePath = json.getString(param_filepath ) + "/" + pathWriter.toString();
 				
@@ -100,10 +108,10 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				}   
 				
 				//输出文件
-				//Writer out = new OutputStreamWriter(System.out);
 				fos = new FileOutputStream(filePath);
 				out = new OutputStreamWriter(fos);
 				param.put("param", json.toJSONString());
+				template = cfg.getTemplate("code_tpl");
 				template.process(param, out);
 			}
 			
@@ -120,13 +128,19 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 
 	//	//导出模板
 	public static void main(String[] args) throws TemplateException, IOException {
-		Template template = new Template("code", new StringReader("<#assign text=\"${param}\" /><#assign vars=text?eval />名称:${vars.name}"));
+		
+		Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
+		StringTemplateLoader stl = new StringTemplateLoader();
+//		Template template = new Template("code", new StringReader("<#assign text=\"${param}\" /><#assign vars=text?eval />名称:${vars.name}"));
+		stl.putTemplate("tpl", "<#assign text=\"${param}\" /><#assign vars=text?eval />名称:${vars.name}");
+		cfg.setTemplateLoader(stl);
+		Template tpl = cfg.getTemplate("tpl");
 		Map<String,String> vars = new HashMap<>();
 		vars.put("name", "xxx");
 		Map<String,String> param = new HashMap<>();
 		param.put("param", JSON.toJSONString(vars));
 		Writer out = new OutputStreamWriter(System.out);
-		template.process(param, out);
+		tpl.process(param, out);
 		out.flush();
 		out.close();
 	}
