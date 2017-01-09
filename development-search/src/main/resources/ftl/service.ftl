@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.sophia.service;
+package com.${packageName}.service;
 
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.${vars.beanName}Repository;

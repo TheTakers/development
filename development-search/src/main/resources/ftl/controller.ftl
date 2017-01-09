@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.sophia.web.system;
+package com.${packageName}.web.system;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

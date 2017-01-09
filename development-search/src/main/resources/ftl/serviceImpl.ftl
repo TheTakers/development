@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.sophia.service.impl;
+package com.${packageName}.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.sophia.repository.impl.JpaRepositoryImpl;

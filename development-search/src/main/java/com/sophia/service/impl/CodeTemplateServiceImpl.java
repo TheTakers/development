@@ -79,7 +79,6 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		tplparam.put("columnList", this.getColumnList(tplparam.getString(param_table)));
 		try{
 			for(CodeTemplate codeTemplate : codeTemplateList){
-				tplparam.put("remark", codeTemplate.getRemark());
 				
 				//配置模板
 				Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
@@ -94,7 +93,13 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				//替换文件名
 				fileTemplate = cfg.getTemplate("file_tpl");
 				fileTemplate.process(tplparam, pathWriter);
-				String filePath = tplparam.getString(param_filepath ) + "/" + pathWriter.toString();
+				String paramFilepath = tplparam.getString(param_filepath );
+				
+				//获取包名
+				String packageName = paramFilepath.substring(paramFilepath.lastIndexOf("/") + 1);
+				param.put("packageName", packageName);
+				
+				String filePath = paramFilepath + "/" + pathWriter.toString();
 				
 				//检查目录
 				String realPath = filePath.substring(0, filePath.lastIndexOf("/")); 

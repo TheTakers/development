@@ -32,8 +32,11 @@ public class JUnitTest {
 		json.put("tableName", "tb_basic_menu");
 		json.put("author", "zkning");
 		json.put("comment", "菜单管理");
+		
+		//模块名
 		json.put("module", "basic");
 		json.put("filepath", "D:/createCode/src/main/java/com/sophia");
+		
 		codeTemplateService.createCodeTemplate(json);
 	}
 }

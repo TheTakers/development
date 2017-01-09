@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.sophia.api;
+package com.${packageName}.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

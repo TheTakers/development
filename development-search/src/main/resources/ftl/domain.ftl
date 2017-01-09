@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.sophia.domain;
+package com.${packageName}.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
