@@ -2,6 +2,18 @@
 <#assign vars=text?eval />
 package com.${packageName}.domain;
 
+<#list vars.columnList as column>
+	<#if column.attr != "id" &&
+		 column.attr != "version"&&
+		 column.attr != "createUser"&&
+		 column.attr != "createTime"&&
+		 column.attr != "lastUpdateUser"&&
+		 column.attr != "lastUpdateTime" &&
+		 (column.package)??
+		 > 
+${column.package}
+	</#if> 
+</#list>
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

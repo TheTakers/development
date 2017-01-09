@@ -4,15 +4,10 @@ import java.sql.Types;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.persistence.Column;
-
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.metamodel.relational.Datatype;
-import org.hibernate.tool.hbm2ddl.ColumnMetadata;
-import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
-import com.mysql.jdbc.ResultSetMetaData;
 import com.sophia.constant.SQLViewConstant;
+import com.sophia.vo.DataTypeVo;
 
 /**
  * 简陋的工具类
@@ -111,32 +106,47 @@ public class SimpleUtils {
 	 * MySQL类型转Java类型
 	 * @return
 	 */
-	public static String mysqlTypeConvertJavaType(Integer idx){
+	public static DataTypeVo mysqlTypeConvertJavaType(Integer idx){
+		DataTypeVo dataTypeVo = new DataTypeVo();
 		switch (idx) {
 		case Types.VARCHAR:
 		case Types.CHAR:
 		case Types.LONGVARCHAR:
-			return "String";
+			dataTypeVo.setType("String");
+			return dataTypeVo;
 		case Types.INTEGER:
 		case Types.TINYINT:
 		case Types.SMALLINT:
-			return "Integer";
+			dataTypeVo.setType("Integer");
+			return dataTypeVo;
 		case Types.DECIMAL:
-			return "BigDecimal";
+			dataTypeVo.setType("BigDecimal");
+			dataTypeVo.setTypePackage("import java.math.BigDecimal;");
+			return dataTypeVo;
 		case Types.BIT:
-			return "Boolean";
+			dataTypeVo.setType("Long");
+			return dataTypeVo;
 		case Types.BIGINT:
-			return "Long";
+			dataTypeVo.setType("Boolean");
+			return dataTypeVo;
 		case Types.FLOAT:
-			return "Float";
+			dataTypeVo.setType("Float");
+			return dataTypeVo;
 		case Types.DOUBLE:
-			return "Double";
+			dataTypeVo.setType("Double");
+			return dataTypeVo;
 		case Types.DATE:
-			return "Date";
+			dataTypeVo.setType("Date");
+			dataTypeVo.setTypePackage("import java.util.Date;");
+			return dataTypeVo;
 		case Types.TIME:
-			return "Time";
+			dataTypeVo.setType("Time");
+			dataTypeVo.setTypePackage("import java.sql.Time;");
+			return dataTypeVo;
 		case Types.TIMESTAMP:
-			return "Timestamp";
+			dataTypeVo.setType("Timestamp");
+			dataTypeVo.setTypePackage("import java.sql.Timestamp;");
+			return dataTypeVo; 
 		}
 		return null;
 	}

@@ -24,6 +24,7 @@ import com.sophia.repository.CodeTemplateRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.CodeTemplateService;
 import com.sophia.utils.SimpleUtils;
+import com.sophia.vo.DataTypeVo;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -50,13 +51,14 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		SqlRowSet resultSet = namedParameterJdbcTemplate.queryForRowSet("select * from " + table +" where 1 = 2 ",new HashMap<String,String>());
 		SqlRowSetMetaData srsmd = resultSet.getMetaData();
 		List<Map<String,String>> columnList = new ArrayList<>();
-		Map<String,String> columnMap;
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 			String columnName = srsmd.getColumnName(i);
-			columnMap = new HashMap<>();
+			Map<String,String> columnMap = new HashMap<>();
+			DataTypeVo vo = SimpleUtils.mysqlTypeConvertJavaType(srsmd.getColumnType(i));
 			columnMap.put("name",columnName);
-			columnMap.put("dtype",SimpleUtils.mysqlTypeConvertJavaType(srsmd.getColumnType(i)));
+			columnMap.put("dtype",vo.getType());
 			columnMap.put("attr",SimpleUtils.underline2Camel(columnName, true));
+			columnMap.put("package",vo.getTypePackage());
 			columnMap.put("methodName",SimpleUtils.underline2Camel(columnName, false));
 			columnList.add(columnMap);
 		}
