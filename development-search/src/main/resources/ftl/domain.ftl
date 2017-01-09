@@ -20,13 +20,27 @@ public class ${vars.beanName} extends Auditable{
 	private static final long serialVersionUID = 1L;
 	
 	<#list vars.columnList as column>
+	<#if column.attr != "id" &&
+		 column.attr != "version"&&
+		 column.attr != "createUser"&&
+		 column.attr != "createTime"&&
+		 column.attr != "lastUpdateUser"&&
+		 column.attr != "lastUpdateTime"
+		 > 
 	@Column(name="${column.name}")
 	private ${column.dtype} ${column.attr};
 	
+	</#if> 
 	</#list>
 
 	<#list vars.columnList as column>
-	
+	<#if column.attr != "id" &&
+		 column.attr != "version"&&
+		 column.attr != "createUser"&&
+		 column.attr != "createTime"&&
+		 column.attr != "lastUpdateUser"&&
+		 column.attr != "lastUpdateTime"
+		 > 
 	/**
 	 * ${column.name}
 	 */
@@ -36,6 +50,7 @@ public class ${vars.beanName} extends Auditable{
 	public void set${column.methodName}(${column.dtype} ${column.attr}) {
 		this.${column.attr} = ${column.attr};
 	}
+	</#if> 
 	</#list>
 	
 }
