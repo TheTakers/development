@@ -19,8 +19,6 @@ public class ${vars.beanName} extends Auditable{
 	private static final long serialVersionUID = 1L;
 	
 	<#list vars.columnList as column>
-
-
 	@Column(name="${column.name}")
 	private ${column.dtype} ${column.attr};
 	
