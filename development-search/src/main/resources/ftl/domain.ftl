@@ -5,6 +5,7 @@ package com.${packageName}.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import com.${packageName}.domain.Auditable;
 
 /**
  * ${vars.comment}实体类

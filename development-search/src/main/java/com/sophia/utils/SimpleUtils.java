@@ -120,8 +120,9 @@ public class SimpleUtils {
 		case Types.INTEGER:
 		case Types.TINYINT:
 		case Types.SMALLINT:
-		case Types.DECIMAL:
 			return "Integer";
+		case Types.DECIMAL:
+			return "BigDecimal";
 		case Types.BIT:
 			return "Boolean";
 		case Types.BIGINT:
