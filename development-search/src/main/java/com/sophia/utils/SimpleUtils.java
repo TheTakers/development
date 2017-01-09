@@ -1,10 +1,17 @@
 package com.sophia.utils;
 
+import java.sql.Types;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.persistence.Column;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.metamodel.relational.Datatype;
+import org.hibernate.tool.hbm2ddl.ColumnMetadata;
+import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
+
+import com.mysql.jdbc.ResultSetMetaData;
 import com.sophia.constant.SQLViewConstant;
 
 /**
@@ -98,5 +105,38 @@ public class SimpleUtils {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * MySQL类型转Java类型
+	 * @return
+	 */
+	public static String mysqlTypeConvertJavaType(Integer idx){
+		switch (idx) {
+		case Types.VARCHAR:
+		case Types.CHAR:
+		case Types.LONGVARCHAR:
+			return "String";
+		case Types.INTEGER:
+		case Types.TINYINT:
+		case Types.SMALLINT:
+		case Types.DECIMAL:
+			return "Integer";
+		case Types.BIT:
+			return "Boolean";
+		case Types.BIGINT:
+			return "Long";
+		case Types.FLOAT:
+			return "Float";
+		case Types.DOUBLE:
+			return "Double";
+		case Types.DATE:
+			return "Date";
+		case Types.TIME:
+			return "Time";
+		case Types.TIMESTAMP:
+			return "Timestamp";
+		}
+		return null;
 	}
 }

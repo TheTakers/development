@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name="${vars.tableName}")
 public class ${vars.beanName} extends Auditable{
-	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
@@ -32,10 +31,10 @@ public class ${vars.beanName} extends Auditable{
 	/**
 	 * ${column.name}
 	 */
-	public String get${column.methodName}() {
+	public ${column.dtype} get${column.methodName}() {
 		return ${column.attr};
 	}
-	public void set${column.methodName}(String ${column.attr}) {
+	public void set${column.methodName}(${column.dtype} ${column.attr}) {
 		this.${column.attr} = ${column.attr};
 	}
 	</#list>

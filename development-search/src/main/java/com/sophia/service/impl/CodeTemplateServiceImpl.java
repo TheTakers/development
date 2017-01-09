@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
@@ -54,12 +53,11 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		Map<String,String> columnMap;
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 			String columnName = srsmd.getColumnName(i);
-			String dtype = srsmd.getColumnTypeName(i);
 			columnMap = new HashMap<>();
-			columnMap.put("name", columnName);
-			columnMap.put("dtype", dtype);
-			columnMap.put("attr", SimpleUtils.underline2Camel(columnName, true));
-			columnMap.put("methodName", SimpleUtils.underline2Camel(columnName, false));
+			columnMap.put("name",columnName);
+			columnMap.put("dtype",SimpleUtils.mysqlTypeConvertJavaType(srsmd.getColumnType(i)));
+			columnMap.put("attr",SimpleUtils.underline2Camel(columnName, true));
+			columnMap.put("methodName",SimpleUtils.underline2Camel(columnName, false));
 			columnList.add(columnMap);
 		}
 		return columnList;
@@ -69,7 +67,7 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 	private static final String param_filepath = "filepath";
 	
 	@Override
-	public void createCodeTemplate(JSONObject json){
+	public void createCodeTemplate(JSONObject tplparam){
 		List<CodeTemplate> codeTemplateList = this.getRepository().findAll();
 		Template template;
 		Template fileTemplate;
@@ -78,10 +76,10 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		
 		//模板参数
 		Map<String,String> param = new HashMap<>();
-		json.put("columnList", this.getColumnList(json.getString(param_table)));
+		tplparam.put("columnList", this.getColumnList(tplparam.getString(param_table)));
 		try{
 			for(CodeTemplate codeTemplate : codeTemplateList){
-				json.put("remark", codeTemplate.getRemark());
+				tplparam.put("remark", codeTemplate.getRemark());
 				
 				//配置模板
 				Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
@@ -95,8 +93,8 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				
 				//替换文件名
 				fileTemplate = cfg.getTemplate("file_tpl");
-				fileTemplate.process(json, pathWriter);
-				String filePath = json.getString(param_filepath ) + "/" + pathWriter.toString();
+				fileTemplate.process(tplparam, pathWriter);
+				String filePath = tplparam.getString(param_filepath ) + "/" + pathWriter.toString();
 				
 				//检查目录
 				String realPath = filePath.substring(0, filePath.lastIndexOf("/")); 
@@ -110,7 +108,7 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				//输出文件
 				fos = new FileOutputStream(filePath);
 				out = new OutputStreamWriter(fos);
-				param.put("param", json.toJSONString());
+				param.put("param", tplparam.toJSONString());
 				template = cfg.getTemplate("code_tpl");
 				template.process(param, out);
 			}
