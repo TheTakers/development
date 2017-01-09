@@ -99,9 +99,10 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				String packageName = paramFilepath.substring(paramFilepath.lastIndexOf("/") + 1);
 				param.put("packageName", packageName);
 				
+				//完整文件名
 				String filePath = paramFilepath + "/" + pathWriter.toString();
 				
-				//检查目录
+				//完整文件路径
 				String realPath = filePath.substring(0, filePath.lastIndexOf("/")); 
 				File fp = new File(realPath);   
 				
