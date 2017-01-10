@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.${vars.packageName}.api.BaseController;
 
 /**
- * ${vars.comment}API
+ * ${vars.comment} API
  * @author ${vars.author}
  */
 @RestController
