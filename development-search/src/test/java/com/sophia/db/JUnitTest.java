@@ -28,15 +28,24 @@ public class JUnitTest {
 	@Test
 	public void createCode(){
 		JSONObject json = new JSONObject();
+		
+		//类名
 		json.put("beanName", "Menu");
+		
+		//表
 		json.put("tableName", "tb_basic_menu");
+		
+		//作者
 		json.put("author", "zkning");
+		
+		//注释
 		json.put("comment", "菜单管理");
 		
 		//模块名
 		json.put("module", "basic");
-		json.put("filepath", "D:/createCode/src/main/java/com/sophia");
 		
+		//文件路径
+		json.put("filepath", "D:/createCode/src/main/java/com/sophia");
 		codeTemplateService.createCodeTemplate(json);
 	}
 }
