@@ -123,7 +123,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 		SQLDefine sqlDefine = getSQLDefine(sqlId);
 		if(sqlDefine == null){
-			logger.error("SQLID:{}未定义",sqlId);
 			throw new ServiceException("SQLID:["+sqlId+"]未定义");
 		}
 		
@@ -154,7 +153,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//判断是否是日期类型
 			if (SimpleUtils.getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
-				field.setExpand("Y-m-d H:i:s");
+				field.setOptions("Y-m-d H:i:s");
 			}
 			field.setIdx(i-1);
 			if(masterFieldMap.containsKey(field.getField())){
@@ -195,24 +194,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		default:
 			sqlViewField.setTitle(field);
 			break;
-		}
-	}
-
-	private void setTypeAndLenth(String type,SQLViewField field){
-		String[] array = type.split("\\(");
-		String t = array[0];
-		field.setDataType(t.toUpperCase());
-		if(array.length > 1){
-			String length = array[1].replace(")", "");
-			if(StringUtils.isNoneBlank(length)){
-				field.setLength(length);
-			}
-		}
-
-		//判断是否是日期类型
-		if (SimpleUtils.getDataType(t).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
-			field.setComponentType(ComponentType.DATEPICKER.getValue());
-			field.setExpand("yyyy-MM-dd hh:mm:ss");
 		}
 	}
 
@@ -480,8 +461,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			ConditionVo sortCond;
 			for(SQLViewField field : sqlViewFieldList){
 				if(SQLViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
-						StringUtils.isNotBlank(field.getExpand())){
-					sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getExpand()).append("') AS ").append(field.getField());
+						StringUtils.isNotBlank(field.getOptions())){
+					sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getOptions()).append("') AS ").append(field.getField());
 				}else{
 					sb.append(field.getField());
 				}

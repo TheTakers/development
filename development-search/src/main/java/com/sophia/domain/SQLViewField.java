@@ -18,10 +18,9 @@ public class SQLViewField extends Auditable{
 	
 	@Column(name="VIEWID")
 	private String viewId;
-	
 	private String title;
 	private String field;
-	private String expand;
+	private String options;
 	
 	/**
 	 * 是否显示列表
@@ -122,11 +121,11 @@ public class SQLViewField extends Auditable{
 	public void setIsDisplay(Integer isDisplay) {
 		this.isDisplay = isDisplay;
 	}
-	public String getExpand() {
-		return expand;
+	public String getOptions() {
+		return options;
 	}
-	public void setExpand(String expand) {
-		this.expand = expand;
+	public void setOptions(String options) {
+		this.options = options;
 	}
 	public String getSort() {
 		return sort;

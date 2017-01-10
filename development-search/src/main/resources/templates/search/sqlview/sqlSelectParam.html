@@ -7,10 +7,10 @@
 			<div class="form-group" >
 					<ui-label clazz="col-sm-2" content="视图编号"></ui-label>
 					<div class="col-sm-8">
-					<ui-selector url="/templates/search/sqlview/selector.json"  data="expand"  expand="{dataKey:'code',dataValue:'code',returnKey:'code',returnValue:'code'}" validator="[10001]" size="70" ></ui-selector>
+					<ui-selector url="/templates/search/sqlview/selector.json"  data="options"  options="{dataKey:'code',dataValue:'code',returnKey:'code',returnValue:'code'}" validator="[10001]" size="70" ></ui-selector>
  					</div>
  			</div>
- 			<div class="form-group"   ng-repeat="item in expand.mappingList" >
+ 			<div class="form-group"   ng-repeat="item in options.mappingList" >
  					<ui-label clazz="col-sm-2" content="字段"></ui-label>
 					<div class="col-sm-3">
  					<ui-dropdown selected="item.valueKey" data="columnList" valuekey = "field" textkey="field"  ui-validator="[10001]"></ui-dropdown>

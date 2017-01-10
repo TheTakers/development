@@ -5,17 +5,15 @@
 <div class="modal-body">
 		<form class="form-horizontal" name="actionForm" >
 			<input type="hidden" ng-model="data.version"></input>
-			
 			<div class="form-group" ng-repeat="item in fieldList"  ng-if="isEdit(item)">
 					<ui-label clazz="col-sm-2" content="{{item.title}}" ></ui-label>
 					<div class="col-sm-8">
-						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')" param="{{item.expand}}"  validator="item.rule" maxlength="item.length"></ui-generate-code>
+						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')" param="{{item.options}}"  validator="item.rule" maxlength="item.length"></ui-generate-code>
 						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="{{item.rule}}" maxlength="item.length"></input>
-						<!-- <ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" validator="item.rule" maxlength="item.length"></ui-selector> -->
 						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="{{item.rule}}" maxlength="item.length"></textarea>
-						<ui-datetimepicker data="data[item.field]"   ng-if="isType(item.componentType,'DATEPICKER')" format="{{item.expand}}" validator="item.rule"></ui-datetimepicker>
-						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')"  data="item.expand" ui-validator="{{item.rule}}"></ui-dropdown>
-						<ui-view-selector data="data" kv="item.expand"  size="70" validator="item.rule"  ng-if="isType(item.componentType,'VIEWSELECTOR')"></ui-view-selector> 
+						<ui-datetimepicker data="data[item.field]"   ng-if="isType(item.componentType,'DATEPICKER')" format="{{item.options}}" validator="item.rule"></ui-datetimepicker>
+						<ui-dropdown selected="data[item.field]"  ng-if="isType(item.componentType,'DROPDOWN')"  data="item.options" ui-validator="{{item.rule}}"></ui-dropdown>
+						<ui-view-selector data="data" kv="item.options"  size="70" validator="item.rule"  ng-if="isType(item.componentType,'VIEWSELECTOR')"></ui-view-selector> 
  					</div>
 			</div>
 		</form>		

@@ -72,7 +72,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			
 			//asc desc默认为空
 			opt.sort = item.sort;
-			opt.expand = item.expand;
+			opt.options = item.options;
 			$scope.filterList.push(opt);	
 		}
 		//移除选项
@@ -132,8 +132,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		
 		//是否显示文本编辑器
 		$scope.isExpandComponentTypeText = function(item){
-			return item.componentType != 'VIEWSELECTOR' &&
-				   item.componentType != 'DATEPICKER';
+			return item.componentType != 'VIEWSELECTOR' && item.componentType != 'DATEPICKER';
 		}
 		
 		//参数设置弹出框
@@ -141,10 +140,10 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			
 			//视图所有列
 			$scope.columnList =  param.param;
-			if(param.data.expand){
-				$scope.expand = JSON.parse(param.data.expand);
+			if(param.data.options){
+				$scope.options = JSON.parse(param.data.options);
 			}else{
-				$scope.expand={
+				$scope.options={
 					code:"",
 					mappingList:[{
 						valueKey:param.data.field, //数据键值
@@ -158,24 +157,24 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 		$scope.adRecord = function(idx){
 				
 				//最后一条增加数据
-				if($scope.expand.mappingList.length - 1 == idx){
+				if($scope.options.mappingList.length - 1 == idx){
 					
 					//往第一行插入数据
-					$scope.expand.mappingList.splice(0,0,{
+					$scope.options.mappingList.splice(0,0,{
 							valueKey:"",
 							textValue:"",
 							icon:"md-remove"});
 				}else{
 					
 					//减去
-					$scope.expand.mappingList.splice(idx,1);
+					$scope.options.mappingList.splice(idx,1);
 				}
 			}
 			
 			//选择器ok按钮
 			$scope.ok = function() {
-				param.data.expand = JSON.stringify($scope.expand);
-				$uibModalInstance.close($scope.expand);
+				param.data.options = JSON.stringify($scope.options);
+				$uibModalInstance.close($scope.options);
 			};
 
 			//取消
@@ -184,7 +183,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			};
 			
 			//监控视图编号变化
-			$scope.$watch('expand.code',function(newValue,oldValue, scope){
+			$scope.$watch('options.code',function(newValue,oldValue, scope){
 				commonService.findFieldListByCode(newValue,function(response){
 					if(response.code == STATUS_CODE.SUCCESS){
 						$scope.responseList = response.result;

@@ -433,7 +433,7 @@ app.directive('uiDatetimepicker', function($http,$log) {
 			var datetimepicker = element.find("input");
 			$(datetimepicker).datetimepicker({
 				timepicker:timepickerFlag,    //不显示时间选项
-				format:foramt  //scope.sqlviewfield.expand //Y-m-d H:i:s
+				format:foramt  //scope.sqlviewfield.options //Y-m-d H:i:s
 			});
 
 			//监控值改变
@@ -455,7 +455,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 			ctrl:'=',//弹窗控制器
 			size:'=',//窗体大小
 			loadjs:'=',//指令js
-			expand:'=',//{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			options:'=',//{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			validator:'='
 		},
 		template:function(element,atts){
@@ -466,7 +466,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			scope.inputData = eval( scope.expand );
+			scope.inputData = eval( scope.options );
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 				var modalInstance = $uibModal.open({
@@ -486,33 +486,6 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 						}
 					}
 				});
-				/**
-				modalInstance.result.then(function (checked) { //获取子页返回值
-
-					var expand = scope.inputData;
-
-					var selectedItem = checked.data;
-					//单选
-					if(selectedItem.length == 1){
-						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
-						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
-					}else{
-						//多选
-						var value = "";
-						var id = "";
-						for(var idx in selectedItem){
-
-							id +=  selectedItem[idx][expand.returnKey] + ',';
-							value += selectedItem[idx][expand.returnValue] + ',';
-						}
-						id = id.substring(0,_.lastIndexOf(id,","));
-						value = value.substring(0,_.lastIndexOf(value,","));
-						scope.data[expand.dataKey] = id;
-						scope.data[expand.dataValue] = value;
-					}
-				}, function () { //子页关闭监听
-					$log.info('Modal dismissed at: ' + new Date());
-				});**/
 			}
 		} 
 	};
@@ -525,7 +498,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			url:'@',
-			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
+			options:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			size:'@',
 			data:"=",
 			param:'=', //传给子页参数
@@ -533,13 +506,13 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<input type="text"  class="form-control input-sm" ng-model="data[optsJson.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			scope.inputData = eval('(' + scope.expand + ')');
+			scope.optsJson = eval('(' + scope.options + ')');
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 				var modalInstance = $uibModal.open({
@@ -552,7 +525,6 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 
 						//选择器ok按钮
 						$scope.ok = function() {
-							var item ={}
 							if(!_.isEmpty($scope.returndata.data)){
 
 								//传值给父页
@@ -577,26 +549,26 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 
 				//获取子页返回值
 				modalInstance.result.then(function (checked) { 
-					var expand = scope.inputData;
+					var options = scope.optsJson;
 					var selectedItem = checked.data;
 
 					//单选
 					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
-						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
-						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
+						scope.data[options.dataKey] =  selectedItem[0][options.returnKey];
+						scope.data[options.dataValue] = selectedItem[0][options.returnValue];
 					}else{
 
 						//多选
 						var value = "";
 						var id = "";
 						for(var idx in selectedItem){
-							id +=  selectedItem[idx][expand.returnKey] + ',';
-							value += selectedItem[idx][expand.returnValue] + ',';
+							id +=  selectedItem[idx][options.returnKey] + ',';
+							value += selectedItem[idx][options.returnValue] + ',';
 						}
 						id = id.substring(0,_.lastIndexOf(id,","));
 						value = value.substring(0,_.lastIndexOf(value,","));
-						scope.data[expand.dataKey] = id;
-						scope.data[expand.dataValue] = value;
+						scope.data[options.dataKey] = id;
+						scope.data[options.dataValue] = value;
 					}
 
 					//子页关闭监听
@@ -658,20 +630,18 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 		+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 	};
 	var linkFunc = function(scope,element,attr){
-		scope.expand = eval('(' + scope.kv + ')'); 
+		scope.options = eval('(' + scope.kv + ')'); 
 
 		//返回键值
-		scope.firstMapp = scope.expand.mappingList[0];
+		scope.firstMapp = scope.options.mappingList[0];
 		scope.maxlength = $(attr)[0].maxlength;
 		scope.open=function(){
 			var modalInstance = $uibModal.open({
 				templateUrl: '/templates/basic/directive/uiCodeSelectorTpl.html',
-
-				//接收子页传值
-				controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
+				controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) {//接收子页传值
 
 					//获取视图编号
-					$scope.code = param.expand.code;
+					$scope.code = param.options.code;
 					$scope.returndata = {};
 					$scope.ok = function() {
 						if(!_.isEmpty($scope.returndata.data)){
@@ -696,7 +666,7 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 
 			//获取子页返回值
 			modalInstance.result.then(function (checked) { 
-				var mappingList = scope.expand.mappingList;
+				var mappingList = scope.options.mappingList;
 				var selectedItem = checked.data;
 
 				//单选
