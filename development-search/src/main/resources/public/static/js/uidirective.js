@@ -574,18 +574,18 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 						} 
 					}
 				});
-				
+
 				//获取子页返回值
 				modalInstance.result.then(function (checked) { 
 					var expand = scope.inputData;
 					var selectedItem = checked.data;
-					
+
 					//单选
 					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
 						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
 						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 					}else{
-						
+
 						//多选
 						var value = "";
 						var id = "";
@@ -598,7 +598,7 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 						scope.data[expand.dataKey] = id;
 						scope.data[expand.dataValue] = value;
 					}
-					
+
 					//子页关闭监听
 				}, function () { 
 					$log.info('Modal dismissed at: ' + new Date());
@@ -609,164 +609,159 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 }); 
 //自动生成编码
 app.directive('uiGenerateCode', function($http,$log,commonService) {
-	return {
-		restrict:'E',
-		scope:{
+	var scopeParam = {
 			url:'=',
 			param:'=',
 			data:"=",
 			validator:"="
-		},
-		template:function(element,atts){
-			return  '<div class="uiGenerateCode"><input class="form-control input-sm"  ng-model="data"  ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'+
-			'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button></div>';
-		},
+	};
+	var templateFunc = function(element,atts){
+		return  '<div class="uiGenerateCode"><input class="form-control input-sm"  ng-model="data"  ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'+
+		'<button type="button" class="btn btn-info waves-effect waves-light input-sm" ng-click="createCode()">生成</button></div>';
+	};
+	var linkFunc = function(scope,element,attr){
+		scope.maxlength = $(attr)[0].maxlength;
+		scope.createCode = function(){
+			var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
+			commonService.ajax({url:remoteUrl,data:scope.param,async:false,success:function(data){
+				if(data.code == STATUS_CODE.SUCCESS){
+					scope.data = data.result;
+				}else{
+					$.error(data.message);
+				}
+
+			}});
+		}
+	};
+	return {
+		restrict:'E',
+		scope:scopeParam,
+		template:templateFunc,
 		replace : false,			
 		transclude : false,
-		link:function(scope,element,attr){ 
-			scope.maxlength = $(attr)[0].maxlength;
-			
-			//生成编码
-			scope.createCode = function(){
-				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
-				commonService.ajax({url:remoteUrl,data:scope.param,async:false,success:function(data){
-					if(data.code == STATUS_CODE.SUCCESS){
-						scope.data = data.result;
-					}else{
-						$.error(data.message);
-					}
-
-				}});
-			}
-		}
+		link:linkFunc
 	};
 });
 
 //根据SqlView编号生成的选择器
 app.directive('uiViewSelector', function($http,$log,$uibModal) {
-	return {
-		restrict:'E',
-		scope:{
+	var scopeParam = {
 			data:"=",
 			kv:'=', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
 			param:'=', //传给子页参数
 			size:'=',
 			validator:'='
-		},
-		template:function(element,atts){
-			return  '<div class="app-search-sm">'
-			+'<input type="text"  class="form-control input-sm" ng-model="data[firstMapp.valueKey]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
-			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
-		},
+	};
+	var templateFunc = function(element,atts){
+		return  '<div class="app-search-sm">'
+		+'<input type="text"  class="form-control input-sm" ng-model="data[firstMapp.valueKey]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+		+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
+	};
+	var linkFunc = function(scope,element,attr){
+		scope.expand = eval('(' + scope.kv + ')'); 
+
+		//返回键值
+		scope.firstMapp = scope.expand.mappingList[0];
+		scope.maxlength = $(attr)[0].maxlength;
+		scope.open=function(){
+			var modalInstance = $uibModal.open({
+				templateUrl: '/templates/basic/directive/uiCodeSelectorTpl.html',
+
+				//接收子页传值
+				controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
+
+					//获取视图编号
+					$scope.code = param.expand.code;
+					$scope.returndata = {};
+					$scope.ok = function() {
+						if(!_.isEmpty($scope.returndata.data)){
+
+							//传值给父页
+							$uibModalInstance.close($scope.returndata);
+						}else{
+							$.warning("请选择记录!");
+						}
+					};
+					$scope.cancel = function() {
+						$uibModalInstance.dismiss('cancel');
+					};
+				},
+				size:scope.size,
+				resolve: {
+					param: function () {
+						return scope;
+					}
+				}
+			});
+
+			//获取子页返回值
+			modalInstance.result.then(function (checked) { 
+				var mappingList = scope.expand.mappingList;
+				var selectedItem = checked.data;
+
+				//单选
+				if(selectedItem.length == 1){
+					var sitem = selectedItem[0];
+					for(var midx in mappingList){
+						var mapping = mappingList[midx];
+						scope.data[mapping.valueKey] = sitem[mapping.textValue];
+					}
+				}else{
+					var textValue = "";
+					for(var midx in mappingList){
+						var mapping = mappingList[midx];
+						for(var idx in selectedItem){
+							textValue += selectedItem[idx][mapping.textValue] + ',';
+						}
+						textValue = textValue.substring(0,_.lastIndexOf(textValue,","));
+						scope.data[mapping.valueKey] = textValue;
+					}
+				}
+			}, function () { //子页关闭监听
+				$log.info('Modal dismissed at: ' + new Date());
+			});
+		}
+	}
+	return {
+		restrict:'E',
+		scope:scopeParam,
+		template:templateFunc,
 		replace : true,			
 		transclude : false,
-		link:function(scope,element,attr){
-			scope.expand = eval('(' + scope.kv + ')'); 
-
-			//返回键值
-			scope.firstMapp = scope.expand.mappingList[0];
-			scope.maxlength = $(attr)[0].maxlength;
-			scope.open=function(){
-				var modalInstance = $uibModal.open({
-					templateUrl: '/templates/basic/directive/uiCodeSelectorTpl.html',
-
-					//接收子页传值
-					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-
-						//获取视图编号
-						$scope.code = param.expand.code;
-						$scope.returndata = {};
-
-						//选择器ok按钮
-						$scope.ok = function() {
-							var item ={}
-							if(!_.isEmpty($scope.returndata.data)){
-
-								//传值给父页
-								$uibModalInstance.close($scope.returndata);
-							}else{
-								$.warning("请选择记录!");
-							}
-						};
-
-						//取消
-						$scope.cancel = function() {
-							$uibModalInstance.dismiss('cancel');
-						};
-
-					},
-					size:scope.size,
-					resolve: {
-						param: function () {
-							return scope;
-						}
-					}
-				});
-				
-				//获取子页返回值
-				modalInstance.result.then(function (checked) { 
-					var mappingList = scope.expand.mappingList;
-					var selectedItem = checked.data;
-
-					//单选
-					if(selectedItem.length == 1){
-						var sitem = selectedItem[0];
-						for(var midx in mappingList){
-							var mapping = mappingList[midx];
-							scope.data[mapping.valueKey] = sitem[mapping.textValue];
-						}
-					}else{
-
-						//多选
-						var textValue = "";
-						for(var midx in mappingList){
-							var mapping = mappingList[midx];
-							for(var idx in selectedItem){
-								textValue += selectedItem[idx][mapping.textValue] + ',';
-							}
-							textValue = textValue.substring(0,_.lastIndexOf(textValue,","));
-							scope.data[mapping.valueKey] = textValue;
-						}
-					}
-				}, function () { //子页关闭监听
-					$log.info('Modal dismissed at: ' + new Date());
-				});
-			}
-		} 
+		link:linkFunc 
 	};
 }); 
 
 
 app.directive('uiIcon', function($http,$log) {
-	return {
-		restrict:'E',
-		scope:{
-			prop:'='
-		},
-		template:function(element,atts){
-			return '<a href="javascript:void(0);" class="table-action-btn" ng-click="checkedIcon()"><i class="{{icon}}"></i></a>';
-		},
-		link:function(scope,element,attr){
-			scope.icon = "ion-eye";
-			if(scope.prop){
-				scope.icon = scope.prop;
-			}
-			var checkedIcon = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
-				$scope.ok=function($event){
-					param.prop = $($event.target).attr("class");
-
-					//关闭图标
-					$uibModalInstance.close();
-				}
-			}
-
-			//选择图标
-			$scope.checkedIcon = function(){
-				var options = {templateUrl:"/templates/search/sqlview/iconSelector.html",controller:checkedIcon,
-						param:$scope,
-						size:80};
-				commonService.show(options);
+	var templateFunc = function(element,atts){
+		return '<a href="javascript:void(0);" class="table-action-btn" ng-click="checkedIcon()"><i class="{{icon}}"></i></a>';
+	}
+	var linkFunc = function(scope,element,attr){
+		scope.icon = "ion-eye";
+		if(scope.prop){
+			scope.icon = scope.prop;
+		}
+		var checkedIcon = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
+			$scope.ok=function($event){
+				param.prop = $($event.target).attr("class");
+				$uibModalInstance.close();
 			}
 		}
+		$scope.checkedIcon = function(){
+			var options = {
+					templateUrl:"/templates/search/sqlview/iconSelector.html",
+					controller:checkedIcon,
+					param:$scope,
+					size:80
+			};
+			commonService.show(options);
+		}
+	}
+	return {
+		restrict:'E',
+		scope:{prop:'='},
+		template:templateFunc,
+		link:linkFunc
 	};
 });
