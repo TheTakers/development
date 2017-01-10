@@ -64,9 +64,14 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		}
 		return columnList;
 	}
-
 	private static final String param_table = "tableName";
 	private static final String param_filepath = "filepath";
+	
+	//实体属性集合
+	private static final String param_columnList = "columnList";
+	
+	//引入包名
+	private static final String param_packageName = "packageName";
 	
 	@Override
 	public void createCodeTemplate(JSONObject tplparam){
@@ -78,7 +83,7 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		
 		//模板参数
 		Map<String,String> param = new HashMap<>();
-		tplparam.put("columnList", this.getColumnList(tplparam.getString(param_table)));
+		tplparam.put(param_columnList, this.getColumnList(tplparam.getString(param_table)));
 		try{
 			for(CodeTemplate codeTemplate : codeTemplateList){
 				
@@ -99,7 +104,7 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 				
 				//获取包名
 				String packageName = paramFilepath.substring(paramFilepath.lastIndexOf("/") + 1);
-				tplparam.put("packageName", packageName);
+				tplparam.put(param_packageName, packageName);
 				
 				//完整文件名
 				String filePath = paramFilepath + "/" + pathWriter.toString();
