@@ -30,18 +30,18 @@ app.directive('uiValidator', [function () {
 
 					var verifyRule = $(attr).attr("uiValidator");
 					var ruleList = eval(verifyRule);
-					
+
 					if(_.isEmpty(ruleList)){
 						$(element).removeClass("ng-required");
 						$(element).popover('destroy');
 						return value;
 					}
-					
+
 					for(var idx in ruleList){
 						var regx = REGULAR_EXPRESSION[ruleList[idx]];
 						var validity = regxResult(regx.rule,value,$(attr).attr("maxlength"));
 						ngModel.$setValidity(regx.rule, validity);
-						
+
 						if(validity){
 							$(element).removeClass("ng-required");
 							$(element).popover('destroy');
@@ -49,7 +49,7 @@ app.directive('uiValidator', [function () {
 							/**
 							$(element).attr("data-content",regx.tip);
 							$(element).popover('show');
-							**/
+							 **/
 							$(element).popover({trigger:"hover|focus ",placement:"right",content:regx.tip})
 							$(element).popover('show');
 							$(element).addClass("ng-required");
@@ -68,58 +68,58 @@ app.directive('uiValidator', [function () {
 
 //上下移动
 app.directive('uiFloat', [function () {
-	
+
 	return {
 		scope:{
 			list:"="
 		},
 		link: function (scope, element, attr) {
-			
+
 			var course = $(attr).attr("course");
 			var idxkey = $(attr).attr("idxkey");
 			//上移
 			var up  = function() { 
-		        var $tr = $(this).parents("tr"); 
-		        var trIdx = $tr.index();
-		        if (trIdx != 0) { 
-		            $tr.fadeOut().fadeIn(); 
-		            $tr.prev().before($tr); 
-		            var cidx = findIdx(idxkey,trIdx);
-		            
-		            //前一行实际索引
-		            var pidx = findIdx(idxkey,trIdx - 1);
-		            
-		            //取上一行
-		            scope.list[pidx][idxkey] = trIdx;
-		            
-		            //设置当前列对象索引 - 1
-		            scope.list[cidx][idxkey] = trIdx - 1;
-		        } 
-		    }
-			
+				var $tr = $(this).parents("tr"); 
+				var trIdx = $tr.index();
+				if (trIdx != 0) { 
+					$tr.fadeOut().fadeIn(); 
+					$tr.prev().before($tr); 
+					var cidx = findIdx(idxkey,trIdx);
+
+					//前一行实际索引
+					var pidx = findIdx(idxkey,trIdx - 1);
+
+					//取上一行
+					scope.list[pidx][idxkey] = trIdx;
+
+					//设置当前列对象索引 - 1
+					scope.list[cidx][idxkey] = trIdx - 1;
+				} 
+			}
+
 			//下移
 			var down = function() { 
-		        var $tr = $(this).parents("tr");
-		        var length = $(this).parent().parent().parent().find("tr").length;
-		        var trIdx = $tr.index();
-		        if ($tr.index() != length - 1) { 
-		            $tr.fadeOut().fadeIn(); 
-		            $tr.next().after($tr); 
-		            
-		            //当前对象索引
-		            var cidx = findIdx(idxkey,trIdx);
-		            
-		            //下一行对象索引
-		            var nidx = findIdx(idxkey,trIdx + 1);
-		            
-		          // + 1
-		          scope.list[cidx][idxkey] = trIdx + 1;
-		            
-		         //原下一行索引更新
-		         scope.list[nidx][idxkey] = trIdx;
-		        } 
-		    }
-			
+				var $tr = $(this).parents("tr");
+				var length = $(this).parent().parent().parent().find("tr").length;
+				var trIdx = $tr.index();
+				if ($tr.index() != length - 1) { 
+					$tr.fadeOut().fadeIn(); 
+					$tr.next().after($tr); 
+
+					//当前对象索引
+					var cidx = findIdx(idxkey,trIdx);
+
+					//下一行对象索引
+					var nidx = findIdx(idxkey,trIdx + 1);
+
+					// + 1
+					scope.list[cidx][idxkey] = trIdx + 1;
+
+					//原下一行索引更新
+					scope.list[nidx][idxkey] = trIdx;
+				} 
+			}
+
 			//找出指定对象
 			var findIdx = function(idkey,trIdx){
 				for(var idx in scope.list){
@@ -128,13 +128,13 @@ app.directive('uiFloat', [function () {
 				}
 				return -1;
 			}
-			
+
 			if("up" == course){
 				$(element).click(up);
 			}else{
 				$(element).click(down);
 			}
-			
+
 		}
 	};
 }]);
@@ -224,7 +224,7 @@ app.directive('uiDropdown', function($http,$log) {
 					if(!_.isUndefined(scope.textkey)){
 						scope.tk = scope.textkey;
 					}
-					
+
 					if(_.isEmpty(scope.url)) return;
 					commonService.ajax({url:scope.url,data:scope.param,async:false,success:function(data){
 						if(data.code = STATUS_CODE.SUCCESS){
@@ -381,25 +381,25 @@ app.directive('uiRangSliders', function($http,$log) {
 						fromValue = scope.options[from];
 					}
 					$(element).ionRangeSlider({
-//					        type: "double",
-					        grid: true,
-					        min: $(element).attr("min") || 0,
-					        max: $(element).attr("max"),
-					        from: fromValue,
-					        onFinish:function (data) {
-					        	var from = $(element).attr("from");
-					        	if(from){
-					        		scope.options[from] = data.from;
-					        	}
-					        	var to = $(element).attr("to");
-					        	if(to){
-					        		scope.options[to] = data.to;
-					        	}
-			            	}
-//							onChange,
-//					        to: 800,
-//					        prefix: "%"
-					    });
+//						type: "double",
+						grid: true,
+						min: $(element).attr("min") || 0,
+						max: $(element).attr("max"),
+						from: fromValue,
+						onFinish:function (data) {
+							var from = $(element).attr("from");
+							if(from){
+								scope.options[from] = data.from;
+							}
+							var to = $(element).attr("to");
+							if(to){
+								scope.options[to] = data.to;
+							}
+						}
+//					onChange,
+//					to: 800,
+//					prefix: "%"
+					});
 				}
 			}
 		}
@@ -416,7 +416,7 @@ app.directive('uiDatetimepicker', function($http,$log) {
 		},
 		template:function(element,atts){
 			return  '<div class="input-group"><input type="text" class="form-control input-sm" placeholder="{{format}}" ng-model="data" ui-validator="{{validator}}"></input>'+
-					'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
+			'<span class="input-group-addon bg-custom b-0 text-white"><i class="icon-calender"></i></span></div>';
 		},
 		replace : false,			
 		link:function(scope,element,attr,ngModel){
@@ -424,18 +424,18 @@ app.directive('uiDatetimepicker', function($http,$log) {
 			if(scope.format){
 
 				//去掉%
-			    foramt = scope.format.replace(/%/g,'');
+				foramt = scope.format.replace(/%/g,'');
 			}
-			
+
 			//中文支持
 			$.datetimepicker.setLocale('zh');
 			var timepickerFlag = _.isEqual(foramt, 'H:i');
 			var datetimepicker = element.find("input");
 			$(datetimepicker).datetimepicker({
-					timepicker:timepickerFlag,    //不显示时间选项
-					format:foramt  //scope.sqlviewfield.expand //Y-m-d H:i:s
+				timepicker:timepickerFlag,    //不显示时间选项
+				format:foramt  //scope.sqlviewfield.expand //Y-m-d H:i:s
 			});
-			
+
 			//监控值改变
 			$(datetimepicker).change(function(){
 				scope.data = $(datetimepicker).val();
@@ -459,20 +459,16 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 			validator:'='
 		},
 		template:function(element,atts){
-			return  '<div class="app-search-sm">'
+			return'<div class="app-search-sm">'
 			+'<input type="text" class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			if(_.isEmpty(scope.expand)){
-				return;
-			}
 			scope.inputData = eval( scope.expand );
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
-
 				var modalInstance = $uibModal.open({
 					templateUrl: scope.tplurl,
 
@@ -484,13 +480,13 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 							return scope;
 						},
 						deps:function($ocLazyLoad,$stateParams,$log){
-							if(!_.isUndefined(scope.loadjs))
-//							return $ocLazyLoad.load("templates/"+scope.loadjs+".js");
-							return $ocLazyLoad.load(scope.loadjs);
+							if(!_.isUndefined(scope.loadjs)){
+								return $ocLazyLoad.load(scope.loadjs);
+							}
 						}
 					}
 				});
-/**
+				/**
 				modalInstance.result.then(function (checked) { //获取子页返回值
 
 					var expand = scope.inputData;
@@ -529,10 +525,10 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		restrict:'E',
 		scope:{
 			url:'@',
-			data:"=",
 			expand:'@', //{dataKey:'pid',dataValue:'pText',returnKey:'id',returnValue:'name'} 返回值,显示值
-			param:'=', //传给子页参数
 			size:'@',
+			data:"=",
+			param:'=', //传给子页参数
 			validator:'='
 		},
 		template:function(element,atts){
@@ -543,19 +539,14 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			if(_.isEmpty(scope.expand)){
-				return;
-			}
 			scope.inputData = eval('(' + scope.expand + ')');
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
-
 				var modalInstance = $uibModal.open({
 					templateUrl: '/templates/basic/directive/selector.html',
 
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-
 						$scope.url = param.url;
 						$scope.returndata = {};
 
@@ -575,36 +566,30 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 						$scope.cancel = function() {
 							$uibModalInstance.dismiss('cancel');
 						};
-
 					},
 					size:scope.size,
 					resolve: {
 						param: function () {
 							return scope;
-						},
-						deps:function($ocLazyLoad,$stateParams,$log){
-
-							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
-							//return $ocLazyLoad.load("templates/"+scope.url+".js");
-						}
+						} 
 					}
 				});
-
-				modalInstance.result.then(function (checked) { //获取子页返回值
-
+				
+				//获取子页返回值
+				modalInstance.result.then(function (checked) { 
 					var expand = scope.inputData;
-
 					var selectedItem = checked.data;
+					
 					//单选
 					if(_.isEqual(GRID_OPTIONS.SINGLE, checked.option)){
 						scope.data[expand.dataKey] =  selectedItem[0][expand.returnKey];
 						scope.data[expand.dataValue] = selectedItem[0][expand.returnValue];
 					}else{
+						
 						//多选
 						var value = "";
 						var id = "";
 						for(var idx in selectedItem){
-
 							id +=  selectedItem[idx][expand.returnKey] + ',';
 							value += selectedItem[idx][expand.returnValue] + ',';
 						}
@@ -613,7 +598,9 @@ app.directive('uiSelector', function($http,$log,$uibModal) {
 						scope.data[expand.dataKey] = id;
 						scope.data[expand.dataValue] = value;
 					}
-				}, function () { //子页关闭监听
+					
+					//子页关闭监听
+				}, function () { 
 					$log.info('Modal dismissed at: ' + new Date());
 				});
 			}
@@ -638,6 +625,7 @@ app.directive('uiGenerateCode', function($http,$log,commonService) {
 		transclude : false,
 		link:function(scope,element,attr){ 
 			scope.maxlength = $(attr)[0].maxlength;
+			
 			//生成编码
 			scope.createCode = function(){
 				var remoteUrl = _.isEmpty(scope.url) ?  "/basic/func/code" : scope.url;
@@ -673,27 +661,22 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			if(_.isEmpty(scope.kv)){
-				return;
-			}
 			scope.expand = eval('(' + scope.kv + ')'); 
-			
+
 			//返回键值
 			scope.firstMapp = scope.expand.mappingList[0];
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
-
 				var modalInstance = $uibModal.open({
 					templateUrl: '/templates/basic/directive/uiCodeSelectorTpl.html',
 
 					//接收子页传值
 					controller: function($scope,$http,$uibModal,$log,$uibModalInstance,param) { 
-						
+
 						//获取视图编号
 						$scope.code = param.expand.code;
 						$scope.returndata = {};
-						//$scop.param = param.param;
-						
+
 						//选择器ok按钮
 						$scope.ok = function() {
 							var item ={}
@@ -716,34 +699,26 @@ app.directive('uiViewSelector', function($http,$log,$uibModal) {
 					resolve: {
 						param: function () {
 							return scope;
-						},
-						deps:function($ocLazyLoad,$stateParams,$log){
-
-							//if(_.isUndefined(scope.loadScript) || scope.loadScript)
-							//return $ocLazyLoad.load("templates/"+scope.url+".js");
 						}
 					}
 				});
-
-				modalInstance.result.then(function (checked) { //获取子页返回值
+				
+				//获取子页返回值
+				modalInstance.result.then(function (checked) { 
 					var mappingList = scope.expand.mappingList;
 					var selectedItem = checked.data;
-					
+
 					//单选
 					if(selectedItem.length == 1){
 						var sitem = selectedItem[0];
-						
-						//遍历
 						for(var midx in mappingList){
 							var mapping = mappingList[midx];
 							scope.data[mapping.valueKey] = sitem[mapping.textValue];
 						}
 					}else{
-						
+
 						//多选
 						var textValue = "";
-						
-						//遍历
 						for(var midx in mappingList){
 							var mapping = mappingList[midx];
 							for(var idx in selectedItem){
@@ -769,9 +744,7 @@ app.directive('uiIcon', function($http,$log) {
 			prop:'='
 		},
 		template:function(element,atts){
-//<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
-			return 
-			'<a href="javascript:void(0);" class="table-action-btn" ng-click="checkedIcon()"><i class="{{icon}}"></i></a>';
+			return '<a href="javascript:void(0);" class="table-action-btn" ng-click="checkedIcon()"><i class="{{icon}}"></i></a>';
 		},
 		link:function(scope,element,attr){
 			scope.icon = "ion-eye";
@@ -781,12 +754,12 @@ app.directive('uiIcon', function($http,$log) {
 			var checkedIcon = function($scope,$http,$uibModal,$log,$uibModalInstance,param){
 				$scope.ok=function($event){
 					param.prop = $($event.target).attr("class");
-					
+
 					//关闭图标
 					$uibModalInstance.close();
 				}
 			}
-			
+
 			//选择图标
 			$scope.checkedIcon = function(){
 				var options = {templateUrl:"/templates/search/sqlview/iconSelector.html",controller:checkedIcon,

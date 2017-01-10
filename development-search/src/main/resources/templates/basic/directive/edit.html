@@ -10,7 +10,7 @@
 			<div class="form-group" ng-repeat="item in fieldList" >
 					<ui-label clazz="col-sm-2" content="{{item.title}}" required="item.required"></ui-label>
 					<div class="col-sm-8">
-						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')"  validator="item.rule" maxlength="item.length"></ui-generate-code>
+						<ui-generate-code data="data[item.field]" ng-if="isType(item.componentType,'GENERATECODE')" expand="{{item.expand}}" validator="item.rule" maxlength="item.length"></ui-generate-code>
 						<input class="form-control input-sm"  ng-model="data[item.field]"  ng-if="isType(item.componentType,'TEXT')" ui-validator="{{item.rule}}" maxlength="item.length"></input>
 						<ui-selector url="{{item.url}}"  data="data"  expand="{{item.expand}}"  ng-if="isType(item.componentType,'SELECTOR')" validator="item.rule" maxlength="item.length" size="80"></ui-selector>
 						<textarea class="form-control"  ng-model="data[item.field]" ng-if="isType(item.componentType,'TEXTAREA')" ui-validator="{{item.rule}}" maxlength="item.length"></textarea>
