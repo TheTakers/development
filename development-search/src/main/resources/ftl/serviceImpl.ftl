@@ -1,11 +1,11 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.${packageName}.service.impl;
+package com.${vars.packageName}.service.impl;
 
 import org.springframework.stereotype.Service;
-import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.repository.${vars.beanName}Repository;
-import com.sophia.service.${vars.beanName}Service;
+import com.${vars.packageName}.repository.impl.JpaRepositoryImpl;
+import com.${vars.packageName}.repository.${vars.beanName}Repository;
+import com.${vars.packageName}.service.${vars.beanName}Service;
 
 /**
  * ${vars.comment}服务实现类

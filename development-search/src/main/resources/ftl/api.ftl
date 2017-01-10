@@ -1,9 +1,10 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.${packageName}.api;
+package com.${vars.packageName}.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.${vars.packageName}.api.BaseController;
 
 /**
  * ${vars.comment}API

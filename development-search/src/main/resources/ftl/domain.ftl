@@ -1,6 +1,6 @@
 <#assign text="${param}" />
 <#assign vars=text?eval />
-package com.${packageName}.domain;
+package com.${vars.packageName}.domain;
 
 <#list vars.columnList as column>
 	<#if column.attr != "id" &&
@@ -17,7 +17,7 @@ ${column.package}
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import com.${packageName}.domain.Auditable;
+import com.${vars.packageName}.domain.Auditable;
 
 /**
  * ${vars.comment}实体类
