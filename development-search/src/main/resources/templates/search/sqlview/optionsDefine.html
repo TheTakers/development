@@ -1,0 +1,24 @@
+ <div class="modal-header">
+	<h6 class="modal-title">参数设置</h6>
+</div>
+ 
+<div class="modal-body">
+		<form class="form-horizontal" name="actionForm" >
+ 			<div class="form-group"   ng-repeat="item in opts" >
+ 					<ui-label clazz="col-sm-2" content="KEY"></ui-label>
+					<div class="col-sm-3">
+ 					<input class="form-control input-sm" ng-model="item.keyValue" ui-validator="[10001]"></input>
+ 					</div>
+ 					<ui-label clazz="col-sm-2" content="VALUE"></ui-label>
+					<div class="col-sm-3">
+ 						<input class="form-control input-sm" ng-model="item.textValue" ui-validator="[10001]"></input>
+ 					</div>
+ 					<button class="btn btn-icon waves-effect waves-light btn-danger" ng-click="adRecord($index)"> <i class="fa {{item.icon}}"></i> </button>
+ 			</div>
+		</form>		
+</div>
+
+<div class="modal-footer">
+	<button type="button" class="btn btn-default waves-effect" data-dismiss="modal"  ng-click="cancel()">取消</button>
+	<button type="button" class="btn btn-info waves-effect waves-light" ng-click="ok()" ng-disabled="actionForm.$invalid">确定</button>
+</div>
