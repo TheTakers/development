@@ -460,13 +460,13 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 		},
 		template:function(element,atts){
 			return'<div class="app-search-sm">'
-			+'<input type="text" class="form-control input-sm" ng-model="data[inputData.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
+			+'<input type="text" class="form-control input-sm" ng-model="data[opts.dataValue]" ui-validator="{{validator}}" maxlength="{{maxlength}}" readonly="true"></input>'
 			+'<a ng-click="open()" ><i class="fa fa-search selector-hover"></i></a></div>';
 		},
 		replace : true,			
 		transclude : false,
 		link:function(scope,element,attr){
-			scope.inputData = eval( scope.options );
+			scope.opts = eval( scope.options );
 			scope.maxlength = $(attr)[0].maxlength;
 			scope.open=function(){
 				var modalInstance = $uibModal.open({
