@@ -2,12 +2,12 @@
 multiple:1
 ,controller:"/search/sqlgroup"
 ,fieldData:[
-	{title:"编号",field:"code",display:true,expand:""},
-    {title:"别名",field:"name",display:true,expand:""},
-    {title:"所属分组",field:"pText",display:true,expand:""},
-    {title:"路径",field:"path",display:true,expand:""},
-    {title:"备注",field:"remark",display:true,expand:""}
+	{title:"编号",field:"code",display:true,options:""},
+    {title:"别名",field:"name",display:true,options:""},
+    {title:"所属分组",field:"pText",display:true,options:""},
+    {title:"路径",field:"path",display:true,options:""},
+    {title:"备注",field:"remark",display:true,options:""}
 ]
-, filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
-   {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
+, filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",options:""},
+   {title:"别名",field:"name",componentType:"",value:"",expr:"like",options:""}]
 }

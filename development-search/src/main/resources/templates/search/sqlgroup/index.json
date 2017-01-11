@@ -1,11 +1,11 @@
 {
 controller:"/search/sqlgroup"
 ,fieldData:[
-        {title:"编号",field:"code",isDisplay:true,expand:""},
-        {title:"别名",field:"name",isDisplay:true,expand:""},
-        {title:"所属分组",field:"pText",isDisplay:true,expand:""},
-        {title:"路径",field:"path",isDisplay:true,expand:""},
-        {title:"备注",field:"remark",isDisplay:true,expand:""},
+        {title:"编号",field:"code",isDisplay:true,options:""},
+        {title:"别名",field:"name",isDisplay:true,options:""},
+        {title:"所属分组",field:"pText",isDisplay:true,options:""},
+        {title:"路径",field:"path",isDisplay:true,options:""},
+        {title:"备注",field:"remark",isDisplay:true,options:""},
         {title:"操作",field:""}
  ]     
 ,buttonData:[
@@ -15,8 +15,8 @@ controller:"/search/sqlgroup"
       {title:"新增",icon:"",target:"edit",type:1}
 ]
                
-,filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",expand:""},
-			 {title:"别名",field:"name",componentType:"",value:"",expr:"like",expand:""}]
+,filterData:[{title:"编号",field:"code",componentType:"",value:"",expr:"like",options:""},
+			 {title:"别名",field:"name",componentType:"",value:"",expr:"like",options:""}]
 			           
 ,treeData:{
 	url:"/search/sqlgroup/treeData",
@@ -28,7 +28,7 @@ controller:"/search/sqlgroup"
 ,fieldSetting:[
        {title:"SQLID",field:"code",required:true,componentType:"GENERATECODE"},
         {title:"别名",field:"name",required:false,componentType:"TEXT"},
-        {title:"所属分组",field:"parentId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
+        {title:"所属分组",field:"parentId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",options:"{dataKey:'parentId',dataValue:'pText',returnKey:'id',returnValue:'name'}"},
         {title:"状态",field:"status",required:false,componentType:"TEXT"},
         {title:"描述",field:"remark",required:false,componentType:"TEXTAREA"}
 	]

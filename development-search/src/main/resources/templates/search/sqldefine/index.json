@@ -1,15 +1,15 @@
 {
 controller:"/search/sqldefine",
 fieldData:[
-        {title:"SQLID",field:"sqlId",isDisplay:true,expand:""},
-        {title:"别名",field:"sqlName",isDisplay:true,expand:""},
-        {title:"SQL组",field:"pText",isDisplay:true,expand:""},
-        {title:"数据源",field:"datasource",isDisplay:true,expand:""},
-        {title:"缓存",field:"cache",isDisplay:true,expand:""},
-        {title:"主表",field:"masterTable",isDisplay:true,expand:""},
-        {title:"主表ID",field:"masterTableId",isDisplay:true,expand:""},
-        {title:"状态",field:"status",isDisplay:true,expand:""},
-        {title:"描述",field:"sqldesc",isDisplay:true,expand:""},
+        {title:"SQLID",field:"sqlId",isDisplay:true,options:""},
+        {title:"别名",field:"sqlName",isDisplay:true,options:""},
+        {title:"SQL组",field:"pText",isDisplay:true,options:""},
+        {title:"数据源",field:"datasource",isDisplay:true,options:""},
+        {title:"缓存",field:"cache",isDisplay:true,options:""},
+        {title:"主表",field:"masterTable",isDisplay:true,options:""},
+        {title:"主表ID",field:"masterTableId",isDisplay:true,options:""},
+        {title:"状态",field:"status",isDisplay:true,options:""},
+        {title:"描述",field:"sqldesc",isDisplay:true,options:""},
         {title:"操作",field:""}
 ]     
 ,buttonData:[
@@ -18,8 +18,8 @@ fieldData:[
        {title:"删除",icon:"ion-trash-a",target:"remove",type:0},
        {title:"新增",icon:"",target:"edit",type:1}
    ]
-,filterData:[{title:"SQLID",field:"sqlid",componentType:"TEXT",value:"",expr:"like",expand:""},
-	   {title:"别名",field:"sqlname",componentType:"TEXT",value:"",expr:"like",expand:""}]
+,filterData:[{title:"SQLID",field:"sqlid",componentType:"TEXT",value:"",expr:"like",options:""},
+	   {title:"别名",field:"sqlname",componentType:"TEXT",value:"",expr:"like",options:""}]
 ,treeData:{
 		url:"/search/sqlgroup/treeData",
 		idKey: "id",
@@ -29,9 +29,9 @@ fieldData:[
 ,fieldSetting:[
 	    {title:"SQLID",field:"sqlId",required:true,componentType:"GENERATECODE",rule:"[10001]"},
 	    {title:"别名",field:"sqlName",required:true,componentType:"TEXT",rule:"[10001]"},
-	    {title:"所属分组",field:"groupId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",expand:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}" ,rule:"[10001]"},
+	    {title:"所属分组",field:"groupId",required:true,componentType:"SELECTOR",url:"templates/search/sqlgroup/selector.json",options:"{dataKey:'groupId',dataValue:'pText',returnKey:'id',returnValue:'name'}" ,rule:"[10001]"},
 	    {title:"数据源",field:"datasource",required:false,componentType:"TEXT",rule:"[]"},
-	    {title:"缓存",field:"cache",required:false,componentType:"DROPDOWN",expand:"[{value:1,text:'是'},{value:0,text:'否'}]",rule:"[10001]"},
+	    {title:"缓存",field:"cache",required:false,componentType:"DROPDOWN",options:"[{value:1,text:'是'},{value:0,text:'否'}]",rule:"[10001]"},
 	    {title:"状态",field:"status",required:false,componentType:"TEXT"},
 	    {title:"描述",field:"sqldesc",required:false,componentType:"TEXTAREA"},
 	    {title:"主表",field:"masterTable",required:true,componentType:"TEXT",rule:"[10001]"},

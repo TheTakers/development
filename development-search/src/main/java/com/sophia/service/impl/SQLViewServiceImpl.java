@@ -153,7 +153,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//判断是否是日期类型
 			if (SimpleUtils.getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
-				field.setOptions("Y-m-d H:i:s");
+				field.setOptions("%Y-%m-%d %H:%i:%s");
 			}
 			field.setIdx(i-1);
 			if(masterFieldMap.containsKey(field.getField())){
