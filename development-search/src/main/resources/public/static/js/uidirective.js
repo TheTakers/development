@@ -476,7 +476,7 @@ app.directive('uiUdEditor', function($http,$log,$uibModal) {
 					controller: scope.ctrl,
 					size:scope.size,
 					resolve: {
-						param: function () {
+						context: function () {
 							return scope;
 						},
 						deps:function($ocLazyLoad,$stateParams,$log){

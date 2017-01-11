@@ -92,3 +92,12 @@ function remove(commonService,url,param,callback) {
 		} 
 	});
 }
+
+//返回JSON长度
+function getJsonLength(jsonData){
+	var idx = 0;
+	for(var item in jsonData){
+		idx++;
+	}
+	return idx;
+}

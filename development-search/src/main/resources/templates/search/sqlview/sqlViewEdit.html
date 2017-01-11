@@ -104,8 +104,9 @@
 										 <td>{{item.length}}</td>
 										 <td><ui-dropdown selected="item.componentType" data="ctype"></ui-dropdown></td>
 										 <td>
-										 	<input class="form-control input-sm" ng-model="item.options" ng-if="isExpandComponentTypeText(item)"></input>
+										 	<!-- <input class="form-control input-sm" ng-model="item.options" ng-if="isExpandComponentTypeText(item)"></input> -->
 										 	<ui-ud-editor data="item" param = "columnList" size="60" ng-if="item.componentType == 'VIEWSELECTOR'" tplurl="templates/search/sqlview/sqlSelectParam.html" ctrl = "sqlSelectParamCtrl"  options = "{dataKey:'options',dataValue:'options',returnKey:'id',returnValue:'name'}"  validator="[10001]"> </ui-ud-editor> 
+										 	<ui-ud-editor data="item" param = "item" size="60" ng-if="isExpandComponentTypeText(item)" tplurl="templates/search/sqlview/optionsDefine.html" ctrl = "optsParamCtrl"  options = "{dataKey:'options',dataValue:'options',returnKey:'id',returnValue:'name'}" > </ui-ud-editor> 
 										 	<ui-dropdown class="form-control input-sm" selected="item.options"  ng-if="item.componentType == 'DATEPICKER'"  data="formatList" ui-validator="{{item.rule}}"></ui-dropdown>
 										 </td>
 										 <td><ui-dropdown selected="item.isDisplay" data="optionData"></ui-dropdown></td>

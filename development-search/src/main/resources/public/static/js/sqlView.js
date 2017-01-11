@@ -135,37 +135,86 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			return item.componentType != 'VIEWSELECTOR' && item.componentType != 'DATEPICKER';
 		}
 		
+		//JSON参数设置
+		$scope.optsParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,commonService,context){
+			
+			//参数设置
+			if(context.param.options){
+				$scope.opts = [];
+				var vj = JSON.parse(context.param.options);
+				var idx = 0;
+				for(key in vj){
+					
+					if(idx == getJsonLength(vj) - 1){
+						$scope.opts.push ({keyValue:key,textValue:vj[key], icon:"md-add" });
+					}else{
+						$scope.opts.push ({keyValue:key,textValue:vj[key], icon:"md-remove" });
+					}
+					idx++;
+				}
+			}else{
+				$scope.opts= [{keyValue:"", textValue:"", icon:"md-add" }];
+			}
+			
+			//增减参数
+			$scope.adRecord = function(idx){
+
+				//最后一条增加数据
+				if($scope.opts.length - 1 == idx){
+					$scope.opts.splice(0,0,{keyValue:"", textValue:"", icon:"md-remove" });
+				}else{
+					$scope.opts.splice(idx,1);
+				}
+			}
+			
+			//选择器ok按钮
+			$scope.ok = function() {
+				var opts = {};
+				for(idx in $scope.opts){
+					opts[$scope.opts[idx].keyValue] = $scope.opts[idx].textValue;
+				}
+				context.data.options = JSON.stringify(opts);
+				$uibModalInstance.close($scope.opts);
+			};
+
+			//取消
+			$scope.cancel = function() {
+				$uibModalInstance.dismiss('cancel');
+			};
+		}
+		
 		//参数设置弹出框
-		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,commonService,param){
+		$scope.sqlSelectParamCtrl = function($scope,$http,$uibModal,$log,$uibModalInstance,commonService,context){
 			
 			//视图所有列
-			$scope.columnList =  param.param;
-			if(param.data.options){
-				$scope.options = JSON.parse(param.data.options);
+			$scope.columnList =  context.param;
+			if(context.data.options){
+				$scope.options = JSON.parse(context.data.options);
 			}else{
 				$scope.options={
 					code:"",
 					mappingList:[{
-						valueKey:param.data.field, //数据键值
+						valueKey:context.data.field, //数据键值
 						textValue:"",//对应返回文本值
 						icon:"md-add"
 					}]
 				};
 			}
 		
-		//增减参数
-		$scope.adRecord = function(idx){
-				
+			//增减参数
+			$scope.adRecord = function(idx){
+
 				//最后一条增加数据
 				if($scope.options.mappingList.length - 1 == idx){
-					
+
 					//往第一行插入数据
 					$scope.options.mappingList.splice(0,0,{
-							valueKey:"",
-							textValue:"",
-							icon:"md-remove"});
+						valueKey:"",
+						textValue:"",
+						icon:"md-remove"
+					});
 				}else{
-					
+
 					//减去
 					$scope.options.mappingList.splice(idx,1);
 				}
@@ -173,7 +222,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			
 			//选择器ok按钮
 			$scope.ok = function() {
-				param.data.options = JSON.stringify($scope.options);
+				context.data.options = JSON.stringify($scope.options);
 				$uibModalInstance.close($scope.options);
 			};
 
