@@ -224,16 +224,14 @@
 								<tbody>
 									<tr ng-repeat="item in buttonList">
 										<td>
-										
 										<button ng-if="item.type == 1" class="btn btn-info" ng-click="checkedIcon(item)"><i class="{{item.icon}} m-r-5"></i>{{item.title}}</button>
 										<a ng-if="item.type == 0"  href="javascript:void(0);" class="table-action-btn"  ui-popover="" data-content="{{item.title}}"  data-trigger="hover" data-placement="top" ng-click="checkedIcon(item)"><i class="{{item.icon}}"></i></a>
-										
 										</td>
 										<td><input class="form-control input-sm" ng-model="item.title" ui-validator="[10001]"></input></td>
 										<td><ui-dropdown selected="item.type" data="btype"></ui-dropdown></td>
-										<td><input class="form-control input-sm" ng-model="item.url"></input></td>
-										<td><input class="form-control input-sm" ng-model="item.ctrl"></input></td>
-										<td><input class="form-control input-sm" ng-model="item.lazyurl"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.url" placeholder="template/basic/example.html"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.ctrl"  placeholder="exampleCtrl"></input></td>
+										<td><input class="form-control input-sm" ng-model="item.lazyurl" placeholder="template/basic/example.js"></input></td>
 										<td><ui-dropdown selected="item.showWin" data="optionData"></ui-dropdown></td>
 										<td><ui-dropdown selected="item.winSize" data="winSize"></ui-dropdown></td>
 										<td  class="nowrap">
