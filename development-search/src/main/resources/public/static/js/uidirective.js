@@ -49,10 +49,10 @@ app.directive('uiValidator', [function () {
 							/**
 							$(element).attr("data-content",regx.tip);
 							$(element).popover('show');
-							 **/
+							
 							$(element).popover({trigger:"hover|focus ",placement:"right",content:regx.tip})
 							$(element).popover('show');
-							$(element).addClass("ng-required");
+							$(element).addClass("ng-required"); **/
 							break;
 						}
 //						return validity ? value : undefined;
