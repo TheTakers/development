@@ -5,7 +5,6 @@
 		<groupId>com.sophia</groupId>
 		<artifactId>development-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../development-parent</relativePath> 
 	</parent>
 	<artifactId>development-framework</artifactId>
 
@@ -47,4 +46,19 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${springboot.version}</version>
+					<configuration>
+						<mainClass>com.sophia.Application</mainClass>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
