@@ -22,7 +22,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/**").authenticated();
         
-        http    .sessionManagement()
+        	http.sessionManagement()
                 .maximumSessions(1)
                 .expiredUrl("/login?expired");
         http.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureUrl("/login?error");
