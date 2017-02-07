@@ -26,7 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .expiredUrl("/login?expired");
         http.formLogin().loginPage("/login").defaultSuccessUrl("/", true).failureUrl("/login?error");
-//        http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessHandler(new LogoutHandler());
+//      http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessHandler(new LogoutHandler());
         http.csrf().disable();
         
         //允许同域iframe

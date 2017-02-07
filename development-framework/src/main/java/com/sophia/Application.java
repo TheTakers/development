@@ -3,8 +3,9 @@ package com.sophia;
 
 import org.springframework.boot.SpringApplication;
 
-import com.sophia.context.ApplicationEnvironmentPreparedEventListener;
-
+/**
+ * @author zkning
+ */
 public class Application {
 	private SpringApplication application;
 
@@ -13,7 +14,7 @@ public class Application {
 	}
 	
 	public void initialize(){
-		this.application.addListeners(new ApplicationEnvironmentPreparedEventListener());
+		//TODO..
 	}
 	
 	public static Application getInstance(SpringApplication application){
