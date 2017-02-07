@@ -2,18 +2,21 @@
 package com.sophia;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.sophia.context.ApplicationEnvironmentPreparedEventListener;
 
-@SpringBootApplication
-@EnableScheduling
 public class Application {
+	private SpringApplication application;
 
-    public static void main(String[] args) {
-    	SpringApplication application = new SpringApplication(Application.class);
-    	application.addListeners(new ApplicationEnvironmentPreparedEventListener());
-    	application.run(args);
-    }
+	public Application(SpringApplication application) {
+		this.application = application;
+	}
+	
+	public void initialize(){
+		this.application.addListeners(new ApplicationEnvironmentPreparedEventListener());
+	}
+	
+	public static Application getInstance(SpringApplication application){
+		return new Application(application);
+	}
 }
