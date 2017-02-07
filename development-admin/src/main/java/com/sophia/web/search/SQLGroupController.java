@@ -20,13 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLGroup;
-import com.sophia.request.QueryRequest;
-import com.sophia.request.SQLGroupRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.response.Response;
 import com.sophia.service.SQLGroupService;
 import com.sophia.service.SQLIDService;
+import com.sophia.vo.QueryParam;
+import com.sophia.vo.SQLGroupParam;
 import com.sophia.web.util.GUID;
 
 
@@ -49,8 +49,8 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		GridResponse<Map<String,Object>> data = sqlGroupService.list(queryRequest);
+	public Object list(@RequestBody @Valid QueryParam queryRequest) {
+		Pager<Map<String,Object>> data = sqlGroupService.list(queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -67,7 +67,7 @@ public class SQLGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLGroupRequest request) {
+	public Object save(@RequestBody @Valid SQLGroupParam request) {
 		SQLGroup target = new SQLGroup();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){

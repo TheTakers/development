@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.sophia.request.UserRequest;
 import com.sophia.response.Response;
+import com.sophia.vo.UserParam;
 
 /**
  * Created by Kim on 2015/9/11.
@@ -24,7 +24,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/permit/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Object permituser(@RequestBody @Valid UserRequest userParam) {
+    public Object permituser(@RequestBody @Valid UserParam userParam) {
         try {
         	return Response.SUCCESS();
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class UserRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Object user(@RequestBody @Valid UserRequest userLuckParam) {
+    public Object user(@RequestBody @Valid UserParam userLuckParam) {
     	 try {
          	return Response.SUCCESS();
          } catch (Exception e) {

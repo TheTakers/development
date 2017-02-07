@@ -1,4 +1,4 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author zkning
  *
  */
-public class SQLGroupRequest extends CrudRequest{
+public class SQLGroupParam extends CrudParam{
 	
 	
 	

@@ -20,11 +20,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Menu;
-import com.sophia.request.MenuRequest;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
+import com.sophia.domain.Pager;
 import com.sophia.response.Response;
 import com.sophia.service.MenuService;
+import com.sophia.vo.MenuParam;
+import com.sophia.vo.QueryParam;
 import com.sophia.web.util.GUID;
 
 
@@ -54,8 +54,8 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		GridResponse<Map<String,Object>> data = menuService.list(queryRequest);
+	public Object list(@RequestBody @Valid QueryParam queryRequest) {
+		Pager<Map<String,Object>> data = menuService.list(queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -92,7 +92,7 @@ public class MenuController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid MenuRequest request) {
+	public Object save(@RequestBody @Valid MenuParam request) {
 		Menu target = new Menu();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){

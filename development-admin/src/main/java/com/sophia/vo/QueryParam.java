@@ -1,16 +1,15 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sophia.dto.ConditionDto;
 
 /**
  * 查询grid
  * @author zkning
  */
-public class QueryRequest implements Serializable{
+public class QueryParam implements Serializable{
 	
 	
 	/**
@@ -36,7 +35,7 @@ public class QueryRequest implements Serializable{
 	/**
 	 * 查询条件
 	 */
-	private List<ConditionDto> condition;
+	private List<ConditionResult> condition;
 	private JSONObject treeNode;
 
 	public JSONObject getTreeNode() {
@@ -63,11 +62,11 @@ public class QueryRequest implements Serializable{
 		this.pageNo = pageNo - 1;
 	}
 
-	public List<ConditionDto> getCondition() {
+	public List<ConditionResult> getCondition() {
 		return condition;
 	}
 
-	public void setCondition(List<ConditionDto> condition) {
+	public void setCondition(List<ConditionResult> condition) {
 		this.condition = condition;
 	}
 

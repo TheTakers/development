@@ -4,22 +4,22 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
-import com.sophia.request.QueryRequest;
-import com.sophia.request.SQLViewQueryRquest;
-import com.sophia.request.SQLViewRequest;
-import com.sophia.response.GridResponse;
+import com.sophia.vo.QueryParam;
+import com.sophia.vo.SQLViewParam;
+import com.sophia.vo.SQLViewQueryParam;
 
 public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	
-	 String save(SQLViewRequest sqlViewRequest);
+	 String save(SQLViewParam sqlViewRequest);
 	
 	 SQLView findById(String id);
 	
-	 GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
+	 Pager<Map<String,Object>> list(QueryParam queryRequest);
 	
 	 List<SQLViewField> showFullColumnsBySql(String sql);
 	
@@ -73,7 +73,7 @@ public interface SQLViewService extends JpaRepository<SQLViewRepository>{
 	 * @param queryRequest
 	 * @return
 	 */
-	 GridResponse<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryRquest queryRequest);
+	 Pager<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryParam queryRequest);
 	
 	/**
 	 * 根据视图编码获取字段

@@ -13,20 +13,15 @@ public class ConditionUtil {
 	private static final String EXP  = "exp";
 	private static final String AND  = " AND ";
 	public static String parse(String condition){
-		
 		StringBuffer condBuff = new StringBuffer();
-		
 		JSONArray array = JSONArray.parseArray(condition);
-		
 		JSONObject cond;
 		for(Object idx : array){
 			cond = (JSONObject)idx;
-			
 			if(StringUtils.isBlank(cond.getString(VALUE))){
 				condBuff.append( COLUMN )
 						.append( EXP )
 						.append( VALUE );
-				
 					condBuff.append(AND);
 			}
 		}

@@ -24,24 +24,24 @@ import com.sophia.constant.ComponentType;
 import com.sophia.constant.SQLExpression;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.constant.TreeNodeHandleType;
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
 import com.sophia.domain.SQLView;
 import com.sophia.domain.SQLViewField;
-import com.sophia.dto.ConditionDto;
-import com.sophia.dto.TreeDto;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.request.QueryRequest;
-import com.sophia.request.SQLViewQueryRquest;
-import com.sophia.request.SQLViewRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
 import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SqlFilter;
+import com.sophia.vo.ConditionResult;
+import com.sophia.vo.QueryParam;
+import com.sophia.vo.SQLViewParam;
+import com.sophia.vo.SQLViewQueryParam;
+import com.sophia.vo.TreeResult;
 import com.sophia.web.util.GUID;
 
 /**
@@ -60,7 +60,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
-	public String save(SQLViewRequest sqlViewRequest){
+	public String save(SQLViewParam sqlViewRequest){
 
 		//基本信息
 		SQLView sqlView = new SQLView();
@@ -100,13 +100,13 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlView.setButtonList(JsonArraySort(sqlView.getButtons(), "idx"));
 		return  sqlView;
 	}
-	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
+	public Pager<Map<String,Object>> list(QueryParam queryRequest){
 		SqlFilter sqlFilter = new SqlFilter(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
-		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return jdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	private SQLDefine getSQLDefine(String sqlId){
@@ -239,7 +239,6 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	public void persistentByCode(String code,JSONObject row){
-
 		SQLView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
@@ -439,12 +438,12 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return result;
 	}
 	@Override
-	public GridResponse<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryRquest queryRequest){
+	public Pager<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryParam queryRequest){
 		SQLView sqlView = getRepository().getByCode(code);
-		ConditionDto conditionVo = getTreeNode(sqlView.getTreeData(),queryRequest.getTreeNode());
+		ConditionResult conditionResult = getTreeNode(sqlView.getTreeData(),queryRequest.getTreeNode());
 		SqlFilter sqlFilter = new SqlFilter(queryRequest.getCondition());
-		if(null != conditionVo){
-			sqlFilter.addCondition(conditionVo);
+		if(null != conditionResult){
+			sqlFilter.addCondition(conditionResult);
 		}
 
 		//获取显示字段
@@ -456,7 +455,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 			//拼装sql显示列表
 			StringBuffer sb = new StringBuffer("SELECT ");
-			ConditionDto sortCond;
+			ConditionResult sortCond;
 			for(SQLViewField field : sqlViewFieldList){
 				if(SQLViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
 						StringUtils.isNotBlank(field.getOptions())){
@@ -468,7 +467,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 				//排序
 				if(StringUtils.isNotBlank(field.getSort())){
-					sortCond = new ConditionDto();
+					sortCond = new ConditionResult();
 					sortCond.setField(field.getField());
 					sortCond.setSort(field.getSort());
 					sqlFilter.addCondition(sortCond);
@@ -477,7 +476,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			sb.deleteCharAt(sb.lastIndexOf(",")).append(" from ( ").append(sqlDefine.getSelectSql()).append(") t ");
 			sqlFilter.setMainSql(sb.toString());
 		}
-		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return jdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	/**
@@ -485,12 +484,12 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param treeConfig
 	 * @return
 	 */
-	private ConditionDto getTreeNode(String treeConfig,JSONObject treeNode){
-		TreeDto treeDto = JSONObject.parseObject(treeConfig, TreeDto.class);
+	private ConditionResult getTreeNode(String treeConfig,JSONObject treeNode){
+		TreeResult treeDto = JSONObject.parseObject(treeConfig, TreeResult.class);
 		if(!SimpleUtils.isTrue(treeDto.getIsShow())){
 			return null;
 		}
-
+		
 		//获取sqlDefine 
 		SQLDefine sqlDefine = sqlDefineService.findBySqlId(treeDto.getSqlId());
 		Map<String,Object> paramMap = new HashMap<String, Object>();
@@ -514,7 +513,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			result.add(jdbcTemplateService.queryForMap(warpTreeSql(sqlDefine.getSelectSql(), treeDto.getIdKey()), paramMap));
 			break;
 		}
-		ConditionDto conditionDto = new ConditionDto();
+		ConditionResult conditionDto = new ConditionResult();
 		conditionDto.setField(treeDto.getRelationField());
 		conditionDto.setExpr(SQLExpression.IN);
 		//TODO 换成in语句
@@ -554,7 +553,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param treeVo
 	 * @return
 	 */
-	private List<Map<String, Object>> findAllNode(String sql,Object pId,TreeDto treeVo){
+	private List<Map<String, Object>> findAllNode(String sql,Object pId,TreeResult treeVo){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put(treeVo.getpIdKey(), pId);
 		List<Map<String, Object>> queryResult = new ArrayList<Map<String,Object>>(); 

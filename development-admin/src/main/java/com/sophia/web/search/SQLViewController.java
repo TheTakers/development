@@ -19,12 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
-import com.sophia.request.QueryRequest;
-import com.sophia.request.SQLViewQueryRquest;
-import com.sophia.request.SQLViewRequest;
-import com.sophia.response.GridResponse;
+import com.sophia.domain.Pager;
 import com.sophia.response.Response;
 import com.sophia.service.SQLViewService;
+import com.sophia.vo.QueryParam;
+import com.sophia.vo.SQLViewParam;
+import com.sophia.vo.SQLViewQueryParam;
 
 @Controller
 @RequestMapping(SQLViewController.module)
@@ -46,8 +46,8 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		GridResponse<Map<String,Object>> data = sqlViewService.list(queryRequest);
+	public Object list(@RequestBody @Valid QueryParam queryRequest) {
+		Pager<Map<String,Object>> data = sqlViewService.list(queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -64,7 +64,7 @@ public class SQLViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLViewRequest request) {
+	public Object save(@RequestBody @Valid SQLViewParam request) {
 		try {
 			sqlViewService.save(request);
 			return Response.SUCCESS();
@@ -200,7 +200,7 @@ public class SQLViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public  Object findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryRquest queryRequest) {
+	public  Object findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryParam queryRequest) {
 		return Response.SUCCESS(sqlViewService.findSqlViewGrid(code, queryRequest));
 	}
 	

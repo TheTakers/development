@@ -1,8 +1,8 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 import javax.validation.constraints.NotNull;
 
-public class CrudRequest{
+public class CrudParam{
 	
 	private String id;
 	

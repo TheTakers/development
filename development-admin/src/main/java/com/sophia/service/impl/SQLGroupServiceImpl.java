@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLGroupService;
 import com.sophia.utils.SqlFilter;
+import com.sophia.vo.QueryParam;
 
 @Service
 public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> implements SQLGroupService  {
@@ -43,13 +43,13 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		return npJdbcTemplateService.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 
-	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest){
+	public Pager<Map<String,Object>> list(QueryParam queryRequest){
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
-		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return npJdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.sophia.domain.Menu;
+import com.sophia.domain.Pager;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.MenuRepository;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
+import com.sophia.vo.QueryParam;
 
 public interface MenuService  extends JpaRepository<MenuRepository>{
 	
@@ -42,5 +42,5 @@ public interface MenuService  extends JpaRepository<MenuRepository>{
 	 * @param queryRequest
 	 * @return
 	 */
-	 GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
+	 Pager<Map<String,Object>> list(QueryParam queryRequest);
 }

@@ -1,4 +1,4 @@
-package com.sophia.dto;
+package com.sophia.vo;
 
 import java.io.Serializable;
 
@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 数据类型
  * @author zkning
  */
-public class DataTypeDto implements Serializable{
+public class DataTypeResult implements Serializable{
 	/**
 	 * 
 	 */

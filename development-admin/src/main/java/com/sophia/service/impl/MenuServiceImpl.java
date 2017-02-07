@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.sophia.domain.Menu;
+import com.sophia.domain.Pager;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.MenuService;
 import com.sophia.utils.SqlFilter;
+import com.sophia.vo.QueryParam;
 
 @Service
 public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {
@@ -85,12 +85,12 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	@Override
-	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest) {
+	public Pager<Map<String,Object>> list(QueryParam queryRequest) {
 		SqlFilter sqlFilter = new SqlFilter(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("pid", queryRequest.getTreeNode().getString("id"));
 		}
-		return jdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return jdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

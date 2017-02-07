@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 import com.sophia.constant.SQLViewConstant;
-import com.sophia.dto.DataTypeDto;
+import com.sophia.vo.DataTypeResult;
 
 /**
  * 简陋的工具类
@@ -106,8 +106,8 @@ public class SimpleUtils {
 	 * MySQL类型转Java类型
 	 * @return
 	 */
-	public static DataTypeDto mysqlTypeConvertJavaType(Integer idx){
-		DataTypeDto dataTypeVo = new DataTypeDto();
+	public static DataTypeResult mysqlTypeConvertJavaType(Integer idx){
+		DataTypeResult dataTypeVo = new DataTypeResult();
 		switch (idx) {
 		case Types.VARCHAR:
 		case Types.CHAR:

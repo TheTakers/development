@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import com.sophia.domain.User;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.UserRepository;
-import com.sophia.request.UserRequest;
+import com.sophia.vo.UserParam;
 
 public interface UserService extends JpaRepository<UserRepository>{
 	
@@ -14,5 +14,5 @@ public interface UserService extends JpaRepository<UserRepository>{
 	 */
 	void nativeQuery();
 	
- 	Page<User> grid(UserRequest userParam);
+ 	Page<User> grid(UserParam userParam);
 }

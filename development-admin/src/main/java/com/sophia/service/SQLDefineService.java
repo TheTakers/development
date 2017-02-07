@@ -3,24 +3,24 @@ package com.sophia.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLDefineRepository;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
+import com.sophia.vo.QueryParam;
 
 public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
 	
 	public String save(SQLDefine sqlDefine);
 	
-	public GridResponse<Map<String,Object>> list(QueryRequest queryRequest);
+	public Pager<Map<String,Object>> list(QueryParam queryRequest);
 	
 	/**
 	 * 根据SQLCODE
 	 * @param queryRequest
 	 * @return
 	 */
-	public GridResponse<Map<String, Object>> list(String code,QueryRequest queryRequest);
+	public Pager<Map<String, Object>> list(String code,QueryParam queryRequest);
 	
 	public Map<String,Object> findById(String id);
 	

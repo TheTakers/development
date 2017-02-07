@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.request.QueryRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.utils.SqlFilter;
+import com.sophia.vo.QueryParam;
 
 /**
  * SQL定义服务
@@ -42,14 +42,14 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().save(sqlDefine).getId();
 	}
 	@Override
-	public GridResponse<Map<String, Object>> list(QueryRequest queryRequest) {
+	public Pager<Map<String, Object>> list(QueryParam queryRequest) {
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sql);
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("groupid", queryRequest.getTreeNode().getString("id"));
 		}
-		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return npJdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	@Override
 	public Map<String,Object> findById(String id) {
@@ -63,15 +63,15 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return getRepository().findBySqlId(sqlId);
 	}
 	@Override
-	public GridResponse<Map<String, Object>> list(String sqlId, QueryRequest queryRequest) {
+	public Pager<Map<String, Object>> list(String sqlId, QueryParam queryRequest) {
 		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
 		if(null == sqlDefine){
-			return new GridResponse<Map<String, Object>>();
+			return new Pager<Map<String, Object>>();
 		}
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sqlDefine.getSelectSql());
-		return npJdbcTemplateService.grid(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return npJdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	@Override
 	public List<Map<String, Object>> findAllBySqlId(String sqlId) {

@@ -1,4 +1,4 @@
-package com.sophia.dto;
+package com.sophia.vo;
 
 import java.io.Serializable;
 
@@ -7,11 +7,7 @@ import java.io.Serializable;
  * @author zkning
  *
  */
-public class TreeDto implements Serializable {
-	
-	/**
-	 * 
-	 */
+public class TreeResult implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String url; 
 	private String idKey;

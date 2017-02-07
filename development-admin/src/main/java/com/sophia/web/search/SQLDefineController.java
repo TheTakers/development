@@ -21,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
-import com.sophia.request.QueryRequest;
-import com.sophia.request.SQLDefineRequest;
-import com.sophia.response.GridResponse;
 import com.sophia.response.Response;
 import com.sophia.service.SQLDefineService;
+import com.sophia.vo.QueryParam;
+import com.sophia.vo.SQLDefineParam;
 import com.sophia.web.util.GUID;
 
 /**
@@ -51,8 +51,8 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object list(@RequestBody @Valid QueryRequest queryRequest) {
-		GridResponse<Map<String,Object>> data = sqlDefineService.list(queryRequest);
+	public Object list(@RequestBody @Valid QueryParam queryRequest) {
+		Pager<Map<String,Object>> data = sqlDefineService.list(queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -64,8 +64,8 @@ public class SQLDefineController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/list/{sqlId}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object list(@PathVariable String sqlId,@RequestBody @Valid QueryRequest queryRequest) {
-		GridResponse<Map<String,Object>> data = sqlDefineService.list(sqlId,queryRequest);
+	public Object list(@PathVariable String sqlId,@RequestBody @Valid QueryParam queryRequest) {
+		Pager<Map<String,Object>> data = sqlDefineService.list(sqlId,queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -81,7 +81,7 @@ public class SQLDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLDefineRequest request) {
+	public Object save(@RequestBody @Valid SQLDefineParam request) {
 		SQLDefine target = new SQLDefine();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){

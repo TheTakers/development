@@ -20,11 +20,11 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.domain.CodeTemplate;
-import com.sophia.dto.DataTypeDto;
 import com.sophia.repository.CodeTemplateRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.CodeTemplateService;
 import com.sophia.utils.SimpleUtils;
+import com.sophia.vo.DataTypeResult;
 
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -54,7 +54,7 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
 			String columnName = srsmd.getColumnName(i);
 			Map<String,String> columnMap = new HashMap<>();
-			DataTypeDto vo = SimpleUtils.mysqlTypeConvertJavaType(srsmd.getColumnType(i));
+			DataTypeResult vo = SimpleUtils.mysqlTypeConvertJavaType(srsmd.getColumnType(i));
 			columnMap.put("name",columnName);
 			columnMap.put("dtype",vo.getType());
 			columnMap.put("attr",SimpleUtils.underline2Camel(columnName, true));

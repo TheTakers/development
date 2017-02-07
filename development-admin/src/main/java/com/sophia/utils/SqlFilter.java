@@ -9,46 +9,42 @@ import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.sophia.constant.SQLExpression;
-import com.sophia.dto.ConditionDto;
+import com.sophia.vo.ConditionResult;
 
 /**
  * SQL过滤	
  * @author zkning
  */
 public class SqlFilter {
-
+	private static String WHERE =" WHERE ";
 	private String mainSql = null;
-
 	private StringBuffer condition = new StringBuffer();
 	private StringBuffer orderBy = new StringBuffer();
-	
-	private static String WHERE =" WHERE ";
-
 	private Map<String,Object> params = new HashMap<>();
 	
 	public SqlFilter(String conditon){
-		List<ConditionDto> conditionVoList = JSONObject.parseArray(conditon, ConditionDto.class);
+		List<ConditionResult> conditionVoList = JSONObject.parseArray(conditon, ConditionResult.class);
 		addCondition(conditionVoList);
 	}
 
-	public SqlFilter(List<ConditionDto> conditionVoList){
+	public SqlFilter(List<ConditionResult> conditionVoList){
 		addCondition(conditionVoList);
 	}
 	
 	public SqlFilter(){}
 
-	public void addCondition(List<ConditionDto> conditionVoList){
-		if(conditionVoList == null)
+	public void addCondition(List<ConditionResult> conditionResultList){
+		if(conditionResultList == null)
 			return;
 
-		for(ConditionDto cond : conditionVoList){
+		for(ConditionResult cond : conditionResultList){
 			
 			//排序字段
 			addCondition(cond.getField(),cond.getExpr(),cond.getValue(),cond.getSort());
 		}
 	}
 
-	public void addCondition(ConditionDto cond){
+	public void addCondition(ConditionResult cond){
 		addCondition(cond.getField(),cond.getExpr(),cond.getValue(),cond.getSort());
 	} 
 
@@ -58,9 +54,9 @@ public class SqlFilter {
 
 	public void addCondition(String alias,String expr ,String value,String sort){
 		if(StringUtils.isNotBlank(value)){
-			if(StringUtils.isNotBlank(condition))
+			if(StringUtils.isNotBlank(condition)){
 				condition.append(" AND ");
-
+			}
 			condition.append(" t.").append(alias);
 			
 			//拼装条件表达式
@@ -95,8 +91,9 @@ public class SqlFilter {
 	 * @param sort
 	 */
 	public void addSort(String alias,String sort){
-		if(StringUtils.isBlank(sort))
+		if(StringUtils.isBlank(sort)){
 			return;
+		}
 		if(StringUtils.isBlank(orderBy)){
 			orderBy.append(" ORDER BY ");
 		}else{
@@ -146,7 +143,6 @@ public class SqlFilter {
 		storeSql.append("select t.* from (")
 		.append(mainSql)
 		.append(") t ");
-
 		if(StringUtils.isNotBlank(condition)){
 			storeSql.append( WHERE ).append(condition); 
 		}

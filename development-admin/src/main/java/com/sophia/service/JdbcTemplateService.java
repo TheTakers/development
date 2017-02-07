@@ -2,14 +2,14 @@ package com.sophia.service;
 
 import java.util.Map;
 
-import com.sophia.response.GridResponse;
+import com.sophia.domain.Pager;
 import com.sophia.utils.SqlFilter;
 
 public interface JdbcTemplateService {
 	
 	 Boolean execute(String sql);
 	
-	 GridResponse<Map<String,Object>> grid(SqlFilter sqlFilter,Integer pageSize,Integer pageNo);
+	 Pager<Map<String,Object>> filter(SqlFilter sqlFilter,Integer pageSize,Integer pageNo);
 	
 	/**
 	 * 根据SQL获取一个MAP对象

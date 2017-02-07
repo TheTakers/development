@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCallback;
 
-import com.sophia.response.GridResponse;
+import com.sophia.domain.Pager;
 
 public interface SQLIDService {
 	
@@ -60,5 +60,5 @@ public interface SQLIDService {
 	 * @param pageNo
 	 * @return
 	 */
-	 <T> GridResponse<T> findAll(String sqlId ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo);
+	 <T> Pager<T> findAll(String sqlId ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo);
 }

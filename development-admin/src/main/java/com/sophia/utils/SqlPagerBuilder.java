@@ -13,7 +13,6 @@ public class SqlPagerBuilder{
 		//		if(database.equals(""))
 		if(true)
 			return mySql(sql,pageSize,pageNo);
-
 		return "";
 	}
 

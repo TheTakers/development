@@ -1,4 +1,4 @@
-package com.sophia.dto;
+package com.sophia.vo;
 
 import java.io.Serializable;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author zkning
  *
  */
-public class ConditionDto implements Serializable{
+public class ConditionResult implements Serializable{
 
 	/**
 	 * 

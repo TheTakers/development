@@ -1,4 +1,4 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.domain.SQLViewField;
 
-public class SQLViewRequest extends CrudRequest{
+public class SQLViewParam extends CrudParam{
 
 	@NotBlank
 	private String code;

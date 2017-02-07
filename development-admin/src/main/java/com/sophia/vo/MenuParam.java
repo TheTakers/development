@@ -1,8 +1,8 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class MenuRequest extends CrudRequest{
+public class MenuParam extends CrudParam{
 
 	@NotBlank
 	private String name;

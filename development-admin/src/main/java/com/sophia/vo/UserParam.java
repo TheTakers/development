@@ -1,9 +1,9 @@
-package com.sophia.request;
+package com.sophia.vo;
 
 /**
  * Created by Kim on 2015/10/12.
  */
-public class UserRequest {
+public class UserParam {
 
     private String username;
     

@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.sophia.response.GridResponse;
+import com.sophia.domain.Pager;
 import com.sophia.service.JdbcTemplateService;
 import com.sophia.utils.SqlFilter;
 
@@ -22,13 +22,13 @@ public class JdbcTemplateServiceImpl implements JdbcTemplateService {
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	 
 	@Override
-	public GridResponse<Map<String,Object>> grid(SqlFilter sqlFilter, Integer pageSize, Integer pageNo) {
-		GridResponse<Map<String,Object>> gridResponse = new GridResponse<Map<String,Object>>();
-		gridResponse.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.getLimitSql(pageNo, pageSize) , sqlFilter.getParams()));
-		gridResponse.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.getCountSql(), sqlFilter.getParams(), Integer.class));
-		gridResponse.setPageSize(pageSize);
-		gridResponse.setPageNo(pageNo);
-		return gridResponse;
+	public Pager<Map<String,Object>> filter(SqlFilter sqlFilter, Integer pageSize, Integer pageNo) {
+		Pager<Map<String,Object>> pager = new Pager<Map<String,Object>>();
+		pager.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.getLimitSql(pageNo, pageSize) , sqlFilter.getParams()));
+		pager.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.getCountSql(), sqlFilter.getParams(), Integer.class));
+		pager.setPageSize(pageSize);
+		pager.setPageNo(pageNo);
+		return pager;
 	}
 	
 	@Override

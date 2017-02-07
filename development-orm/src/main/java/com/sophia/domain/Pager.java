@@ -1,23 +1,18 @@
-package com.sophia.response;
+package com.sophia.domain;
 
 import java.io.Serializable;
 import java.util.List;
-
 
 /**
  * 分页数据
  * @author zkning
  */
-public class GridResponse<T> implements Serializable{
-	/**
-	 * 
-	 */
+public class Pager<T> implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer pageSize;
 	private Integer pageNo;
 	private Integer totalElements;
 	private List<T>	content;
-	
 	
 	public Integer getPageSize() {
 		return pageSize;
@@ -43,5 +38,4 @@ public class GridResponse<T> implements Serializable{
 	public void setContent(List<T> content) {
 		this.content = content;
 	}
-	 
 }

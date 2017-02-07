@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.sophia.constant.DataSourceEnum;
 import com.sophia.constant.SQLDefineConstant;
+import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
 import com.sophia.exception.ServiceException;
-import com.sophia.response.GridResponse;
 import com.sophia.service.MultipleDataSouceService;
 import com.sophia.service.SQLDefineService;
 import com.sophia.service.SQLIDService;
@@ -68,16 +68,16 @@ public class SQLIDServiceImpl implements SQLIDService {
 		return namedJdbcTemplate.execute(selDefine.getSelectSql(),action);
 	}
 	
-	public <T> GridResponse<T> findAll(String sqlId ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo){
+	public <T> Pager<T> findAll(String sqlId ,Map<String,Object> args,Class<T> elementType,Integer pageSize,Integer pageNo){
 		SQLDefine selDefine = findBySqlId(sqlId);
 		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
-		GridResponse<T> grid = new GridResponse<T>();
+		Pager<T> pager = new Pager<T>();
 		//TODO getJdbcTemplate().getDataSource().getConnection().getMetaData().getDatabaseProductName())
-		grid.setContent(namedJdbcTemplate.queryForList(SqlPagerBuilder.createLimit(selDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), args, elementType));
-		grid.setTotalElements(namedJdbcTemplate.queryForObject(SqlPagerBuilder.buildCountSQL(selDefine.getSelectSql()),args,Integer.class));
-		grid.setPageSize(pageSize); 
-		grid.setPageNo(pageNo);
-		return grid;
+		pager.setContent(namedJdbcTemplate.queryForList(SqlPagerBuilder.createLimit(selDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), args, elementType));
+		pager.setTotalElements(namedJdbcTemplate.queryForObject(SqlPagerBuilder.buildCountSQL(selDefine.getSelectSql()),args,Integer.class));
+		pager.setPageSize(pageSize); 
+		pager.setPageNo(pageNo);
+		return pager;
 	}
 	
 	//TODO 添加缓存...
