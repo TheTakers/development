@@ -9,27 +9,18 @@ public class SqlPagerBuilder{
 	public static final String DATABASE_ORACLE = "";
 
 	public static String createPager(String sql,Integer pageSize,Integer pageNo,String database){
-
-		//		if(database.equals(""))
-		if(true)
-			return mySql(sql,pageSize,pageNo);
-		return "";
-	}
-
-	private static String mySql(String sql,Integer pageSize,Integer pageNo){
 		StringBuilder sqlbuilder = new StringBuilder(sql);
-		sqlbuilder.append(" limit ")
-		.append((pageNo -1) * pageSize)
-		.append(",")
-		.append(pageSize);
-		return sqlbuilder.toString();
+		//		if(database.equals(""))
+		if(true){
+			sqlbuilder.append(" limit ").append((pageNo -1) * pageSize).append(",").append(pageSize);
+			return sqlbuilder.toString();
+		}
+		return null;
 	}
 
-	public static String buildCountSQL(String sql){
-		StringBuilder sqlbuilder = new StringBuilder();
-		sqlbuilder.append("select count(1) from (")
-		.append(sql)
-		.append(") t");
-		return sqlbuilder.toString();
+	public static String countWarp(String sql){
+		StringBuilder countBuilder = new StringBuilder();
+		countBuilder.append("select count(1) from (").append(sql).append(") t");
+		return countBuilder.toString();
 	}
 }
