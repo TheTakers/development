@@ -59,7 +59,7 @@ public class SQLIDServiceImpl implements SQLIDService {
 	public Integer count(String sqlId,Map<String,Object> args){
 		SQLDefine selDefine = findBySqlId(sqlId);
 		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
-		return namedJdbcTemplate.queryForObject(SqlPagerBuilder.countWarp(selDefine.getSelectSql()),args,Integer.class);
+		return namedJdbcTemplate.queryForObject(SqlPagerBuilder.countWrap(selDefine.getSelectSql()),args,Integer.class);
 	}
 	
 	public <T> T execute(String sqlId, PreparedStatementCallback<T> action){
@@ -74,7 +74,7 @@ public class SQLIDServiceImpl implements SQLIDService {
 		Pager<T> pager = new Pager<T>();
 		//TODO getJdbcTemplate().getDataSource().getConnection().getMetaData().getDatabaseProductName())
 		pager.setContent(namedJdbcTemplate.queryForList(SqlPagerBuilder.createPager(selDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), args, elementType));
-		pager.setTotalElements(namedJdbcTemplate.queryForObject(SqlPagerBuilder.countWarp(selDefine.getSelectSql()),args,Integer.class));
+		pager.setTotalElements(namedJdbcTemplate.queryForObject(SqlPagerBuilder.countWrap(selDefine.getSelectSql()),args,Integer.class));
 		pager.setPageSize(pageSize); 
 		pager.setPageNo(pageNo);
 		return pager;

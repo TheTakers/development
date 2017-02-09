@@ -18,7 +18,7 @@ public class SqlPagerBuilder{
 		return null;
 	}
 
-	public static String countWarp(String sql){
+	public static String countWrap(String sql){
 		StringBuilder countBuilder = new StringBuilder();
 		countBuilder.append("select count(1) from (").append(sql).append(") t");
 		return countBuilder.toString();
