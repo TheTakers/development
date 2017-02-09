@@ -8,7 +8,7 @@ public class SqlPagerBuilder{
 	public static final String DATABASE_MYSQL = "";
 	public static final String DATABASE_ORACLE = "";
 
-	public static String createLimit(String sql,Integer pageSize,Integer pageNo,String database){
+	public static String createPager(String sql,Integer pageSize,Integer pageNo,String database){
 
 		//		if(database.equals(""))
 		if(true)

@@ -73,7 +73,7 @@ public class SQLIDServiceImpl implements SQLIDService {
 		NamedParameterJdbcTemplate namedJdbcTemplate = getNamedParameterJdbcTemplate(selDefine.getDatasource());
 		Pager<T> pager = new Pager<T>();
 		//TODO getJdbcTemplate().getDataSource().getConnection().getMetaData().getDatabaseProductName())
-		pager.setContent(namedJdbcTemplate.queryForList(SqlPagerBuilder.createLimit(selDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), args, elementType));
+		pager.setContent(namedJdbcTemplate.queryForList(SqlPagerBuilder.createPager(selDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), args, elementType));
 		pager.setTotalElements(namedJdbcTemplate.queryForObject(SqlPagerBuilder.buildCountSQL(selDefine.getSelectSql()),args,Integer.class));
 		pager.setPageSize(pageSize); 
 		pager.setPageNo(pageNo);
