@@ -14,10 +14,8 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 public class MultipleDatasourceConfiguration {
-	
 	public static final String jdbcTemplate_master = "jdbcTemplateMaster";
 	public static final String jdbcTemplate_slaver = "jdbcTemplateSlaver";
-	
 
 	@Bean(name = jdbcTemplate_master) 
 	@Primary 

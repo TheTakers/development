@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -19,28 +20,29 @@ import com.sophia.service.SqlDefineService;
  */
 @Component
 public class SqlIdNamedParamterJdbcOperations extends ApplicationObjectSupport{
-	private SqlDefineService sqlDefineService;
-	private SQLDefine sqlDefine;
-	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
+	@Autowired SqlDefineService sqlDefineService;
+
 	public SqlIdNamedParamterJdbcHandler get(String sqlId){
-		SqlIdNamedParamterJdbcHandler SqlIdNamedParamterJdbcHandler = new SqlIdNamedParamterJdbcHandler();
+		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlId);
+		SqlIdNamedParamterJdbcHandler SqlIdNamedParamterJdbcHandler = new SqlIdNamedParamterJdbcHandler(new NamedParameterJdbcTemplate(this.getDataSource(sqlDefine.getDatasource()))
+				,sqlDefine);
 		this.sqlDefineService = (SqlDefineService) getApplicationContext().getBean(SqlDefineService.class);
-		
-		//根据sqlDefine
-		this.sqlDefine = sqlDefineService.findBySqlId(sqlId);
-		
-		//获取数据源
-		this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(this.getDataSource(sqlDefine.getDatasource()));
+
 		return SqlIdNamedParamterJdbcHandler;
 	}
-	
+
 	private DataSource getDataSource(String jdbcTemplate){
 		return (DataSource) getApplicationContext().getBean(jdbcTemplate);
 	}
-	
-	  public class SqlIdNamedParamterJdbcHandler{
-		  
+
+	public class SqlIdNamedParamterJdbcHandler{
+		private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+		private SQLDefine sqlDefine;
+		public SqlIdNamedParamterJdbcHandler(NamedParameterJdbcTemplate namedParameterJdbcTemplate,SQLDefine sqlDefine){
+			this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+			this.sqlDefine = sqlDefine;
+		}
+		
 		public  <T> T queryForObject(Map<String, ?> paramMap,Class<T> requiredType) {
 			// TODO Auto-generated method stub
 			return namedParameterJdbcTemplate.queryForObject(sqlDefine.getSelectSql(), paramMap, requiredType);
