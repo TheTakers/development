@@ -32,7 +32,7 @@ import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.JdbcTemplateService;
-import com.sophia.service.SQLDefineService;
+import com.sophia.service.SqlDefineService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
 import com.sophia.utils.SimpleUtils;
@@ -55,7 +55,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
 	@Autowired JdbcTemplateService jdbcTemplateService;
-	@Autowired SQLDefineService sqlDefineService;
+	@Autowired SqlDefineService sqlDefineService;
 	@Autowired SQLViewFieldService sqlViewFieldService;
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

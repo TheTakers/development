@@ -17,7 +17,7 @@ import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.JdbcTemplateService;
-import com.sophia.service.SQLDefineService;
+import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SqlFilter;
 import com.sophia.vo.QueryParam;
 
@@ -26,7 +26,7 @@ import com.sophia.vo.QueryParam;
  * @author zkning
  */
 @Service
-public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository> implements SQLDefineService {
+public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository> implements SqlDefineService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;

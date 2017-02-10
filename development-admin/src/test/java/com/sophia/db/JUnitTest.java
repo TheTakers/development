@@ -1,5 +1,8 @@
 package com.sophia.db;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,24 +10,33 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sophia.Application;
+import com.sophia.AdminApplication;
+import com.sophia.domain.SQLDefine;
 import com.sophia.service.CodeTemplateService;
+import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.MenuService;
-import com.sophia.service.SQLIDService;
 import com.sophia.service.UserService;
+import com.sophia.utils.SqlIdNamedParamterJdbcOperations;
+import com.sophia.utils.SqlIdNamedParamterJdbcOperations.SqlIdNamedParamterJdbcHandler;
 
 /**
  * @author zkning
  */
 @RunWith(SpringJUnit4ClassRunner.class)  
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = AdminApplication.class)
 public class JUnitTest {  
-	
 	@Autowired UserService userService;
-	@Autowired SQLIDService sqlidService;
 	@Autowired MenuService menuService;
+	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired CodeTemplateService codeTemplateService;
- 
+	@Autowired SqlIdNamedParamterJdbcOperations sqlIdNamedParamterJdbcOperations;
+	
+	@Test
+	public void queryForSqlId(){
+		Map<String,Object> paramMap = new HashMap<>();
+		sqlIdNamedParamterJdbcOperations.get("20161116041618").queryForList(paramMap);
+	}
+	
 	@Test
 	public void createCode(){
 		JSONObject json = new JSONObject();

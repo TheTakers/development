@@ -24,7 +24,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
 import com.sophia.response.Response;
-import com.sophia.service.SQLDefineService;
+import com.sophia.service.SqlDefineService;
 import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLDefineParam;
 import com.sophia.web.util.GUID;
@@ -36,7 +36,7 @@ import com.sophia.web.util.GUID;
 @Controller
 @RequestMapping(SQLDefineController.module)
 public class SQLDefineController extends BaseController{
-	@Autowired SQLDefineService sqlDefineService;
+	@Autowired SqlDefineService sqlDefineService;
 	public static final String module = "search/sqldefine";
 	
 	@RequestMapping("/index")

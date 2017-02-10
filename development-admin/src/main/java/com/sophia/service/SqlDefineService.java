@@ -9,33 +9,33 @@ import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.vo.QueryParam;
 
-public interface SQLDefineService extends JpaRepository<SQLDefineRepository>{
+public interface SqlDefineService extends JpaRepository<SQLDefineRepository>{
 	
-	public String save(SQLDefine sqlDefine);
+	 String save(SQLDefine sqlDefine);
 	
-	public Pager<Map<String,Object>> list(QueryParam queryRequest);
+	 Pager<Map<String,Object>> list(QueryParam queryRequest);
 	
 	/**
 	 * 根据SQLCODE
 	 * @param queryRequest
 	 * @return
 	 */
-	public Pager<Map<String, Object>> list(String code,QueryParam queryRequest);
+	 Pager<Map<String, Object>> list(String code,QueryParam queryRequest);
 	
-	public Map<String,Object> findById(String id);
+	 Map<String,Object> findById(String id);
 	
-	public SQLDefine findBySqlId(String sqlId);
+	 SQLDefine findBySqlId(String sqlId);
 	
 	/**
 	 * 根据SQLID获取SQL对应的所有数据
 	 * @param sqlId
 	 * @return
 	 */
-	public List<Map<String,Object>> findAllBySqlId(String sqlId);
+	 List<Map<String,Object>> findAllBySqlId(String sqlId);
 	
 	/**
 	 * 查询全部表
 	 * @return
 	 */
-	public List<Map<String,Object>> findAllTable();
+	 List<Map<String,Object>> findAllTable();
 }
