@@ -13,6 +13,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Service;
@@ -43,7 +45,8 @@ public class CodeTemplateServiceImpl extends JpaRepositoryImpl<CodeTemplateRepos
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	
 	//创建模板
 	private List<Map<String,String>> getColumnList(String table){
 

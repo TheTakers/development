@@ -23,8 +23,8 @@ import com.sophia.AdminApplication;
 import com.sophia.domain.SQLDefine;
 import com.sophia.service.CodeTemplateService;
 import com.sophia.service.MenuService;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.UserService;
-import com.sophia.utils.SqlNamedParamterJdbcOperations;
 
 /**
  * @author zkning
@@ -35,13 +35,13 @@ public class JUnitTest {
 	@Autowired UserService userService;
 	@Autowired MenuService menuService;
 	@Autowired CodeTemplateService codeTemplateService;
-	@Autowired SqlNamedParamterJdbcOperations sqlIdNamedParamterJdbcOperations;
+	@Autowired SqlIdJdbcService sqlIdJdbcService;
 	@PrePersist 
 
 	@Test
 	public void queryForSqlId(){
 		Map<String,Object> paramMap = new HashMap<>();
-		sqlIdNamedParamterJdbcOperations.get("20161116041618").queryForList(paramMap);
+		sqlIdJdbcService.get("20161116041618").queryForList(paramMap);
 	}
 
 	public void queryForJpa(){

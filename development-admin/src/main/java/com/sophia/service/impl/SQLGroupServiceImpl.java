@@ -11,9 +11,9 @@ import com.sophia.domain.Pager;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SQLGroupService;
 import com.sophia.utils.SqlFilter;
-import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.QueryParam;
 
 @Service
@@ -23,7 +23,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
+	@Autowired SqlIdJdbcService sqlNamedParamterJdbcOperations;
 
 	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.parentid =  c.id ";
 

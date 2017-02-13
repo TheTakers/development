@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,12 @@ import com.sophia.domain.SQLViewField;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
 import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SqlFilter;
-import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.ConditionResult;
 import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLViewParam;
@@ -54,7 +55,8 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlDefineService sqlDefineService;
 	@Autowired SQLViewFieldService sqlViewFieldService;
-	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
+	@Autowired SqlIdJdbcService sqlIdJdbcService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
 	public String save(SQLViewParam sqlViewRequest){
@@ -103,7 +105,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
-		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	private SQLDefine getSQLDefine(String sqlId){
@@ -473,7 +475,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			sb.deleteCharAt(sb.lastIndexOf(",")).append(" from ( ").append(sqlDefine.getSelectSql()).append(") t ");
 			sqlFilter.setMainSql(sb.toString());
 		}
-		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	/**

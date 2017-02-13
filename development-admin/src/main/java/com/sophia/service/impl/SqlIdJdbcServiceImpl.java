@@ -1,4 +1,4 @@
-package com.sophia.utils;
+package com.sophia.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -8,22 +8,26 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlDefineService;
+import com.sophia.utils.SqlFilter;
+import com.sophia.utils.SqlPagerBuilder;
 
 /**
- * sqlId数据操作
+ * 
  * @author zkning
  */
-@Component
-public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
+@Service
+public class SqlIdJdbcServiceImpl extends ApplicationObjectSupport implements SqlIdJdbcService{
 	@Autowired SqlDefineService sqlDefineService;
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
+	
+	@Override
 	public SqlIdNamedParamterJdbcHandler get(String sqlId){
 		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlId);
 		SqlIdNamedParamterJdbcHandler SqlIdNamedParamterJdbcHandler = new SqlIdNamedParamterJdbcHandler(new NamedParameterJdbcTemplate(this.getDataSource(sqlDefine.getDatasource()))
@@ -36,6 +40,7 @@ public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
 		return (DataSource) getApplicationContext().getBean(jdbcTemplate);
 	}
 	
+	@Override
 	public Pager<Map<String,Object>> filter(SqlFilter sqlFilter, Integer pageSize, Integer pageNo) {
 		Pager<Map<String,Object>> pager = new Pager<Map<String,Object>>();
 		pager.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.createPager(pageNo, pageSize) , sqlFilter.getParams()));
@@ -45,6 +50,7 @@ public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
 		return pager;
 	}
 	
+	@Override
 	public Map<String,Object> queryForMap(String sql, Map<String, ?> paramMap) {
 		List<Map<String, Object>> listData = namedParameterJdbcTemplate.queryForList(sql, paramMap);
 		if(CollectionUtils.isEmpty(listData)){
@@ -53,6 +59,7 @@ public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
 		return listData.get(0);
 	}
 	
+	@Override
 	public Map<String,Object> queryForMap(SqlFilter sqlFilter) {
 		List<Map<String, Object>> listData = namedParameterJdbcTemplate.queryForList(sqlFilter.getMainSql(), sqlFilter.getParams());
 		if(CollectionUtils.isEmpty(listData)){

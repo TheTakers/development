@@ -17,15 +17,15 @@ import com.sophia.domain.Pager;
 import com.sophia.repository.MenuRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.MenuService;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.utils.SqlFilter;
-import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.QueryParam;
 
 @Service
 public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
-	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
+	@Autowired SqlIdJdbcService sqlIdJdbcService;
 	
 	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.pid = c.id ";
 	public String save(Menu menu){
@@ -75,7 +75,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return sqlNamedParamterJdbcOperations.queryForMap(sqlFilter);
+		return sqlIdJdbcService.queryForMap(sqlFilter);
 	}
 	
 	@Override
@@ -90,6 +90,6 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("pid", queryRequest.getTreeNode().getString("id"));
 		}
-		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

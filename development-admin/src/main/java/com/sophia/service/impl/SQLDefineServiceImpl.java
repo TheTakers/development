@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
@@ -15,9 +16,9 @@ import com.sophia.domain.SQLDefine;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
+import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SqlFilter;
-import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.QueryParam;
 
 /**
@@ -29,7 +30,8 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
-	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
+	@Autowired SqlIdJdbcService sqlIdJdbcService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
 	public String save(SQLDefine sqlDefine){
@@ -45,14 +47,14 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("groupid", queryRequest.getTreeNode().getString("id"));
 		}
-		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	@Override
 	public Map<String,Object> findById(String id) {
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return sqlNamedParamterJdbcOperations.queryForMap(sqlFilter);
+		return sqlIdJdbcService.queryForMap(sqlFilter);
 	}
 	@Override
 	public SQLDefine findBySqlId(String sqlId) {
@@ -67,7 +69,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.addCondition(queryRequest.getCondition());
 		sqlFilter.setMainSql(sqlDefine.getSelectSql());
-		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 	@Override
 	public List<Map<String, Object>> findAllBySqlId(String sqlId) {
