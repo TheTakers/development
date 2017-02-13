@@ -5,15 +5,16 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
 import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.JdbcTemplateService;
 import com.sophia.service.SQLGroupService;
 import com.sophia.utils.SqlFilter;
+import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.QueryParam;
 
 @Service
@@ -25,7 +26,8 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired JdbcTemplateService npJdbcTemplateService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
 
 	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.parentid =  c.id ";
 
@@ -40,7 +42,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return npJdbcTemplateService.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
 	}
 
 	public Pager<Map<String,Object>> list(QueryParam queryRequest){
@@ -50,6 +52,6 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
-		return npJdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 }

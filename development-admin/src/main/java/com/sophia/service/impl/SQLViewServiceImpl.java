@@ -31,12 +31,12 @@ import com.sophia.domain.SQLViewField;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.JdbcTemplateService;
-import com.sophia.service.SqlDefineService;
 import com.sophia.service.SQLViewFieldService;
 import com.sophia.service.SQLViewService;
+import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SqlFilter;
+import com.sophia.utils.SqlNamedParamterJdbcOperations;
 import com.sophia.vo.ConditionResult;
 import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLViewParam;
@@ -54,10 +54,10 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
-	@Autowired JdbcTemplateService jdbcTemplateService;
 	@Autowired SqlDefineService sqlDefineService;
 	@Autowired SQLViewFieldService sqlViewFieldService;
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
 
 	private String sql="select t.* from TB_SM_VIEW t ";
 	public String save(SQLViewParam sqlViewRequest){
@@ -106,7 +106,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		if(queryRequest.getTreeNode()!=null){
 			sqlFilter.EQ("parentid", queryRequest.getTreeNode().getString("id"));
 		}
-		return jdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	private SQLDefine getSQLDefine(String sqlId){
@@ -403,7 +403,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
-		return jdbcTemplateService.queryForMap(sql, paramMap);
+		return namedParameterJdbcTemplate.queryForMap(sql, paramMap);
 	}
 
 	public Map<String,Object> getSqlViewAndSqlDefineRowDataByCode(String code,JSONObject row){
@@ -433,7 +433,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		String sql = "select t.* from (" + sqlDefine.getSelectSql() +") t "+ " WHERE t." + sqlDefine.getMasterTableId() +" = :"+sqlDefine.getMasterTableId();
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put(sqlDefine.getMasterTableId(), pkId);
-		result.put("row", jdbcTemplateService.queryForMap(sql, paramMap));
+		result.put("row", namedParameterJdbcTemplate.queryForMap(sql, paramMap));
 		result.put("sqlView", sqlView);
 		return result;
 	}
@@ -476,7 +476,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			sb.deleteCharAt(sb.lastIndexOf(",")).append(" from ( ").append(sqlDefine.getSelectSql()).append(") t ");
 			sqlFilter.setMainSql(sb.toString());
 		}
-		return jdbcTemplateService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
+		return sqlNamedParamterJdbcOperations.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
 	/**
@@ -510,7 +510,7 @@ public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			break;
 		case TreeNodeHandleType.TREEHANDLETYPE_SELF:
 			paramMap.put(treeDto.getIdKey(), idValue);
-			result.add(jdbcTemplateService.queryForMap(warpTreeSql(sqlDefine.getSelectSql(), treeDto.getIdKey()), paramMap));
+			result.add(namedParameterJdbcTemplate.queryForMap(warpTreeSql(sqlDefine.getSelectSql(), treeDto.getIdKey()), paramMap));
 			break;
 		}
 		ConditionResult conditionDto = new ConditionResult();

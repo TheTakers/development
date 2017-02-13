@@ -19,20 +19,29 @@ import com.sophia.service.SqlDefineService;
  * @author zkning
  */
 @Component
-public class SqlIdNamedParamterJdbcOperations extends ApplicationObjectSupport{
+public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
 	@Autowired SqlDefineService sqlDefineService;
+	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	public SqlIdNamedParamterJdbcHandler get(String sqlId){
 		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlId);
 		SqlIdNamedParamterJdbcHandler SqlIdNamedParamterJdbcHandler = new SqlIdNamedParamterJdbcHandler(new NamedParameterJdbcTemplate(this.getDataSource(sqlDefine.getDatasource()))
 				,sqlDefine);
 		this.sqlDefineService = (SqlDefineService) getApplicationContext().getBean(SqlDefineService.class);
-
 		return SqlIdNamedParamterJdbcHandler;
 	}
-
+	
 	private DataSource getDataSource(String jdbcTemplate){
 		return (DataSource) getApplicationContext().getBean(jdbcTemplate);
+	}
+	
+	public Pager<Map<String,Object>> filter(SqlFilter sqlFilter, Integer pageSize, Integer pageNo) {
+		Pager<Map<String,Object>> pager = new Pager<Map<String,Object>>();
+		pager.setContent(namedParameterJdbcTemplate.queryForList( sqlFilter.createPager(pageNo, pageSize) , sqlFilter.getParams()));
+		pager.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.countSql(), sqlFilter.getParams(), Integer.class));
+		pager.setPageSize(pageSize);
+		pager.setPageNo(pageNo);
+		return pager;
 	}
 
 	public class SqlIdNamedParamterJdbcHandler{
@@ -70,6 +79,15 @@ public class SqlIdNamedParamterJdbcOperations extends ApplicationObjectSupport{
 			pager.setContent(namedParameterJdbcTemplate.queryForList(SqlPagerBuilder.createPager(sqlDefine.getSelectSql(),pageSize,pageNo,SqlPagerBuilder.DATABASE_MYSQL), paramMap, elementType));
 			pager.setTotalElements(namedParameterJdbcTemplate.queryForObject(SqlPagerBuilder.countWrap(sqlDefine.getSelectSql()),paramMap,Integer.class));
 			pager.setPageSize(pageSize); 
+			pager.setPageNo(pageNo);
+			return pager;
+		}
+		
+		public Pager<Map<String,Object>> filter(SqlFilter sqlFilter, Integer pageSize, Integer pageNo) {
+			Pager<Map<String,Object>> pager = new Pager<Map<String,Object>>();
+			pager.setContent(namedParameterJdbcTemplate.queryForList(sqlFilter.createPager(pageNo, pageSize) , sqlFilter.getParams()));
+			pager.setTotalElements(namedParameterJdbcTemplate.queryForObject(sqlFilter.countSql(), sqlFilter.getParams(), Integer.class));
+			pager.setPageSize(pageSize);
 			pager.setPageNo(pageNo);
 			return pager;
 		}

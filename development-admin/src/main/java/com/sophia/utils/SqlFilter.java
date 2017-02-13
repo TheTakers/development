@@ -106,7 +106,7 @@ public class SqlFilter {
 	 * count sql
 	 * @return
 	 */
-	public String getCountSql(){
+	public String countSql(){
 		StringBuffer storeSql = new StringBuffer();
 		storeSql.append("select count(1) from (")
 		.append(this.mainSql)
@@ -138,7 +138,7 @@ public class SqlFilter {
 	 * @param pageSize
 	 * @return
 	 */
-	public String getLimitSql(Integer pageNo,Integer pageSize){
+	public String createPager(Integer pageNo,Integer pageSize){
 		StringBuffer storeSql = new StringBuffer();
 		storeSql.append("select t.* from (")
 		.append(mainSql)
