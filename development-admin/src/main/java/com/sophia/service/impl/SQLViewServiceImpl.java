@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 import org.springframework.stereotype.Service;
@@ -51,12 +50,10 @@ import com.sophia.web.util.GUID;
 @Service
 @Transactional
 public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SQLViewService  {
-
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlDefineService sqlDefineService;
 	@Autowired SQLViewFieldService sqlViewFieldService;
-	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
 
 	private String sql="select t.* from TB_SM_VIEW t ";

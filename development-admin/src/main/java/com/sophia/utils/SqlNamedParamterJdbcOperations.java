@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.sophia.domain.Pager;
 import com.sophia.domain.SQLDefine;
@@ -42,6 +43,22 @@ public class SqlNamedParamterJdbcOperations extends ApplicationObjectSupport{
 		pager.setPageSize(pageSize);
 		pager.setPageNo(pageNo);
 		return pager;
+	}
+	
+	public Map<String,Object> queryForMap(String sql, Map<String, ?> paramMap) {
+		List<Map<String, Object>> listData = namedParameterJdbcTemplate.queryForList(sql, paramMap);
+		if(CollectionUtils.isEmpty(listData)){
+			return null;
+		}
+		return listData.get(0);
+	}
+	
+	public Map<String,Object> queryForMap(SqlFilter sqlFilter) {
+		List<Map<String, Object>> listData = namedParameterJdbcTemplate.queryForList(sqlFilter.getMainSql(), sqlFilter.getParams());
+		if(CollectionUtils.isEmpty(listData)){
+			return null;
+		}
+		return listData.get(0);
 	}
 
 	public class SqlIdNamedParamterJdbcHandler{

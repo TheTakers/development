@@ -8,7 +8,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
@@ -30,10 +29,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
-	
 	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
-	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-	
 	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
 	public String save(SQLDefine sqlDefine){
@@ -56,7 +52,7 @@ public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return sqlNamedParamterJdbcOperations.queryForMap(sqlFilter);
 	}
 	@Override
 	public SQLDefine findBySqlId(String sqlId) {

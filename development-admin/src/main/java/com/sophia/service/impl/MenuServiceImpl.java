@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -26,7 +25,6 @@ import com.sophia.vo.QueryParam;
 public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
-	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	@Autowired SqlNamedParamterJdbcOperations sqlNamedParamterJdbcOperations;
 	
 	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.pid = c.id ";
@@ -77,7 +75,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		SqlFilter sqlFilter = SqlFilter.getInstance();
 		sqlFilter.setMainSql(sql);
 		sqlFilter.EQ("id", id);
-		return namedParameterJdbcTemplate.queryForMap(sqlFilter.getSql(), sqlFilter.getParams());
+		return sqlNamedParamterJdbcOperations.queryForMap(sqlFilter);
 	}
 	
 	@Override
