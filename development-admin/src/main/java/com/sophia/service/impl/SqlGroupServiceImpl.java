@@ -12,12 +12,12 @@ import com.sophia.domain.SQLGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
-import com.sophia.service.SQLGroupService;
+import com.sophia.service.SqlGroupService;
 import com.sophia.utils.SqlFilter;
 import com.sophia.vo.QueryParam;
 
 @Service
-public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> implements SQLGroupService  {
+public class SqlGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> implements SqlGroupService  {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * 
@@ -25,7 +25,7 @@ public class SQLGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlIdJdbcService sqlNamedParamterJdbcOperations;
 
-	private String sql="select t.*,c.name as pText from TB_SM_SQLGROUP t left join TB_SM_SQLGROUP c on t.parentid =  c.id ";
+	private String sql="select t.*,c.name as ptext from tb_sm_sqlgroup t left join tb_sm_sqlgroup c on t.parentid =  c.id ";
 
 	public String save(SQLGroup sqlGroup){
 

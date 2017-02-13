@@ -5,11 +5,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sophia.repository.SQLViewFieldRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.SQLViewFieldService;
+import com.sophia.service.SqlViewFieldService;
 
 
 @Service
 @Transactional
-public class SQLViewFieldServiceImpl  extends JpaRepositoryImpl<SQLViewFieldRepository> implements SQLViewFieldService {
+public class SqlViewFieldServiceImpl  extends JpaRepositoryImpl<SQLViewFieldRepository> implements SqlViewFieldService {
 
 }

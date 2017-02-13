@@ -8,7 +8,7 @@ import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.vo.QueryParam;
 
-public interface SQLGroupService extends JpaRepository<SQLGroupRepository>{
+public interface SqlGroupService extends JpaRepository<SQLGroupRepository>{
 
 	String save(SQLGroup sqlGroup);
 

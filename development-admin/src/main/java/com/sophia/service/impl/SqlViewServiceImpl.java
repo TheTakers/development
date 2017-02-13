@@ -32,8 +32,8 @@ import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
-import com.sophia.service.SQLViewFieldService;
-import com.sophia.service.SQLViewService;
+import com.sophia.service.SqlViewFieldService;
+import com.sophia.service.SqlViewService;
 import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SqlFilter;
@@ -50,15 +50,15 @@ import com.sophia.web.util.GUID;
  */
 @Service
 @Transactional
-public class SQLViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SQLViewService  {
+public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SqlViewService  {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlDefineService sqlDefineService;
-	@Autowired SQLViewFieldService sqlViewFieldService;
+	@Autowired SqlViewFieldService sqlViewFieldService;
 	@Autowired SqlIdJdbcService sqlIdJdbcService;
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	private String sql="select t.* from TB_SM_VIEW t ";
+	private String sql="select t.* from tb_sm_view t ";
 	public String save(SQLViewParam sqlViewRequest){
 
 		//基本信息

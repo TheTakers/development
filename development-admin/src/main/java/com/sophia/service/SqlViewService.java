@@ -13,7 +13,7 @@ import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLViewParam;
 import com.sophia.vo.SQLViewQueryParam;
 
-public interface SQLViewService extends JpaRepository<SQLViewRepository>{
+public interface SqlViewService extends JpaRepository<SQLViewRepository>{
 	
 	 String save(SQLViewParam sqlViewRequest);
 	

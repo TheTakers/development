@@ -26,7 +26,7 @@ import com.sophia.vo.QueryParam;
  * @author zkning
  */
 @Service
-public class SQLDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository> implements SqlDefineService {
+public class SqlDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository> implements SqlDefineService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;

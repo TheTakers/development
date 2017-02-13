@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Pager;
 import com.sophia.response.Response;
-import com.sophia.service.SQLViewService;
+import com.sophia.service.SqlViewService;
 import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLViewParam;
 import com.sophia.vo.SQLViewQueryParam;
@@ -30,7 +30,7 @@ import com.sophia.vo.SQLViewQueryParam;
 @RequestMapping(SQLViewController.module)
 public class SQLViewController extends BaseController{
 	
-	@Autowired SQLViewService sqlViewService;
+	@Autowired SqlViewService sqlViewService;
 	
 	public static final String module = "/search/sqlview";
 	

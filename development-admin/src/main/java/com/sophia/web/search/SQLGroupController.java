@@ -23,7 +23,7 @@ import com.sophia.api.BaseController;
 import com.sophia.domain.Pager;
 import com.sophia.domain.SQLGroup;
 import com.sophia.response.Response;
-import com.sophia.service.SQLGroupService;
+import com.sophia.service.SqlGroupService;
 import com.sophia.vo.QueryParam;
 import com.sophia.vo.SQLGroupParam;
 import com.sophia.web.util.GUID;
@@ -32,7 +32,7 @@ import com.sophia.web.util.GUID;
 @Controller
 @RequestMapping(SQLGroupController.module)
 public class SQLGroupController extends BaseController{
-	@Autowired SQLGroupService sqlGroupService;
+	@Autowired SqlGroupService sqlGroupService;
 	public static final String module = "/search/sqlgroup";
 	
 	@RequestMapping("/index")
