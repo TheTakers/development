@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
@@ -34,7 +34,7 @@ public class SqlDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	private static final String sql ="select t.*,c.name as pText from tb_sm_sqldefine t left join tb_sm_sqlgroup c on t.groupid = c.id ";
 
-	public String save(SQLDefine sqlDefine){
+	public String save(SqlDefine sqlDefine){
 		
 		//生成GROUP PATH
 		return getRepository().save(sqlDefine).getId();
@@ -57,12 +57,12 @@ public class SqlDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 		return sqlIdJdbcService.queryForMap(sqlFilter);
 	}
 	@Override
-	public SQLDefine findBySqlId(String sqlId) {
+	public SqlDefine findBySqlId(String sqlId) {
 		return getRepository().findBySqlId(sqlId);
 	}
 	@Override
 	public Pager<Map<String, Object>> list(String sqlId, QueryParam queryRequest) {
-		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
+		SqlDefine sqlDefine = getRepository().findBySqlId(sqlId);
 		if(null == sqlDefine){
 			return new Pager<Map<String, Object>>();
 		}
@@ -73,7 +73,7 @@ public class SqlDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository>
 	}
 	@Override
 	public List<Map<String, Object>> findAllBySqlId(String sqlId) {
-		SQLDefine sqlDefine = getRepository().findBySqlId(sqlId);
+		SqlDefine sqlDefine = getRepository().findBySqlId(sqlId);
 		if(null == sqlDefine){
 			throw new ServiceException("SQLID:"+sqlId+"未定义");
 		}

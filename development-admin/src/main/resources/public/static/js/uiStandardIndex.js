@@ -50,7 +50,7 @@ app.directive('uiStandardIndex', function($http,$log,$ocLazyLoad,commonService,$
 				}
 				url += $scope.sqlView.code;
 			}
-			saveOfClose($http,url,$scope.data,$uibModalInstance);
+			saveAndClose($http,url,$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function(){
 			$uibModalInstance.dismiss('cancel');

@@ -5,13 +5,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 
 @Repository
-public interface SQLDefineRepository  extends JpaRepository<SQLDefine, String>{
+public interface SQLDefineRepository  extends JpaRepository<SqlDefine, String>{
 	
-	public Page<SQLDefine> findAll(Pageable pageable);
+	public Page<SqlDefine> findAll(Pageable pageable);
 	
-	public SQLDefine findBySqlId(String sqlId);
+	public SqlDefine findBySqlId(String sqlId);
 	
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlDefineService;
 import com.sophia.utils.SqlFilter;
@@ -29,7 +29,7 @@ public class SqlIdJdbcServiceImpl extends ApplicationObjectSupport implements Sq
 	
 	@Override
 	public SqlIdNamedParamterJdbcHandler get(String sqlId){
-		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlId);
+		SqlDefine sqlDefine = sqlDefineService.findBySqlId(sqlId);
 		SqlIdNamedParamterJdbcHandler SqlIdNamedParamterJdbcHandler = new SqlIdNamedParamterJdbcHandler(new NamedParameterJdbcTemplate(this.getDataSource(sqlDefine.getDatasource()))
 				,sqlDefine);
 		this.sqlDefineService = (SqlDefineService) getApplicationContext().getBean(SqlDefineService.class);
@@ -70,8 +70,8 @@ public class SqlIdJdbcServiceImpl extends ApplicationObjectSupport implements Sq
 
 	public class SqlIdNamedParamterJdbcHandler{
 		private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-		private SQLDefine sqlDefine;
-		public SqlIdNamedParamterJdbcHandler(NamedParameterJdbcTemplate namedParameterJdbcTemplate,SQLDefine sqlDefine){
+		private SqlDefine sqlDefine;
+		public SqlIdNamedParamterJdbcHandler(NamedParameterJdbcTemplate namedParameterJdbcTemplate,SqlDefine sqlDefine){
 			this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 			this.sqlDefine = sqlDefine;
 		}

@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLGroup;
+import com.sophia.domain.SqlGroup;
 import com.sophia.response.Response;
 import com.sophia.service.SqlGroupService;
 import com.sophia.vo.QueryParam;
@@ -30,8 +30,8 @@ import com.sophia.web.util.GUID;
 
 
 @Controller
-@RequestMapping(SQLGroupController.module)
-public class SQLGroupController extends BaseController{
+@RequestMapping(SqlGroupController.module)
+public class SqlGroupController extends BaseController{
 	@Autowired SqlGroupService sqlGroupService;
 	public static final String module = "/search/sqlgroup";
 	
@@ -66,7 +66,7 @@ public class SQLGroupController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid SQLGroupParam request) {
-		SQLGroup target = new SQLGroup();
+		SqlGroup target = new SqlGroup();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){
 			target.setId(GUID.nextId());

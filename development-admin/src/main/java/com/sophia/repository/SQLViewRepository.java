@@ -5,12 +5,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sophia.domain.SQLView;
+import com.sophia.domain.SqlView;
 
 @Repository
-public interface SQLViewRepository  extends JpaRepository<SQLView, String>{
+public interface SQLViewRepository  extends JpaRepository<SqlView, String>{
 	
-	public Page<SQLView> findAll(Pageable pageable);
+	public Page<SqlView> findAll(Pageable pageable);
 	
-	public SQLView getByCode(String code);
+	public SqlView getByCode(String code);
 }

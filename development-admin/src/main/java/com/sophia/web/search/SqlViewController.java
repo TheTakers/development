@@ -27,8 +27,8 @@ import com.sophia.vo.SQLViewParam;
 import com.sophia.vo.SQLViewQueryParam;
 
 @Controller
-@RequestMapping(SQLViewController.module)
-public class SQLViewController extends BaseController{
+@RequestMapping(SqlViewController.module)
+public class SqlViewController extends BaseController{
 	
 	@Autowired SqlViewService sqlViewService;
 	

@@ -13,7 +13,7 @@ import com.sophia.constant.SQLViewConstant;
 
 @Entity
 @Table(name="TB_SM_VIEW")
-public class SQLView extends Auditable{
+public class SqlView extends Auditable{
 
 	/**
 	 * 
@@ -52,10 +52,10 @@ public class SQLView extends Auditable{
 	 * 显示列名
 	 */
 	@Transient
-	private List<SQLViewField> columnList  = new ArrayList<SQLViewField>();
+	private List<SqlViewField> columnList  = new ArrayList<SqlViewField>();
 	
 	@Transient
-	private SQLDefine sqlDefine;
+	private SqlDefine sqlDefine;
 	
 	@Transient
 	private List<JSONObject> conditionList;
@@ -75,10 +75,10 @@ public class SQLView extends Auditable{
 	public void setButtonList(List<JSONObject> buttonList) {
 		this.buttonList = buttonList;
 	}
-	public SQLDefine getSqlDefine() {
+	public SqlDefine getSqlDefine() {
 		return sqlDefine;
 	}
-	public void setSqlDefine(SQLDefine sqlDefine) {
+	public void setSqlDefine(SqlDefine sqlDefine) {
 		this.sqlDefine = sqlDefine;
 	}
 	public String getRemark() {
@@ -87,10 +87,10 @@ public class SQLView extends Auditable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public List<SQLViewField> getColumnList() {
+	public List<SqlViewField> getColumnList() {
 		return columnList;
 	}
-	public void setColumnList(List<SQLViewField> columnList) {
+	public void setColumnList(List<SqlViewField> columnList) {
 		this.columnList = columnList;
 	}
 	 

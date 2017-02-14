@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLGroup;
+import com.sophia.domain.SqlGroup;
 import com.sophia.repository.SQLGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
@@ -27,7 +27,7 @@ public class SqlGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> i
 
 	private String sql="select t.*,c.name as ptext from tb_sm_sqlgroup t left join tb_sm_sqlgroup c on t.parentid =  c.id ";
 
-	public String save(SQLGroup sqlGroup){
+	public String save(SqlGroup sqlGroup){
 
 		//生成GROUP PATH
 		return getRepository().save(sqlGroup).getId();

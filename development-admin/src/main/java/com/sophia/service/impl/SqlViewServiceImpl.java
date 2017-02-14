@@ -25,9 +25,9 @@ import com.sophia.constant.SQLExpression;
 import com.sophia.constant.SQLViewConstant;
 import com.sophia.constant.TreeNodeHandleType;
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLDefine;
-import com.sophia.domain.SQLView;
-import com.sophia.domain.SQLViewField;
+import com.sophia.domain.SqlDefine;
+import com.sophia.domain.SqlView;
+import com.sophia.domain.SqlViewField;
 import com.sophia.exception.ServiceException;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
@@ -62,7 +62,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	public String save(SQLViewParam sqlViewRequest){
 
 		//基本信息
-		SQLView sqlView = new SQLView();
+		SqlView sqlView = new SqlView();
 		BeanUtils.copyProperties(sqlViewRequest, sqlView);
 		if(StringUtils.isBlank(sqlViewRequest.getId())){
 			sqlView.setId(GUID.nextId());
@@ -72,12 +72,12 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlView.setConditions(sqlViewRequest.getFilterList().toJSONString());
 
 		//先删除列表
-		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SqlViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(!CollectionUtils.isEmpty(sqlViewFieldList)){
 			sqlViewFieldService.getRepository().delete(sqlViewFieldList);
 		}
 		//保存SQL列表
-		for(SQLViewField field : sqlViewRequest.getColumnList()){
+		for(SqlViewField field : sqlViewRequest.getColumnList()){
 			field.setId(GUID.nextId());
 			field.setViewId(sqlView.getId());
 		}
@@ -87,11 +87,11 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return getRepository().save(sqlView).getId();
 	}
 	@Override
-	public SQLView findById(String id) {
+	public SqlView findById(String id) {
 		//基本信息
-		SQLView sqlView = getRepository().findOne(id);
+		SqlView sqlView = getRepository().findOne(id);
 		//获取列表
-		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
+		List<SqlViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 		sqlView.setColumnList(sqlViewFieldList);
 
 		//排序conditions，buttons
@@ -108,7 +108,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return sqlIdJdbcService.filter(sqlFilter,queryRequest.getPageSize(),queryRequest.getPageNo());
 	}
 
-	private SQLDefine getSQLDefine(String sqlId){
+	private SqlDefine getSQLDefine(String sqlId){
 		return sqlDefineService.getRepository().findBySqlId(sqlId);
 	}
 	/**
@@ -117,10 +117,10 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param sqlIndex
 	 */
 	@Override
-	public List<SQLViewField> showFullColumnsBySql(String sqlId) {
-		List<SQLViewField> list = new ArrayList<SQLViewField>();
+	public List<SqlViewField> showFullColumnsBySql(String sqlId) {
+		List<SqlViewField> list = new ArrayList<SqlViewField>();
 
-		SQLDefine sqlDefine = getSQLDefine(sqlId);
+		SqlDefine sqlDefine = getSQLDefine(sqlId);
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:["+sqlId+"]未定义");
 		}
@@ -140,9 +140,9 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//通过临时表 找到对应的字段属性
 		resultSet = namedParameterJdbcTemplate.queryForRowSet(viewSql,new HashMap<String,String>());
 		srsmd = resultSet.getMetaData();
-		SQLViewField field = null;
+		SqlViewField field = null;
 		for (int i = 1; i < srsmd.getColumnCount() + 1; i++) {
-			field = new SQLViewField();
+			field = new SqlViewField();
 			field.setId(GUID.nextId());
 			this.setFieldTitle(field, srsmd.getColumnLabel(i));
 			field.setField(srsmd.getColumnLabel(i));// as 后的值 ，getColumnName 原始值
@@ -173,7 +173,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 * @param sqlViewField
 	 * @param field
 	 */
-	private void setFieldTitle(SQLViewField sqlViewField,String field){
+	private void setFieldTitle(SqlViewField sqlViewField,String field){
 		switch (field.toUpperCase()) {
 		case SQLViewConstant.LAST_UPDATE_TIME:
 			sqlViewField.setTitle("更新时间");
@@ -218,13 +218,13 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return new ArrayList<JSONObject>();
 	}
 
-	public SQLView getSqlViewByCode(String code){
-		SQLView sqlView = getRepository().getByCode(code);
+	public SqlView getSqlViewByCode(String code){
+		SqlView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
-		List<SQLViewField> columnList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		List<SqlViewField> columnList = sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
@@ -238,17 +238,17 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	public void persistentByCode(String code,JSONObject row){
-		SQLView sqlView = getRepository().getByCode(code);
+		SqlView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
 		//获取修改列
-		List<SQLViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SqlViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
@@ -263,7 +263,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		for(SQLViewField field : sqlViewFields){
+		for(SqlViewField field : sqlViewFields){
 			if(SQLViewConstant.YES.equals(field.getIsInsert())){
 				insertSQL.append(field.getField()).append(",");
 				values.append(":").append(field.getField()).append(",");
@@ -295,19 +295,19 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	public void modifyByCode(String code,JSONObject row){
-		SQLView sqlView = getRepository().getByCode(code);
+		SqlView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("视图编号:"+ code + "未定义");
 		}
 
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
 
 		//获取修改列
-		List<SQLViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SqlViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
@@ -319,7 +319,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
-		for(SQLViewField field : sqlViewFields){
+		for(SqlViewField field : sqlViewFields){
 			if(SQLViewConstant.MODIFTY_NORMAL.equals(field.getModiftyType())){
 				modifySQL.append(field.getField()).append("= :")
 				.append(field.getField())
@@ -350,19 +350,19 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	public void deleteByCode(String code,JSONObject row){
-		SQLView sqlView = getRepository().getByCode(code);
+		SqlView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+ code + "未定义");
 		}
 
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
 
 		//获取修改列
-		List<SQLViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		List<SqlViewField> sqlViewFields = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
 		if(CollectionUtils.isEmpty(sqlViewFields)){
 			throw new ServiceException("视图编号:"+ sqlView.getSqlId() + "未设置字段列表");
 		}
@@ -389,7 +389,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	public Map<String,Object> getDataBySqlId(String sqlId,JSONObject row){
 
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlId);
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlId + "未定义");
 		}
@@ -409,7 +409,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		Map<String,Object> result = new HashMap<>();
 
 		//查询SQLVIEW
-		SQLView sqlView = getRepository().getByCode(code);
+		SqlView sqlView = getRepository().getByCode(code);
 		if(sqlView == null){
 			throw new ServiceException("编号:"+code+"视图未定义");
 		}
@@ -418,7 +418,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		sqlView.setColumnList(sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId()));
 
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
+		SqlDefine sqlDefine = sqlDefineService.getRepository().findBySqlId(sqlView.getSqlId());
 		if(sqlDefine == null){
 			throw new ServiceException("SQLID:"+ sqlView.getSqlId() + "未定义");
 		}
@@ -438,7 +438,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 	@Override
 	public Pager<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryParam queryRequest){
-		SQLView sqlView = getRepository().getByCode(code);
+		SqlView sqlView = getRepository().getByCode(code);
 		ConditionResult conditionResult = getTreeNode(sqlView.getTreeData(),queryRequest.getTreeNode());
 		SqlFilter sqlFilter = new SqlFilter(queryRequest.getCondition());
 		if(null != conditionResult){
@@ -446,8 +446,8 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 
 		//获取显示字段
-		List<SQLViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
-		SQLDefine sqlDefine = sqlDefineService.findBySqlId(sqlView.getSqlId());
+		List<SqlViewField> sqlViewFieldList = sqlViewFieldService.getRepository().getByViewId(sqlView.getId());
+		SqlDefine sqlDefine = sqlDefineService.findBySqlId(sqlView.getSqlId());
 		if(CollectionUtils.isEmpty(sqlViewFieldList)){
 			sqlFilter.setMainSql(sqlDefine.getSelectSql());
 		}else{
@@ -455,7 +455,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			//拼装sql显示列表
 			StringBuffer sb = new StringBuffer("SELECT ");
 			ConditionResult sortCond;
-			for(SQLViewField field : sqlViewFieldList){
+			for(SqlViewField field : sqlViewFieldList){
 				if(SQLViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
 						StringUtils.isNotBlank(field.getOptions())){
 					sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getOptions()).append("') AS ").append(field.getField());
@@ -490,7 +490,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		
 		//获取sqlDefine 
-		SQLDefine sqlDefine = sqlDefineService.findBySqlId(treeDto.getSqlId());
+		SqlDefine sqlDefine = sqlDefineService.findBySqlId(treeDto.getSqlId());
 		Map<String,Object> paramMap = new HashMap<String, Object>();
 		String idValue = SQLViewConstant.TREE_ROOT;
 
@@ -570,8 +570,8 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	}
 
 	@Override
-	public List<SQLViewField> findFieldListByViewCode(String viewCode) {
-		SQLView sqlView = getRepository().getByCode(viewCode);
+	public List<SqlViewField> findFieldListByViewCode(String viewCode) {
+		SqlView sqlView = getRepository().getByCode(viewCode);
 		return sqlViewFieldService.getRepository().getByViewIdOrderByIdxAsc(sqlView.getId());
 	}
 }

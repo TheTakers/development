@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLView;
-import com.sophia.domain.SQLViewField;
+import com.sophia.domain.SqlView;
+import com.sophia.domain.SqlViewField;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLViewRepository;
 import com.sophia.vo.QueryParam;
@@ -17,18 +17,18 @@ public interface SqlViewService extends JpaRepository<SQLViewRepository>{
 	
 	 String save(SQLViewParam sqlViewRequest);
 	
-	 SQLView findById(String id);
+	 SqlView findById(String id);
 	
 	 Pager<Map<String,Object>> list(QueryParam queryRequest);
 	
-	 List<SQLViewField> showFullColumnsBySql(String sql);
+	 List<SqlViewField> showFullColumnsBySql(String sql);
 	
 	/**
 	 * 根据编号获取视图
 	 * @param code
 	 * @return
 	 */
-	 SQLView getSqlViewByCode(String code);
+	 SqlView getSqlViewByCode(String code);
 	
 	
 	/**
@@ -80,5 +80,5 @@ public interface SqlViewService extends JpaRepository<SQLViewRepository>{
 	 * @param viewCode
 	 * @return
 	 */
-	 List<SQLViewField> findFieldListByViewCode(String viewCode);
+	 List<SqlViewField> findFieldListByViewCode(String viewCode);
 }

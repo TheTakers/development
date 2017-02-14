@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.SQLViewConstant;
-import com.sophia.domain.SQLViewField;
+import com.sophia.domain.SqlViewField;
 
 public class SQLViewParam extends CrudParam{
 
@@ -27,7 +27,7 @@ public class SQLViewParam extends CrudParam{
 	 * 显示列名
 	 */
 	@NotEmpty
-	private	List<SQLViewField> columnList  = new ArrayList();
+	private	List<SqlViewField> columnList  = new ArrayList();
 	
 	private Integer showRowNum = SQLViewConstant.NO;
 	/**
@@ -87,11 +87,11 @@ public class SQLViewParam extends CrudParam{
 		this.showRowNum = showRowNum;
 	}
 
-	public List<SQLViewField> getColumnList() {
+	public List<SqlViewField> getColumnList() {
 		return columnList;
 	}
 
-	public void setColumnList(List<SQLViewField> columnList) {
+	public void setColumnList(List<SqlViewField> columnList) {
 		this.columnList = columnList;
 	}
 

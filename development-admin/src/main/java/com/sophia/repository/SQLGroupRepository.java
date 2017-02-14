@@ -6,11 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sophia.domain.SQLGroup;
+import com.sophia.domain.SqlGroup;
 
 @Repository
-public interface SQLGroupRepository extends JpaRepository<SQLGroup, String>{
+public interface SQLGroupRepository extends JpaRepository<SqlGroup, String>{
 	
-	public Page<SQLGroup> findAll(Pageable pageable);
+	public Page<SqlGroup> findAll(Pageable pageable);
 }
 

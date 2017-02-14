@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.AdminApplication;
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 import com.sophia.service.CodeTemplateService;
 import com.sophia.service.MenuService;
 import com.sophia.service.SqlIdJdbcService;
@@ -45,10 +45,10 @@ public class JUnitTest {
 	}
 
 	public void queryForJpa(){
-		Specification querySpecifi = new Specification<SQLDefine>() {
+		Specification querySpecifi = new Specification<SqlDefine>() {
 
 			@Override
-			public Predicate toPredicate(Root<SQLDefine> root, CriteriaQuery<?> query,
+			public Predicate toPredicate(Root<SqlDefine> root, CriteriaQuery<?> query,
 					CriteriaBuilder cb) {
 				// TODO Auto-generated method stub
 				List<Predicate> predicates = new ArrayList<>();

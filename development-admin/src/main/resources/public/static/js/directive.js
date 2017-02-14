@@ -181,7 +181,7 @@ app.directive('uibasepage', function($http,$log,$ocLazyLoad,commonService,$uibMo
 		$scope.data = param.row;
 		//保存操作
 		$scope.save = function() {
-			saveOfClose($http,param.sqlView.controller + "/save",$scope.data,$uibModalInstance);
+			saveAndClose($http,param.sqlView.controller + "/save",$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');

@@ -43,7 +43,7 @@ app.directive('uisqlview', function($http,$log,$ocLazyLoad,commonService,$uibMod
 			$scope.data.filterList = $scope.filterList;
 			$scope.data.buttonList = $scope.buttonList;
 			$scope.data.treeData = $scope.treeData;
-			saveOfClose($http,param.sqlView.controller + "/save",$scope.data,$uibModalInstance);
+			saveAndClose($http,param.sqlView.controller + "/save",$scope.data,$uibModalInstance);
 		};
 		$scope.cancel = function() {
 			$uibModalInstance.dismiss('cancel');

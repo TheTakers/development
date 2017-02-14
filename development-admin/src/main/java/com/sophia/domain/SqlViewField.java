@@ -9,7 +9,7 @@ import com.sophia.constant.SQLViewConstant;
 
 @Entity
 @Table(name="TB_SM_VIEW_FIELD")
-public class SQLViewField extends Auditable{
+public class SqlViewField extends Auditable{
 
 	/**
 	 * 

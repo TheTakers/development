@@ -12,7 +12,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="TB_SM_SQLGROUP")
-public class SQLGroup extends Auditable{
+public class SqlGroup extends Auditable{
 
 	/**
 	 * 

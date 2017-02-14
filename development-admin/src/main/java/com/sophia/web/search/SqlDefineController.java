@@ -22,7 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 import com.sophia.response.Response;
 import com.sophia.service.SqlDefineService;
 import com.sophia.vo.QueryParam;
@@ -34,8 +34,8 @@ import com.sophia.web.util.GUID;
  * @author zkning
  */
 @Controller
-@RequestMapping(SQLDefineController.module)
-public class SQLDefineController extends BaseController{
+@RequestMapping(SqlDefineController.module)
+public class SqlDefineController extends BaseController{
 	@Autowired SqlDefineService sqlDefineService;
 	public static final String module = "search/sqldefine";
 	
@@ -82,7 +82,7 @@ public class SQLDefineController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid SQLDefineParam request) {
-		SQLDefine target = new SQLDefine();
+		SqlDefine target = new SqlDefine();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){
 			target.setId(GUID.nextId());

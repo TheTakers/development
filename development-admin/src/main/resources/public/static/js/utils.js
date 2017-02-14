@@ -32,7 +32,7 @@ function getArrayIdxById(array,item){
  * @param param
  * @param $uibModalInstance
  */
-function saveOfClose($http,url,param,$uibModalInstance){
+function saveAndClose($http,url,param,$uibModalInstance){
 	$http.post(url,param).success(function(data){
 		if(data.code == STATUS_CODE.SUCCESS){
 			$uibModalInstance.close(data.result);

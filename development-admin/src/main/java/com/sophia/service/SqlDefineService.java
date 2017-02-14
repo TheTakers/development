@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.sophia.domain.Pager;
-import com.sophia.domain.SQLDefine;
+import com.sophia.domain.SqlDefine;
 import com.sophia.repository.JpaRepository;
 import com.sophia.repository.SQLDefineRepository;
 import com.sophia.vo.QueryParam;
 
 public interface SqlDefineService extends JpaRepository<SQLDefineRepository>{
 	
-	 String save(SQLDefine sqlDefine);
+	 String save(SqlDefine sqlDefine);
 	
 	 Pager<Map<String,Object>> list(QueryParam queryRequest);
 	
@@ -24,7 +24,7 @@ public interface SqlDefineService extends JpaRepository<SQLDefineRepository>{
 	
 	 Map<String,Object> findById(String id);
 	
-	 SQLDefine findBySqlId(String sqlId);
+	 SqlDefine findBySqlId(String sqlId);
 	
 	/**
 	 * 根据SQLID获取SQL对应的所有数据
