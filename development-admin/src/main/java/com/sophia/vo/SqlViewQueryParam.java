@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author zkning
  *
  */
-public class SQLViewQueryParam implements Serializable {
+public class SqlViewQueryParam implements Serializable {
 	
 	/**
 	 * 

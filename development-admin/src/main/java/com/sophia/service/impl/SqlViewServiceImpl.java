@@ -21,15 +21,15 @@ import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.constant.ComponentType;
-import com.sophia.constant.SQLExpression;
-import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.SqlExpression;
+import com.sophia.constant.SqlViewConstant;
 import com.sophia.constant.TreeNodeHandleType;
 import com.sophia.domain.Pager;
 import com.sophia.domain.SqlDefine;
 import com.sophia.domain.SqlView;
 import com.sophia.domain.SqlViewField;
 import com.sophia.exception.ServiceException;
-import com.sophia.repository.SQLViewRepository;
+import com.sophia.repository.SqlViewRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlViewFieldService;
@@ -39,8 +39,8 @@ import com.sophia.utils.SimpleUtils;
 import com.sophia.utils.SqlFilter;
 import com.sophia.vo.ConditionResult;
 import com.sophia.vo.QueryParam;
-import com.sophia.vo.SQLViewParam;
-import com.sophia.vo.SQLViewQueryParam;
+import com.sophia.vo.SqlViewParam;
+import com.sophia.vo.SqlViewQueryParam;
 import com.sophia.vo.TreeResult;
 import com.sophia.web.util.GUID;
 
@@ -50,7 +50,7 @@ import com.sophia.web.util.GUID;
  */
 @Service
 @Transactional
-public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> implements SqlViewService  {
+public class SqlViewServiceImpl extends JpaRepositoryImpl<SqlViewRepository> implements SqlViewService  {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlDefineService sqlDefineService;
@@ -59,7 +59,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	@Autowired NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	private String sql="select t.* from tb_sm_view t ";
-	public String save(SQLViewParam sqlViewRequest){
+	public String save(SqlViewParam sqlViewRequest){
 
 		//基本信息
 		SqlView sqlView = new SqlView();
@@ -150,7 +150,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			field.setDataType(srsmd.getColumnTypeName(i));
 
 			//判断是否是日期类型
-			if (SimpleUtils.getDataType(field.getDataType()).equals(SQLViewConstant.COLUMNTYPE_DATE)) {
+			if (SimpleUtils.getDataType(field.getDataType()).equals(SqlViewConstant.COLUMNTYPE_DATE)) {
 				field.setComponentType(ComponentType.DATEPICKER.getValue());
 				field.setOptions("%Y-%m-%d %H:%i:%s");
 			}
@@ -158,10 +158,10 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			if(masterFieldMap.containsKey(field.getField())){
 
 				//修改类型
-				field.setModiftyType(SQLViewConstant.MODIFTY_NORMAL);
+				field.setModiftyType(SqlViewConstant.MODIFTY_NORMAL);
 
 				//是否增加
-				field.setIsInsert(SQLViewConstant.YES);
+				field.setIsInsert(SqlViewConstant.YES);
 			}
 			list.add(field);
 		}
@@ -175,19 +175,19 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 	 */
 	private void setFieldTitle(SqlViewField sqlViewField,String field){
 		switch (field.toUpperCase()) {
-		case SQLViewConstant.LAST_UPDATE_TIME:
+		case SqlViewConstant.LAST_UPDATE_TIME:
 			sqlViewField.setTitle("更新时间");
 			break;
-		case SQLViewConstant.LAST_UPDATE_USER:
+		case SqlViewConstant.LAST_UPDATE_USER:
 			sqlViewField.setTitle("更新者");
 			break;
-		case SQLViewConstant.CREATE_TIME:
+		case SqlViewConstant.CREATE_TIME:
 			sqlViewField.setTitle("创建时间");
 			break;
-		case SQLViewConstant.CREATE_USER:
+		case SqlViewConstant.CREATE_USER:
 			sqlViewField.setTitle("创建者");
 			break;
-		case SQLViewConstant.VERSION:
+		case SqlViewConstant.VERSION:
 			sqlViewField.setTitle("版本号");
 			break;
 		default:
@@ -264,7 +264,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
 		for(SqlViewField field : sqlViewFields){
-			if(SQLViewConstant.YES.equals(field.getIsInsert())){
+			if(SqlViewConstant.YES.equals(field.getIsInsert())){
 				insertSQL.append(field.getField()).append(",");
 				values.append(":").append(field.getField()).append(",");
 				paramMap.put(field.getField(), row.get(field.getField()));
@@ -320,7 +320,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//参数
 		Map<String,Object> paramMap = new HashMap<>();
 		for(SqlViewField field : sqlViewFields){
-			if(SQLViewConstant.MODIFTY_NORMAL.equals(field.getModiftyType())){
+			if(SqlViewConstant.MODIFTY_NORMAL.equals(field.getModiftyType())){
 				modifySQL.append(field.getField()).append("= :")
 				.append(field.getField())
 				.append(",");
@@ -437,7 +437,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		return result;
 	}
 	@Override
-	public Pager<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryParam queryRequest){
+	public Pager<Map<String, Object>> findSqlViewGrid(String code,SqlViewQueryParam queryRequest){
 		SqlView sqlView = getRepository().getByCode(code);
 		ConditionResult conditionResult = getTreeNode(sqlView.getTreeData(),queryRequest.getTreeNode());
 		SqlFilter sqlFilter = new SqlFilter(queryRequest.getCondition());
@@ -456,7 +456,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 			StringBuffer sb = new StringBuffer("SELECT ");
 			ConditionResult sortCond;
 			for(SqlViewField field : sqlViewFieldList){
-				if(SQLViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
+				if(SqlViewConstant.COLUMNTYPE_DATE.equals(SimpleUtils.getDataType(field.getDataType())) &&
 						StringUtils.isNotBlank(field.getOptions())){
 					sb.append("DATE_FORMAT(").append(field.getField()).append(",'").append(field.getOptions()).append("') AS ").append(field.getField());
 				}else{
@@ -492,7 +492,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		//获取sqlDefine 
 		SqlDefine sqlDefine = sqlDefineService.findBySqlId(treeDto.getSqlId());
 		Map<String,Object> paramMap = new HashMap<String, Object>();
-		String idValue = SQLViewConstant.TREE_ROOT;
+		String idValue = SqlViewConstant.TREE_ROOT;
 
 		//第一次默认为加载ROOT节点
 		if(null != treeNode){
@@ -514,7 +514,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		}
 		ConditionResult conditionDto = new ConditionResult();
 		conditionDto.setField(treeDto.getRelationField());
-		conditionDto.setExpr(SQLExpression.IN);
+		conditionDto.setExpr(SqlExpression.IN);
 		//TODO 换成in语句
 		conditionDto.setValue(appendIds(result,treeDto.getIdKey()));
 		return conditionDto;
@@ -531,7 +531,7 @@ public class SqlViewServiceImpl extends JpaRepositoryImpl<SQLViewRepository> imp
 		for(Map<String,Object> item : mapList){
 			sb.append(item.get(key)).append(",");
 		}
-		return StringUtils.isBlank(sb) ? SQLViewConstant.IN_NONE_CODE : sb.deleteCharAt(sb.lastIndexOf(",")).toString();
+		return StringUtils.isBlank(sb) ? SqlViewConstant.IN_NONE_CODE : sb.deleteCharAt(sb.lastIndexOf(",")).toString();
 	}
 
 	/**

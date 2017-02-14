@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import com.sophia.domain.Pager;
 import com.sophia.domain.SqlDefine;
 import com.sophia.exception.ServiceException;
-import com.sophia.repository.SQLDefineRepository;
+import com.sophia.repository.SqlDefineRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlDefineService;
@@ -26,7 +26,7 @@ import com.sophia.vo.QueryParam;
  * @author zkning
  */
 @Service
-public class SqlDefineServiceImpl extends JpaRepositoryImpl<SQLDefineRepository> implements SqlDefineService {
+public class SqlDefineServiceImpl extends JpaRepositoryImpl<SqlDefineRepository> implements SqlDefineService {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;

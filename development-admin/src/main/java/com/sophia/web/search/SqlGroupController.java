@@ -25,7 +25,7 @@ import com.sophia.domain.SqlGroup;
 import com.sophia.response.Response;
 import com.sophia.service.SqlGroupService;
 import com.sophia.vo.QueryParam;
-import com.sophia.vo.SQLGroupParam;
+import com.sophia.vo.SqlGroupParam;
 import com.sophia.web.util.GUID;
 
 
@@ -65,7 +65,7 @@ public class SqlGroupController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLGroupParam request) {
+	public Object save(@RequestBody @Valid SqlGroupParam request) {
 		SqlGroup target = new SqlGroup();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){

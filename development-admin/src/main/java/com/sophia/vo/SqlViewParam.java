@@ -8,10 +8,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.SqlViewConstant;
 import com.sophia.domain.SqlViewField;
 
-public class SQLViewParam extends CrudParam{
+public class SqlViewParam extends CrudParam{
 
 	@NotBlank
 	private String code;
@@ -29,7 +29,7 @@ public class SQLViewParam extends CrudParam{
 	@NotEmpty
 	private	List<SqlViewField> columnList  = new ArrayList();
 	
-	private Integer showRowNum = SQLViewConstant.NO;
+	private Integer showRowNum = SqlViewConstant.NO;
 	/**
 	 * 条件过滤
 	 */
@@ -40,7 +40,7 @@ public class SQLViewParam extends CrudParam{
 	 */
 	private JSONArray buttonList = new JSONArray();
 	
-	private Integer multiple = SQLViewConstant.NO;
+	private Integer multiple = SqlViewConstant.NO;
 	/**
 	 * 树设置
 	 */

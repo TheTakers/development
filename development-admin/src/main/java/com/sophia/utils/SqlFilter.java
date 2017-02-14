@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
-import com.sophia.constant.SQLExpression;
+import com.sophia.constant.SqlExpression;
 import com.sophia.vo.ConditionResult;
 
 /**
@@ -49,7 +49,7 @@ public class SqlFilter {
 	} 
 
 	public void EQ(String alias,String value){
-		addCondition(alias,SQLExpression.EQ,value,null);
+		addCondition(alias,SqlExpression.EQ,value,null);
 	}
 
 	public void addCondition(String alias,String expr ,String value,String sort){
@@ -60,23 +60,23 @@ public class SqlFilter {
 			condition.append(" t.").append(alias);
 			
 			//拼装条件表达式
-			if(SQLExpression.IN.equals(expr) || 
-					SQLExpression.NOT_IN.equals(expr)){
+			if(SqlExpression.IN.equals(expr) || 
+					SqlExpression.NOT_IN.equals(expr)){
 				condition.append(" " + expr +" (").append(":").append(alias).append(") ");
-			}else if(SQLExpression.NULL.equals(expr) || 
-					SQLExpression.NOT_NULL.equals(expr)){
+			}else if(SqlExpression.NULL.equals(expr) || 
+					SqlExpression.NOT_NULL.equals(expr)){
 				condition.append(expr);
 			}else{
 				condition.append(" " + expr +" ").append(":").append(alias);
 			}
 			
 			//输入值
-			if(SQLExpression.LIKE.equals(expr)){
+			if(SqlExpression.LIKE.equals(expr)){
 				params.put(alias, "%"+value+"%");
-			}else if(SQLExpression.NULL.equals(expr) || 
-					SQLExpression.NOT_NULL.equals(expr)){
-			}else if(SQLExpression.IN.equals(expr) || 
-					SQLExpression.NOT_IN.equals(expr)){
+			}else if(SqlExpression.NULL.equals(expr) || 
+					SqlExpression.NOT_NULL.equals(expr)){
+			}else if(SqlExpression.IN.equals(expr) || 
+					SqlExpression.NOT_IN.equals(expr)){
 				params.put(alias, Lists.newArrayList(value.split(",")));
 			}else{
 				params.put(alias, value);

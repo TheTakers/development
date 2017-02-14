@@ -5,7 +5,7 @@ package com.sophia.constant;
  * @author zkning
  *
  */
-public class SQLExpression {
+public class SqlExpression {
 	
 	/**
 	 * =

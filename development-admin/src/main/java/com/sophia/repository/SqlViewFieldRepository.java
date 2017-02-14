@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sophia.domain.SqlViewField;
 
 @Repository
-public interface SQLViewFieldRepository extends JpaRepository<SqlViewField, String>{
+public interface SqlViewFieldRepository extends JpaRepository<SqlViewField, String>{
 	
 	/**
 	 * 根据viewId查询视图

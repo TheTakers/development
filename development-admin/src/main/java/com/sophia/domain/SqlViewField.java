@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.sophia.constant.ComponentType;
-import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.SqlViewConstant;
 
 @Entity
 @Table(name="TB_SM_VIEW_FIELD")
@@ -26,7 +26,7 @@ public class SqlViewField extends Auditable{
 	 * 是否显示列表
 	 */
 	@Column(name="ISDISPLAY")
-	private Integer isDisplay = SQLViewConstant.YES;
+	private Integer isDisplay = SqlViewConstant.YES;
 	
 	/**
 	 * 排序规则  asc ,desc
@@ -38,18 +38,18 @@ public class SqlViewField extends Auditable{
 	 * 0 不显示,1,可操作,2 disable
 	 */
 	@Column(name="MODIFTYTYPE")
-	private Integer modiftyType = SQLViewConstant.MODIFTY_HIDE;
+	private Integer modiftyType = SqlViewConstant.MODIFTY_HIDE;
 	
 	/**
 	 * 是否察看详情
 	 */
 	@Column(name="ISVIEW")
-	private Integer isView = SQLViewConstant.YES;
+	private Integer isView = SqlViewConstant.YES;
 	/**
 	 * 是否添加
 	 */
 	@Column(name="ISINSERT")
-	private Integer isInsert = SQLViewConstant.NO;
+	private Integer isInsert = SqlViewConstant.NO;
 	
 	@Column(name="DATATYPE")
 	private String dataType;

@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author zkning
  *
  */
-public class SQLGroupParam extends CrudParam{
+public class SqlGroupParam extends CrudParam{
 	
 	
 	

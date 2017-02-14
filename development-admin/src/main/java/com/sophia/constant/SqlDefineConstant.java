@@ -1,6 +1,6 @@
 package com.sophia.constant;
 
-public class SQLDefineConstant {
+public class SqlDefineConstant {
 	
 	//1-编辑,2-发布
 	public static final Integer SQLDEFINE_STATUS_EDIT = 1;  

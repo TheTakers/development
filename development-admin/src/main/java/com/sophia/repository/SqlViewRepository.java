@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.sophia.domain.SqlView;
 
 @Repository
-public interface SQLViewRepository  extends JpaRepository<SqlView, String>{
+public interface SqlViewRepository  extends JpaRepository<SqlView, String>{
 	
 	public Page<SqlView> findAll(Pageable pageable);
 	

@@ -2,7 +2,7 @@ package com.sophia.vo;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class SQLDefineParam extends CrudParam{
+public class SqlDefineParam extends CrudParam{
 	
 	@NotBlank
 	private String sqlId;

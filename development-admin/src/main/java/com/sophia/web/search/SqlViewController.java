@@ -23,8 +23,8 @@ import com.sophia.domain.Pager;
 import com.sophia.response.Response;
 import com.sophia.service.SqlViewService;
 import com.sophia.vo.QueryParam;
-import com.sophia.vo.SQLViewParam;
-import com.sophia.vo.SQLViewQueryParam;
+import com.sophia.vo.SqlViewParam;
+import com.sophia.vo.SqlViewQueryParam;
 
 @Controller
 @RequestMapping(SqlViewController.module)
@@ -64,7 +64,7 @@ public class SqlViewController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLViewParam request) {
+	public Object save(@RequestBody @Valid SqlViewParam request) {
 		try {
 			sqlViewService.save(request);
 			return Response.SUCCESS();
@@ -200,7 +200,7 @@ public class SqlViewController extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/findAll/{code}",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public  Object findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SQLViewQueryParam queryRequest) {
+	public  Object findSqlViewGrid(@PathVariable String code,@RequestBody @Valid SqlViewQueryParam queryRequest) {
 		return Response.SUCCESS(sqlViewService.findSqlViewGrid(code, queryRequest));
 	}
 	

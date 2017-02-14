@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.SqlViewConstant;
 
 @Entity
 @Table(name="TB_SM_VIEW")
@@ -23,7 +23,7 @@ public class SqlView extends Auditable{
 	private String name;
 	
 	@Column(name="SHOWROWNUM")
-	private Integer showRowNum = SQLViewConstant.NO;
+	private Integer showRowNum = SqlViewConstant.NO;
 	
 	/**
 	 * 条件过滤
@@ -46,7 +46,7 @@ public class SqlView extends Auditable{
 	/**
 	 * 是否多选
 	 */
-	private Integer multiple = SQLViewConstant.NO;
+	private Integer multiple = SqlViewConstant.NO;
 	private String remark;
 	/**
 	 * 显示列名

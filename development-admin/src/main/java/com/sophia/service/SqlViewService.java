@@ -8,14 +8,14 @@ import com.sophia.domain.Pager;
 import com.sophia.domain.SqlView;
 import com.sophia.domain.SqlViewField;
 import com.sophia.repository.JpaRepository;
-import com.sophia.repository.SQLViewRepository;
+import com.sophia.repository.SqlViewRepository;
 import com.sophia.vo.QueryParam;
-import com.sophia.vo.SQLViewParam;
-import com.sophia.vo.SQLViewQueryParam;
+import com.sophia.vo.SqlViewParam;
+import com.sophia.vo.SqlViewQueryParam;
 
-public interface SqlViewService extends JpaRepository<SQLViewRepository>{
+public interface SqlViewService extends JpaRepository<SqlViewRepository>{
 	
-	 String save(SQLViewParam sqlViewRequest);
+	 String save(SqlViewParam sqlViewRequest);
 	
 	 SqlView findById(String id);
 	
@@ -73,7 +73,7 @@ public interface SqlViewService extends JpaRepository<SQLViewRepository>{
 	 * @param queryRequest
 	 * @return
 	 */
-	 Pager<Map<String, Object>> findSqlViewGrid(String code,SQLViewQueryParam queryRequest);
+	 Pager<Map<String, Object>> findSqlViewGrid(String code,SqlViewQueryParam queryRequest);
 	
 	/**
 	 * 根据视图编码获取字段

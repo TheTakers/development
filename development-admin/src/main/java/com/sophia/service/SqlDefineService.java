@@ -6,10 +6,10 @@ import java.util.Map;
 import com.sophia.domain.Pager;
 import com.sophia.domain.SqlDefine;
 import com.sophia.repository.JpaRepository;
-import com.sophia.repository.SQLDefineRepository;
+import com.sophia.repository.SqlDefineRepository;
 import com.sophia.vo.QueryParam;
 
-public interface SqlDefineService extends JpaRepository<SQLDefineRepository>{
+public interface SqlDefineService extends JpaRepository<SqlDefineRepository>{
 	
 	 String save(SqlDefine sqlDefine);
 	

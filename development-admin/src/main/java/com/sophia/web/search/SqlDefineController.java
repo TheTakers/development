@@ -26,7 +26,7 @@ import com.sophia.domain.SqlDefine;
 import com.sophia.response.Response;
 import com.sophia.service.SqlDefineService;
 import com.sophia.vo.QueryParam;
-import com.sophia.vo.SQLDefineParam;
+import com.sophia.vo.SqlDefineParam;
 import com.sophia.web.util.GUID;
 
 /**
@@ -81,7 +81,7 @@ public class SqlDefineController extends BaseController{
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Object save(@RequestBody @Valid SQLDefineParam request) {
+	public Object save(@RequestBody @Valid SqlDefineParam request) {
 		SqlDefine target = new SqlDefine();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){

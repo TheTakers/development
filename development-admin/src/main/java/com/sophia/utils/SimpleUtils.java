@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.sophia.constant.SQLViewConstant;
+import com.sophia.constant.SqlViewConstant;
 import com.sophia.vo.DataTypeResult;
 
 /**
@@ -22,7 +22,7 @@ public class SimpleUtils {
 	 * @return
 	 */
 	public static Boolean isTrue(Integer value){
-		return SQLViewConstant.YES == value;
+		return SqlViewConstant.YES == value;
 	}
 	
 	/**
@@ -66,22 +66,22 @@ public class SimpleUtils {
 
 		boolean isChar = isSpecType(dbType, varchar);
 		if (isChar) {
-			return SQLViewConstant.COLUMNTYPE_VARCHAR;
+			return SqlViewConstant.COLUMNTYPE_VARCHAR;
 		}
 
 		boolean isNumber = isSpecType(dbType, number);
 		if (isNumber) {
-			return SQLViewConstant.COLUMNTYPE_NUMBER;
+			return SqlViewConstant.COLUMNTYPE_NUMBER;
 		}
 
 		boolean isDate = isSpecType(dbType, date);
 		if (isDate) {
-			return SQLViewConstant.COLUMNTYPE_DATE;
+			return SqlViewConstant.COLUMNTYPE_DATE;
 		}
 
 		boolean isText = isSpecType(dbType, text);
 		if (isText) {
-			return SQLViewConstant.COLUMNTYPE_TEXT;
+			return SqlViewConstant.COLUMNTYPE_TEXT;
 		}
 		return dbType;
 	}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sophia.domain.Pager;
 import com.sophia.domain.SqlGroup;
-import com.sophia.repository.SQLGroupRepository;
+import com.sophia.repository.SqlGroupRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.SqlGroupService;
@@ -17,7 +17,7 @@ import com.sophia.utils.SqlFilter;
 import com.sophia.vo.QueryParam;
 
 @Service
-public class SqlGroupServiceImpl extends JpaRepositoryImpl<SQLGroupRepository> implements SqlGroupService  {
+public class SqlGroupServiceImpl extends JpaRepositoryImpl<SqlGroupRepository> implements SqlGroupService  {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * 

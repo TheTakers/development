@@ -1,6 +1,6 @@
 package com.sophia.constant;
 
-public class SQLViewConstant {
+public class SqlViewConstant {
 	
 	public static final String COLUMNTYPE_INT	  = "int";
 	public static final String COLUMNTYPE_VARCHAR = "varchar";
