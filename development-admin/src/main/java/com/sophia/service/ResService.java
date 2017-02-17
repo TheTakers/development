@@ -3,26 +3,26 @@ package com.sophia.service;
 import java.util.List;
 import java.util.Map;
 
-import com.sophia.domain.Menu;
+import com.sophia.domain.Res;
 import com.sophia.domain.Pager;
 import com.sophia.repository.JpaRepository;
-import com.sophia.repository.MenuRepository;
+import com.sophia.repository.ResRepository;
 import com.sophia.vo.QueryParam;
 
-public interface MenuService  extends JpaRepository<MenuRepository>{
+public interface ResService  extends JpaRepository<ResRepository>{
 	
 	/**
 	 * 保存菜单
-	 * @param menu
+	 * @param res
 	 * @return   返回保存id
 	 */
-	 String save(Menu menu);
+	 String save(Res res);
 	/**
 	 * 获取菜单名称
 	 * @param name
 	 * @return
 	 */
-	 List<Menu> findByNameLike(String name);
+	 List<Res> findByNameLike(String name);
 	
 	/**
 	 * 根据id获取菜单

@@ -22,7 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sophia.AdminApplication;
 import com.sophia.domain.SqlDefine;
 import com.sophia.service.CodeTemplateService;
-import com.sophia.service.MenuService;
+import com.sophia.service.ResService;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.service.UserService;
 
@@ -33,7 +33,7 @@ import com.sophia.service.UserService;
 @SpringApplicationConfiguration(classes = AdminApplication.class)
 public class JUnitTest {  
 	@Autowired UserService userService;
-	@Autowired MenuService menuService;
+	@Autowired ResService resService;
 	@Autowired CodeTemplateService codeTemplateService;
 	@Autowired SqlIdJdbcService sqlIdJdbcService;
 	@PrePersist 

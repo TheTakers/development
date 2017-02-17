@@ -12,8 +12,8 @@ import javax.persistence.Transient;
  */
 
 @Entity
-@Table(name="TB_BASIC_MENU")
-public class Menu extends Auditable {
+@Table(name="TB_BASIC_RES")
+public class Res extends Auditable {
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class Menu extends Auditable {
 	private Boolean open = true;
 	
 	@Transient
-	private ArrayList<Menu> child = new ArrayList<>();
+	private ArrayList<Res> child = new ArrayList<>();
 	
 	public Long getIdx() {
 		return idx;
@@ -42,11 +42,11 @@ public class Menu extends Auditable {
 		this.idx = idx;
 	}
 
-	public ArrayList<Menu> getChild() {
+	public ArrayList<Res> getChild() {
 		return child;
 	}
 
-	public void setChild(ArrayList<Menu> child) {
+	public void setChild(ArrayList<Res> child) {
 		this.child = child;
 	}
 

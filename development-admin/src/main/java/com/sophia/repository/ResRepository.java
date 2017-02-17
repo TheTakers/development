@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.sophia.domain.Menu;
+import com.sophia.domain.Res;
 
 @Repository
-public interface MenuRepository extends JpaRepository<Menu, String>{
+public interface ResRepository extends JpaRepository<Res, String>{
 	
-	@Query("select m from Menu m where name like %?1%")
-	public List<Menu> findByNameLike(String name);
+	@Query("select r from Res r where name like %?1%")
+	public List<Res> findByNameLike(String name);
 }

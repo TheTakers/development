@@ -12,36 +12,36 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.sophia.domain.Menu;
+import com.sophia.domain.Res;
 import com.sophia.domain.Pager;
-import com.sophia.repository.MenuRepository;
+import com.sophia.repository.ResRepository;
 import com.sophia.repository.impl.JpaRepositoryImpl;
-import com.sophia.service.MenuService;
+import com.sophia.service.ResService;
 import com.sophia.service.SqlIdJdbcService;
 import com.sophia.utils.SqlFilter;
 import com.sophia.vo.QueryParam;
 
 @Service
-public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implements MenuService {
+public class ResServiceImpl extends JpaRepositoryImpl<ResRepository> implements ResService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	private static final long serialVersionUID = 1L;
 	@Autowired SqlIdJdbcService sqlIdJdbcService;
 	
-	private static final String sql ="select t.*,c.name as pText from tb_basic_menu t left join tb_basic_menu c on t.pid = c.id ";
-	public String save(Menu menu){
-		return getRepository().save(menu).getId();
+	private static final String sql ="select t.*,c.name as pText from tb_basic_res t left join tb_basic_res c on t.pid = c.id ";
+	public String save(Res res){
+		return getRepository().save(res).getId();
 	}
 	
 	/**
 	 * 获取树数据
 	 * @return
 	 */
-	private List<Menu> findAllOrderByIdx() {
-		List<Menu> data = getRepository().findAll(new Sort("idx"));
-		List<Menu> menuData = new ArrayList<>();
-		for(Menu menu : data){
-			if(menu.getPid() .equals( "0" )){
-				menuData.add(menu);
+	private List<Res> findAllOrderByIdx() {
+		List<Res> data = getRepository().findAll(new Sort("idx"));
+		List<Res> menuData = new ArrayList<>();
+		for(Res res : data){
+			if(res.getPid() .equals( "0" )){
+				menuData.add(res);
 			}
 		}
 		formatTreeData(menuData, data);
@@ -49,7 +49,7 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 	}
 	
 	@Override
-	public List<Menu> findByNameLike(String name) {
+	public List<Res> findByNameLike(String name) {
 		if(StringUtils.isEmpty(name)){
 			return this.findAllOrderByIdx();
 		}else{
@@ -57,12 +57,12 @@ public class MenuServiceImpl extends JpaRepositoryImpl<MenuRepository> implement
 		}
 	}
 	
-	private void formatTreeData(List<Menu> tree,List<Menu> data){
+	private void formatTreeData(List<Res> tree,List<Res> data){
 		if(!CollectionUtils.isEmpty(tree)){
-			for(Menu item : tree){
-				for(Menu menu : data){
-					if(item.getId().equals(menu.getPid())){
-						item.getChild().add(menu);
+			for(Res item : tree){
+				for(Res res : data){
+					if(item.getId().equals(res.getPid())){
+						item.getChild().add(res);
 					}
 				}
 				formatTreeData(item.getChild(), data);

@@ -19,20 +19,20 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sophia.api.BaseController;
-import com.sophia.domain.Menu;
+import com.sophia.domain.Res;
 import com.sophia.domain.Pager;
 import com.sophia.response.Response;
-import com.sophia.service.MenuService;
+import com.sophia.service.ResService;
 import com.sophia.vo.MenuParam;
 import com.sophia.vo.QueryParam;
 import com.sophia.web.util.GUID;
 
 
 @Controller
-@RequestMapping(MenuController.module)
-public class MenuController extends BaseController{
+@RequestMapping(ResController.module)
+public class ResController extends BaseController{
 	
-	@Autowired MenuService menuService;
+	@Autowired ResService resService;
 	
 	public static final String module = "/basic/menu";
 	
@@ -55,7 +55,7 @@ public class MenuController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object list(@RequestBody @Valid QueryParam queryRequest) {
-		Pager<Map<String,Object>> data = menuService.list(queryRequest);
+		Pager<Map<String,Object>> data = resService.list(queryRequest);
 		return Response.SUCCESS(data);
 	}
 	
@@ -67,38 +67,38 @@ public class MenuController extends BaseController{
 	@ResponseBody
 	@RequestMapping(value="/treeData",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object treeData() {
-		return JSONObject.toJSONString(menuService.getRepository().findAll());
+		return JSONObject.toJSONString(resService.getRepository().findAll());
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findByNameLike",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findByNameLike(@RequestBody JSONObject param) {
-		return Response.SUCCESS(menuService.findByNameLike(param.getString("name")));
+		return Response.SUCCESS(resService.findByNameLike(param.getString("name")));
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findById",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object findById(@RequestBody JSONObject row) {
-		return Response.SUCCESS(menuService.findById(row.getString("id")));
+		return Response.SUCCESS(resService.findById(row.getString("id")));
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/delete",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object delete(@RequestBody String param) {
 		JSONObject json = JSON.parseObject(param);
-		menuService.delete(json.getString("id"));
+		resService.delete(json.getString("id"));
 		return Response.SUCCESS();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/save",method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Object save(@RequestBody @Valid MenuParam request) {
-		Menu target = new Menu();
+		Res target = new Res();
 		BeanUtils.copyProperties(request, target);
 		if(StringUtils.isBlank(request.getId())){
 			target.setId(GUID.nextId());
 		}
-		menuService.save(target);
+		resService.save(target);
 		return Response.SUCCESS();
 	}
 }
