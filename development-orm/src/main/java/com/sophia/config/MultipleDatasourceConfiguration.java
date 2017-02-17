@@ -14,17 +14,17 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration
 public class MultipleDatasourceConfiguration {
-	public static final String jdbcTemplate_master = "jdbcTemplateMaster";
-	public static final String jdbcTemplate_slaver = "jdbcTemplateSlaver";
+	public static final String data_source_master = "data_source_master";
+	public static final String data_source_slaver = "slaver";
 
-	@Bean(name = jdbcTemplate_master) 
+	@Bean(name = data_source_master) 
 	@Primary 
 	@ConfigurationProperties(prefix="spring.master") 
 	public DataSource masterDataSource() { 
 		return DataSourceBuilder.create().build(); 
 	} 
 
-	@Bean(name = jdbcTemplate_slaver) 
+	@Bean(name = data_source_slaver) 
 	@ConfigurationProperties(prefix="spring.slaver") 
 	public DataSource slaverDataSource() { 
 		return DataSourceBuilder.create().build(); 
