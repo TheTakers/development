@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class MultipleDatasourceConfiguration {
 	public static final String data_source_master = "data_source_master";
-	public static final String data_source_slaver = "slaver";
+	public static final String data_source_slaver = "data_source_slaver";
 
 	@Bean(name = data_source_master) 
 	@Primary 
